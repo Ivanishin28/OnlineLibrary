@@ -8,7 +8,7 @@ namespace Core.Models
 {
     public class Result
     {
-        private string[] _errors;
+        protected string[] _errors;
         public bool IsSuccess => _errors.Length == 0;
         public string? ErrorMessage => !IsSuccess ? String.Join(' ', _errors) : null;
 
@@ -35,6 +35,13 @@ namespace Core.Models
         {
             var result = new Result<T>();
             result.Value = model;
+            return result;
+        }
+
+        public static Result<T> Failure(params string[] errors)
+        {
+            var result = new Result<T>();
+            result._errors = errors;
             return result;
         }
     }
