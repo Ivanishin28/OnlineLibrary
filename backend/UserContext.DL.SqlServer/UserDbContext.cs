@@ -15,6 +15,8 @@ namespace UserContext.DL.SqlServer
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
 
+        public UserDbContext(DbContextOptions options) : base(options) { }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var currentAssembly = typeof(UserAccountEntityTypeConfiguration).Assembly;

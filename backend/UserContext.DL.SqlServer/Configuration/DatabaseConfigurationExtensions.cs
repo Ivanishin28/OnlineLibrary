@@ -10,11 +10,11 @@ namespace UserContext.DL.SqlServer.Configuration
 {
     public static class DatabaseConfigurationExtensions
     {
-        public static IServiceCollection RegisterDatabase(IServiceCollection services)
+        public static IServiceCollection RegisterDatabase(this IServiceCollection services)
         {
             services.AddDbContext<UserDbContext>(options =>
             {
-                options.UseSqlServer("Server=localhost;Database=OnlineLibrary;");
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OnlineLibrary;Trusted_Connection=True;");
             });
 
             return services;
