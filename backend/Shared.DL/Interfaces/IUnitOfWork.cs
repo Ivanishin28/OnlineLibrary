@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Shared.DL.Interfaces
 {
-    public class Entity : IEntity
+    public interface IUnitOfWork
     {
-        public Guid Id { get; set; }
+        Task SaveChanges();
     }
 }
