@@ -10,7 +10,7 @@ namespace UserContext.DL.SqlServer.Configuration
 {
     public static class DatabaseConfigurationExtensions
     {
-        public static IServiceCollection RegisterDatabase(this IServiceCollection services)
+        public static IServiceCollection RegisterUserContextDatabase(this IServiceCollection services)
         {
             services.AddDbContext<UserDbContext>(options =>
             {
