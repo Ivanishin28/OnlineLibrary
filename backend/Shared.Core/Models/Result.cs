@@ -8,7 +8,8 @@ namespace Shared.Core.Models
         private string[] _errors;
         
         public bool IsSuccess => _errors.Length == 0;
-        
+        public bool IsFailure => !IsSuccess;
+
         public IImmutableList<string> Errors => _errors.ToImmutableArray();
         
         public string? ComposedErrorMessage => !IsSuccess ? String.Join(' ', _errors) : null;

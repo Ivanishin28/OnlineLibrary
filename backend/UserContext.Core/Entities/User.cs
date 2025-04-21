@@ -25,7 +25,7 @@ namespace UserContext.Domain.Entities
             BirthDate = birthDate;
         }
 
-        public Result<User> Create(string firstName, string lastName, DateOnly birthDate)
+        public static Result<User> Create(string firstName, string lastName, DateOnly birthDate)
         {
             var errors = new List<string>();
             
@@ -47,7 +47,7 @@ namespace UserContext.Domain.Entities
             return new User(firstName, lastName, birthDate);
         }
 
-        private bool IsValidName(string name)
+        private static bool IsValidName(string name)
         {
             return !String.IsNullOrEmpty(name) && name.Length > 0 && name.Length < MAX_NAME_LENGTH;
         }
