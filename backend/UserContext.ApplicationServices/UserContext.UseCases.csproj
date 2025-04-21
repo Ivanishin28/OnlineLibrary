@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
-    <ProjectReference Include="..\UserContext.Core\UserContext.Domain.csproj" />
+    <ProjectReference Include="..\UserContext.Contract\UserContext.Contract.csproj" />
+    <ProjectReference Include="..\UserContext.DL\UserContext.DL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

@@ -9,9 +9,9 @@ using UserContext.Domain.Entities;
 
 namespace UserContext.DL.SqlServer.EntityTypeConfigurations
 {
-    public class UserProfileEntityTypeConfiguration : IEntityTypeConfiguration<UserProfile>
+    public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<UserProfile> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(e => e.Id);
         }
