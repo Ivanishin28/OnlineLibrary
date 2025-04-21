@@ -12,6 +12,11 @@ namespace Shared.DL.Implementations
     {
         private DbContext _db;
 
+        public UnitOfWork(DbContext db)
+        {
+            _db = db;
+        }
+
         public async Task SaveChanges()
         {
             await _db.SaveChangesAsync();

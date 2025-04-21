@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UserContext.Domain.Entities
 {
-    public class UserProfile
+    public class User
     {
         public const int MAX_NAME_LENGTH = 32;
 
@@ -16,16 +16,16 @@ namespace UserContext.Domain.Entities
         public string LastName { get; private set; }
         public DateOnly BirthDate { get; private set; }
 
-        private UserProfile() { }
+        private User() { }
 
-        public UserProfile(string firstName, string lastName, DateOnly birthDate)
+        public User(string firstName, string lastName, DateOnly birthDate)
         {
             FirstName = firstName;
             LastName = lastName;
             BirthDate = birthDate;
         }
 
-        public Result<UserProfile> Create(string firstName, string lastName, DateOnly birthDate)
+        public static Result<User> Create(string firstName, string lastName, DateOnly birthDate)
         {
             var errors = new List<string>();
             
@@ -41,13 +41,13 @@ namespace UserContext.Domain.Entities
 
             if(errors.Any())
             {
-                return Result<UserProfile>.Failure(errors.ToArray());
+                return Result<User>.Failure(errors.ToArray());
             }
 
-            return new UserProfile(firstName, lastName, birthDate);
+            return new User(firstName, lastName, birthDate);
         }
 
-        private bool IsValidName(string name)
+        private static bool IsValidName(string name)
         {
             return !String.IsNullOrEmpty(name) && name.Length > 0 && name.Length < MAX_NAME_LENGTH;
         }

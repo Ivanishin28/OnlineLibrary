@@ -12,14 +12,13 @@ namespace UserContext.DL.SqlServer
 {
     public class UserDbContext : DbContext
     {
-        public DbSet<UserAccount> UserAccounts { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public UserDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            var currentAssembly = typeof(UserAccountEntityTypeConfiguration).Assembly;
+            var currentAssembly = typeof(UserEntityTypeConfiguration).Assembly;
             builder.ApplyConfigurationsFromAssembly(currentAssembly);
         }
     }
