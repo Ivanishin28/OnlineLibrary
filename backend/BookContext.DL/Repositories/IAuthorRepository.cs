@@ -1,0 +1,16 @@
+﻿using BookContext.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BookContext.DL.Repositories
+{
+    public interface IAuthorRepository
+    {
+        Task<Author> GetBy(Guid id);
+        Task<Guid> Add(Author author);
+        Task Delete(Author author);
+    }
+}

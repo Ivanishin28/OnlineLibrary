@@ -9,7 +9,7 @@ namespace UserContext.DL.Repositories
 {
     public interface IUserRepository
     {
-        Task<Guid> Add(User user);
+        Task Add(User user);
         Task Delete(User user);
 
         Task<User> GetBy(Guid id);

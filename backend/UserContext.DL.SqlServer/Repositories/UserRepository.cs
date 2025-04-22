@@ -18,10 +18,9 @@ namespace UserContext.DL.SqlServer.Repositories
             _dbSet = db.Users;
         }
 
-        public async Task<Guid> Add(User userProfile)
+        public async Task Add(User userProfile)
         {
             _dbSet.Add(userProfile);
-            return userProfile.Id;
         }
 
         public async Task Delete(User userProfile)
