@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,32 @@ namespace BookContext.Domain.Entities
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public DateOnly BirthDate { get; private set; }
+
+        private Author(string firstName, string lastName, DateOnly birthDate)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            BirthDate = birthDate;
+        }
+
+        public static Result<Author> Create(string firstName, string lastName, DateOnly birthDate)
+        {
+            if(IsNameValid(firstName))
+            {
+                return Result<Author>.Failure("Invalid first name");
+            }
+
+            if(IsNameValid(lastName))
+            {
+                return Result<Author>.Failure("Invalid last name");
+            }
+
+            return new Author(firstName, lastName, birthDate);
+        }
+
+        private static bool IsNameValid(string name)
+        {
+            return !String.IsNullOrWhiteSpace(name);
+        }
     }
 }

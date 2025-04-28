@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookContext.Domain", "BookC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookContext.DL.SqlServer", "BookContext.DL.SqlServer\BookContext.DL.SqlServer.csproj", "{8B49F988-6BEA-41BD-835A-65584EA70B8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookContext.UseCases", "BookContext.UseCases\BookContext.UseCases.csproj", "{5B94B874-BA8E-4999-BEB8-E93071EA2DD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{8B49F988-6BEA-41BD-835A-65584EA70B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B49F988-6BEA-41BD-835A-65584EA70B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B49F988-6BEA-41BD-835A-65584EA70B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B94B874-BA8E-4999-BEB8-E93071EA2DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B94B874-BA8E-4999-BEB8-E93071EA2DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B94B874-BA8E-4999-BEB8-E93071EA2DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B94B874-BA8E-4999-BEB8-E93071EA2DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,5 +116,6 @@ Global
 		{5D973B67-3443-4770-832E-C796D5F834FF} = {D832B9AF-94C0-4A62-BBB2-46C43944986B}
 		{AFAA0A44-95D0-4D8C-A05A-654A5482C164} = {D832B9AF-94C0-4A62-BBB2-46C43944986B}
 		{8B49F988-6BEA-41BD-835A-65584EA70B8B} = {D832B9AF-94C0-4A62-BBB2-46C43944986B}
+		{5B94B874-BA8E-4999-BEB8-E93071EA2DD3} = {D832B9AF-94C0-4A62-BBB2-46C43944986B}
 	EndGlobalSection
 EndGlobal
