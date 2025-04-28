@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using Shared.Core.Exceptions;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 namespace Shared.Core.Models
@@ -17,6 +18,16 @@ namespace Shared.Core.Models
         protected Result(params string[] errors)
         {
             _errors = errors;
+        }
+
+        public Result<T> ToFailute<T>()
+        {
+            if(IsSuccess)
+            {
+                throw new ConvertSuccessToFailuteException();
+            }
+
+            return Result<T>.Failure(Errors);
         }
 
         public static Result Success()

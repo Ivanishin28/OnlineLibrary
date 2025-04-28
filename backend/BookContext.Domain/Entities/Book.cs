@@ -17,11 +17,11 @@ namespace BookContext.Domain.Entities
 
         private Book() { }
 
-        private Book(Guid id, string title, ICollection<BookAuthor> bookAuthors)
+        private Book(Guid id, string title, BooksAuthorCollection bookAuthors)
         {
             Id = id;
             Title = title;
-            _bookAuthors = new BooksAuthorCollection(id, bookAuthors);
+            _bookAuthors = bookAuthors;
         }
 
         public Result UpdateTitle(string title)
@@ -38,18 +38,21 @@ namespace BookContext.Domain.Entities
 
         public Result SetAuthors(ICollection<Guid> authorIds)
         {
-
-
-            return Result.Success();
+            return _bookAuthors.SetAuthors(authorIds);
         }
 
         public static Result<Book> Create(string title, ICollection<Guid> authorIds)
         {
             var bookId = Guid.NewGuid();
 
-            var bookAuthors = new BooksAuthorCollection(bookId, )
+            var collectionResult = BooksAuthorCollection.Create(bookId, authorIds);
 
-            return new Book(bookId, title, bookAuthors);
+            if(collectionResult.IsFailure)
+            {
+                return collectionResult.ToFailute<Book>();
+            }
+
+            return new Book(bookId, title, collectionResult.Model);
         }
     }
 }
