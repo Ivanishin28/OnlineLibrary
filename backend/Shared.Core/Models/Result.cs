@@ -28,6 +28,11 @@ namespace Shared.Core.Models
         {
             return new Result(errors);
         }
+
+        public static Result Failure(IEnumerable<string> errors)
+        {
+            return new Result(errors.ToArray());
+        }
     }
 
     public class Result<T> : Result
@@ -49,6 +54,11 @@ namespace Shared.Core.Models
         public static Result<T> Failure(params string[] errors)
         {
             return new Result<T>(errors);
+        }
+
+        public static Result<T> Failure(IEnumerable<string> errors)
+        {
+            return new Result<T>(errors.ToArray());
         }
 
         public static implicit operator Result<T>(T model)

@@ -1,4 +1,5 @@
-﻿using Shared.Core.Models;
+﻿using BookContext.Domain.ValueObjects;
+using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,10 @@ namespace BookContext.Domain.Entities
 {
     public class Book
     {
-        private readonly List<BookAuthor> _bookAuthors = new();
+        private BooksAuthorCollection _bookAuthors;
 
         public Guid Id { get; private set; }
         public string Title { get; private set; }
-        public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.AsReadOnly();
 
         private Book() { }
 
@@ -21,38 +21,35 @@ namespace BookContext.Domain.Entities
         {
             Id = id;
             Title = title;
-            _bookAuthors.AddRange(bookAuthors);
+            _bookAuthors = new BooksAuthorCollection(id, bookAuthors);
         }
 
-        public Result<Book> Create(string title, ICollection<Author> authors)
+        public Result UpdateTitle(string title)
         {
-            if(authors is null || authors.Count() == 0)
+            if(String.Equals(Title, title))
             {
-                return Result<Book>.Failure("Book should have authors");
+                return Result.Success();
             }
 
-            if(HasDuplicates(authors))
-            {
-                return Result<Book>.Failure("Book should have unique authors");
-            }
+            Title = title;
 
+            return Result.Success();
+        }
+
+        public Result SetAuthors(ICollection<Guid> authorIds)
+        {
+
+
+            return Result.Success();
+        }
+
+        public static Result<Book> Create(string title, ICollection<Guid> authorIds)
+        {
             var bookId = Guid.NewGuid();
 
-            var bookAuthors = authors
-                .Select(author =>
-                    BookAuthor.Create(bookId, author.Id))
-                .ToList();
+            var bookAuthors = new BooksAuthorCollection(bookId, )
 
             return new Book(bookId, title, bookAuthors);
-        }
-
-        private static bool HasDuplicates(ICollection<Author> authors)
-        {
-            var distinctAuthors = authors
-                .Select(author => author.Id)
-                .Distinct();
-
-            return distinctAuthors.Count() < authors.Count();
         }
     }
 }
