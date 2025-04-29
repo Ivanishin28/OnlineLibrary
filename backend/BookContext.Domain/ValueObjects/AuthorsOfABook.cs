@@ -2,18 +2,23 @@
 using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookContext.Domain.ValueObjects
 {
-    public class BooksAuthorCollection
+    public class AuthorsOfABook
     {
         private Guid BookId { get; set; }
         private ICollection<BookAuthor> _bookAuthors;
 
-        private BooksAuthorCollection(Guid bookId, ICollection<BookAuthor> bookAuthors)
+        public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.ToImmutableList();
+        public IReadOnlyCollection<Guid> AuthorIds => _bookAuthors.Select(bookAuthor => bookAuthor.AuthorId).ToList();
+
+        private AuthorsOfABook(Guid bookId, ICollection<BookAuthor> bookAuthors)
         {
             BookId = bookId;
             _bookAuthors = bookAuthors;
@@ -51,11 +56,11 @@ namespace BookContext.Domain.ValueObjects
             return distinctAuthors.Count() < authors.Count();
         }
 
-        public static Result<BooksAuthorCollection> Create(Guid bookId, ICollection<Guid> authorIds)
+        public static Result<AuthorsOfABook> Create(Guid bookId, ICollection<Guid> authorIds)
         {
             if(HasDuplicates(authorIds))
             {
-                return Result<BooksAuthorCollection>.Failure("Has duplicates");
+                return Result<AuthorsOfABook>.Failure("Has duplicates");
             }
 
             var bookAuthors = authorIds
@@ -63,19 +68,19 @@ namespace BookContext.Domain.ValueObjects
                     BookAuthor.Create(bookId, authorId))
                 .ToList();
 
-            return new BooksAuthorCollection(bookId, bookAuthors);
+            return new AuthorsOfABook(bookId, bookAuthors);
         }
 
-        public static Result<BooksAuthorCollection> Create(ICollection<BookAuthor> bookAuthors)
+        public static Result<AuthorsOfABook> Create(ICollection<BookAuthor> bookAuthors)
         {
             var bookId = bookAuthors.First().BookId;
 
             if(bookAuthors.Any(bookAuthor => bookAuthor.BookId != bookId))
             {
-                return Result<BooksAuthorCollection>.Failure("Should be assosiated with only one book");
+                return Result<AuthorsOfABook>.Failure("Should be associated with only one book");
             }
 
-            return new BooksAuthorCollection(bookId, bookAuthors);
+            return new AuthorsOfABook(bookId, bookAuthors);
         }
     }
 }
