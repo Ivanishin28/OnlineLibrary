@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using Shared.Core.Exceptions;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 namespace Shared.Core.Models
@@ -19,6 +20,16 @@ namespace Shared.Core.Models
             _errors = errors;
         }
 
+        public Result<T> ToFailure<T>()
+        {
+            if(IsSuccess)
+            {
+                throw new ConvertSuccessToFailuteException();
+            }
+
+            return Result<T>.Failure(Errors);
+        }
+
         public static Result Success()
         {
             return new Result();
@@ -27,6 +38,11 @@ namespace Shared.Core.Models
         public static Result Failure(params string[] errors)
         {
             return new Result(errors);
+        }
+
+        public static Result Failure(IEnumerable<string> errors)
+        {
+            return new Result(errors.ToArray());
         }
     }
 
@@ -49,6 +65,11 @@ namespace Shared.Core.Models
         public static Result<T> Failure(params string[] errors)
         {
             return new Result<T>(errors);
+        }
+
+        public static Result<T> Failure(IEnumerable<string> errors)
+        {
+            return new Result<T>(errors.ToArray());
         }
 
         public static implicit operator Result<T>(T model)
