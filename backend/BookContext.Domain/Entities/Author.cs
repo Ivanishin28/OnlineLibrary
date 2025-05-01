@@ -1,4 +1,5 @@
-﻿using Shared.Core.Models;
+﻿using BookContext.Domain.Errors;
+using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,12 @@ namespace BookContext.Domain.Entities
         {
             if(!IsNameValid(firstName))
             {
-                return Result<Author>.Failure("Invalid first name");
+                return Result<Author>.Failure(AuthorErrors.FirstNameError);
             }
 
             if(!IsNameValid(lastName))
             {
-                return Result<Author>.Failure("Invalid last name");
+                return Result<Author>.Failure(AuthorErrors.LastNameError);
             }
 
             return new Author(firstName, lastName, birthDate);

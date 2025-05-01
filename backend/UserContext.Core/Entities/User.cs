@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserContext.Domain.Errors;
 
 namespace UserContext.Domain.Entities
 {
@@ -27,21 +28,14 @@ namespace UserContext.Domain.Entities
 
         public static Result<User> Create(string firstName, string lastName, DateOnly birthDate)
         {
-            var errors = new List<string>();
-            
             if(!IsValidName(firstName))
             {
-                errors.Add("Invlid first name");
+                return Result<User>.Failure(UserErrors.FirstNameError);
             }
 
             if(!IsValidName(lastName))
             {
-                errors.Add("Invalid last name");
-            }
-
-            if(errors.Any())
-            {
-                return Result<User>.Failure(errors.ToArray());
+                return Result<User>.Failure(UserErrors.LastNameError);
             }
 
             return new User(firstName, lastName, birthDate);

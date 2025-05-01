@@ -6,16 +6,14 @@ namespace Shared.Core.Models
 {
     public class Result
     {
-        private string[] _errors;
+        private Error[] _errors;
         
         public bool IsSuccess => _errors.Length == 0;
         public bool IsFailure => !IsSuccess;
 
-        public IImmutableList<string> Errors => _errors.ToImmutableArray();
+        public IImmutableList<Error> Errors => _errors.ToImmutableArray();
         
-        public string? ComposedErrorMessage => !IsSuccess ? String.Join(' ', _errors) : null;
-
-        protected Result(params string[] errors)
+        protected Result(params Error[] errors)
         {
             _errors = errors;
         }
@@ -35,12 +33,17 @@ namespace Shared.Core.Models
             return new Result();
         }
 
-        public static Result Failure(params string[] errors)
+        public static Result Failure(Error errors)
         {
             return new Result(errors);
         }
 
-        public static Result Failure(IEnumerable<string> errors)
+        public static Result Failure(Error[] errors)
+        {
+            return new Result(errors);
+        }
+
+        public static Result Failure(IEnumerable<Error> errors)
         {
             return new Result(errors.ToArray());
         }
@@ -50,7 +53,7 @@ namespace Shared.Core.Models
     {
         public T? Model { get; private set; }
 
-        public Result(params string[] errors) : base(errors) { }
+        public Result(params Error[] errors) : base(errors) { }
 
         public Result(T? value)
         {
@@ -61,13 +64,17 @@ namespace Shared.Core.Models
         {
             return new Result<T>(model);
         }
-
-        public static Result<T> Failure(params string[] errors)
+        public static Result<T> Failure(Error errors)
         {
             return new Result<T>(errors);
         }
 
-        public static Result<T> Failure(IEnumerable<string> errors)
+        public static Result<T> Failure(Error[] errors)
+        {
+            return new Result<T>(errors);
+        }
+
+        public static Result<T> Failure(IEnumerable<Error> errors)
         {
             return new Result<T>(errors.ToArray());
         }
