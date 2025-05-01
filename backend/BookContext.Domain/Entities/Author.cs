@@ -23,12 +23,12 @@ namespace BookContext.Domain.Entities
 
         public static Result<Author> Create(string firstName, string lastName, DateOnly birthDate)
         {
-            if(IsNameValid(firstName))
+            if(!IsNameValid(firstName))
             {
                 return Result<Author>.Failure("Invalid first name");
             }
 
-            if(IsNameValid(lastName))
+            if(!IsNameValid(lastName))
             {
                 return Result<Author>.Failure("Invalid last name");
             }
