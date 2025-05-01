@@ -6,7 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\BookContext.DL\BookContext.DL.csproj" />
     <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
   </ItemGroup>

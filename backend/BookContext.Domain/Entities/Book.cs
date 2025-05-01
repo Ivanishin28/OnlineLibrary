@@ -1,20 +1,21 @@
 ﻿using BookContext.Domain.ValueObjects;
 using Shared.Core.Models;
+using System.Collections.Immutable;
 
 namespace BookContext.Domain.Entities
 {
     public class Book
     {
-        private AuthorsOfABook _bookAuthors;
+        private ICollection<BookAuthor> _bookAuthors;
 
         public Guid Id { get; private set; }
         public string Title { get; private set; }
 
-        public AuthorsOfABook AuthorsOfABook => _bookAuthors;
+        public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.ToImmutableArray();
 
         private Book() { }
 
-        private Book(Guid id, string title, AuthorsOfABook bookAuthors)
+        private Book(Guid id, string title, ICollection<BookAuthor> bookAuthors)
         {
             Id = id;
             Title = title;
@@ -37,14 +38,12 @@ namespace BookContext.Domain.Entities
         {
             var bookId = Guid.NewGuid();
 
-            var collectionResult = AuthorsOfABook.Create(bookId, authorIds);
+            var bookAuthors = authorIds
+                .Select(authorId => 
+                    BookAuthor.Create(bookId, authorId))
+                .ToList();
 
-            if(collectionResult.IsFailure)
-            {
-                return collectionResult.ToFailure<Book>();
-            }
-
-            return new Book(bookId, title, collectionResult.Model);
+            return new Book(bookId, title, bookAuthors);
         }
     }
 }

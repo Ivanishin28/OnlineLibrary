@@ -37,7 +37,8 @@ namespace BookContext.DL.SqlServer.Repositories
 
         private IQueryable<Book> BookAggregates()
         {
-            throw new NotImplementedException();
+            return _dbSet
+                .Include(book => book.BookAuthors);
         }
     }
 }
