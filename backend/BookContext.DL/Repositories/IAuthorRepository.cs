@@ -10,7 +10,7 @@ namespace BookContext.DL.Repositories
     public interface IAuthorRepository
     {
         Task<Author> GetBy(Guid id);
-        Task<Guid> Add(Author author);
+        Task Add(Author author);
         Task Delete(Author author);
     }
 }
