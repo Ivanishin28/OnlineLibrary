@@ -13,7 +13,20 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<BookAuthor> builder)
         {
-            throw new NotImplementedException();
+            builder
+                .HasKey(x => x.Id);
+
+            builder
+                .HasOne<Book>()
+                .WithMany(x => x.BookAuthors)
+                .HasForeignKey(x => x.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasOne<Author>()
+                .WithMany()
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

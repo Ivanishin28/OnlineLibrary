@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.DL.Interfaces
+namespace BookContext.DL.Interfaces
 {
     public interface IUnitOfWork
     {
-        Task SaveChanges();
+        Task SaveChangesAsync();
     }
 }

@@ -20,7 +20,7 @@ namespace Shared.Core.Models
             _errors = errors;
         }
 
-        public Result<T> ToFailute<T>()
+        public Result<T> ToFailure<T>()
         {
             if(IsSuccess)
             {

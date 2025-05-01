@@ -1,23 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared.DL.Interfaces;
+﻿using BookContext.DL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.DL.Implementations
+namespace BookContext.DL.SqlServer.Concrete
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContext _db;
+        private BookDbContext _db;
 
-        public UnitOfWork(DbContext db)
+        public UnitOfWork(BookDbContext db)
         {
             _db = db;
         }
 
-        public async Task SaveChanges()
+        public async Task SaveChangesAsync()
         {
             await _db.SaveChangesAsync();
         }

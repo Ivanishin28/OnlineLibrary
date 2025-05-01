@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BookContext.Application\BookContext.Application.csproj" />
     <ProjectReference Include="..\UserContext.ApplicationServices\UserContext.UseCases.csproj" />
   </ItemGroup>
 
