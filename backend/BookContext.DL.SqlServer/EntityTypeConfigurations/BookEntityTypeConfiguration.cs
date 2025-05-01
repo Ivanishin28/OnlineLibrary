@@ -1,5 +1,4 @@
-﻿using BookContext.DL.SqlServer.ValueConverters;
-using BookContext.Domain.Entities;
+﻿using BookContext.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

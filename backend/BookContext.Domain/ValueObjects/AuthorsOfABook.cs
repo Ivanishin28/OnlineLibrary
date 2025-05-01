@@ -12,75 +12,63 @@ namespace BookContext.Domain.ValueObjects
 {
     public class AuthorsOfABook
     {
-        private Guid BookId { get; set; }
-        private ICollection<BookAuthor> _bookAuthors;
+        private List<BookAuthor> _bookAuthors;
 
+        public Guid BookId { get; private set; }
         public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.ToImmutableList();
-        public IReadOnlyCollection<Guid> AuthorIds => _bookAuthors.Select(bookAuthor => bookAuthor.AuthorId).ToList();
 
-        private AuthorsOfABook(Guid bookId, ICollection<BookAuthor> bookAuthors)
+        private AuthorsOfABook(Guid bookId, List<BookAuthor> bookAuthors)
         {
             BookId = bookId;
             _bookAuthors = bookAuthors;
         }
 
-        public Result SetAuthors(ICollection<Guid> authorIds)
+        public void Add(Guid authorId)
         {
-            if (authorIds is null || authorIds.Count() == 0)
+            if(!HasAuthor(authorId))
             {
-                return Result.Failure("Book should have authors");
+                return;
             }
 
-            if (HasDuplicates(authorIds))
+            _bookAuthors.Add(BookAuthor.Create(BookId, authorId));
+        }
+
+        public void Remove(Guid authorId)
+        {
+            if (!HasAuthor(authorId))
             {
-                return Result.Failure("Book should have unique authors");
+                return;
             }
 
-            var oldBookAuthors = _bookAuthors
-                .Where(bookAuthor => authorIds.Contains(bookAuthor.AuthorId))
+            var bookAuthor = _bookAuthors
+                .Find(bookAuthor => bookAuthor.Id == authorId);
+            _bookAuthors.Remove(bookAuthor);
+        }
+
+        public void SetAuthors(ICollection<Guid> authors)
+        {
+            var remainingOldAuthors = _bookAuthors
+                .Where(bookAuthor => authors.Contains(bookAuthor.Id))
                 .ToList();
 
-            var toAdd = authorIds
+            var newAuthors = authors
                 .Where(authorId => 
-                    !oldBookAuthors.Any(bookAuthor 
-                        => bookAuthor.AuthorId == authorId));
+                    !remainingOldAuthors.Any(remainingAuthor => remainingAuthor.Id == authorId))
+                .Select(newAuthorId => BookAuthor.Create(BookId, newAuthorId));
 
-            return Result.Success();
+            _bookAuthors.Clear();
+            _bookAuthors.AddRange(remainingOldAuthors);
+            _bookAuthors.AddRange(newAuthors);
         }
 
-        private static bool HasDuplicates(ICollection<Guid> authors)
+        public bool HasAuthor(Guid authorId)
         {
-            var distinctAuthors = authors
-                .Distinct();
-
-            return distinctAuthors.Count() < authors.Count();
+            return _bookAuthors.Any(bookAuthor => bookAuthor.AuthorId == authorId);
         }
 
-        public static Result<AuthorsOfABook> Create(Guid bookId, ICollection<Guid> authorIds)
+        public static AuthorsOfABook CreateFrom(Book book)
         {
-            if(HasDuplicates(authorIds))
-            {
-                return Result<AuthorsOfABook>.Failure("Has duplicates");
-            }
-
-            var bookAuthors = authorIds
-                .Select(authorId => 
-                    BookAuthor.Create(bookId, authorId))
-                .ToList();
-
-            return new AuthorsOfABook(bookId, bookAuthors);
-        }
-
-        public static Result<AuthorsOfABook> Create(ICollection<BookAuthor> bookAuthors)
-        {
-            var bookId = bookAuthors.First().BookId;
-
-            if(bookAuthors.Any(bookAuthor => bookAuthor.BookId != bookId))
-            {
-                return Result<AuthorsOfABook>.Failure("Should be associated with only one book");
-            }
-
-            return new AuthorsOfABook(bookId, bookAuthors);
+            return new AuthorsOfABook(book.Id, book.BookAuthors.ToList());
         }
     }
 }

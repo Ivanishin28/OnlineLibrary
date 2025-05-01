@@ -16,6 +16,7 @@ namespace BookContext.Application.Configuration
             IConfiguration configuration)
         {
             services
+                .RegisterRepositories()
                 .RegisterUserContextDatabase();
 
             return services;
