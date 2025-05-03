@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.Core.Exceptions
+namespace Shared.Core.Extensions
 {
     public static class GuidExtensions
     {

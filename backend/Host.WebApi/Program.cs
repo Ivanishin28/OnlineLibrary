@@ -1,25 +1,24 @@
 
-using BookContext.Application.Configuration;
+using Host.WebApi.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var config = builder.Configuration;
 var services = builder.Services;
 
 services
-    .RegisterBookContext(config);
+    .AddControllers()
+    .AddModuleControllers();
+
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+
+services.RegisterModuleServices(config);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

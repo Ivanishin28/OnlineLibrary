@@ -1,11 +1,13 @@
-﻿using BookContext.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookContext.DL.SqlServer.ValueConverters;
+using BookContext.Domain.Constants;
+using BookContext.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookContext.DL.SqlServer.EntityTypeConfigurations
 {
@@ -13,7 +15,35 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(e => e.Id);
+
+            builder.OwnsOne(
+                a => a.FullName,
+                fullName =>
+                {
+                    fullName
+                        .Property(f => f.FirstName)
+                        .HasConversion<NameComponentValueConverter>()
+                        .HasMaxLength(AuthorConstants.MAX_NAME_COMPONENT_LENGTH)
+                        .IsRequired()
+                        .HasColumnName("FirstName");
+
+                    fullName
+                        .Property(f => f.LastName)
+                        .HasConversion<NameComponentValueConverter>()
+                        .HasMaxLength(AuthorConstants.MAX_NAME_COMPONENT_LENGTH)
+                        .IsRequired()
+                        .HasColumnName("LastName");
+
+
+                    fullName
+                        .Property(f => f.MiddleName)
+                        .HasConversion<NameComponentValueConverter>()
+                        .HasMaxLength(AuthorConstants.MAX_NAME_COMPONENT_LENGTH)
+                        .IsRequired(false)
+                        .HasColumnName("MiddleName");
+                }
+            );
         }
     }
 }

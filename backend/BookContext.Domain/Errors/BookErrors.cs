@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shared.Core.Models;
 
 namespace BookContext.Domain.Errors
 {
     public class BookErrors
     {
-        public const string EMPTY_AUTHOR_LIST = "EMPTY_AUTHOR_LIST";
-        public const string DUPLICATE_AUTHORS_ERROR = "DUPLICATE_AUTHORS_ERROR";
-        public const string DIFFERENT_BOOK_AUTHOR_ERROR = "DIFFERENT_BOOK_AUTHOR_ERROR";
+        private static ErrorBuilder _error = new ErrorBuilder("Book");
+
+        public static readonly Error EmptyAuthorList 
+            = _error.BuildError("Authors.Empty", "EmptyAuthorList");
+
+        public static readonly Error DuplicateAuthors 
+            = _error.BuildError("Authors.Duplicates", "DuplicateAuthors");
+
+        public static readonly Error DifferentBookAuthor
+            = _error.BuildError("Authors.DifferentBook", "DifferentBookAuthor");
     }
 }

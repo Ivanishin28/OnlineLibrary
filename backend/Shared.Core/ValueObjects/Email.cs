@@ -1,4 +1,5 @@
-﻿using Shared.Core.Models;
+﻿using Shared.Core.Errors;
+using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Shared.Core.ValueObjects
         {
             if(!IsValid(email))
             {
-                return Result<Email>.Failure("Invalid email");
+                return Result<Email>.Failure(EmailErrors.InvalidEmail);
             }
 
             var valueObject = new Email(email);
