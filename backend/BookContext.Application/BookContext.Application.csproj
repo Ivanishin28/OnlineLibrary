@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
   </ItemGroup>
 
@@ -14,6 +15,10 @@
     <ProjectReference Include="..\BookContext.Contracts\BookContext.Contract.csproj" />
     <ProjectReference Include="..\BookContext.DL.SqlServer\BookContext.DL.SqlServer.csproj" />
     <ProjectReference Include="..\BookContext.UseCases\BookContext.UseCases.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\" />
   </ItemGroup>
 
 </Project>
