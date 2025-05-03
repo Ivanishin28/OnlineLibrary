@@ -1,4 +1,5 @@
-﻿using BookContext.Domain.Entities;
+﻿using BookContext.DL.SqlServer.EntityTypeConfigurations;
+using BookContext.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,12 @@ namespace BookContext.DL.SqlServer
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
 
-        public BookDbContext(DbContextOptions options) : base(options)
+        public BookDbContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
         {
+            var currentAssembly = typeof(BookEntityTypeConfiguration).Assembly;
+            builder.ApplyConfigurationsFromAssembly(currentAssembly);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using BookContext.Domain.Errors;
 using BookContext.Domain.ValueObjects;
-using Shared.Core.Exceptions;
+using Shared.Core.Extensions;
 using Shared.Core.Models;
 using System.Collections.Immutable;
 
@@ -33,7 +33,7 @@ namespace BookContext.Domain.Entities
         {
             if(authorsOfABook.BookAuthors.Count() == 0)
             {
-                Result.Failure(BookErrors.EMPTY_AUTHOR_LIST);
+                Result.Failure(BookErrors.EmptyAuthorList);
             }
 
             _bookAuthors.Clear();
@@ -48,7 +48,7 @@ namespace BookContext.Domain.Entities
 
             if(authorIds.IsUnique())
             {
-                return Result<Book>.Failure(BookErrors.DUPLICATE_AUTHORS_ERROR);
+                return Result<Book>.Failure(BookErrors.DuplicateAuthors);
             }
 
             var bookAuthors = authorIds

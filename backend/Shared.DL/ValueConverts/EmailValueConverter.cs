@@ -19,7 +19,7 @@ namespace Shared.DL.ValueConverts
 
             if(!result.IsSuccess)
             {
-                throw new ArgumentException(result.ComposedErrorMessage);
+                throw new ArgumentException();
             }
 
             return result.Model;

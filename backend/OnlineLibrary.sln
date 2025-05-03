@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host.WebApi", "Host.WebApi\Host.WebApi.csproj", "{A6EDD15C-D36B-48A9-9501-E8F2FD5E38A0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{73C378D7-9262-46D8-A660-3E3499252A3D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Shared", "_Shared", "{73C378D7-9262-46D8-A660-3E3499252A3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "Shared.Core\Shared.Core.csproj", "{7D807F9C-2BBB-4D4A-8DC7-EA9574AEDD65}"
 EndProject

@@ -2,6 +2,7 @@
 using BookContext.DL.Interfaces;
 using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
+using BookContext.Domain.ValueObjects;
 using MediatR;
 using Shared.Core.Models;
 
@@ -20,7 +21,9 @@ namespace BookContext.UseCases.Commands
 
         public async Task<Result<CreateAuthorResponse>> Handle(CreateAuthorRequest request, CancellationToken cancellationToken)
         {
-            var authorResult = Author.Create(request.FirstName, request.LastName, request.BirthDate);
+            var fullNameResult = FullName.Create(request.FirstName, request.LastName);
+
+            var authorResult = Author.Create(fullNameResult.Model, request.BirthDate);
 
             if(authorResult.IsFailure)
             {
