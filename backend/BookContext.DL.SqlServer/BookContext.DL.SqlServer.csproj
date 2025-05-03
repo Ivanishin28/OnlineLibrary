@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
   </ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ValueConverters\" />
-	</ItemGroup>
-
 </Project>

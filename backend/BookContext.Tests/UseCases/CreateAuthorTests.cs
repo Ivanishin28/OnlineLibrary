@@ -2,6 +2,7 @@
 using BookContext.DL.Interfaces;
 using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
+using BookContext.Domain.ValueObjects;
 using Microsoft.Extensions.DependencyInjection;
 using NuGet.Frameworks;
 using System;
@@ -32,10 +33,11 @@ namespace BookContext.Tests.UseCases
         [Test]
         public async Task Should()
         {
+            var fullNameResult = FullName.Create("FirstName", "LastName");
+
             var authorCreationResult = Author
                 .Create(
-                    "FirstName",
-                    "LastName",
+                    fullNameResult.Model,
                     DateOnly.FromDateTime(DateTime.Now));
 
             Assert.That(authorCreationResult.IsSuccess);

@@ -17,8 +17,4 @@
     <ProjectReference Include="..\BookContext.UseCases\BookContext.UseCases.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\" />
-  </ItemGroup>
-
 </Project>

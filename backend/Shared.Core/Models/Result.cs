@@ -18,16 +18,6 @@ namespace Shared.Core.Models
             _errors = errors;
         }
 
-        public Result<T> ToFailure<T>()
-        {
-            if(IsSuccess)
-            {
-                throw new ConvertSuccessToFailuteException();
-            }
-
-            return Result<T>.Failure(Errors);
-        }
-
         public static Result Success()
         {
             return new Result();
