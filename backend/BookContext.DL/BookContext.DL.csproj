@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookContext.Domain\BookContext.Domain.csproj" />
+    <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
   </ItemGroup>
 
 </Project>
