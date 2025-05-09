@@ -5,5 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookContext.DL.SqlServer\BookContext.DL.SqlServer.csproj" />
+    <ProjectReference Include="..\BookContext.UseCases\BookContext.UseCases.csproj" />
+    <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\UserContext.Contract\UserContext.Contract.csproj" />
+  </ItemGroup>
 	
 </Project>

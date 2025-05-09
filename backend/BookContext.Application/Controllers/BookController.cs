@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace BookContext.Application.Controllers
 {
-    public class BookController : BaseController
+    public class BookController : BaseBookController
     {
         private IMediator _metiator;
 

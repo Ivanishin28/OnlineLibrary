@@ -1,13 +1,8 @@
 ﻿using BookContext.Contract.Commands.CreateAuthor;
 using BookContext.UseCases.Commands;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BookContext.Application.Configuration
+namespace BookContext.UseCases.Configuration
 {
     public static class UseCasesConfiguration
     {

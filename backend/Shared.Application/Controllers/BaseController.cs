@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace Shared.Application.Controllers
 {
-    [Route("api/book/[controller]")]
     [ApiController]
-    public class BaseController : ControllerBase
+    public abstract class BaseController : ControllerBase
     {
         protected IActionResult FromResult(Result result)
         {

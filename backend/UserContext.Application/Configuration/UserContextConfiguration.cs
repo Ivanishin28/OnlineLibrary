@@ -1,34 +1,31 @@
-﻿using BookContext.Application.Controllers;
-using BookContext.DL.SqlServer.Configuration;
+﻿using BookContext.DL.SqlServer.Configuration;
 using BookContext.UseCases.Configuration;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserContext.Application.Controllers;
 
-namespace BookContext.Application.Configuration
+namespace UserContext.Application.Configuration
 {
-    public static class BookContextConfiguration
+    public static class UserContextConfiguration
     {
-        public static IServiceCollection RegisterBookContext(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection RegisterUserContext(this IServiceCollection services)
         {
             services
-                .RegisterRepositories()
+                .RegisterDbContext()
                 .RegisterDbContext()
                 .RegisterUseCases();
 
             return services;
         }
 
-        public static IMvcBuilder AddBookContextControllers(this IMvcBuilder mvcBuilder)
+        public static IMvcBuilder AddUserContextControllers(this IMvcBuilder mvcBuilder)
         {
-            var apiAssembly = typeof(AuthorController).Assembly;
+            var apiAssembly = typeof(UserController).Assembly;
 
             mvcBuilder
                 .PartManager
