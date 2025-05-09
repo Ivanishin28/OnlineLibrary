@@ -1,6 +1,7 @@
 ﻿using BookContext.Contract.Commands.CreateAuthor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Application.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

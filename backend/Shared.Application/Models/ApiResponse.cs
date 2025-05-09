@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookContext.Application.Models
+namespace Shared.Application.Models
 {
     public class ApiResponse<T>
     {
