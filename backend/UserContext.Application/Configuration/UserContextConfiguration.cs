@@ -1,6 +1,4 @@
-﻿using BookContext.DL.SqlServer.Configuration;
-using BookContext.UseCases.Configuration;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserContext.Application.Controllers;
+using UserContext.DL.SqlServer.Configuration;
+using UserContext.UseCases.Configuration;
 
 namespace UserContext.Application.Configuration
 {
