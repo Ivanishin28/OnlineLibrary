@@ -1,4 +1,5 @@
-﻿using BookContext.Domain.ValueObjects;
+﻿using BookContext.Domain.Errors;
+using BookContext.Domain.ValueObjects;
 using Shared.Core.Models;
 
 namespace BookContext.Domain.Entities
@@ -19,6 +20,11 @@ namespace BookContext.Domain.Entities
 
         public static Result<Author> Create(FullName fullName, DateOnly birthDate)
         {
+            if(fullName is null)
+            {
+                return Result<Author>.Failure(AuthorErrors.FullNameError);
+            }
+
             return new Author(fullName, birthDate);
         }
     }

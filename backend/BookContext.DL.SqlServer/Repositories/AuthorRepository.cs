@@ -29,5 +29,12 @@ namespace BookContext.DL.SqlServer.Repositories
                 .Where(author => author.Id == id)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<Author>> GetByIds(IEnumerable<Guid> ids)
+        {
+            return _dbSet
+                .Where(author => 
+                    ids.Contains(author.Id));
+        }
     }
 }

@@ -31,6 +31,11 @@ namespace BookContext.Domain.Entities
 
         public Result UpdateAuthors(AuthorsOfABook authorsOfABook)
         {
+            if(authorsOfABook.BookId != Id)
+            {
+                Result.Failure(BookErrors.DifferentBookAuthor);
+            }
+
             if(authorsOfABook.BookAuthors.Count() == 0)
             {
                 Result.Failure(BookErrors.EmptyAuthorList);
@@ -46,7 +51,17 @@ namespace BookContext.Domain.Entities
         {
             var bookId = Guid.NewGuid();
 
-            if(authorIds.IsUnique())
+            if(String.IsNullOrEmpty(title))
+            {
+                return Result<Book>.Failure(BookErrors.EmptyTitle);
+            }
+
+            if(authorIds.Count() == 0)
+            {
+                return Result<Book>.Failure(BookErrors.EmptyAuthorList);
+            }
+
+            if(authorIds.AllUnique())
             {
                 return Result<Book>.Failure(BookErrors.DuplicateAuthors);
             }

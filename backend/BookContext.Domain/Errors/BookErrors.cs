@@ -14,5 +14,8 @@ namespace BookContext.Domain.Errors
 
         public static readonly Error DifferentBookAuthor
             = _error.BuildError("Authors.DifferentBook", "DifferentBookAuthor");
+
+        public static readonly Error EmptyTitle
+            = _error.BuildError("Title.Empty", "Title.Empty");
     }
 }

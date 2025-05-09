@@ -4,6 +4,7 @@ using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
 using BookContext.Domain.ValueObjects;
 using MediatR;
+using Shared.Core.Extensions;
 using Shared.Core.Models;
 
 namespace BookContext.UseCases.Commands
@@ -22,6 +23,11 @@ namespace BookContext.UseCases.Commands
         public async Task<Result<CreateAuthorResponse>> Handle(CreateAuthorRequest request, CancellationToken cancellationToken)
         {
             var fullNameResult = FullName.Create(request.FirstName, request.LastName);
+
+            if(fullNameResult.IsFailure)
+            {
+                return fullNameResult.ToFailure<CreateAuthorResponse>();
+            }
 
             var authorResult = Author.Create(fullNameResult.Model, request.BirthDate);
 

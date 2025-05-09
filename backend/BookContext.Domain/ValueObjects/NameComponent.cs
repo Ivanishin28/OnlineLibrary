@@ -38,13 +38,13 @@ namespace BookContext.Domain.ValueObjects
 
         private static bool IsValid(string value)
         {
-            var pattern = "^(?!.*\\s{2})[A-Za-zÀ-ÖØ-öø-ÿ\\-'.]+(?: [A-Za-zÀ-ÖØ-öø-ÿ\\-'.]+)*$\r\n";
+            var pattern = "^[A-Z][a-z]*('?[A-Z][a-z]+)*$";
             return Regex.IsMatch(value, pattern);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new NotImplementedException();
+            return new object[] { Value };
         }
     }
 }
