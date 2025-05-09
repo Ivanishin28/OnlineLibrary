@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Shared.Core.Models;
 using UserContext.Contract.Commands.CreateUser;
+using UserContext.DL.Interfaces;
 using UserContext.DL.Repositories;
 using UserContext.Domain.Entities;
 
@@ -9,10 +10,12 @@ namespace UserContext.UseCases.Commands
     public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Result<CreateUserResponse>>
     {
         private IUserRepository _userRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public CreateUserRequestHandler(IUserRepository userRepository)
+        public CreateUserRequestHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Result<CreateUserResponse>> Handle(CreateUserRequest request, CancellationToken cancellationToken)
@@ -27,6 +30,8 @@ namespace UserContext.UseCases.Commands
             var user = userResult.Model;
 
             await _userRepository.Add(user);
+
+            await _unitOfWork.SaveChanges();
 
             return new CreateUserResponse(user.Id);
         }

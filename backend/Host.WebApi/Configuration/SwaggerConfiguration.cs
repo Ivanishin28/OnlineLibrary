@@ -4,7 +4,7 @@
     {
         public static IServiceCollection RegisterSwagger(this IServiceCollection services)
         {
-
+            services.AddSwaggerGen();
 
             return services;
         }

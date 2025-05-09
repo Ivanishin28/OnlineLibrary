@@ -1,5 +1,6 @@
 ﻿using BookContext.Application.Controllers;
 using BookContext.DL.SqlServer.Configuration;
+using BookContext.UseCases.Configuration;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

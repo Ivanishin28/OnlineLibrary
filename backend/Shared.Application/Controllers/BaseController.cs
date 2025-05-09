@@ -1,5 +1,5 @@
-﻿using BookContext.Application.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shared.Application.Models;
 using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookContext.Application.Controllers
+namespace Shared.Application.Controllers
 {
-    [Route("api/book/[controller]")]
     [ApiController]
-    public class BaseController : ControllerBase
+    public abstract class BaseController : ControllerBase
     {
         protected IActionResult FromResult(Result result)
         {

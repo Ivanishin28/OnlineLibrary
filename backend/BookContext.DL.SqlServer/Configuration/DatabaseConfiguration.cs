@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BookContext.DL.SqlServer.Configuration
 {
-    public static class DatabaseConfigurationExtensions
+    public static class DatabaseConfiguration
     {
         public static IServiceCollection RegisterDbContext(this IServiceCollection services)
         {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BookContext.DL.SqlServer.Configuration
 {
-    public static class RepositoriesConfigurationExtensions
+    public static class RepositoriesConfiguration
     {
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {

@@ -1,6 +1,7 @@
 ﻿using BookContext.Contract.Commands.CreateAuthor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Application.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookContext.Application.Controllers
 {
-    public class AuthorController : BaseController
+    public class AuthorController : BaseBookController
     {
         private IMediator _mediator;
 
@@ -18,8 +19,8 @@ namespace BookContext.Application.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("create_author")]
-        public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorRequest request)
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] CreateAuthorRequest request)
         {
             var createAuthorResult = await _mediator.Send(request);
             return FromResult(createAuthorResult);

@@ -10,10 +10,13 @@ services
     .AddControllers()
     .AddModuleControllers();
 
-services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+services
+    .RegisterSwagger();
 
-services.RegisterModuleServices(config);
+services.AddEndpointsApiExplorer();
+
+services
+    .RegisterModuleServices(config);
 
 var app = builder.Build();
 

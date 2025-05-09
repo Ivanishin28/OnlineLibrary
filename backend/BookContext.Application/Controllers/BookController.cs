@@ -2,11 +2,12 @@
 using BookContext.Contract.Commands.UpdateBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Application.Controllers;
 using System.Text.Json.Serialization;
 
 namespace BookContext.Application.Controllers
 {
-    public class BookController : BaseController
+    public class BookController : BaseBookController
     {
         private IMediator _metiator;
 
