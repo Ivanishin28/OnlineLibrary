@@ -11,7 +11,7 @@ namespace BookContext.Domain.ValueObjects
 {
     public class FullName : ValueObject
     {
-        public NameComponent FirstName { get; private set; } 
+        public NameComponent FirstName { get; private set; }
         public NameComponent LastName { get; private set; }
         public NameComponent? MiddleName { get; private set; }
 

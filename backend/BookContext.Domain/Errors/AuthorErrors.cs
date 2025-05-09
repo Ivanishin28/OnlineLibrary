@@ -11,10 +11,7 @@ namespace BookContext.Domain.Errors
     {
         private static readonly ErrorBuilder _errors = new ErrorBuilder("Author");
 
-        public static readonly Error FirstNameError
-            = _errors.BuildError("FirstName.Ivalid", "Firstname.Ivalid");
-
-        public static readonly Error LastNameError
-            = _errors.BuildError("LastName.Ivalid", "LastName.Ivalid");
+        public static readonly Error FullNameError
+            = _errors.BuildError("FullName", "FullName");
     }
 }

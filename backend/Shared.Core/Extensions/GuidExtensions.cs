@@ -9,7 +9,7 @@ namespace Shared.Core.Extensions
 {
     public static class GuidExtensions
     {
-        public static bool IsUnique(this ICollection<Guid> guids)
+        public static bool AllUnique(this ICollection<Guid> guids)
         {
             var unique = guids.Distinct();
 
