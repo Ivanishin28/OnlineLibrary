@@ -16,7 +16,7 @@ namespace UserContext.Application.Configuration
         public static IServiceCollection RegisterUserContext(this IServiceCollection services)
         {
             services
-                .RegisterDbContext()
+                .RegisterRepositories()
                 .RegisterDbContext()
                 .RegisterUseCases();
 

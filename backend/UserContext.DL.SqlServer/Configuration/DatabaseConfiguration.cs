@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace UserContext.DL.SqlServer.Configuration
 {
-    public static class DatabaseConfigurationExtensions
+    public static class DatabaseConfiguration
     {
-        public static IServiceCollection RegisterUserContextDatabase(this IServiceCollection services)
+        public static IServiceCollection RegisterDbContext(this IServiceCollection services)
         {
             services.AddDbContext<UserDbContext>(options =>
             {
