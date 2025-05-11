@@ -31,7 +31,7 @@ namespace ShelfContext.Domain.Entities.BooksOnShelves
             DateShelved = dateShelved;
         }
 
-        public Result AddTag(Tag tag)
+        public Result Add(Tag tag)
         {
             var alreadyTagged = _bookTags
                 .Any(bookTag => 
@@ -44,6 +44,19 @@ namespace ShelfContext.Domain.Entities.BooksOnShelves
 
             var bookTag = BookTag.Create(tag.Id, Id);
             _bookTags.Add(bookTag);
+
+            return Result.Success();
+        }
+
+        public Result Remove(TagId tagId)
+        {
+            var tagToRemove = _bookTags
+                .FirstOrDefault(tag => tag.TagId == tagId);
+
+            if(tagToRemove is not null)
+            {
+                _bookTags.Remove(tagToRemove);
+            }
 
             return Result.Success();
         }
