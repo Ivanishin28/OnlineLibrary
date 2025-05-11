@@ -12,6 +12,5 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ShelfContext.Contract\ShelfContext.Contract.csproj" />
-	  <ProjectReference Include="..\ShelfContext.DL\ShelfContext.DL.csproj" />
 	</ItemGroup>
 </Project>

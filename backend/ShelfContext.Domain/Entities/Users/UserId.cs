@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShelfContext.Domain.Entities.Clients
+namespace ShelfContext.Domain.Entities.Users
 {
-    public record ClientId(Guid id);
+    public record UserId(Guid id);
 }

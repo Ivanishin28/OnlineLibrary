@@ -1,7 +1,7 @@
 ﻿using Shared.Core.Models;
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.BooksOnShelves;
-using ShelfContext.Domain.Entities.Clients;
+using ShelfContext.Domain.Entities.Users;
 
 namespace ShelfContext.Domain.Entities.Shelves
 {
@@ -10,7 +10,7 @@ namespace ShelfContext.Domain.Entities.Shelves
         private List<BookOnAShelf> _books;
 
         public ShelfId Id { get; private set; }
-        public ClientId ClientId { get; private set; }
+        public UserId UserId { get; private set; }
         public ShelfName Name { get; private set; }
         public DateTime DateCreated { get; private set; }
 
@@ -18,9 +18,9 @@ namespace ShelfContext.Domain.Entities.Shelves
 
         private Shelf() { }
 
-        private Shelf(ClientId clientId, ShelfName name, DateTime dateCreated)
+        private Shelf(UserId userId, ShelfName name, DateTime dateCreated)
         {
-            ClientId = clientId;
+            UserId = userId;
             Name = name;
             DateCreated = dateCreated;
             _books = new();
@@ -43,7 +43,7 @@ namespace ShelfContext.Domain.Entities.Shelves
             return Result.Success();
         }
 
-        public static Result<Shelf> Create(ClientId clientId, ShelfName shelfName)
+        public static Result<Shelf> Create(UserId clientId, ShelfName shelfName)
         {
             var dateCreated = DateTime.Now;
 

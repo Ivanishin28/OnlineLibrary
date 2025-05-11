@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShelfContext.Domain.Entities.Clients
+namespace ShelfContext.Domain.Interfaces
 {
-    public class Client
+    public interface IUnitOfWork
     {
-        public ClientId Id { get; private set; }
+        Task SaveChanges();
     }
 }
