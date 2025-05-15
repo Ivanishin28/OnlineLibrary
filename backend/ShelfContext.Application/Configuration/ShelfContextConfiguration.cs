@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.Extensions.DependencyInjection;
+using ShelfContext.Application.Controllers;
 using ShelfContext.DL.SqlServer.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,9 +16,22 @@ namespace ShelfContext.Application.Configuration
         {
             services
                 .RegisterDbContext()
-                .RegisterRepositories();
+                .RegisterRepositories()
+                .RegisterUseCases();
 
             return services;
+        }
+
+        public static IMvcBuilder AddShelfContextControllers(this IMvcBuilder mvcBuilder)
+        {
+            var apiAssembly = typeof(TagController).Assembly;
+
+            mvcBuilder
+                .PartManager
+                .ApplicationParts
+                .Add(new AssemblyPart(apiAssembly));
+
+            return mvcBuilder;
         }
     }
 }

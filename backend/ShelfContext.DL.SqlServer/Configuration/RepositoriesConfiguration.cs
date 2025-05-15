@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ShelfContext.DL.SqlServer.Repositories;
 using ShelfContext.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ namespace ShelfContext.DL.SqlServer.Configuration
     {
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
+            services.AddTransient<IShelfRepository, MockShelfRepository>();
+            services.AddTransient<ITagRepository, TagRepository>();
+
             return services;
         }
     }

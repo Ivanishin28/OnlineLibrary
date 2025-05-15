@@ -12,7 +12,7 @@ namespace ShelfContext.DL.SqlServer
 {
     public class ShelfDbContext : DbContext
     {
-        private DbSet<Tag> Tags { get; set; } 
+        public DbSet<Tag> Tags { get; private set; } 
 
         public ShelfDbContext(DbContextOptions options) : base(options)
         {
