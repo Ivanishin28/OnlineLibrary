@@ -1,0 +1,26 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ShelfContext.DL.SqlServer.EntityTypeConfigurations;
+using ShelfContext.Domain.Entities.Shelves;
+using ShelfContext.Domain.Entities.Tags;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ShelfContext.DL.SqlServer
+{
+    public class ShelfDbContext : DbContext
+    {
+        private DbSet<Tag> Tags { get; set; } 
+
+        public ShelfDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new TagEntityTypeConfiguration());
+        }
+    }
+}

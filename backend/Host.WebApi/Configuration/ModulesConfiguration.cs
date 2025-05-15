@@ -1,4 +1,5 @@
 ﻿using BookContext.Application.Configuration;
+using ShelfContext.Application.Configuration;
 using UserContext.Application.Configuration;
 
 namespace Host.WebApi.Configuration
@@ -9,7 +10,8 @@ namespace Host.WebApi.Configuration
         {
             services
                 .RegisterBookContext(config)
-                .RegisterUserContext();
+                .RegisterUserContext()
+                .RegisterShelfContext();
 
             return services;
         }

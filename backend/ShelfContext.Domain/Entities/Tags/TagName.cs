@@ -10,7 +10,7 @@ namespace ShelfContext.Domain.Entities.Tags
 {
     public class TagName : ValueObject
     {
-        public const int MAX_NAME_LENGTH = 32;
+        public const int MAX_LENGTH = 32;
         
         public string Value { get; private set; }
 
@@ -26,7 +26,7 @@ namespace ShelfContext.Domain.Entities.Tags
                 return Result<TagName>.Failure(TagErrors.EmptyName);
             }
 
-            if(name.Length > MAX_NAME_LENGTH)
+            if(name.Length > MAX_LENGTH)
             {
                 return Result<TagName>.Failure(TagErrors.TooLongName);
             }

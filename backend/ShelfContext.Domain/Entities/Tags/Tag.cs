@@ -22,7 +22,7 @@ namespace ShelfContext.Domain.Entities.Tags
             DateCreated = dateCreated;
         }
 
-        public Result<Tag> Create(TagName name)
+        public static Result<Tag> Create(TagName name)
         {
             var id = new TagId(Guid.NewGuid());
             var dateCreated = DateTime.Now;

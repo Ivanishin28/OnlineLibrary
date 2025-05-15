@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.Contract.Commands.CreateShelf
 {
-    public class CreateShelfResult
+    public class CreateShelfResponse
     {
         public Guid CreatedShelfId { get; private set; }
 
-        public CreateShelfResult(Guid createdShelfId)
+        public CreateShelfResponse(Guid createdShelfId)
         {
             CreatedShelfId = createdShelfId;
         }

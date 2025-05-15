@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.Contract.Commands.CreateShelf
 {
-    public class CreateShelfRequest : IResultRequest<CreateShelfResult>
+    public class CreateShelfRequest : IResultRequest<CreateShelfResponse>
     {
         [JsonPropertyName("client_id")]
         public Guid ClientId { get; private set; }

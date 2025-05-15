@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShelfContext.Domain.Entities.Shelves
+namespace ShelfContext.Domain.Entities.Base
 {
-    public record ShelfId(Guid Value);
+    //public class Entity<TId> where TId : EntityId
+    //{
+    //}
 }

@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.Domain.Entities.Tags
 {
-    public record TagId(Guid id);
+    public record TagId(Guid Value);
 }

@@ -21,4 +21,12 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShelfContext.Domain\ShelfContext.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

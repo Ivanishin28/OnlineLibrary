@@ -20,7 +20,7 @@ namespace ShelfContext.Domain.Entities.Shelves
             Value = value;
         }
 
-        public Result<ShelfName> Create(string name)
+        public static Result<ShelfName> Create(string name)
         {
             if(String.IsNullOrEmpty(name))
             {
