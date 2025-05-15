@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ShelfContext.DL.SqlServer.ValueConverters;
 using ShelfContext.Domain.Entities.Tags;
 
 namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
@@ -13,10 +14,7 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
 
             builder
                 .Property(e => e.Id)
-                .HasConversion(
-                    prop => prop.Value, 
-                    prop => new TagId(prop)
-                );
+                .HasConversion(new EntityIdValueConverter<TagId, Guid>());
 
             builder.OwnsOne(
                 e => e.Name, 
