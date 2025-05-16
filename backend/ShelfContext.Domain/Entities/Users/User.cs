@@ -10,13 +10,8 @@ namespace ShelfContext.Domain.Entities.Users
 {
     public class User
     {
-        private List<Shelf> _shelves = new();
         public UserId Id { get; private set; }
 
-        public IImmutableList<Shelf> Shelves => _shelves.ToImmutableList();
-
         private User() { }
-
-
     }
 }
