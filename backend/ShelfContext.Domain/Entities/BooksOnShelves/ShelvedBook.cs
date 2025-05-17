@@ -10,20 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShelfContext.Domain.Entities.BooksOnShelves
+namespace ShelfContext.Domain.Entities.ShelvedBooks
 {
-    public class BookOnAShelf
+    public class ShelvedBook
     {
         private List<BookTag> _bookTags = new();
         
-        public BookOnAShelfId Id { get; private set; }
+        public ShelvedBookId Id { get; private set; }
         public ShelfId ShelfId { get; private set; }
         public BookId BookId { get; private set; }
         public DateTime DateShelved { get; private set; }
 
         public IImmutableList<BookTag> BookTags => _bookTags.ToImmutableList();
 
-        private BookOnAShelf(BookOnAShelfId id, ShelfId shelfId, BookId bookId, DateTime dateShelved)
+        private ShelvedBook(ShelvedBookId id, ShelfId shelfId, BookId bookId, DateTime dateShelved)
         {
             Id = id;
             ShelfId = shelfId;
@@ -39,7 +39,7 @@ namespace ShelfContext.Domain.Entities.BooksOnShelves
 
             if(alreadyTagged)
             {
-                return Result.Failure(BookOnAShelfErrors.AlreadyTagged);
+                return Result.Failure(ShelvedBookErrors.AlreadyTagged);
             }
 
             var bookTag = BookTag.Create(tag.Id, Id);
@@ -61,12 +61,12 @@ namespace ShelfContext.Domain.Entities.BooksOnShelves
             return Result.Success();
         }
 
-        public static BookOnAShelf Create(ShelfId shelfId, BookId bookId)
+        public static ShelvedBook Create(ShelfId shelfId, BookId bookId)
         {
-            var id = new BookOnAShelfId(Guid.NewGuid());
+            var id = new ShelvedBookId(Guid.NewGuid());
             var dateCreated = DateTime.Now;
 
-            return new BookOnAShelf(id, shelfId, bookId, dateCreated);
+            return new ShelvedBook(id, shelfId, bookId, dateCreated);
         }
     }
 }

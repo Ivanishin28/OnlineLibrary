@@ -10,12 +10,12 @@ namespace ShelfContext.Contract.Commands.DislodgeBook
 {
     public class DislodgeBookRequest : IResultRequest
     {
-        [JsonPropertyName("book_on_a_shelf_id")]
-        public Guid BookOnAShelfId { get; private set; }
+        [JsonPropertyName("shelved_book_id")]
+        public Guid ShelvedBookId { get; private set; }
 
-        public DislodgeBookRequest(Guid bookOnAShelfId)
+        public DislodgeBookRequest(Guid shelvedBookId)
         {
-            BookOnAShelfId = bookOnAShelfId;
+            ShelvedBookId = shelvedBookId;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Shared.Core.Models;
 using ShelfContext.Domain.Entities.Books;
-using ShelfContext.Domain.Entities.BooksOnShelves;
+using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Users;
 
 namespace ShelfContext.Domain.Entities.Shelves

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShelfContext.Domain.Entities.BooksOnShelves
+namespace ShelfContext.Domain.Entities.ShelvedBooks
 {
-    public record BookOnAShelfId(Guid Value) : EntityId<Guid>(Value);
+    public record ShelvedBookId(Guid Value) : EntityId<Guid>(Value);
 }

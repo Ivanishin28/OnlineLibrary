@@ -1,5 +1,5 @@
 ﻿using ShelfContext.Domain.Entities.Books;
-using ShelfContext.Domain.Entities.BooksOnShelves;
+using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using System;
 using System.Collections.Generic;
@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.Domain.Interfaces.Repositories
 {
-    public interface IBookOnAShelfRepository
+    public interface IShelvedBookRepository
     {
-        Task GetBy(BookOnAShelfId id);
+        Task GetBy(ShelvedBookId id);
         Task<bool> Exists(ShelfId shelfId, BookId bookId);
 
-        Task Add(BookOnAShelf bookOnAShelf);
-        Task Remove(BookOnAShelf bookOnAShelf);
+        Task Add(ShelvedBook shelvedBook);
+        Task Remove(ShelvedBook shelvedBook);
     }
 }

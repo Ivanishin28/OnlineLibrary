@@ -49,7 +49,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Shelves");
+                    b.ToTable("Shelves", (string)null);
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Tags.Tag", b =>
@@ -62,7 +62,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Users.User", b =>
@@ -98,7 +98,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                             b1.HasKey("ShelfId");
 
-                            b1.ToTable("Shelves");
+                            b1.ToTable("Shelves", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ShelfId");
@@ -123,7 +123,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                             b1.HasKey("TagId");
 
-                            b1.ToTable("Tags");
+                            b1.ToTable("Tags", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TagId");

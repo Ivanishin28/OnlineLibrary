@@ -10,14 +10,14 @@ namespace ShelfContext.Contract.Commands.AddTagToBook
 {
     public class AddTagToBookRequest : IResultRequest<AddTagToBookResponse>
     {
-        [JsonPropertyName("book_on_a_shelf_id")]
-        public Guid BookOnAShelfId { get; private set; }
+        [JsonPropertyName("shelved_book_id")]
+        public Guid ShelvedBookId { get; private set; }
         [JsonPropertyName("tag_id")]
         public Guid TagId { get; private set; }
 
-        public AddTagToBookRequest(Guid bookOnAShelfId, Guid tagId)
+        public AddTagToBookRequest(Guid shelvedBookId, Guid tagId)
         {
-            BookOnAShelfId = bookOnAShelfId;
+            ShelvedBookId = shelvedBookId;
             TagId = tagId;
         }
     }

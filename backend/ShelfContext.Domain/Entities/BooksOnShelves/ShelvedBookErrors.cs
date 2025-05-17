@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShelfContext.Domain.Entities.BooksOnShelves
+namespace ShelfContext.Domain.Entities.ShelvedBooks
 {
-    public static class BookOnAShelfErrors
+    public static class ShelvedBookErrors
     {
-        private static ErrorBuilder _errors = new ErrorBuilder("BookOnAShelf");
+        private static ErrorBuilder _errors = new ErrorBuilder("ShelvedBook");
 
         public static readonly Error AlreadyTagged =
             _errors.BuildError("Tag.AlreadyTagger", "Tag.AlreadyTagger");

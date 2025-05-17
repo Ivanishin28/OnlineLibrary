@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShelfContext.Domain.Entities.BooksOnShelves;
+using ShelfContext.Domain.Entities.ShelvedBooks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
 {
-    public class BookOnAShelfEntityTypeConfiguration : IEntityTypeConfiguration<BookOnAShelf>
+    public class ShelvedBookEntityTypeConfiguration : IEntityTypeConfiguration<ShelvedBook>
     {
-        public void Configure(EntityTypeBuilder<BookOnAShelf> builder)
+        public void Configure(EntityTypeBuilder<ShelvedBook> builder)
         {
         }
     }
