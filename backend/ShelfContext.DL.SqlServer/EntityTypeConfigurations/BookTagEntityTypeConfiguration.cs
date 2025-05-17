@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ShelfContext.DL.SqlServer.ValueConverters;
 using ShelfContext.Domain.Entities.BookTags;
+using ShelfContext.Domain.Entities.ShelvedBooks;
+using ShelfContext.Domain.Entities.Tags;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +16,30 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<BookTag> builder)
         {
+            builder
+                .HasKey(e => e.Id);
 
+            builder
+                .Property(e => e.Id)
+                .HasConversion(new EntityIdValueConverter<BookTagId, Guid>());
+
+            builder
+                .HasOne<ShelvedBook>()
+                .WithMany(e => e.BookTags)
+                .HasForeignKey(e => e.ShelvedBookId);
+
+            builder
+                .Property(e => e.ShelvedBookId)
+                .HasConversion(new EntityIdValueConverter<ShelvedBookId, Guid>());
+
+            builder
+                .HasOne<Tag>()
+                .WithMany()
+                .HasForeignKey(e => e.TagId);
+
+            builder
+                .Property(e => e.TagId)
+                .HasConversion(new EntityIdValueConverter<TagId, Guid>());
         }
     }
 }
