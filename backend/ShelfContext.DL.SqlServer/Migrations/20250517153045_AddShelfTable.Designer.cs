@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShelfContext.DL.SqlServer;
 
@@ -11,9 +12,11 @@ using ShelfContext.DL.SqlServer;
 namespace ShelfContext.DL.SqlServer.Migrations
 {
     [DbContext(typeof(ShelfDbContext))]
-    partial class ShelfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250517153045_AddShelfTable")]
+    partial class AddShelfTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,18 +24,6 @@ namespace ShelfContext.DL.SqlServer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ShelfContext.Domain.Entities.Books.Book", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("Books", (string)null);
-                });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Shelves.Shelf", b =>
                 {
@@ -49,7 +40,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Shelves");
+                    b.ToTable("Shelf");
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Tags.Tag", b =>
@@ -98,7 +89,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                             b1.HasKey("ShelfId");
 
-                            b1.ToTable("Shelves");
+                            b1.ToTable("Shelf");
 
                             b1.WithOwner()
                                 .HasForeignKey("ShelfId");

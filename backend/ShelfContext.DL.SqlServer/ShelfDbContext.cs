@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelfContext.DL.SqlServer.EntityTypeConfigurations;
+using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Tags;
 using ShelfContext.Domain.Entities.Users;
@@ -14,7 +15,9 @@ namespace ShelfContext.DL.SqlServer
     public class ShelfDbContext : DbContext
     {
         public DbSet<User> Users { get; private set; }
-        public DbSet<Tag> Tags { get; private set; } 
+        public DbSet<Book> Books { get; private set; }
+        public DbSet<Tag> Tags { get; private set; }
+        public DbSet<Shelf> Shelves { get; private set; }
 
         public ShelfDbContext(DbContextOptions options) : base(options)
         {
@@ -24,6 +27,8 @@ namespace ShelfContext.DL.SqlServer
         {
             modelBuilder.ApplyConfiguration(new TagEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ShelfEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BookEntityTypeConfiguration());
         }
     }
 }

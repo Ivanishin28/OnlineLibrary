@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ShelfContext.DL.SqlServer.ValueConverters;
 using ShelfContext.Domain.Entities.Books;
 
 namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
@@ -13,9 +14,15 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
-            builder.OwnsOne(e => e.Id, builder => builder.HasKey().HasName("Id"));
+            builder
+                .HasKey(e => e.Id);
 
-            builder.ToTable("Books");
+            builder
+                .Property(e => e.Id)
+                .HasConversion(new EntityIdValueConverter<BookId, Guid>());
+
+            builder
+                .ToView("Books");
         }
     }
 }
