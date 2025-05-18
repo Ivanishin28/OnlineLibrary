@@ -2,10 +2,13 @@
 using Shared.Core.Extensions;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands.CreateShelf;
+using ShelfContext.Domain.DTOs;
+using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces;
 using ShelfContext.Domain.Interfaces.Repositories;
+using ShelfContext.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,46 +20,51 @@ namespace ShelfContext.UseCases.Commands
     public class CreateShelfRequestHandler :
         IRequestHandler<CreateShelfRequest, Result<CreateShelfResponse>>
     {
+        private IShelfCreationService _shelfCreationService;
         private IShelfRepository _shelfRepository;
+        private IUserRepository _userRepository;
         private IUnitOfWork _unitOfWork;
-        public CreateShelfRequestHandler(IShelfRepository shelfRepository, IUnitOfWork unitOfWork)
+
+        public CreateShelfRequestHandler(IShelfCreationService shelfCreationService, IShelfRepository shelfRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
+            _shelfCreationService = shelfCreationService;
             _shelfRepository = shelfRepository;
+            _userRepository = userRepository;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<Result<CreateShelfResponse>> Handle(CreateShelfRequest request, CancellationToken cancellationToken)
         {
-            var shelfResult = CreateShelf(request);
+            var creationResult = await CreateShelf(request);
 
-            if(shelfResult.IsFailure)
+            if(creationResult.IsFailure)
             {
-                return shelfResult.ToFailure<CreateShelfResponse>();
+                return creationResult.ToFailure<CreateShelfResponse>();
             }
 
-            await AddShelf(shelfResult.Model);
+            var shelf = creationResult.Model;
 
-            return new CreateShelfResponse(shelfResult.Model.Id.Value);
-        }
-
-        private Result<Shelf> CreateShelf(CreateShelfRequest request)
-        {
-            var name = ShelfName.Create(request.Name);
-            var userId = new UserId(request.ClientId);
-
-            if (name.IsFailure)
-            {
-                return name.ToFailure<Shelf>();
-            }
-
-            return Shelf.Create(userId, name.Model);
-        }
-
-        private async Task AddShelf(Shelf shelf)
-        {
             await _shelfRepository.Add(shelf);
 
             await _unitOfWork.SaveChanges();
+
+            return new CreateShelfResponse(shelf.Id.Value);
+        }
+
+        private async Task<Result<Shelf>> CreateShelf(CreateShelfRequest request)
+        {
+            var userId = new UserId(request.UserId);
+
+            var userExists = await _userRepository.Exists(userId);
+
+            if (!userExists)
+            {
+                return Result<Shelf>.Failure(EntityErrors.NotFound);
+            }
+
+            var dto = new ShelfDto(request.Name);
+
+            return await _shelfCreationService.Create(userId, dto);
         }
     }
 }

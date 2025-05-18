@@ -17,6 +17,9 @@ namespace ShelfContext.Domain.Entities.Shelves
         public static readonly Error LongShelfName =
             _errors.BuildError("Name.TooLong", "Too long");
 
+        public static readonly Error DuplicateName =
+            _errors.BuildError("Name.Duplicate", "Name.Duplicate");
+
         public static readonly Error AlreadyShelved =
             _errors.BuildError("Book.Shelved", "Book.Shelved");
 

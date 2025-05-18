@@ -1,5 +1,6 @@
 ﻿using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.Shelves;
+using ShelfContext.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
     public interface IShelfRepository
     {
         Task<Shelf> GetBy(ShelfId id);
-        Task<Shelf> GetBy(BookId bookId);
+        Task<bool> IsNameUniqueForUser(ShelfName shelfName, UserId userId);
 
         Task Add(Shelf shelf);
         Task Delete(Shelf shelf);

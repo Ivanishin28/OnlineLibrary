@@ -15,6 +15,7 @@ namespace ShelfContext.Application.Configuration
         public static IServiceCollection RegisterShelfContext(this IServiceCollection services)
         {
             services
+                .RegisterDomainServices()
                 .RegisterDbContext()
                 .RegisterRepositories()
                 .RegisterUseCases();

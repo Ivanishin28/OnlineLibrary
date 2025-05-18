@@ -10,5 +10,6 @@ namespace ShelfContext.Domain.Interfaces.Repositories
     public interface IUserRepository
     {
         Task<User> GetBy(UserId userId);
+        Task<bool> Exists(UserId userId);
     }
 }

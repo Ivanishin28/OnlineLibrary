@@ -10,15 +10,15 @@ namespace ShelfContext.Contract.Commands.CreateShelf
 {
     public class CreateShelfRequest : IResultRequest<CreateShelfResponse>
     {
-        [JsonPropertyName("client_id")]
-        public Guid ClientId { get; private set; }
+        [JsonPropertyName("user_id")]
+        public Guid UserId { get; private set; }
         [JsonPropertyName("name")]
         public string Name { get; private set; }
 
-        public CreateShelfRequest(Guid clientId, string name)
+        public CreateShelfRequest(Guid userId, string name)
         {
             Name = name;
-            ClientId = clientId;
+            UserId = userId;
         }
     }
 }

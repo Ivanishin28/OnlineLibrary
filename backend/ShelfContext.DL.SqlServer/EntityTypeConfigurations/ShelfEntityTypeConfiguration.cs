@@ -40,7 +40,7 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                     owned
                         .Property(oe => oe.Value)
                         .HasMaxLength(TagName.MAX_LENGTH)
-                        .HasColumnName("Name");
+                        .HasColumnName("Shelf_Name");
                 }
             );
         }
