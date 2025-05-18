@@ -33,14 +33,14 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<UserId, Guid>());
 
             builder
-                .OwnsOne(
+                .ComplexProperty(
                 e => e.Name,
-                owned =>
+                p =>
                 {
-                    owned
-                        .Property(oe => oe.Value)
-                        .HasMaxLength(TagName.MAX_LENGTH)
-                        .HasColumnName("Shelf_Name");
+                    p
+                        .Property(pe => pe.Value)
+                        .HasMaxLength(ShelfName.MAX_LENGTH)
+                        .HasColumnName("Name");
                 }
             );
         }

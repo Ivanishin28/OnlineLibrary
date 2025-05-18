@@ -14,8 +14,9 @@ namespace ShelfContext.Domain.Entities.Shelves
 
         private Shelf() { }
 
-        private Shelf(UserId userId, ShelfName name, DateTime dateCreated)
+        private Shelf(ShelfId id, UserId userId, ShelfName name, DateTime dateCreated)
         {
+            Id = id;
             UserId = userId;
             Name = name;
             DateCreated = dateCreated;
@@ -24,8 +25,9 @@ namespace ShelfContext.Domain.Entities.Shelves
         public static Result<Shelf> Create(UserId clientId, ShelfName shelfName)
         {
             var dateCreated = DateTime.Now;
+            var id = new ShelfId(Guid.NewGuid());
 
-            return new Shelf(clientId, shelfName, dateCreated);
+            return new Shelf(id, clientId, shelfName, dateCreated);
         }
     }
 }

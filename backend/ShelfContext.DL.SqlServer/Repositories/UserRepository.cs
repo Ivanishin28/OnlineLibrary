@@ -21,13 +21,13 @@ namespace ShelfContext.DL.SqlServer.Repositories
         public async Task<bool> Exists(UserId userId)
         {
             return await _dbSet
-                .AnyAsync(user => user.Id.Value == userId.Value);
+                .AnyAsync(user => user.Id == userId);
         }
 
         public async Task<User> GetBy(UserId userId)
         {
             return await _dbSet
-                .Where(user => user.Id.Value == userId.Value)
+                .Where(user => user.Id == userId)
                 .FirstOrDefaultAsync();
         }
     }

@@ -32,7 +32,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
         public async Task<Shelf> GetBy(ShelfId id)
         {
             return await _dbSet
-                .Where(shelf => shelf.Id.Value == id.Value)
+                .Where(shelf => shelf.Id == id)
                 .FirstOrDefaultAsync();
         }
 
@@ -40,8 +40,8 @@ namespace ShelfContext.DL.SqlServer.Repositories
         {
             return await _dbSet
                 .AnyAsync(shelf => 
-                    shelf.Name.Value == shelfName.Value &&
-                    shelf.UserId.Value == userId.Value);
+                    shelf.Name == shelfName &&
+                    shelf.UserId == userId);
         }
     }
 }

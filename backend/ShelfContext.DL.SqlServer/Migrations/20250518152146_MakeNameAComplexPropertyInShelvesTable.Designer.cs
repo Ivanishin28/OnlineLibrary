@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShelfContext.DL.SqlServer;
 
@@ -12,9 +13,11 @@ using ShelfContext.DL.SqlServer;
 namespace ShelfContext.DL.SqlServer.Migrations
 {
     [DbContext(typeof(ShelfDbContext))]
-    partial class ShelfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250518152146_MakeNameAComplexPropertyInShelvesTable")]
+    partial class MakeNameAComplexPropertyInShelvesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

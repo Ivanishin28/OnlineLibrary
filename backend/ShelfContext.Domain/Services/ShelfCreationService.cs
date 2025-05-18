@@ -31,9 +31,9 @@ namespace ShelfContext.Domain.Services
                 return name.ToFailure<Shelf>();
             }
 
-            var isUniqueName = await _shelfRepository.IsNameUniqueForUser(name.Model, userId);
+            var userHasShelf = await _shelfRepository.IsNameUniqueForUser(name.Model, userId);
 
-            if (!isUniqueName)
+            if (userHasShelf)
             {
                 return Result<Shelf>.Failure(ShelfErrors.DuplicateName);
             }
