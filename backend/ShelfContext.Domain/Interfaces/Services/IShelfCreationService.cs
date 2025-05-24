@@ -13,5 +13,6 @@ namespace ShelfContext.Domain.Interfaces.Services
     public interface IShelfCreationService
     {
         Task<Result<Shelf>> Create(UserId userId, ShelfDto dto);
+        Task<Result> Update(ShelfId shelfId, ShelfDto dto);
     }
 }

@@ -22,6 +22,11 @@ namespace ShelfContext.Domain.Entities.Shelves
             DateCreated = dateCreated;
         }
 
+        public void UpdateName(ShelfName name)
+        {
+            Name = name;
+        }
+
         public static Result<Shelf> Create(UserId clientId, ShelfName shelfName)
         {
             var dateCreated = DateTime.Now;
