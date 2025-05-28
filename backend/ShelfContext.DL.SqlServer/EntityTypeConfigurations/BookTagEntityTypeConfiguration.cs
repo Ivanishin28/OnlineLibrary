@@ -23,10 +23,10 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .Property(e => e.Id)
                 .HasConversion(new EntityIdValueConverter<BookTagId, Guid>());
 
-            builder
-                .HasOne<ShelvedBook>()
-                .WithMany(e => e.BookTags)
-                .HasForeignKey(e => e.ShelvedBookId);
+            //builder
+            //    .HasOne<ShelvedBook>()
+            //    .WithMany(e => e.BookTags)
+            //    .HasForeignKey(e => e.ShelvedBookId);
 
             builder
                 .Property(e => e.ShelvedBookId)

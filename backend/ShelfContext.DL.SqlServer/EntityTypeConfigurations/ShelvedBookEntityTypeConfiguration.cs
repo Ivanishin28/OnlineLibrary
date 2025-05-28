@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShelfContext.DL.SqlServer.ValueConverters;
 using ShelfContext.Domain.Entities.Books;
+using ShelfContext.Domain.Entities.BookTags;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using System;
@@ -40,6 +41,21 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
             builder
                 .Property(e => e.ShelfId)
                 .HasConversion(new EntityIdValueConverter<ShelfId, Guid>());
+
+            const string bookTagsNavigation = "_bookTags";
+
+            builder
+                .Ignore(e => e.BookTags);
+
+            builder
+                .HasMany(typeof(BookTag), bookTagsNavigation)
+                .WithOne()
+                .HasForeignKey(nameof(BookTag.ShelvedBookId));
+
+            builder
+                .Metadata
+                .FindNavigation(bookTagsNavigation)
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
