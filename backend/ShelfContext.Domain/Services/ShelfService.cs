@@ -1,7 +1,10 @@
-﻿using Shared.Core.Models;
+﻿using MediatR;
+using Shared.Core.Models;
+using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
+using ShelfContext.Domain.Interfaces.Queries.IsBookShelvedForUser;
 using ShelfContext.Domain.Interfaces.Repositories;
 using ShelfContext.Domain.Interfaces.Services;
 
@@ -9,16 +12,26 @@ namespace ShelfContext.Domain.Services
 {
     public class ShelfService : IShelfService
     {
-        private IShelvedBookRepository _shelvedBookRepository;
+        private IMediator _mediator;
+        private IShelfRepository _shelfRepository;
 
-        public ShelfService(IShelvedBookRepository shelvedBookRepository)
+        public ShelfService(IShelfRepository shelfRepository, IMediator mediator)
         {
-            _shelvedBookRepository = shelvedBookRepository;
+            _shelfRepository = shelfRepository;
+            _mediator = mediator;
         }
 
         public async Task<Result<ShelvedBook>> ShelveBook(ShelfId shelfId, BookId bookId)
         {
-            var isAlreadyShelved = await _shelvedBookRepository.Exists(shelfId, bookId);
+            var shelf = await _shelfRepository.GetBy(shelfId);
+
+            if(shelf is null)
+            {
+                return Result<ShelvedBook>.Failure(EntityErrors.NotFound);
+            }
+
+            var query = new IsBookShelvedForUserQuery(bookId, shelf.UserId);
+            var isAlreadyShelved = await _mediator.Send(query);
 
             if(isAlreadyShelved)
             {

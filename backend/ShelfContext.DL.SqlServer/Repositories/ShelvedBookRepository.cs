@@ -20,14 +20,6 @@ namespace ShelfContext.DL.SqlServer.Repositories
             _dbSet.Add(shelvedBook);
         }
 
-        public async Task<bool> Exists(ShelfId shelfId, BookId bookId)
-        {
-            return await _dbSet
-                .AnyAsync(shelvedBook =>
-                    shelvedBook.ShelfId == shelfId &&
-                    shelvedBook.BookId == bookId);
-        }
-
         public async Task<ShelvedBook> GetBy(ShelvedBookId id)
         {
             return await GetShelvedBookAggregate()
