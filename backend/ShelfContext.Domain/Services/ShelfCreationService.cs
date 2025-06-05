@@ -1,16 +1,13 @@
-﻿using Shared.Core.Extensions;
+﻿using MediatR;
+using Shared.Core.Extensions;
 using Shared.Core.Models;
 using ShelfContext.Domain.DTOs;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
+using ShelfContext.Domain.Interfaces.Queries.IsNameUniqueForUser;
 using ShelfContext.Domain.Interfaces.Repositories;
 using ShelfContext.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.Domain.Services
 {
@@ -18,10 +15,15 @@ namespace ShelfContext.Domain.Services
     {
         private IShelfRepository _shelfRepository;
         private IUserRepository _userRepository;
-
-        public ShelfCreationService(IShelfRepository shelfRepository)
+        private IMediator _mediator;
+        public ShelfCreationService(
+            IShelfRepository shelfRepository,
+            IUserRepository userRepository,
+            IMediator mediator)
         {
             _shelfRepository = shelfRepository;
+            _userRepository = userRepository;
+            _mediator = mediator;
         }
 
         public async Task<Result<Shelf>> Create(UserId userId, ShelfDto dto)
@@ -73,7 +75,8 @@ namespace ShelfContext.Domain.Services
                 return nameResult.ToFailure<ShelfName>();
             }
 
-            var userHasShelf = await _shelfRepository.IsNameUniqueForUser(nameResult.Model, userId);
+            var query = new IsNameUniqueForUserQuery(nameResult.Model, userId);
+            var userHasShelf = await _mediator.Send(query);
 
             if (userHasShelf)
             {

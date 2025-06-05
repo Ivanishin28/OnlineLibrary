@@ -12,7 +12,6 @@ namespace ShelfContext.Domain.Interfaces.Repositories
     public interface IShelfRepository
     {
         Task<Shelf> GetBy(ShelfId id);
-        Task<bool> IsNameUniqueForUser(ShelfName shelfName, UserId userId);
 
         Task Add(Shelf shelf);
         Task Delete(Shelf shelf);

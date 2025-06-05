@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ShelfContext.Contract.Commands.CreateShelf
 {
     public class CreateShelfResponse
     {
+        [JsonPropertyName("created_shelf_id")]
         public Guid CreatedShelfId { get; private set; }
 
         public CreateShelfResponse(Guid createdShelfId)

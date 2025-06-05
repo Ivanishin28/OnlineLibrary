@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelfContext.Domain.Entities.Shelves;
-using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.DL.SqlServer.Repositories
 {
@@ -34,14 +28,6 @@ namespace ShelfContext.DL.SqlServer.Repositories
             return await _dbSet
                 .Where(shelf => shelf.Id == id)
                 .FirstOrDefaultAsync();
-        }
-
-        public async Task<bool> IsNameUniqueForUser(ShelfName shelfName, UserId userId)
-        {
-            return await _dbSet
-                .AnyAsync(shelf => 
-                    shelf.Name == shelfName &&
-                    shelf.UserId == userId);
         }
     }
 }
