@@ -4,11 +4,6 @@ using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Interfaces.Repositories;
 using ShelfContext.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.Domain.Services
 {
@@ -21,20 +16,16 @@ namespace ShelfContext.Domain.Services
             _shelvedBookRepository = shelvedBookRepository;
         }
 
-        public async Task<Result> ShelveBook(Shelf shelf, Book book)
+        public async Task<Result<ShelvedBook>> ShelveBook(ShelfId shelfId, BookId bookId)
         {
-            var isAlreadyShelved = await _shelvedBookRepository.Exists(shelf.Id, book.Id);
+            var isAlreadyShelved = await _shelvedBookRepository.Exists(shelfId, bookId);
 
             if(isAlreadyShelved)
             {
-                return Result.Failure(ShelfErrors.AlreadyShelved);
+                return Result<ShelvedBook>.Failure(ShelfErrors.AlreadyShelved);
             }
 
-            var shelvedBook = ShelvedBook.Create(shelf.Id, book.Id);
-
-            await _shelvedBookRepository.Add(shelvedBook);
-
-            return Result.Success();
+            return ShelvedBook.Create(shelfId, bookId);
         }
     }
 }

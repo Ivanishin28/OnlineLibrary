@@ -16,6 +16,7 @@ namespace ShelfContext.DL.SqlServer.Configuration
             services.AddTransient<IShelfRepository, ShelfRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IShelvedBookRepository, ShelvedBookRepository>();
 
             return services;
         }

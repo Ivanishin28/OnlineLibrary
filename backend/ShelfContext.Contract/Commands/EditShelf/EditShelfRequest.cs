@@ -15,9 +15,10 @@ namespace ShelfContext.Contract.Commands.EditShelf
         [JsonPropertyName("name")]
         public string Name { get; private set; }
 
-        public EditShelfRequest(Guid shelfId)
+        public EditShelfRequest(Guid shelfId, string name)
         {
             ShelfId = shelfId;
+            Name = name;
         }
     }
 }

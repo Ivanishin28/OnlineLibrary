@@ -14,9 +14,11 @@ namespace Shared.Application.Controllers
     {
         protected IActionResult FromResult(Result result)
         {
+            var apiResponse = new ApiResponse(result.Errors.ToArray());
+
             if(result.IsFailure)
             {
-                return BadRequest();
+                return BadRequest(apiResponse);
             }
 
             return Ok();

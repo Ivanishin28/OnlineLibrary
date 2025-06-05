@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace Shared.Application.Models
 {
+    public class ApiResponse
+    {
+        public Error[] Errors { get; private set; }
+
+        public ApiResponse(Error[] errors)
+        {
+            Errors = errors;
+        }
+    }
+
     public class ApiResponse<T>
     {
         public T Data { get; private set; }
