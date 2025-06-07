@@ -10,7 +10,7 @@ namespace ShelfContext.Tests.Domain.Entities.Tags
     public class TagTests
     {
         [Test]
-        public void Create_TagName_ShouldReturnSuccess()
+        public void Create_TagName_ReturnsSuccess()
         {
             var name = "Tagname";
             var tagNameResult = TagName.Create(name);

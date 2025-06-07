@@ -6,7 +6,7 @@ namespace ShelfContext.Tests.Domain.Entities.Shelves
     public class ShelfNameTests
     {
         [Test]
-        public void Create_EmptyString_ShouldReturnFailure()
+        public void Create_EmptyString_ReturnsFailure()
         {
             var name = String.Empty;
 
@@ -17,7 +17,7 @@ namespace ShelfContext.Tests.Domain.Entities.Shelves
         }
 
         [Test]
-        public void Create_LongString_ShouldReturnFailure()
+        public void Create_LongString_ReturnsFailure()
         {
             var name = "Tag" + new string('g', ShelfName.MAX_LENGTH);
 
@@ -28,7 +28,7 @@ namespace ShelfContext.Tests.Domain.Entities.Shelves
         }
 
         [Test]
-        public void Create_RegularName_ShouldReturnSuccess()
+        public void Create_RegularName_ReturnsSuccess()
         {
             var name = "First";
 
@@ -39,7 +39,7 @@ namespace ShelfContext.Tests.Domain.Entities.Shelves
         }
 
         [Test]
-        public void Equals_ForTwoEqual_ShouldReturnTrue()
+        public void Equals_ForTwoEqual_ReturnsTrue()
         {
             var name1 = ShelfName.Create("First").Model;
             var name2 = ShelfName.Create("First").Model;
@@ -48,7 +48,7 @@ namespace ShelfContext.Tests.Domain.Entities.Shelves
         }
 
         [Test]
-        public void Equals_ForTwoDifferent_ShouldReturnFalse()
+        public void Equals_ForTwoDifferent_ReturnsFalse()
         {
             var name1 = ShelfName.Create("First").Model;
             var name2 = ShelfName.Create("Second").Model;

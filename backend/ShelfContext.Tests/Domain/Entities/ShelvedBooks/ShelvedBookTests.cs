@@ -24,7 +24,7 @@ namespace ShelfContext.Tests.Domain.Entities.ShelvedBooks
         }
 
         [Test]
-        public void AddTag_FirstTag_ShouldReturnSuccess()
+        public void AddTag_FirstTag_ReturnsSuccess()
         {
             var tag = CreateTagFrom("first");
 
@@ -35,7 +35,7 @@ namespace ShelfContext.Tests.Domain.Entities.ShelvedBooks
         }
 
         [Test]
-        public void AddTag_SameTagTwice_ShouldReturnFailure()
+        public void AddTag_SameTagTwice_ReturnsFailure()
         {
             var tag = CreateTagFrom("first");
 
@@ -48,7 +48,7 @@ namespace ShelfContext.Tests.Domain.Entities.ShelvedBooks
         }
 
         [Test]
-        public void RemoveTag_FirstTag_ShouldReturnSuccess()
+        public void RemoveTag_FirstTag_ReturnsSuccess()
         {
             var tag1 = CreateTagFrom("first");
             var tag2 = CreateTagFrom("second");
@@ -64,7 +64,7 @@ namespace ShelfContext.Tests.Domain.Entities.ShelvedBooks
         }
 
         [Test]
-        public void RemoveTag_SameTag_ShouldReturnFailure()
+        public void RemoveTag_SameTag_ReturnsFailure()
         {
             var tag1 = CreateTagFrom("first");
             var tag2 = CreateTagFrom("second");
