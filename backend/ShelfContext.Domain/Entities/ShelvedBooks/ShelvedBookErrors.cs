@@ -13,5 +13,8 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
 
         public static readonly Error AlreadyTagged =
             _errors.BuildError("Tag.AlreadyTagger", "Tag.AlreadyTagger");
+
+        public static readonly Error TagNotFound =
+            _errors.BuildError("Tag.NotFound", "Tag NotFound");
     }
 }
