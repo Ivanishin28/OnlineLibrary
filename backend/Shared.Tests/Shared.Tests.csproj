@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
@@ -19,12 +18,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="NUnit.Framework" />
+    <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\Shared.Contracts\Shared.Contracts.csproj" />
+    <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
+    <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.Tests\Shared.Tests.csproj" />
-    <ProjectReference Include="..\ShelfContext.Application\ShelfContext.Application.csproj" />
+    <Using Include="NUnit.Framework" />
   </ItemGroup>
 
 </Project>

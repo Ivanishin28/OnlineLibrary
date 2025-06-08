@@ -1,9 +1,6 @@
-﻿using ShelfContext.Domain.Entities.Tags;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shared.Core.Models;
+using Shared.Tests.Extensions;
+using ShelfContext.Domain.Entities.Tags;
 
 namespace ShelfContext.Tests.Domain.Entities.Tags
 {
@@ -17,9 +14,15 @@ namespace ShelfContext.Tests.Domain.Entities.Tags
 
             Assert.That(tagNameResult.IsSuccess);
 
-            var tagResult = Tag.Create(tagNameResult.Model);
+            Result<Tag> tagResult = null;
+
+            var range = TimeCaptureExtensions
+                .Capture(
+                    () => tagResult = Tag.Create(tagNameResult.Model)
+                );
 
             Assert.That(tagResult.IsSuccess);
+            AssertExtensions.AssertInRange(range, tagResult.Model.DateCreated);
         }
     }
 }
