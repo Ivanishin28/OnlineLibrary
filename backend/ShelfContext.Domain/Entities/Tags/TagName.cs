@@ -36,7 +36,7 @@ namespace ShelfContext.Domain.Entities.Tags
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new NotImplementedException();
+            return new[] { Value };
         }
     }
 }

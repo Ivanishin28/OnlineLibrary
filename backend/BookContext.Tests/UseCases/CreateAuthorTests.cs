@@ -31,6 +31,7 @@ namespace BookContext.Tests.UseCases
         }
 
         [Test]
+        [Ignore("Unitl until write in-memory")]
         public async Task Should()
         {
             var fullNameResult = FullName.Create("FirstName", "LastName");

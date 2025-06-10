@@ -48,10 +48,12 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
             var tagToRemove = _bookTags
                 .FirstOrDefault(tag => tag.TagId == tagId);
 
-            if(tagToRemove is not null)
+            if(tagToRemove is null)
             {
-                _bookTags.Remove(tagToRemove);
+                return Result.Failure(ShelvedBookErrors.TagNotFound);
             }
+            
+            _bookTags.Remove(tagToRemove);
 
             return Result.Success();
         }
