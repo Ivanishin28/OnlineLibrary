@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.DL.Read.Configuration
 {
-    public static class ShelfReadConfiguration
+    public static class ShelfReadDbContextConfiguration
     {
-        public static IServiceCollection RegisterShelfReadDbContext(this IServiceCollection services)
+        public static IServiceCollection RegisterReadDbContext(this IServiceCollection services)
         {
             services
                 .AddDbContext<ShelfReadDbContext>(options =>

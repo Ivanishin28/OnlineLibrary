@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using ShelfContext.Domain.Interfaces.Queries.IsNameUniqueForUser;
 
-namespace ShelfContext.DL.SqlServer.Queries
+namespace ShelfContext.DL.Read.Queries
 {
     public class IsNameUniqueForUserQueryHandler : IRequestHandler<IsNameUniqueForUserQuery, bool>
     {
-        private ShelfDbContext _db;
+        private ShelfReadDbContext _db;
 
-        public IsNameUniqueForUserQueryHandler(ShelfDbContext db)
+        public IsNameUniqueForUserQueryHandler(ShelfReadDbContext db)
         {
             _db = db;
         }
@@ -17,9 +17,7 @@ namespace ShelfContext.DL.SqlServer.Queries
         {
             return await _db
                 .Shelves
-                .AnyAsync(shelf =>
-                    shelf.Name == request.ShelfName &&
-                    shelf.UserId == request.UserId);
+                .AnyAsync(shelf => shelf.Name == request.ShelfName.Value);
         }
     }
 }

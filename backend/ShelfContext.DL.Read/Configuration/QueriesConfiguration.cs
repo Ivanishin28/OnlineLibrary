@@ -1,15 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ShelfContext.DL.SqlServer.Queries;
+using ShelfContext.DL.Read.Queries;
 using ShelfContext.Domain.Interfaces.Queries.IsNameUniqueForUser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ShelfContext.DL.SqlServer.Configuration
+namespace ShelfContext.DL.Read.Configuration
 {
-    internal static class QueriesConfiguration
+    public static class QueriesConfiguration
     {
         public static IServiceCollection RegisterQueries(this IServiceCollection services)
         {

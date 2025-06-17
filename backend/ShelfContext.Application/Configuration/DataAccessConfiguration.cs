@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ShelfContext.DL.Read.Configuration;
 using ShelfContext.DL.SqlServer.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.Application.Configuration
 {
@@ -28,7 +23,8 @@ namespace ShelfContext.Application.Configuration
         private static IServiceCollection RegisterReadSide(this IServiceCollection services)
         {
             return services
-                .RegisterShelfReadDbContext();
+                .RegisterReadDbContext()
+                .RegisterQueries();
         }
     }
 }
