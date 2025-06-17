@@ -1,0 +1,23 @@
+﻿using ShelfContext.Domain.Entities.Books;
+using ShelfContext.Domain.Entities.BookTags;
+using ShelfContext.Domain.Entities.ShelvedBooks;
+using ShelfContext.Domain.Entities.Shelves;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ShelfContext.DL.Read.Entities
+{
+    public class ShelvedBookReadModel : ReadModel
+    {
+        public Guid ShelfId { get; private set; }
+        public Guid BookId { get; private set; }
+        public DateTime DateShelved { get; private set; }
+
+        public ShelfReadModel Shelf { get; set; }
+        public BookReadModel Book { get; set; }
+        public IEnumerable<BookTagReadModel> BookTags { get; set; }
+    }
+}

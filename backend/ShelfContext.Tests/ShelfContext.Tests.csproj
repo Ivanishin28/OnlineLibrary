@@ -30,6 +30,10 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+    <Folder Include="Infrastructure\Commands\" />
+    <Folder Include="Infrastructure\Queries\" />
+    <Folder Include="Infrastructure\Repositories\" />
+    <Folder Include="UseCases\" />
   </ItemGroup>
 
 </Project>

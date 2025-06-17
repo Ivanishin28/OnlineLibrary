@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\ShelfContext.DL.Read\ShelfContext.DL.Read.csproj" />
     <ProjectReference Include="..\ShelfContext.DL.SqlServer\ShelfContext.DL.SqlServer.csproj" />
     <ProjectReference Include="..\ShelfContext.UseCases\ShelfContext.UseCases.csproj" />
   </ItemGroup>
