@@ -11,7 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
@@ -25,6 +26,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Shared.Tests\Shared.Tests.csproj" />
     <ProjectReference Include="..\ShelfContext.Application\ShelfContext.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="Infrastructure\Commands\" />
+    <Folder Include="Infrastructure\Queries\" />
+    <Folder Include="Infrastructure\Repositories\" />
+    <Folder Include="UseCases\" />
   </ItemGroup>
 
 </Project>
