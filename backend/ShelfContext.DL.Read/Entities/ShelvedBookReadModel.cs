@@ -12,9 +12,9 @@ namespace ShelfContext.DL.Read.Entities
 {
     public class ShelvedBookReadModel : ReadModel
     {
-        public Guid ShelfId { get; private set; }
-        public Guid BookId { get; private set; }
-        public DateTime DateShelved { get; private set; }
+        public Guid ShelfId { get; set; }
+        public Guid BookId { get; set; }
+        public DateTime DateShelved { get; set; }
 
         public ShelfReadModel Shelf { get; set; }
         public BookReadModel Book { get; set; }
