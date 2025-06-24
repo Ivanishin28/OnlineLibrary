@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ShelfContext.DL.Read.Queries;
-using ShelfContext.Domain.Interfaces.Queries.IsNameUniqueForUser;
+using ShelfContext.Domain.Interfaces.Queries.IsShelfNameTakenByUser;
 
 namespace ShelfContext.DL.Read.Configuration
 {
@@ -10,10 +10,10 @@ namespace ShelfContext.DL.Read.Configuration
         {
             services.AddMediatR(config =>
             {
-                var contractsAssembly = typeof(IsNameUniqueForUserQuery).Assembly;
+                var contractsAssembly = typeof(IsShelfNameTakenByUserQuery).Assembly;
                 config.RegisterServicesFromAssembly(contractsAssembly);
 
-                var handlersAssembly = typeof(IsNameUniqueForUserQueryHandler).Assembly;
+                var handlersAssembly = typeof(IsShelfNameTakenByUserQueryHandler).Assembly;
                 config.RegisterServicesFromAssembly(handlersAssembly);
             });
 

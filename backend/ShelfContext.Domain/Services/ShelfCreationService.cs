@@ -5,7 +5,7 @@ using ShelfContext.Domain.DTOs;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
-using ShelfContext.Domain.Interfaces.Queries.IsNameUniqueForUser;
+using ShelfContext.Domain.Interfaces.Queries.IsShelfNameTakenByUser;
 using ShelfContext.Domain.Interfaces.Repositories;
 using ShelfContext.Domain.Interfaces.Services;
 
@@ -75,10 +75,10 @@ namespace ShelfContext.Domain.Services
                 return nameResult.ToFailure<ShelfName>();
             }
 
-            var query = new IsNameUniqueForUserQuery(nameResult.Model, userId);
-            var userHasShelf = await _mediator.Send(query);
+            var query = new IsShelfNameTakenByUserQuery(nameResult.Model, userId);
+            var isShelfNameTaken = await _mediator.Send(query);
 
-            if (userHasShelf)
+            if (isShelfNameTaken)
             {
                 return Result<ShelfName>.Failure(ShelfErrors.DuplicateName);
             }
