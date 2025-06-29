@@ -22,8 +22,7 @@ namespace ShelfContext.Tests.Infrastructure.Queries
                 .Options;
 
             _db = new ShelfReadDbContext(options);
-            var handler = new IsShelfNameTakenByUserQueryHandler(_db);
-            _sut = new ShelfNameUniquenessChecker(handler);
+            _sut = new ShelfNameUniquenessChecker(_db);
         }
 
         [TearDown]

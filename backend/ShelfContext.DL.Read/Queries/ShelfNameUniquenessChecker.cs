@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using ShelfContext.DL.Read.Queries.IsNameUniqueForUser;
+using Microsoft.EntityFrameworkCore;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces.Queries;
@@ -8,17 +8,20 @@ namespace ShelfContext.DL.Read.Queries
 {
     public class ShelfNameUniquenessChecker : IShelfNameUniquenessChecker
     {
-        private IsShelfNameTakenByUserQueryHandler _handler;
+        private ShelfReadDbContext _db;
 
-        public ShelfNameUniquenessChecker(IsShelfNameTakenByUserQueryHandler handler)
+        public ShelfNameUniquenessChecker(ShelfReadDbContext db)
         {
-            _handler = handler;
+            _db = db;
         }
 
         public async Task<bool> IsNameTakenBy(ShelfName name, UserId userId)
         {
-            var query = new IsShelfNameTakenByUserQuery(name, userId);
-            return await _handler.Handle(query, CancellationToken.None);
+            return await _db
+                .Shelves
+                .AnyAsync(shelf =>
+                    shelf.Name == name.Value &&
+                    shelf.UserId == userId.Value);
         }
     }
 }
