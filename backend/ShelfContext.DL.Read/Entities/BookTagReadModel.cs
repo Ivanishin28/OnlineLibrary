@@ -11,9 +11,9 @@ namespace ShelfContext.DL.Read.Entities
 {
     public class BookTagReadModel : ReadModel
     {
-        public Guid TagId { get; private set; }
-        public Guid ShelvedBookId { get; private set; }
-        public DateTime DateAdded { get; private set; }
+        public Guid TagId { get; set; }
+        public Guid ShelvedBookId { get; set; }
+        public DateTime DateAdded { get; set; }
 
         public TagReadModel Tag { get; set; }
         public ShelvedBookReadModel ShelvedBook { get; set; }

@@ -2,7 +2,6 @@
 using Shared.Core.Extensions;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands.CreateShelf;
-using ShelfContext.Domain.DTOs;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces;
@@ -14,12 +13,12 @@ namespace ShelfContext.UseCases.Commands
     public class CreateShelfRequestHandler :
         IRequestHandler<CreateShelfRequest, Result<CreateShelfResponse>>
     {
-        private IShelfCreationService _shelfCreationService;
+        private IShelfNameCreationService _shelfCreationService;
         private IShelfRepository _shelfRepository;
         private IUnitOfWork _unitOfWork;
 
         public CreateShelfRequestHandler(
-            IShelfCreationService shelfCreationService,
+            IShelfNameCreationService shelfCreationService,
             IShelfRepository shelfRepository,
             IUnitOfWork unitOfWork)
         {
@@ -50,9 +49,14 @@ namespace ShelfContext.UseCases.Commands
         {
             var userId = new UserId(request.UserId);
 
-            var dto = new ShelfDto(request.Name);
+            var nameResult = await _shelfCreationService.Create(userId, request.Name);
 
-            return await _shelfCreationService.Create(userId, dto);
+            if (nameResult.IsFailure)
+            {
+                return nameResult.ToFailure<Shelf>();
+            }
+
+            return Shelf.Create(userId, nameResult.Model);
         }
     }
 }

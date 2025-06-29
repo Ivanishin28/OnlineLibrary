@@ -13,8 +13,6 @@ namespace ShelfContext.DL.SqlServer.Configuration
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IShelvedBookRepository, ShelvedBookRepository>();
 
-            services.RegisterQueries();
-
             return services;
         }
     }
