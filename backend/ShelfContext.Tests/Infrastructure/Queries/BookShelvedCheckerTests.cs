@@ -4,14 +4,14 @@ using ShelfContext.DL.Read.Entities;
 using ShelfContext.DL.Read.Queries;
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.Users;
-using ShelfContext.Domain.Interfaces.Queries.IsBookShelvedForUser;
+using ShelfContext.Domain.Interfaces.Queries;
 
 namespace ShelfContext.Tests.Infrastructure.Queries
 {
-    public class IsBookShelvedForUserQueryHandlerTests
+    public class BookShelvedCheckerTests
     {
         private ShelfReadDbContext _db;
-        private IsBookShelvedForUserQueryHandler _handler;
+        private IBookShelvedChecker _sut;
 
         [SetUp]
         public void SetUp()
@@ -21,7 +21,7 @@ namespace ShelfContext.Tests.Infrastructure.Queries
                 .Options;
 
             _db = new ShelfReadDbContext(options);
-            _handler = new IsBookShelvedForUserQueryHandler(_db);
+            _sut = new BookShelvedChecker(_db);
         }
 
         [TearDown]
@@ -35,11 +35,10 @@ namespace ShelfContext.Tests.Infrastructure.Queries
         {
             var bookId = new BookId(Guid.NewGuid());
             var userId = new UserId(Guid.NewGuid());
-            var request = new IsBookShelvedForUserQuery(bookId, userId);
 
             Assert.DoesNotThrowAsync(async () =>
             {
-                await _handler.Handle(request, new CancellationToken());
+                await _sut.IsBookShelvedBy(bookId, userId);
             });
         }
 
@@ -49,9 +48,8 @@ namespace ShelfContext.Tests.Infrastructure.Queries
             var bookId = new BookId(Guid.NewGuid());
             var userId = new UserId(Guid.NewGuid());
 
-            var request = new IsBookShelvedForUserQuery(bookId, userId);
-
-            var response = await _handler.Handle(request, new CancellationToken());
+            var response = await _sut.IsBookShelvedBy(bookId, userId);
+            
             Assert.False(response);
         }
 
@@ -86,10 +84,9 @@ namespace ShelfContext.Tests.Infrastructure.Queries
             var bookFromDb = _db.Books.First(book => book.Id == bookToAdd.Id);
             var userFromDb = _db.Users.First(user => user.Id == userToAdd.Id);
 
-            var request = new IsBookShelvedForUserQuery(
-                new BookId(bookFromDb.Id), 
+            var response = await _sut.IsBookShelvedBy(
+                new BookId(bookFromDb.Id),
                 new UserId(userFromDb.Id));
-            var response = await _handler.Handle(request, new CancellationToken());
 
             Assert.True(response);
         }
@@ -130,10 +127,9 @@ namespace ShelfContext.Tests.Infrastructure.Queries
             var bookFromDb = _db.Books.First(book => book.Id == bookToCheck.Id);
             var userFromDb = _db.Users.First(user => user.Id == userWithoutBook.Id);
 
-            var request = new IsBookShelvedForUserQuery(
+            var response = await _sut.IsBookShelvedBy(
                 new BookId(bookFromDb.Id),
                 new UserId(userFromDb.Id));
-            var response = await _handler.Handle(request, new CancellationToken());
 
             Assert.False(response);
         }

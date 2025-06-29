@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Shared.Core.Extensions;
+﻿using Shared.Core.Extensions;
 using Shared.Core.Models;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Shelves;
