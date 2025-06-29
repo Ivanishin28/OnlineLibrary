@@ -2,7 +2,7 @@
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 
-namespace ShelfContext.Domain.Interfaces.Queries.IsShelfNameTakenByUser
+namespace ShelfContext.DL.Read.Queries.IsNameUniqueForUser
 {
     public class IsShelfNameTakenByUserQuery : IRequest<bool>
     {

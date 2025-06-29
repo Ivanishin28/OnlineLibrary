@@ -4,7 +4,7 @@ using Shared.Core.Models;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
-using ShelfContext.Domain.Interfaces.Queries.IsShelfNameTakenByUser;
+using ShelfContext.Domain.Interfaces.Queries;
 using ShelfContext.Domain.Interfaces.Repositories;
 using ShelfContext.Domain.Interfaces.Services;
 
@@ -13,14 +13,12 @@ namespace ShelfContext.Domain.Services
     public class ShelfNameCreationService : IShelfNameCreationService
     {
         private IUserRepository _userRepository;
-        private IMediator _mediator;
+        private IShelfNameUniquenessChecker _shelfNameChecker;
 
-        public ShelfNameCreationService(
-            IUserRepository userRepository,
-            IMediator mediator)
+        public ShelfNameCreationService(IUserRepository userRepository, IShelfNameUniquenessChecker shelfNameChecker)
         {
             _userRepository = userRepository;
-            _mediator = mediator;
+            _shelfNameChecker = shelfNameChecker;
         }
 
         public async Task<Result<ShelfName>> Create(UserId userId, string shelfName)
@@ -44,8 +42,7 @@ namespace ShelfContext.Domain.Services
                 return nameResult.ToFailure<ShelfName>();
             }
 
-            var query = new IsShelfNameTakenByUserQuery(nameResult.Model, userId);
-            var isShelfNameTaken = await _mediator.Send(query);
+            var isShelfNameTaken = await _shelfNameChecker.IsNameTakenBy(nameResult.Model, userId);
 
             if (isShelfNameTaken)
             {

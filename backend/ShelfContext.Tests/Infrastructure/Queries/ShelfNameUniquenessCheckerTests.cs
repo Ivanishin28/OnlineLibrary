@@ -5,19 +5,14 @@ using ShelfContext.DL.Read.Entities;
 using ShelfContext.DL.Read.Queries;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
-using ShelfContext.Domain.Interfaces.Queries.IsShelfNameTakenByUser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShelfContext.Domain.Interfaces.Queries;
 
 namespace ShelfContext.Tests.Infrastructure.Queries
 {
-    public class IsShelfNameTakenByUserQueryHandlerTests
+    public class ShelfNameUniquenessCheckerTests
     {
         private ShelfReadDbContext _db;
-        private IsShelfNameTakenByUserQueryHandler _handler;
+        private IShelfNameUniquenessChecker _sut;
 
         [SetUp]
         public void SetUp()
@@ -27,7 +22,8 @@ namespace ShelfContext.Tests.Infrastructure.Queries
                 .Options;
 
             _db = new ShelfReadDbContext(options);
-            _handler = new IsShelfNameTakenByUserQueryHandler(_db);
+            var handler = new IsShelfNameTakenByUserQueryHandler(_db);
+            _sut = new ShelfNameUniquenessChecker(handler);
         }
 
         [TearDown]
@@ -42,9 +38,7 @@ namespace ShelfContext.Tests.Infrastructure.Queries
             var userId = new UserId(Guid.NewGuid());
             var shelfName = GetTestShelfName();
 
-            var query = new IsShelfNameTakenByUserQuery(shelfName, userId);
-
-            var result = await _handler.Handle(query, new CancellationToken());
+            var result = await _sut.IsNameTakenBy(shelfName, userId);
 
             Assert.False(result);
         }
@@ -70,9 +64,7 @@ namespace ShelfContext.Tests.Infrastructure.Queries
 
             _db.SaveChanges();
 
-            var query = new IsShelfNameTakenByUserQuery(shelfName, new UserId(user.Id));
-
-            var result = await _handler.Handle(query, new CancellationToken());
+            var result = await _sut.IsNameTakenBy(shelfName, new UserId(user.Id));
 
             Assert.True(result);
         }
@@ -103,11 +95,9 @@ namespace ShelfContext.Tests.Infrastructure.Queries
 
             _db.SaveChanges();
 
-            var query = new IsShelfNameTakenByUserQuery(
+            var result = await _sut.IsNameTakenBy(
                 shelfName,
                 new UserId(userWithoutTakenName.Id));
-
-            var result = await _handler.Handle(query, new CancellationToken());
 
             Assert.False(result);
         }

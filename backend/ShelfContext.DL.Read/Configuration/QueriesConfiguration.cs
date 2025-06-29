@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ShelfContext.DL.Read.Queries;
-using ShelfContext.Domain.Interfaces.Queries.IsShelfNameTakenByUser;
+using ShelfContext.DL.Read.Queries.IsNameUniqueForUser;
 
 namespace ShelfContext.DL.Read.Configuration
 {

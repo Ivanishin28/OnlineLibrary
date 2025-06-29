@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ShelfContext.Domain.Interfaces.Queries.IsShelfNameTakenByUser;
+using ShelfContext.DL.Read.Queries.IsNameUniqueForUser;
 
 namespace ShelfContext.DL.Read.Queries
 {
