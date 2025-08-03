@@ -13,7 +13,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
     {
         Task<ShelvedBook> GetBy(ShelvedBookId id);
 
-        Task Add(ShelvedBook shelvedBook);
-        Task Remove(ShelvedBook shelvedBook);
+        void Add(ShelvedBook shelvedBook);
+        void Remove(ShelvedBook shelvedBook);
     }
 }

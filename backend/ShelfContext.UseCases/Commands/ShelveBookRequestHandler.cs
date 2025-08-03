@@ -40,7 +40,7 @@ namespace ShelfContext.UseCases.Commands
             }
 
             var shelvedBook = shelvedBookResult.Model;
-            await _shelvedBookRepository.Add(shelvedBook);
+            _shelvedBookRepository.Add(shelvedBook);
 
             await _unitOfWork.SaveChanges();
 
