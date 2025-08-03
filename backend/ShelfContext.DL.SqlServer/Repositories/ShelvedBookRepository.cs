@@ -15,7 +15,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
             _dbSet = db.ShelvedBooks;
         }
 
-        public async Task Add(ShelvedBook shelvedBook)
+        public void Add(ShelvedBook shelvedBook)
         {
             _dbSet.Add(shelvedBook);
         }
@@ -27,7 +27,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task Remove(ShelvedBook shelvedBook)
+        public void Remove(ShelvedBook shelvedBook)
         {
             _dbSet.Remove(shelvedBook);
         }

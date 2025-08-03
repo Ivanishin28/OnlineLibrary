@@ -1,4 +1,5 @@
-﻿using Shared.Core.Models;
+﻿using Shared.Core.Extensions;
+using Shared.Core.Models;
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.BookTags;
 using ShelfContext.Domain.Entities.Shelves;
@@ -56,6 +57,12 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
             _bookTags.Remove(tagToRemove);
 
             return Result.Success();
+        }
+
+        public void ReshelveTo(ShelfId shelfId)
+        {
+            ShelfId = shelfId;
+            DateShelved = TimeExtensions.Now();
         }
 
         public static ShelvedBook Create(ShelfId shelfId, BookId bookId)
