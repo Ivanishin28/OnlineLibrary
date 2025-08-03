@@ -10,14 +10,14 @@ namespace ShelfContext.Contract.Commands.ReshelveBook
 {
     public class ReshelveBookRequest : IResultRequest
     {
-        [JsonPropertyName("book_id")]
-        public Guid BookId { get; private set; }
+        [JsonPropertyName("shelved_book_id")]
+        public Guid ShelvedBookId { get; private set; }
         [JsonPropertyName("shelf_id")]
         public Guid ShelfId { get; private set; }
 
         public ReshelveBookRequest(Guid bookId, Guid shelfId)
         {
-            BookId = bookId;
+            ShelvedBookId = bookId;
             ShelfId = shelfId;
         }
     }
