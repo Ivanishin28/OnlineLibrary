@@ -23,7 +23,7 @@ namespace BookContext.DL.SqlServer.Repositories
             _dbSet.Remove(author);
         }
 
-        public async Task<Author> GetBy(Guid id)
+        public async Task<Author?> GetBy(Guid id)
         {
             return await _dbSet
                 .Where(author => author.Id == id)

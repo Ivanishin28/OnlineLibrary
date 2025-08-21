@@ -3,6 +3,7 @@ using BookContext.DL.Interfaces;
 using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
 using BookContext.Domain.ValueObjects;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NuGet.Frameworks;
 using System;
@@ -22,7 +23,7 @@ namespace BookContext.Tests.UseCases
         public async Task SetUp()
         {
             IServiceCollection services = new ServiceCollection();
-            services.RegisterBookContext(null);
+            services.RegisterBookContext(new ConfigurationBuilder().Build());
 
             var provider = services.BuildServiceProvider();
             
@@ -42,7 +43,7 @@ namespace BookContext.Tests.UseCases
                     DateOnly.FromDateTime(DateTime.Now));
 
             Assert.That(authorCreationResult.IsSuccess);
-            Assert.That(authorCreationResult.Model is not null);
+            Assert.NotNull(authorCreationResult);
 
             var author = authorCreationResult.Model;
             await _authorRepository.Add(author);

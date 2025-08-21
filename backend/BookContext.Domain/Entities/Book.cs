@@ -8,10 +8,10 @@ namespace BookContext.Domain.Entities
 {
     public class Book
     {
-        private List<BookAuthor> _bookAuthors;
+        private List<BookAuthor> _bookAuthors = null!;
 
         public Guid Id { get; private set; }
-        public string Title { get; private set; }
+        public string Title { get; private set; } = null!;
 
         public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.ToImmutableArray();
 

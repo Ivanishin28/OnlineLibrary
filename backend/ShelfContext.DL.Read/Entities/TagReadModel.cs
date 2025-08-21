@@ -10,10 +10,10 @@ namespace ShelfContext.DL.Read.Entities
     public class TagReadModel : ReadModel
     {
         public Guid UserId { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         public DateTime DateCreated { get; set; }
 
-        public UserReadModel User { get; set; }
-        public IEnumerable<BookTagReadModel> BookTags { get; set; }
+        public UserReadModel User { get; set; } = null!;
+        public IEnumerable<BookTagReadModel> BookTags { get; set; } = null!;
     }
 }

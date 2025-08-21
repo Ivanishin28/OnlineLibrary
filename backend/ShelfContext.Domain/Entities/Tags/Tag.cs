@@ -9,8 +9,8 @@ namespace ShelfContext.Domain.Entities.Tags
 {
     public class Tag
     {
-        public TagId Id { get; private set; }
-        public TagName Name { get; private set; }
+        public TagId Id { get; private set; } = null!;
+        public TagName Name { get; private set; } = null!;
         public DateTime DateCreated { get; private set; }
 
         private Tag() { }

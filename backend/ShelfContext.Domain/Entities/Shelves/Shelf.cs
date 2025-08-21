@@ -7,9 +7,9 @@ namespace ShelfContext.Domain.Entities.Shelves
 {
     public class Shelf
     {
-        public ShelfId Id { get; private set; }
-        public UserId UserId { get; private set; }
-        public ShelfName Name { get; private set; }
+        public ShelfId Id { get; private set; } = null!;
+        public UserId UserId { get; private set; } = null!;
+        public ShelfName Name { get; private set; } = null!;
         public DateTime DateCreated { get; private set; }
 
         private Shelf() { }

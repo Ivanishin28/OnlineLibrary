@@ -54,7 +54,7 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
 
             builder
                 .Metadata
-                .FindNavigation(bookTagsNavigation)
+                .FindNavigation(bookTagsNavigation)!
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }

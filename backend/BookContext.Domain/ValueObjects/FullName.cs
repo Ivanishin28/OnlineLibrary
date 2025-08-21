@@ -26,12 +26,9 @@ namespace BookContext.Domain.ValueObjects
         {
             var firstNameResult = NameComponent.Create(firstName);
             var lastNameResult = NameComponent.Create(lastName);
-            Result<NameComponent> middleNameResult = middleName is not null 
-                ? NameComponent.Create(middleName) 
-                : Result<NameComponent>.Success(null);
 
             var combinedResult = ResultExtensions
-                .Combine(firstNameResult, lastNameResult, middleNameResult);
+                .Combine(firstNameResult, lastNameResult);
 
             if(combinedResult.IsFailure)
             {
@@ -41,10 +38,10 @@ namespace BookContext.Domain.ValueObjects
             return new FullName(
                 firstNameResult.Model,
                 lastNameResult.Model,
-                middleNameResult.Model);
+                middleName is not null ? NameComponent.Create(middleName).Model : null);
         }
 
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected override IEnumerable<object?> GetEqualityComponents()
         {
             return [FirstName, LastName, MiddleName];
         }
