@@ -9,7 +9,7 @@ namespace BookContext.DL.Repositories
 {
     public interface IBookRepository
     {
-        Task<Book> GetBy(Guid id);
+        Task<Book?> GetBy(Guid id);
         Task Add(Book book);
         Task Delete(Book book);
     }

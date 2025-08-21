@@ -91,7 +91,7 @@ namespace ShelfContext.Tests.Domain.Services
             var nameResult = await _service.Create(userId, shelfName);
 
             Assert.True(nameResult.IsSuccess);
-            Assert.AreEqual(nameResult.Model.Value, shelfName);
+            Assert.That(nameResult.Model.Value, Is.EqualTo(shelfName));
         }
 
         private string GetValidShelfName(string nameEnding = "")

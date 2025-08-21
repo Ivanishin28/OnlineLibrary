@@ -11,7 +11,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
 {
     public interface IShelfRepository
     {
-        Task<Shelf> GetBy(ShelfId id);
+        Task<Shelf?> GetBy(ShelfId id);
 
         Task Add(Shelf shelf);
         Task Delete(Shelf shelf);

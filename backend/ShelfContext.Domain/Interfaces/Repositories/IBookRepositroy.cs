@@ -9,6 +9,6 @@ namespace ShelfContext.Domain.Interfaces.Repositories
 {
     public interface IBookRepositroy
     {
-        Task<Book> GetBy(BookId bookId);
+        Task<Book?> GetBy(BookId bookId);
     }
 }

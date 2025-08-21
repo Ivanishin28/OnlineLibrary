@@ -7,7 +7,7 @@ namespace BookContext.Domain.Entities
     public class Author
     {
         public Guid Id { get; private set; }
-        public FullName FullName { get; private set; }
+        public FullName FullName { get; private set; } = null!;
         public DateOnly BirthDate { get; private set; }
 
         private Author() { }

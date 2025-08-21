@@ -8,6 +8,6 @@ namespace ShelfContext.DL.Read.Entities
 {
     public class BookReadModel : ReadModel
     {
-        public ICollection<ShelvedBookReadModel> ShelvedBooks { get; set; }
+        public ICollection<ShelvedBookReadModel> ShelvedBooks { get; set; } = null!;
     }
 }

@@ -41,7 +41,7 @@ namespace BookContext.Domain.ValueObjects
             }
 
             var bookAuthor = _bookAuthors
-                .Find(bookAuthor => bookAuthor.Id == authorId);
+                .First(bookAuthor => bookAuthor.Id == authorId);
             _bookAuthors.Remove(bookAuthor);
         }
 

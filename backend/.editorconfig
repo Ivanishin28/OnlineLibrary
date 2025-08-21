@@ -1,0 +1,8 @@
+root = true
+
+[*.cs]
+
+# make field readonly
+dotnet_diagnostic.IDE0044.severity = none
+# primary constructor
+dotnet_diagnostic.IDE0290.severity = none

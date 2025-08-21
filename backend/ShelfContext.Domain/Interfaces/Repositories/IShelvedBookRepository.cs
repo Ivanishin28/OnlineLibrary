@@ -11,7 +11,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
 {
     public interface IShelvedBookRepository
     {
-        Task<ShelvedBook> GetBy(ShelvedBookId id);
+        Task<ShelvedBook?> GetBy(ShelvedBookId id);
 
         void Add(ShelvedBook shelvedBook);
         void Remove(ShelvedBook shelvedBook);

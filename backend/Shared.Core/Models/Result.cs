@@ -41,30 +41,43 @@ namespace Shared.Core.Models
 
     public class Result<T> : Result
     {
-        public T? Model { get; private set; }
+        private T? _model;
+        public T Model
+        {
+            get
+            {
+                if (IsFailure)
+                {
+                    throw new TryingAccessModelOfFailureException();
+                }
+
+                return _model!;
+            }
+        }
 
         public Result(params Error[] errors) : base(errors) { }
 
         public Result(T? value)
         {
-            Model = value;
+            _model = value;
         }
 
         public static Result<T> Success(T model)
         {
             return new Result<T>(model);
         }
-        public static Result<T> Failure(Error errors)
+
+        new public static Result<T> Failure(Error errors)
         {
             return new Result<T>(errors);
         }
 
-        public static Result<T> Failure(Error[] errors)
+        new public static Result<T> Failure(Error[] errors)
         {
             return new Result<T>(errors);
         }
 
-        public static Result<T> Failure(IEnumerable<Error> errors)
+        new public static Result<T> Failure(IEnumerable<Error> errors)
         {
             return new Result<T>(errors.ToArray());
         }

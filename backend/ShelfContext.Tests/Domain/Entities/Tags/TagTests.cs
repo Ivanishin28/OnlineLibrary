@@ -14,13 +14,14 @@ namespace ShelfContext.Tests.Domain.Entities.Tags
 
             Assert.That(tagNameResult.IsSuccess);
 
-            Result<Tag> tagResult = null;
+            Result<Tag>? tagResult = null;
 
             var range = TimeCaptureExtensions
                 .Capture(
                     () => tagResult = Tag.Create(tagNameResult.Model)
                 );
 
+            Assert.NotNull(tagResult);
             Assert.That(tagResult.IsSuccess);
             AssertExtensions.AssertInRange(range, tagResult.Model.DateCreated);
         }

@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+	<PropertyGroup>
+    <NoWarn>1998</NoWarn>
+	</PropertyGroup>
+</Project>

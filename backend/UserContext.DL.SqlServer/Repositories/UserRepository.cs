@@ -28,7 +28,7 @@ namespace UserContext.DL.SqlServer.Repositories
             _dbSet.Remove(userProfile);
         }
 
-        public async Task<User> GetBy(Guid id)
+        public async Task<User?> GetBy(Guid id)
         {
             return await _dbSet
                 .Where(profile => profile.Id == id)

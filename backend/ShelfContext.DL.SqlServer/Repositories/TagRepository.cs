@@ -23,7 +23,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
             _dbSet.Add(tag);
         }
 
-        public async Task<Tag> GetBy(TagId id)
+        public async Task<Tag?> GetBy(TagId id)
         {
             return await _dbSet
                 .Where(tag => tag.Id == id)
