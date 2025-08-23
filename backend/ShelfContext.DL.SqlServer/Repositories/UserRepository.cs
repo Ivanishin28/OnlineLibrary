@@ -24,7 +24,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
                 .AnyAsync(user => user.Id == userId);
         }
 
-        public async Task<User> GetBy(UserId userId)
+        public async Task<User?> GetBy(UserId userId)
         {
             return await _dbSet
                 .Where(user => user.Id == userId)

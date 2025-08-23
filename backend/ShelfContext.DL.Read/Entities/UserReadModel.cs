@@ -8,7 +8,7 @@ namespace ShelfContext.DL.Read.Entities
 {
     public class UserReadModel : ReadModel
     {
-        public ICollection<ShelfReadModel> Shelves { get; set; }
-        public ICollection<TagReadModel> Tags { get; set; }
+        public ICollection<ShelfReadModel> Shelves { get; set; } = null!;
+        public ICollection<TagReadModel> Tags { get; set; } = null!;
     }
 }

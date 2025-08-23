@@ -11,9 +11,9 @@ namespace ShelfContext.Domain.Entities.BookTags
 {
     public class BookTag
     {
-        public BookTagId Id { get; private set; }
-        public TagId TagId { get; private set; }
-        public ShelvedBookId ShelvedBookId { get; private set; }
+        public BookTagId Id { get; private set; } = null!;
+        public TagId TagId { get; private set; } = null!;
+        public ShelvedBookId ShelvedBookId { get; private set; } = null!;
         public DateTime DateAdded { get; private set; }
 
         private BookTag() { }

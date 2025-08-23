@@ -20,7 +20,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
             _dbSet.Add(shelvedBook);
         }
 
-        public async Task<ShelvedBook> GetBy(ShelvedBookId id)
+        public async Task<ShelvedBook?> GetBy(ShelvedBookId id)
         {
             return await GetShelvedBookAggregate()
                 .Where(shelvedBook => shelvedBook.Id == id)

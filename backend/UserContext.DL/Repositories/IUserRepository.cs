@@ -12,6 +12,6 @@ namespace UserContext.DL.Repositories
         Task Add(User user);
         Task Delete(User user);
 
-        Task<User> GetBy(Guid id);
+        Task<User?> GetBy(Guid id);
     }
 }

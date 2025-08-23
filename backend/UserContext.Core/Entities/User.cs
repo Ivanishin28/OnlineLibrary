@@ -13,8 +13,8 @@ namespace UserContext.Domain.Entities
         public const int MAX_NAME_LENGTH = 32;
 
         public Guid Id { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
+        public string FirstName { get; private set; } = null!;
+        public string LastName { get; private set; } = null!;
         public DateOnly BirthDate { get; private set; }
 
         private User() { }

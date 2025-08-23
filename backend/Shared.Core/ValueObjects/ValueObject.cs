@@ -10,16 +10,21 @@ namespace Shared.Core.ValueObjects
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)
         {
-            if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+            if (left is null && right is null)
+            {
+                return true;
+            }
+            else if (left is null || right is null)
             {
                 return false;
             }
+
             return ReferenceEquals(left, right) || left.Equals(right);
         }
 
-        protected abstract IEnumerable<object> GetEqualityComponents();
+        protected abstract IEnumerable<object?> GetEqualityComponents();
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || obj.GetType() != GetType())
             {

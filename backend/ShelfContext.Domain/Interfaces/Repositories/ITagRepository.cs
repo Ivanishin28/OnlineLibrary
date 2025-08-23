@@ -9,7 +9,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
 {
     public interface ITagRepository
     {
-        Task<Tag> GetBy(TagId id);
+        Task<Tag?> GetBy(TagId id);
         
         Task Add(Tag tag);
         Task Remove(Tag tag);

@@ -21,7 +21,7 @@ namespace BookContext.Domain.ValueObjects
             Value = value;
         }
 
-        public static Result<NameComponent> Create(string value)
+        public static Result<NameComponent> Create(string? value)
         {
             if (String.IsNullOrEmpty(value) || value.Length > AuthorConstants.MAX_NAME_COMPONENT_LENGTH)
             {
@@ -44,7 +44,7 @@ namespace BookContext.Domain.ValueObjects
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            return new object[] { Value };
+            return [Value];
         }
     }
 }
