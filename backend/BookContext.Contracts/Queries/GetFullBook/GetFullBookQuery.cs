@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookContext.Contract.Queries.GetBook
 {
-    public record GetBookQuery(Guid BookId) : IRequest<BookDto>
+    public record GetFullBookQuery(Guid BookId) : IRequest<FullBookDto?>
     {
     }
 }

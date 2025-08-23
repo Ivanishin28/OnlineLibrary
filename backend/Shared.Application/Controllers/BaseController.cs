@@ -35,5 +35,12 @@ namespace Shared.Application.Controllers
 
             return Ok(apiResponse);
         }
+
+        protected IActionResult Success<T>(T model)
+        {
+            var apiResponse = new ApiResponse<T>(model, Array.Empty<Error>());
+
+            return Ok(apiResponse);
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace BookContext.DL.Read
         public DbSet<AuthorReadModel> Authors { get; set; }
         public DbSet<BookAuthorReadModel> BookAuthors { get; set; }
 
-        public BookReadDbContext(DbContextOptions options) : base(options)
+        public BookReadDbContext(DbContextOptions<BookReadDbContext> options) : base(options)
         {
         }
 

@@ -1,8 +1,10 @@
 ﻿using BookContext.Contract.Commands.CreateBook;
 using BookContext.Contract.Commands.UpdateBook;
+using BookContext.Contract.Queries.GetBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Controllers;
+using Shared.Core.Models;
 using System.Text.Json.Serialization;
 
 namespace BookContext.Application.Controllers
@@ -30,6 +32,16 @@ namespace BookContext.Application.Controllers
             var result = await _metiator.Send(request);
 
             return FromResult(result);
+        }
+
+        [HttpPost("full/{id}")]
+        public async Task<IActionResult> GetFull(Guid id)
+        {
+            var query = new GetFullBookQuery(id);
+
+            var book = await _metiator.Send(query);
+
+            return Success(book);
         }
     }
 }
