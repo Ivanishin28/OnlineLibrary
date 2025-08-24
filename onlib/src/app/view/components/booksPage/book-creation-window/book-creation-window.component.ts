@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -7,11 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Button } from "primeng/button";
+import { Button } from 'primeng/button';
+import { BookCreation } from '../../../../business/models/books/bookCreation';
 
 @Component({
   selector: 'book-creation-window',
-  imports: [ReactiveFormsModule, JsonPipe, Button],
+  imports: [CommonModule, ReactiveFormsModule, JsonPipe, Button],
   templateUrl: './book-creation-window.component.html',
   styleUrl: './book-creation-window.component.scss',
 })
@@ -25,10 +26,12 @@ export class BookCreationWindowComponent {
   }
 
   public submit(): void {
-    console.log('submit');
-
     if (this.form.invalid) {
       return;
     }
+
+    const book = new BookCreation(this.form.value.title);
+
+    this.ref.close(book);
   }
 }

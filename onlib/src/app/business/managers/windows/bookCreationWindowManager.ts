@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BookCreationWindowComponent } from '../../../view/components/booksPage/book-creation-window/book-creation-window.component';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Result } from '../../models/_shared/result';
-import { BookPreview } from '../../models/books/bookPreview';
+import { CreateBookRequest } from '../../models/books/createBookRequest';
+import { BookService } from '../../services/books/book.service';
+import { BookCreation } from '../../models/books/bookCreation';
 
 @Injectable()
 export class BookCreationWindowManager {
-  constructor(private dialog: DialogService) {}
+  constructor(
+    private dialog: DialogService,
+    private bookService: BookService
+  ) {}
 
   public create(): Observable<Result<void>> {
     const ref = this.dialog.open(BookCreationWindowComponent, {
@@ -16,9 +21,10 @@ export class BookCreationWindowManager {
       header: 'Create Book',
     });
     return ref.onClose.pipe(
-      filter((output: BookPreview | undefined) => !!output),
-      map((output: BookPreview) => {
-        return Result.success<void>(void 0);
+      filter((output: BookCreation | undefined) => !!output),
+      switchMap((output: BookCreation) => {
+        const request = new CreateBookRequest(output.title);
+        return this.bookService.create(request);
       })
     );
   }

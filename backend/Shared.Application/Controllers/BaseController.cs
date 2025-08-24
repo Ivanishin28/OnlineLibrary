@@ -26,14 +26,22 @@ namespace Shared.Application.Controllers
 
         protected IActionResult FromResult<T>(Result<T> result)
         {
-            var apiResponse = new ApiResponse<T>(result.Model, result.Errors.ToArray());
-
             if(result.IsFailure)
             {
+                var apiResponse = new ApiResponse<T>(
+                    default,
+                    result.Errors.ToArray());
+
                 return BadRequest(apiResponse);
             }
+            else
+            {
+                var apiResponse = new ApiResponse<T>(
+                    result.Model, 
+                    Array.Empty<Error>());
 
-            return Ok(apiResponse);
+                return Ok(apiResponse);
+            }
         }
 
         protected IActionResult Success<T>(T model)

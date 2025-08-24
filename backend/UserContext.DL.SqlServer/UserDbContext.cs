@@ -14,7 +14,7 @@ namespace UserContext.DL.SqlServer
     {
         public DbSet<User> Users { get; set; }
 
-        public UserDbContext(DbContextOptions options) : base(options) { }
+        public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

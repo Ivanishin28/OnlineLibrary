@@ -4,7 +4,12 @@ import { map, Observable } from 'rxjs';
 import { BookPreview } from '../../models/books/bookPreview';
 import { environment } from '../../../environments/environment';
 import { ApiResult } from '../../models/_shared/apiResult';
-import { fromApiResult } from '../mappings/fromApiResult';
+import {
+  resultFromApiResult,
+  valueFromApiResult,
+} from '../mappings/fromApiResult';
+import { CreateBookRequest } from '../../models/books/createBookRequest';
+import { Result } from '../../models/_shared/result';
 
 @Injectable()
 export class BookService {
@@ -17,6 +22,14 @@ export class BookService {
 
     return this.http
       .get<ApiResult<BookPreview[]>>(url)
-      .pipe(map((api) => fromApiResult(api)));
+      .pipe(map((api) => valueFromApiResult(api)));
+  }
+
+  public create(request: CreateBookRequest): Observable<Result<void>> {
+    const url = `${environment.api_main}/${this.COMPONENT}/create`;
+
+    return this.http
+      .post<ApiResult<void>>(url, request)
+      .pipe(map((api) => resultFromApiResult(api)));
   }
 }
