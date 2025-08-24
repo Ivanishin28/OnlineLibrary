@@ -1,1 +1,9 @@
-<p>book-creation-window works!</p>
+<div class="layout">
+  <div class="content">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <input formControlName="title" />
+      <p>{{ form.value | json }}</p>
+      <p-button type="submit">Submit</p-button>
+    </form>
+  </div>
+</div>
