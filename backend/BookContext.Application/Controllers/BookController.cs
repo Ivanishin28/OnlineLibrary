@@ -1,5 +1,6 @@
 ﻿using BookContext.Contract.Commands.CreateBook;
 using BookContext.Contract.Commands.UpdateBook;
+using BookContext.Contract.Queries.GetAllBooks;
 using BookContext.Contract.Queries.GetBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,16 @@ namespace BookContext.Application.Controllers
         public BookController(IMediator metiator)
         {
             _metiator = metiator;
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> All()
+        {
+            var request = new GetAllBooksQuery();
+
+            var result = await _metiator.Send(request);
+
+            return Success(result);
         }
 
         [HttpPost("create")]
