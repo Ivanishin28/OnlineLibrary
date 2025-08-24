@@ -19,10 +19,10 @@ namespace Shared.Application.Models
 
     public class ApiResponse<T>
     {
-        public T Data { get; private set; }
+        public T? Data { get; private set; }
         public Error[] Errors { get; private set; }
         
-        public ApiResponse(T data, Error[] errors)
+        public ApiResponse(T? data, Error[] errors)
         {
             Data = data;
             Errors = errors;

@@ -15,7 +15,7 @@ namespace BookContext.DL.SqlServer
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
 
-        public BookDbContext(DbContextOptions options) : base(options) { }
+        public BookDbContext(DbContextOptions<BookDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

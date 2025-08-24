@@ -23,7 +23,7 @@ namespace ShelfContext.DL.SqlServer
         public DbSet<ShelvedBook> ShelvedBooks { get; private set; }
         public DbSet<BookTag> BookTags { get; private set; }
 
-        public ShelfDbContext(DbContextOptions options) : base(options)
+        public ShelfDbContext(DbContextOptions<ShelfDbContext> options) : base(options)
         {
         }
 

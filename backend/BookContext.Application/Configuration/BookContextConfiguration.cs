@@ -1,14 +1,9 @@
 ﻿using BookContext.Application.Controllers;
+using BookContext.DL.Read.Configuration;
 using BookContext.DL.SqlServer.Configuration;
-using BookContext.UseCases.Configuration;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookContext.Application.Configuration
 {
@@ -20,6 +15,7 @@ namespace BookContext.Application.Configuration
         {
             services
                 .RegisterRepositories()
+                .RegisterReadDbContext()
                 .RegisterDbContext()
                 .RegisterUseCases();
 

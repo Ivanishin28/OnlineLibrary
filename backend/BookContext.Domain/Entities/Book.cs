@@ -36,11 +36,6 @@ namespace BookContext.Domain.Entities
                 Result.Failure(BookErrors.DifferentBookAuthor);
             }
 
-            if(authorsOfABook.BookAuthors.Count() == 0)
-            {
-                Result.Failure(BookErrors.EmptyAuthorList);
-            }
-
             _bookAuthors.Clear();
             _bookAuthors.AddRange(authorsOfABook.BookAuthors);
 
@@ -54,11 +49,6 @@ namespace BookContext.Domain.Entities
             if(String.IsNullOrEmpty(title))
             {
                 return Result<Book>.Failure(BookErrors.EmptyTitle);
-            }
-
-            if(authorIds.Count() == 0)
-            {
-                return Result<Book>.Failure(BookErrors.EmptyAuthorList);
             }
 
             if(authorIds.AllUnique())
