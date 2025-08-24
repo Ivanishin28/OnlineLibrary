@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BookPreview } from '../../../../business/models/books/bookPreview';
 
 @Component({
   selector: 'book-preview',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './book-preview.component.html',
   styleUrl: './book-preview.component.scss',
 })
-export class BookPreviewComponent {}
+export class BookPreviewComponent {
+  @Input({ required: true }) book!: BookPreview;
+}

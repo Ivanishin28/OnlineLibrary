@@ -1,1 +1,6 @@
 <navbar></navbar>
+<ul class="book-list">
+  <li *ngFor="let item of books" class="item">
+    <book-preview [book]="item"></book-preview>
+  </li>
+</ul>
