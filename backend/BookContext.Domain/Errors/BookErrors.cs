@@ -6,9 +6,6 @@ namespace BookContext.Domain.Errors
     {
         private static ErrorBuilder _error = new ErrorBuilder("Book");
 
-        public static readonly Error EmptyAuthorList 
-            = _error.BuildError("Authors.Empty", "EmptyAuthorList");
-
         public static readonly Error DuplicateAuthors 
             = _error.BuildError("Authors.Duplicates", "DuplicateAuthors");
 
