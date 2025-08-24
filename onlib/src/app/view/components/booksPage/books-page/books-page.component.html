@@ -1,4 +1,5 @@
 <navbar></navbar>
+<button (click)="createBook()">Create book</button>
 <ul class="book-list">
   <li *ngFor="let item of books" class="item">
     <book-preview [book]="item"></book-preview>
