@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +11,13 @@ namespace IdentityContext.DL.Entities.ApplicationUser
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
-        public ProfileCreationStatus Status { get; private set; }
+        public ProfileCreationStatus Status { get; private set; } = ProfileCreationStatus.Pending;
 
-        public ApplicationUser() : base()
+        public ApplicationUser() : base() { }
+
+        public void CompleteRegistration()
         {
-            Status = ProfileCreationStatus.Pending;
+            Status = ProfileCreationStatus.Completed;
         }
     }
 }
