@@ -1,4 +1,4 @@
-﻿using IdentityContext.Contracts.Commands;
+﻿using IdentityContext.Contracts.Commands.Register;
 using MediatR;
 using Shared.Core.Models;
 using System;

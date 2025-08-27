@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IdentityContext.DL.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,11 @@ namespace IdentityContext.DL.Entities.ApplicationUser
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
-        public string FirstName { get; set; } = null!;
-        public string LastName { get; set; } = null!;
-        public DateOnly BirthDate { get; set; }
+        public ProfileCreationStatus Status { get; private set; }
 
-        public ApplicationUser() : base() { }
-
-        public ApplicationUser(string login, string firstName, string lastName, DateOnly birthDate) : base(login)
+        public ApplicationUser() : base()
         {
-            FirstName = firstName;
-            LastName = lastName;
-            BirthDate = birthDate;
+            Status = ProfileCreationStatus.Pending;
         }
     }
 }
