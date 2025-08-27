@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IdentityContext.Application.Configuration
 {
-    internal static class IdentityConfiguration
+    public static class IdentityConfiguration
     {
         public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
         {

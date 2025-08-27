@@ -9,7 +9,7 @@ namespace IdentityContext.Application.Configuration
         public static IServiceCollection RegisterIdentityContext(this IServiceCollection services)
         {
             services
-                .RegisterDbContext()
+                .RegisterDataLayer()
                 .RegisterUseCases();
 
             return services;
