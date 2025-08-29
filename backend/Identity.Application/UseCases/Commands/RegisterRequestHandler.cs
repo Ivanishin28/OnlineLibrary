@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using IdentityContext.Application.Errors;
 using IdentityContext.Contracts.Commands.Register;
 using IdentityContext.DL.Entities.ApplicationUser;
 using IdentityContext.DL.Extensions;
@@ -25,7 +26,7 @@ namespace IdentityContext.Application.UseCases.Commands
         {
             if (await _checker.IsEmailTaken(request.Email) || await _checker.IsLoginTaken(request.Login))
             {
-                return Result<Guid>.Failure(new Error("", ""));
+                return Result<Guid>.Failure(ApplicationUserErrors.UNIQUE_IDENTITY);
             }
 
             var user = new ApplicationUser()

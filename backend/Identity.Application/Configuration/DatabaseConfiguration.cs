@@ -1,5 +1,6 @@
 ﻿using IdentityContext.DL;
 using IdentityContext.DL.Concrete;
+using IdentityContext.DL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +17,7 @@ namespace IdentityContext.Application.Configuration
 
         internal static IServiceCollection RegisterDbQueries(this IServiceCollection services)
         {
-            services.AddTransient<IdentityChecker, IdentityChecker>();
+            services.AddTransient<IIdentityChecker, IdentityChecker>();
 
             return services;
         }

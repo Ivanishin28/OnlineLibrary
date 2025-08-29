@@ -20,8 +20,19 @@ namespace IdentityContext.DL
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<ApplicationUser>()
+            var user = builder
+                .Entity<ApplicationUser>();
+
+            user
                 .ToTable("ApplicationUser");
+
+            user
+                .HasIndex(x => x.Email)
+                .IsUnique();
+
+            user
+                .HasIndex(x => x.UserName)
+                .IsUnique();
         }
     }
 }

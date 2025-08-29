@@ -1,4 +1,5 @@
-﻿using IdentityContext.DL.Entities.ApplicationUser;
+﻿using IdentityContext.DL;
+using IdentityContext.DL.Entities.ApplicationUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,10 +14,12 @@ namespace IdentityContext.Application.Configuration
     {
         public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+            services.AddIdentityCore<ApplicationUser>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-            });
+            })
+            .AddRoles<IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
 
             return services;
         }
