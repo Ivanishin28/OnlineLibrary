@@ -12,9 +12,9 @@ namespace IdentityContext.Contracts.Commands.Register
         [JsonPropertyName("password")]
         public string Password { get; private set; }
 
-        public RegisterRequest(string login, string emial, string password)
+        public RegisterRequest(string login, string email, string password)
         {
-            Email = emial;
+            Email = email;
             Password = password;
             Login = login;
         }

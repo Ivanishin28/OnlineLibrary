@@ -21,6 +21,10 @@ export class NavbarComponent {
         label: 'Register',
         routerLink: 'account/register',
       },
+      {
+        label: 'Login',
+        routerLink: 'account/login',
+      },
     ];
   }
 }

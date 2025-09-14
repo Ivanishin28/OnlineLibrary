@@ -1,5 +1,5 @@
 <div class="layout">
-  <form [formGroup]="form" autocomplete="off">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <div *ngIf="form.controls.login as login" class="form-group">
       <label for="login">Login</label>
       <input
@@ -9,7 +9,7 @@
         class="form-control"
         type="text"
       />
-      <div *ngIf="login.invalid && login.touched" class="validation-message">
+      <div *ngIf="login.invalid && login.dirty" class="validation-message">
         <p>Invalid</p>
       </div>
     </div>
@@ -23,7 +23,7 @@
         class="form-control"
         type="text"
       />
-      <div *ngIf="email.invalid && email.touched" class="validation-message">
+      <div *ngIf="email.invalid && email.dirty" class="validation-message">
         <p>Invalid</p>
       </div>
     </div>
@@ -37,11 +37,17 @@
         type="text"
       />
       <div
-        *ngIf="password.invalid && password.touched"
+        *ngIf="password.invalid && password.dirty"
         class="validation-message"
       >
         <p>Invalid</p>
       </div>
     </div>
+
+    <div *ngIf="errorMessage" class="validation-summary">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <button type="submit">Register</button>
   </form>
 </div>

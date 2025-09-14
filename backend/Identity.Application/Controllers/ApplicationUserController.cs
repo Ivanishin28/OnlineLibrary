@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IdentityContext.Contracts.Commands.Register;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Controllers;
 
 namespace IdentityContext.Application.Controllers
@@ -6,9 +8,19 @@ namespace IdentityContext.Application.Controllers
     [Route("api/identity/[controller]")]
     public class ApplicationUserController : BaseController
     {
-        public async Task<IActionResult> Register()
+        private IMediator _mediator;
+
+        public ApplicationUserController(IMediator mediator)
         {
-            return Ok("");
+            _mediator = mediator;
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(RegisterRequest request)
+        {
+            var result = await _mediator.Send(request);
+
+            return FromResult(result);
         }
     }
 }
