@@ -15,7 +15,11 @@ export class NavbarComponent {
     this.items = [
       {
         label: 'Books',
-        routerLink: '',
+        routerLink: 'books',
+      },
+      {
+        label: 'Register',
+        routerLink: 'account/register',
       },
     ];
   }

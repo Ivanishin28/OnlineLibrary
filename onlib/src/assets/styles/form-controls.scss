@@ -1,0 +1,10 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  .validation-message {
+    p {
+      color: red;
+    }
+  }
+}

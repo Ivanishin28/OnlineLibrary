@@ -11,7 +11,6 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
   selector: 'books-page',
   standalone: true,
   imports: [
-    NavbarComponent,
     CommonModule,
     BookPreviewComponent,
     DynamicDialogModule,

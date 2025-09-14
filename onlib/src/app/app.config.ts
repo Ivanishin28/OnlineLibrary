@@ -5,6 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { LaraLightBlue } from '../assets/theme';
+import { StorageService } from './business/services/_shared/storage.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +22,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    
+    StorageService,
   ],
 };
