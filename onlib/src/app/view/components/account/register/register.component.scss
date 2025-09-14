@@ -1,0 +1,13 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  padding: 25px;
+}
+
+.validation-summary {
+  p {
+    color: red;
+  }
+}
