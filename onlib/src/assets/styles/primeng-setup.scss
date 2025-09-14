@@ -1,0 +1,9 @@
+p-password {
+  > div.p-password {
+    width: 100% !important;
+
+    > input.p-password-input {
+      width: 100% !important;
+    }
+  }
+}
