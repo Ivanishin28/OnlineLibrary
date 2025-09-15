@@ -1,0 +1,5 @@
+<ul *ngIf="errors" class="validation-summary">
+  <li *ngFor="let error of errors" class="validation-message">
+    <p>{{ error.message }}</p>
+  </li>
+</ul>

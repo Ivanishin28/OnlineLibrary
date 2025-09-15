@@ -14,6 +14,7 @@ import { AuthService } from '../../../../business/services/auth/authService';
 import { Result } from '../../../../business/models/_shared/result';
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
 import { Router, RouterModule } from '@angular/router';
+import { ValidationSummaryComponent } from "../../_shared/validation-summary/validation-summary.component";
 
 @Component({
   standalone: true,
@@ -25,7 +26,8 @@ import { Router, RouterModule } from '@angular/router';
     InputTextModule,
     PasswordModule,
     RouterModule,
-  ],
+    ValidationSummaryComponent
+],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -36,7 +38,7 @@ export class RegisterComponent {
     password: FormControl<string | null>;
   }>;
 
-  public errorMessage: string | undefined;
+  public error: Result<void> | undefined;
 
   constructor(
     private authService: AuthService,
@@ -81,7 +83,7 @@ export class RegisterComponent {
   }
 
   public showError(failure: Result<void>): void {
-    this.errorMessage = failure.errorMessage;
+    this.error = failure;
   }
 
   public navigateToLogin(): void {

@@ -44,9 +44,7 @@
       </div>
     </div>
 
-    <div *ngIf="errorMessage" class="validation-summary">
-      <p>{{ errorMessage }}</p>
-    </div>
+    <app-validation-summary [errors]="error?.errors"></app-validation-summary>
 
     <button type="submit">Register</button>
   </form>
