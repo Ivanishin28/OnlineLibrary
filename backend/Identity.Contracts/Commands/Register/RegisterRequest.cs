@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace IdentityContext.Contracts.Commands.Register
 {
-    public record RegisterRequest : IResultRequest<Guid>
+    public record RegisterRequest : IResultRequest<Guid?>
     {
         [JsonPropertyName("login")]
         public string Login { get; private set; }

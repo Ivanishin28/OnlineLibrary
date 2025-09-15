@@ -32,7 +32,7 @@ namespace Shared.Application.Controllers
                     default,
                     result.Errors.ToArray());
 
-                return BadRequest(apiResponse);
+                return Ok(apiResponse);
             }
             else
             {

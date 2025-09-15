@@ -2,11 +2,6 @@
 using IdentityContext.DL.Entities.ApplicationUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityContext.Application.Configuration
 {
@@ -17,11 +12,21 @@ namespace IdentityContext.Application.Configuration
             services.AddIdentityCore<ApplicationUser>(options =>
             {
                 options.User.RequireUniqueEmail = true;
+                options.Password.DisableRequirements();
             })
             .AddRoles<IdentityRole<Guid>>()
             .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
 
             return services;
+        }
+
+        private static void DisableRequirements(this PasswordOptions options)
+        {
+            options.RequireDigit = false;
+            options.RequireLowercase = false;
+            options.RequireUppercase = false;
+            options.RequireNonAlphanumeric = false;
+            options.RequireDigit = false;
         }
     }
 }

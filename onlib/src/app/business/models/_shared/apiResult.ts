@@ -1,4 +1,6 @@
+import { ApiError } from './apiError';
+
 export interface ApiResult<T> {
   data: T;
-  errors: string[];
+  errors: ApiError[];
 }

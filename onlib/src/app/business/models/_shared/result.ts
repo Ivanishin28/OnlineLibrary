@@ -1,7 +1,9 @@
+import { BusinessError } from './businessError';
+
 export class Result<T> {
   private constructor(
     private readonly _value?: T,
-    private readonly _errors: string[] = []
+    private readonly _errors: BusinessError[] = []
   ) {}
 
   public get value(): T {
@@ -11,12 +13,12 @@ export class Result<T> {
     return this._value!;
   }
 
-  public get errors(): string[] {
-    return this._errors;
+  public get errors(): BusinessError[] {
+    return [...this._errors];
   }
 
   public get errorMessage(): string {
-    return this._errors.join(' ');
+    return this._errors.map((x) => x.message).join(' ');
   }
 
   public get isSuccess(): boolean {
@@ -27,7 +29,7 @@ export class Result<T> {
     return new Result(value);
   }
 
-  public static failure<T>(errors: string[]): Result<T> {
+  public static failure<T>(errors: BusinessError[]): Result<T> {
     return new Result<T>(undefined, errors);
   }
 }

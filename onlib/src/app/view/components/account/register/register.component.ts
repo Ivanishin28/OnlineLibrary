@@ -71,10 +71,11 @@ export class RegisterComponent {
         password: this.form.value.password!,
       })
       .subscribe((result) => {
+        console.log(result);
         if (result.isSuccess) {
-          this.showError(result);
-        } else {
           this.navigateToLogin();
+        } else {
+          this.showError(result);
         }
       });
   }

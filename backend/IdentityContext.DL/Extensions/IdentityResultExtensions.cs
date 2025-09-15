@@ -19,7 +19,7 @@ namespace IdentityContext.DL.Extensions
 
             var error = new Error(
                 "Identity", 
-                String.Join('.', identityResult.Errors));
+                String.Join('.', identityResult.Errors.Select(x => x.Description)));
 
             return Result.Failure(error);
         }
