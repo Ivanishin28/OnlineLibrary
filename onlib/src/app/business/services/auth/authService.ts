@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { ApiResult } from '../../models/_shared/apiResult';
 import { resultFromApiResult } from '../mappings/fromApiResult';
 import { RegisterRequest } from '../../models/identity/registerRequest';
+import { LoginRequest } from '../../models/identity/loginRequest';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,14 @@ export class AuthService {
 
   public register(request: RegisterRequest): Observable<Result<void>> {
     const url = `${environment.api_main}/${this.COMPONENT}/register`;
+
+    return this.http
+      .post<ApiResult<void>>(url, request)
+      .pipe(map((apiResult) => resultFromApiResult(apiResult)));
+  }
+
+  public login(request: LoginRequest): Observable<Result<void>> {
+    const url = `${environment.api_main}/${this.COMPONENT}/login`;
 
     return this.http
       .post<ApiResult<void>>(url, request)
