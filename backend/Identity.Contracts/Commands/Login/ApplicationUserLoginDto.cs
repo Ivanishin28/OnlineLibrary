@@ -10,14 +10,11 @@ namespace IdentityContext.Contracts.Commands.Login
         public string Login { get; private set; }
         [JsonPropertyName("user_id")]
         public Guid ApplicationUserId { get; private set; }
-        [JsonPropertyName("is_registration_complete")]
-        public bool IsRegistrationComplete { get; private set; }
-        public ApplicationUserLoginDto(string email, string login, Guid applicationUserId, bool isRegistrationComplete)
+        public ApplicationUserLoginDto(string email, string login, Guid applicationUserId)
         {
             Email = email;
             Login = login;
             ApplicationUserId = applicationUserId;
-            IsRegistrationComplete = isRegistrationComplete;
         }
     }
 }
