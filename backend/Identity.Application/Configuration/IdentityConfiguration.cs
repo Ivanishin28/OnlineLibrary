@@ -15,7 +15,8 @@ namespace IdentityContext.Application.Configuration
                 options.Password.DisableRequirements();
             })
             .AddRoles<IdentityRole<Guid>>()
-            .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
+            .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+            .AddSignInManager();
 
             return services;
         }

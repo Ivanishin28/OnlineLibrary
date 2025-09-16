@@ -13,9 +13,11 @@ services
 services
     .RegisterSwagger();
 
-services.AddEndpointsApiExplorer();
+services
+    .AddEndpointsApiExplorer();
 
 services
+    .RegisterHostServices()
     .RegisterModuleServices(config);
 
 var app = builder.Build();
@@ -34,6 +36,7 @@ app
         .AllowCredentials());
 
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
