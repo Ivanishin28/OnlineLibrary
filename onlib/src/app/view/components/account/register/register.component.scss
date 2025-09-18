@@ -5,3 +5,15 @@ form {
 
   padding: 25px;
 }
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

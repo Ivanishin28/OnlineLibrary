@@ -1,5 +1,6 @@
 
 using Host.WebApi.Configuration;
+using Host.WebApi.Web.JsonConverters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,11 @@ var services = builder.Services;
 
 services
     .AddControllers()
-    .AddModuleControllers();
+    .AddModuleControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    });
 
 services
     .RegisterSwagger();

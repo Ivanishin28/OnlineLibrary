@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -14,7 +14,8 @@ import { AuthService } from '../../../../business/services/auth/authService';
 import { Result } from '../../../../business/models/_shared/result';
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
 import { Router, RouterModule } from '@angular/router';
-import { ValidationSummaryComponent } from "../../_shared/validation-summary/validation-summary.component";
+import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   standalone: true,
@@ -26,16 +27,20 @@ import { ValidationSummaryComponent } from "../../_shared/validation-summary/val
     InputTextModule,
     PasswordModule,
     RouterModule,
-    ValidationSummaryComponent
-],
+    ValidationSummaryComponent,
+    DatePickerModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
-  public form: FormGroup<{
+export class RegisterComponent implements OnInit {
+  public form!: FormGroup<{
     login: FormControl<string | null>;
     email: FormControl<string | null>;
     password: FormControl<string | null>;
+    firstName: FormControl<string | null>;
+    lastName: FormControl<string | null>;
+    birthDate: FormControl<Date | null>;
   }>;
 
   public error: Result<void> | undefined;
@@ -43,10 +48,11 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private builder: FormBuilder
+  ) {}
 
-    builder: FormBuilder
-  ) {
-    this.form = builder.group({
+  public ngOnInit(): void {
+    this.form = this.builder.group({
       login: new FormControl('', {
         validators: [Validators.required],
       }),
@@ -56,6 +62,11 @@ export class RegisterComponent {
       password: new FormControl('', {
         validators: [Validators.required],
       }),
+      birthDate: new FormControl<Date | null>(null, {
+        validators: [Validators.required],
+      }),
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
     });
   }
 
@@ -71,6 +82,9 @@ export class RegisterComponent {
         login: this.form.value.login!,
         email: this.form.value.email!,
         password: this.form.value.password!,
+        first_name: this.form.value.firstName!,
+        last_name: this.form.value.lastName!,
+        birth_date: this.form.value.birthDate!,
       })
       .subscribe((result) => {
         console.log(result);
