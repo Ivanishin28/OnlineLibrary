@@ -1,0 +1,26 @@
+<div class="layout">
+  <form>
+    <div class="controls">
+      <div *ngIf="form.controls.name as control" class="form-group">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          pInputText
+          [formControl]="control"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="validation-message"
+        >
+          <p>Invalid</p>
+        </div>
+      </div>
+    </div>
+
+    <app-validation-summary [errors]="[]"></app-validation-summary>
+
+    <button type="submit"></button>
+  </form>
+</div>
