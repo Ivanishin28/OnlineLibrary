@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable, tap } from 'rxjs';
 import { AccountService } from './account.service';
 import { StorageService } from '../_shared/storage.service';
 import { LoginRequest } from '../../models/identity/loginRequest';
@@ -15,6 +15,9 @@ export class AuthService {
 
   public readonly userId$: Observable<string | undefined> =
     this.userId.asObservable();
+  public readonly loggedUserId$: Observable<string> = this.userId.pipe(
+    map((x) => x!)
+  );
 
   constructor(
     private accountService: AccountService,
@@ -32,6 +35,10 @@ export class AuthService {
         this.userId.next(result.value.user_id);
       })
     );
+  }
+
+  public setUserId(userId: string): void {
+    this.userId.next(userId);
   }
 
   public logout(): void {
