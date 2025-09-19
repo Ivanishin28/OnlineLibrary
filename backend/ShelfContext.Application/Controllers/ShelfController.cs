@@ -36,7 +36,7 @@ namespace ShelfContext.Application.Controllers
             return FromResult(response);
         }
 
-        [HttpPost("user/{userId}")]
+        [HttpGet("user/{userId}")]
         public async Task<IActionResult> Get(Guid userId)
         {
             var query = new GetShelvesByUserIdRequest(userId);
