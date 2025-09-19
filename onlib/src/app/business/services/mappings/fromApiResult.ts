@@ -8,7 +8,6 @@ export function valueFromApiResult<T>(apiResult: ApiResult<T>): T {
 }
 
 export function resultFromApiResult<T>(apiResult: ApiResult<T>): Result<T> {
-  console.log(apiResult, !apiResult.errors || apiResult.errors.length == 0);
   if (!apiResult.errors || apiResult.errors.length == 0) {
     return Result.success(apiResult.data);
   } else {

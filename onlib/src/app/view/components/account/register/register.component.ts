@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { AuthService } from '../../../../business/services/auth/authService';
+import { AuthService } from '../../../../business/services/auth/auth.service';
 import { Result } from '../../../../business/models/_shared/result';
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
 import { Router, RouterModule } from '@angular/router';

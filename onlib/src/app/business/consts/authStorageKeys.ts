@@ -1,5 +1,5 @@
 import { StorageKey } from '../models/_shared/storageKey';
 
 export class AuthStorageKeys {
-  public static readonly identityId = new StorageKey<string>('identity_id');
+  public static readonly USER_ID = new StorageKey<string>('user_id');
 }

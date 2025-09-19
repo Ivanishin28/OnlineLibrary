@@ -25,6 +25,14 @@ export class Result<T> {
     return this._errors.length === 0;
   }
 
+  public toFailure<T>(): Result<T> {
+    if (this.isSuccess) {
+      throw new Error('Success to Failure cast');
+    }
+
+    return Result.failure<T>(this.errors);
+  }
+
   public static success<T>(value: T): Result<T> {
     return new Result(value);
   }

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../../../business/services/auth/authService';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../../business/services/auth/auth.service';
 import {
   FormBuilder,
   FormControl,
@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { Result } from '../../../../business/models/_shared/result';
 import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
+import { StorageService } from '../../../../business/services/_shared/storage.service';
+import { AuthStorageKeys } from '../../../../business/consts/authStorageKeys';
 
 @Component({
   standalone: true,
@@ -31,8 +33,8 @@ import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirt
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
-  public form: FormGroup<{
+export class LoginComponent implements OnInit {
+  public form!: FormGroup<{
     login: FormControl<string | null>;
     password: FormControl<string | null>;
   }>;
@@ -41,11 +43,12 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
+    private builder: FormBuilder,
+    private storageService: StorageService
+  ) {}
 
-    builder: FormBuilder
-  ) {
-    this.form = builder.group({
+  public ngOnInit(): void {
+    this.form = this.builder.group({
       login: new FormControl('', {
         validators: [Validators.required],
       }),
@@ -69,9 +72,12 @@ export class LoginComponent {
       })
       .subscribe((loginResult) => {
         if (loginResult.isSuccess) {
-          console.log('scuccess');
+          this.storageService.set(
+            AuthStorageKeys.USER_ID,
+            loginResult.value.user_id
+          );
         } else {
-          this.error = loginResult;
+          this.error = loginResult.toFailure<void>();
         }
       });
   }
