@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { AuthService } from '../../../../business/services/auth/auth.service';
+import { AccountService } from '../../../../business/services/auth/account.service';
 import { Result } from '../../../../business/models/_shared/result';
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
 import { Router, RouterModule } from '@angular/router';
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
   public error: Result<void> | undefined;
 
   constructor(
-    private authService: AuthService,
+    private authService: AccountService,
     private router: Router,
     private builder: FormBuilder
   ) {}

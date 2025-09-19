@@ -1,33 +1,40 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { Result } from '../../models/_shared/result';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { ApiResult } from '../../models/_shared/apiResult';
-import { resultFromApiResult } from '../mappings/fromApiResult';
-import { RegisterRequest } from '../../models/identity/registerRequest';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { AccountService } from './account.service';
+import { StorageService } from '../_shared/storage.service';
 import { LoginRequest } from '../../models/identity/loginRequest';
+import { Result } from '../../models/_shared/result';
+import { AuthStorageKeys } from '../../consts/authStorageKeys';
 import { LoginResult } from '../../models/identity/loginResult';
 
 @Injectable()
 export class AuthService {
-  private readonly COMPONENT = 'api/identity/ApplicationUser';
+  private userId: BehaviorSubject<string | undefined> = new BehaviorSubject<
+    string | undefined
+  >(undefined);
 
-  constructor(private http: HttpClient) {}
+  public readonly userId$: Observable<string | undefined> =
+    this.userId.asObservable();
 
-  public register(request: RegisterRequest): Observable<Result<void>> {
-    const url = `${environment.api_main}/${this.COMPONENT}/register`;
+  constructor(
+    private accountService: AccountService,
+    private storageService: StorageService
+  ) {}
 
-    return this.http
-      .post<ApiResult<void>>(url, request)
-      .pipe(map((apiResult) => resultFromApiResult(apiResult)));
+  public login(loginRequest: LoginRequest): Observable<Result<LoginResult>> {
+    return this.accountService.login(loginRequest).pipe(
+      tap((result) => {
+        if (!result.isSuccess) {
+          return;
+        }
+
+        this.storageService.set(AuthStorageKeys.USER_ID, result.value.user_id);
+        this.userId.next(result.value.user_id);
+      })
+    );
   }
 
-  public login(request: LoginRequest): Observable<Result<LoginResult>> {
-    const url = `${environment.api_main}/${this.COMPONENT}/login`;
-
-    return this.http
-      .post<ApiResult<LoginResult>>(url, request)
-      .pipe(map((apiResult) => resultFromApiResult(apiResult)));
+  public logout(): void {
+    this.userId.next(undefined);
   }
 }

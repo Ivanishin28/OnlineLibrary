@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../../business/services/auth/auth.service';
+import { AccountService } from '../../../../business/services/auth/account.service';
 import {
   FormBuilder,
   FormControl,
@@ -17,6 +17,7 @@ import { ValidationSummaryComponent } from '../../_shared/validation-summary/val
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
 import { StorageService } from '../../../../business/services/_shared/storage.service';
 import { AuthStorageKeys } from '../../../../business/consts/authStorageKeys';
+import { AuthService } from '../../../../business/services/auth/auth.service';
 
 @Component({
   standalone: true,
@@ -44,7 +45,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private builder: FormBuilder,
-    private storageService: StorageService
   ) {}
 
   public ngOnInit(): void {
@@ -72,10 +72,7 @@ export class LoginComponent implements OnInit {
       })
       .subscribe((loginResult) => {
         if (loginResult.isSuccess) {
-          this.storageService.set(
-            AuthStorageKeys.USER_ID,
-            loginResult.value.user_id
-          );
+          console.log('user_id', loginResult.value.user_id);
         } else {
           this.error = loginResult.toFailure<void>();
         }

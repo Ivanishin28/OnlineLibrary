@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { LaraLightBlue } from '../assets/theme';
 import { StorageService } from './business/services/_shared/storage.service';
+import { AccountService } from './business/services/auth/account.service';
 import { AuthService } from './business/services/auth/auth.service';
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     }),
 
     StorageService,
+    AccountService,
     AuthService,
   ],
 };
