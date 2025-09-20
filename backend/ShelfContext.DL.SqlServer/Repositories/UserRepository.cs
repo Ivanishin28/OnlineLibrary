@@ -20,8 +20,8 @@ namespace ShelfContext.DL.SqlServer.Repositories
 
         public async Task<bool> Exists(UserId userId)
         {
-            return await _dbSet
-                .AnyAsync(user => user.Id == userId);
+            var user = await _dbSet.FirstOrDefaultAsync(x => x.Id == userId);
+            return user is not null;
         }
     }
 }

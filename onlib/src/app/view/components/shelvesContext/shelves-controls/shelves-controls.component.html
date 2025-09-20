@@ -1,4 +1,8 @@
 <div class="layout">
+  <div class="controls">
+    <button (click)="createShelf()">Create Shelf</button>
+  </div>
+
   <ul class="shelf-list">
     <li *ngFor="let item of shelves" class="item">
       <p class="name">{{ item.name }}</p>

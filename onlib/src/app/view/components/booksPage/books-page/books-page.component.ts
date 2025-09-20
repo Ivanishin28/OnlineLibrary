@@ -1,21 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../header/navbar/navbar.component';
 import { BookService } from '../../../../business/services/books/book.service';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { CommonModule } from '@angular/common';
 import { BookPreviewComponent } from '../book-preview/book-preview.component';
 import { BookCreationWindowManager } from '../../../../business/managers/windows/bookCreationWindowManager';
-import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'books-page',
   standalone: true,
-  imports: [
-    CommonModule,
-    BookPreviewComponent,
-    DynamicDialogModule,
-  ],
-  providers: [BookService, BookCreationWindowManager, DialogService],
+  selector: 'books-page',
+  imports: [CommonModule, BookPreviewComponent, DynamicDialogModule],
+  providers: [BookService, BookCreationWindowManager],
   templateUrl: './books-page.component.html',
   styleUrl: './books-page.component.scss',
 })

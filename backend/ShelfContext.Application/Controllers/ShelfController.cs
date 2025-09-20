@@ -3,11 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ShelfContext.Contract.Commands.CreateShelf;
 using ShelfContext.Contract.Commands.EditShelf;
 using ShelfContext.Contract.Queries.GetShelvesByUserId;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.Application.Controllers
 {

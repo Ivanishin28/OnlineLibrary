@@ -10,12 +10,13 @@ import {
 import { ShelfNameConsts } from '../../../../business/consts/shelfContext/shelfNameConsts';
 import { InputTextModule } from 'primeng/inputtext';
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
-import { ValidationSummaryComponent } from "../../_shared/validation-summary/validation-summary.component";
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ShelfCreationWindowOutput } from '../../../../business/models/shelves/shelfCreationWindowOutput';
 
 @Component({
   standalone: true,
   selector: 'shelf-creation-window',
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ValidationSummaryComponent],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './shelf-creation-window.component.html',
   styleUrl: './shelf-creation-window.component.scss',
 })
@@ -24,7 +25,7 @@ export class ShelfCreationWindowComponent implements OnInit {
     name: FormControl<string | null>;
   }>;
 
-  constructor(private builder: FormBuilder) {}
+  constructor(private ref: DynamicDialogRef, private builder: FormBuilder) {}
 
   public ngOnInit(): void {
     this.form = this.builder.group({
@@ -42,6 +43,7 @@ export class ShelfCreationWindowComponent implements OnInit {
       return;
     }
 
-    console.log(this.form.value);
+    const output = new ShelfCreationWindowOutput(this.form.value.name!);
+    this.ref.close(output);
   }
 }
