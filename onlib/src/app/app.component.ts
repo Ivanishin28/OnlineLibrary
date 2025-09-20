@@ -22,7 +22,7 @@ import { Application } from './application';
 })
 export class AppComponent implements OnInit {
   public isReady: boolean = false;
-
+  
   constructor(private application: Application) {}
 
   public ngOnInit(): void {

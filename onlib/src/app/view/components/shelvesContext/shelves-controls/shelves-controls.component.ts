@@ -29,8 +29,8 @@ export class ShelvesControlsComponent implements OnInit {
   public ngOnInit(): void {
     this.authService.loggedUserId$
       .pipe(
-        tap((user_id) => (this.userId = user_id)),
-        switchMap((userId) => this.shelfService.getByUserId(userId))
+        tap((credentials) => (this.userId = credentials.userId.value)),
+        switchMap(() => this.shelfService.getByUserId(this.userId))
       )
       .subscribe((shelves) => (this.shelves = shelves));
   }

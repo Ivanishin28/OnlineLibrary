@@ -41,7 +41,8 @@ namespace IdentityContext.Application.UseCases.Commands
             return new ApplicationUserLoginDto(
                 user.Email!, 
                 user.UserName!, 
-                user.Id);
+                user.Id,
+                user.UserId!.Value);
         }
 
         private Task<ApplicationUser?> GetBy(string login)

@@ -12,10 +12,10 @@ export class Application {
   ) {}
 
   public start(): Observable<void> {
-    const userId = this.storageManager.get(AuthStorageKeys.USER_ID);
+    const userId = this.storageManager.get(AuthStorageKeys.USER_CREDENTIALS);
 
     if (userId) {
-      this.authService.setUserId(userId);
+      this.authService.set(userId);
     }
 
     return of(void 0);

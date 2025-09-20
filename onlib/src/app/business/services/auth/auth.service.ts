@@ -6,16 +6,18 @@ import { LoginRequest } from '../../models/identity/loginRequest';
 import { Result } from '../../models/_shared/result';
 import { AuthStorageKeys } from '../../consts/authStorageKeys';
 import { LoginResult } from '../../models/identity/loginResult';
+import { UserCredentials } from '../../models/_shared/userCredentials';
+import { UserId } from '../../models/_shared/userId';
+import { IdentityId } from '../../models/_shared/identityId';
 
 @Injectable()
 export class AuthService {
-  private userId: BehaviorSubject<string | undefined> = new BehaviorSubject<
-    string | undefined
-  >(undefined);
+  private userId: BehaviorSubject<UserCredentials | undefined> =
+    new BehaviorSubject<UserCredentials | undefined>(undefined);
 
-  public readonly userId$: Observable<string | undefined> =
+  public readonly userId$: Observable<UserCredentials | undefined> =
     this.userId.asObservable();
-  public readonly loggedUserId$: Observable<string> = this.userId.pipe(
+  public readonly loggedUserId$: Observable<UserCredentials> = this.userId.pipe(
     map((x) => x!)
   );
 
@@ -31,14 +33,19 @@ export class AuthService {
           return;
         }
 
-        this.storageService.set(AuthStorageKeys.USER_ID, result.value.user_id);
-        this.userId.next(result.value.user_id);
+        const model = new UserCredentials(
+          new IdentityId(result.value.identity_id),
+          new UserId(result.value.user_id)
+        );
+        this.storageService.set(AuthStorageKeys.USER_CREDENTIALS, model);
+
+        this.userId.next(model);
       })
     );
   }
 
-  public setUserId(userId: string): void {
-    this.userId.next(userId);
+  public set(credentials: UserCredentials): void {
+    this.userId.next(credentials);
   }
 
   public logout(): void {
