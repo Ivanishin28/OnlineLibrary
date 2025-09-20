@@ -35,7 +35,6 @@ export class BookPageComponent implements OnInit, OnDestroy {
       )
       .subscribe((book) => {
         this.book = book;
-        console.log(book);
       });
   }
 
