@@ -12,12 +12,12 @@ import { IdentityId } from '../../models/_shared/identityId';
 
 @Injectable()
 export class AuthService {
-  private userId: BehaviorSubject<UserCredentials | undefined> =
+  private user: BehaviorSubject<UserCredentials | undefined> =
     new BehaviorSubject<UserCredentials | undefined>(undefined);
 
-  public readonly userId$: Observable<UserCredentials | undefined> =
-    this.userId.asObservable();
-  public readonly loggedUserId$: Observable<UserCredentials> = this.userId.pipe(
+  public readonly user$: Observable<UserCredentials | undefined> =
+    this.user.asObservable();
+  public readonly loggedUser$: Observable<UserCredentials> = this.user.pipe(
     map((x) => x!)
   );
 
@@ -39,16 +39,16 @@ export class AuthService {
         );
         this.storageService.set(AuthStorageKeys.USER_CREDENTIALS, model);
 
-        this.userId.next(model);
+        this.user.next(model);
       })
     );
   }
 
   public set(credentials: UserCredentials): void {
-    this.userId.next(credentials);
+    this.user.next(credentials);
   }
 
   public logout(): void {
-    this.userId.next(undefined);
+    this.user.next(undefined);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../business/services/auth/auth.service';
 import { ShelfService } from '../../../../business/services/shelves/shelf.service';
-import { switchMap, tap } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs';
 import { ShelfPreview } from '../../../../business/models/shelves/shelfPreview';
 import { CommonModule } from '@angular/common';
 import { ShelfCreationWindowManager } from '../../../../business/managers/windows/shelfCreationWindowManager';
@@ -27,8 +27,9 @@ export class ShelvesControlsComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.authService.loggedUserId$
+    this.authService.loggedUser$
       .pipe(
+        take(1),
         tap((credentials) => (this.userId = credentials.userId.value)),
         switchMap(() => this.shelfService.getByUserId(this.userId))
       )

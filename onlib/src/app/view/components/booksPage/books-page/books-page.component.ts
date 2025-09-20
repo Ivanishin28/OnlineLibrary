@@ -5,11 +5,17 @@ import { CommonModule } from '@angular/common';
 import { BookPreviewComponent } from '../book-preview/book-preview.component';
 import { BookCreationWindowManager } from '../../../../business/managers/windows/bookCreationWindowManager';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'books-page',
-  imports: [CommonModule, BookPreviewComponent, DynamicDialogModule],
+  imports: [
+    CommonModule,
+    BookPreviewComponent,
+    DynamicDialogModule,
+    RouterLink,
+  ],
   providers: [BookService, BookCreationWindowManager],
   templateUrl: './books-page.component.html',
   styleUrl: './books-page.component.scss',
