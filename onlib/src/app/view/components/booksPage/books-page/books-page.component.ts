@@ -36,7 +36,6 @@ export class BooksPageComponent implements OnInit {
 
   public createBook(): void {
     this.bookCreationWindowManager.create().subscribe((result) => {
-      console.log(result.isSuccess);
     });
   }
 }

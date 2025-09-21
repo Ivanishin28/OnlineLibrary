@@ -41,7 +41,6 @@ export class BookPageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    console.log('destroy');
     this.destroy$.next();
   }
 }

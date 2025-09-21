@@ -87,7 +87,6 @@ export class RegisterComponent implements OnInit {
         birth_date: this.form.value.birthDate!,
       })
       .subscribe((result) => {
-        console.log(result);
         if (result.isSuccess) {
           this.navigateToLogin();
         } else {

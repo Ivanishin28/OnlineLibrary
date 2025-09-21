@@ -40,6 +40,6 @@ export class ShelvesControlsComponent implements OnInit {
   public createShelf(): void {
     this.creationWindow
       .createShelfFor(this.userId)
-      .subscribe((x) => console.log(x));
+      .subscribe();
   }
 }
