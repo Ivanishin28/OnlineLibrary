@@ -6,6 +6,7 @@ import { ShelfPreview } from '../../../../business/models/shelves/shelfPreview';
 import { CommonModule } from '@angular/common';
 import { ShelfCreationWindowManager } from '../../../../business/managers/windows/shelfCreationWindowManager';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { UserId } from '../../../../business/models/_shared/userId';
 
 @Component({
   standalone: true,
@@ -18,7 +19,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 export class ShelvesControlsComponent implements OnInit {
   public shelves: ShelfPreview[] = [];
 
-  public userId!: string;
+  public userId!: UserId;
 
   constructor(
     private authService: AuthService,
@@ -30,7 +31,7 @@ export class ShelvesControlsComponent implements OnInit {
     this.authService.loggedUser$
       .pipe(
         take(1),
-        tap((credentials) => (this.userId = credentials.userId.value)),
+        tap((credentials) => (this.userId = credentials.userId)),
         switchMap(() => this.shelfService.getByUserId(this.userId))
       )
       .subscribe((shelves) => (this.shelves = shelves));

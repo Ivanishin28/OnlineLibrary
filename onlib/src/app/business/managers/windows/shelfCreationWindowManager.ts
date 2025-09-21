@@ -6,6 +6,7 @@ import { Result } from '../../models/_shared/result';
 import { ShelfCreationWindowComponent } from '../../../view/components/shelvesContext/shelf-creation-window/shelf-creation-window.component';
 import { ShelfCreationWindowOutput } from '../../models/shelves/shelfCreationWindowOutput';
 import { CreateShelfRequest } from '../../models/shelves/createShelfRequest';
+import { UserId } from '../../models/_shared/userId';
 
 @Injectable()
 export class ShelfCreationWindowManager {
@@ -14,7 +15,7 @@ export class ShelfCreationWindowManager {
     private shelfService: ShelfService
   ) {}
 
-  public createShelfFor(userId: string): Observable<Result<void>> {
+  public createShelfFor(userId: UserId): Observable<Result<void>> {
     const ref = this.dialog.open(ShelfCreationWindowComponent, {
       closable: true,
       showHeader: true,
@@ -24,7 +25,7 @@ export class ShelfCreationWindowManager {
     return ref.onClose.pipe(
       filter((output: ShelfCreationWindowOutput | undefined) => !!output),
       switchMap((output: ShelfCreationWindowOutput) => {
-        const request = new CreateShelfRequest(userId, output.name);
+        const request = new CreateShelfRequest(userId.value, output.name);
         return this.shelfService.create(request).pipe(map((x) => x.toVoid()));
       })
     );

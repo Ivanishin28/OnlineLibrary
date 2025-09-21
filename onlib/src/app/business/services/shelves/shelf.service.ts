@@ -8,13 +8,14 @@ import { CreateShelfRequest } from '../../models/shelves/createShelfRequest';
 import { CreateShelfResponse } from '../../models/shelves/createShelfResponse';
 import { resultFromApiResult } from '../mappings/fromApiResult';
 import { ApiResult } from '../../models/_shared/apiResult';
+import { UserId } from '../../models/_shared/userId';
 
 @Injectable()
 export class ShelfService {
   constructor(private connection: HttpClient) {}
 
-  public getByUserId(userId: string): Observable<ShelfPreview[]> {
-    const url = `${environment.api_main}/api/shelf/shelf/user/${userId}`;
+  public getByUserId(userId: UserId): Observable<ShelfPreview[]> {
+    const url = `${environment.api_main}/api/shelf/shelf/user/${userId.value}`;
 
     return this.connection.get<ShelfPreview[]>(url);
   }

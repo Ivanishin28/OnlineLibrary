@@ -1,4 +1,8 @@
 <div class="layout">
-  <p *ngIf="shelvedBook">{{ shelvedBook.id }}</p>
-  <p *ngIf="!shelvedBook">Not found</p>
+  <p-select
+    [(ngModel)]="selectedShelf"
+    (ngModelChange)="shelveBookOn($event)"
+    [options]="shelves"
+    optionLabel="name"
+  ></p-select>
 </div>
