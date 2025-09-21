@@ -24,6 +24,8 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   public selectedShelf: Shelf | undefined;
   public shelves: Shelf[] = [];
 
+  private shelvedBook: ShelvedBook | undefined;
+
   constructor(
     private authService: AuthService,
     private shelvedBookService: ShelvedBookService,
@@ -36,7 +38,13 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
         take(1),
         switchMap((user) => this.shelfService.getByUserId(user.userId))
       )
-      .subscribe((x) => (this.shelves = x));
+      .subscribe((x) => {
+        this.shelves = x;
+
+        if (this.shelvedBook) {
+          this.setShelvedBook(this.shelvedBook);
+        }
+      });
   }
 
   public ngOnChanges(): void {
@@ -51,6 +59,8 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   }
 
   private setShelvedBook(book: ShelvedBook | undefined) {
+    this.shelvedBook = book;
+    
     if (book) {
       this.selectedShelf = this.shelves.find(
         (shelf) => book?.shelf_id == shelf.id
