@@ -68,11 +68,11 @@ namespace IdentityContext.DL.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -96,7 +96,7 @@ namespace IdentityContext.DL.Migrations
                         .IsUnique()
                         .HasFilter("[UserName] IS NOT NULL");
 
-                    b.ToTable("ApplicationUser", (string)null);
+                    b.ToTable("ApplicationUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>

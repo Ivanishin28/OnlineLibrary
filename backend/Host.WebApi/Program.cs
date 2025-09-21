@@ -1,5 +1,6 @@
 
 using Host.WebApi.Configuration;
+using Host.WebApi.Web.JsonConverters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,14 +9,20 @@ var services = builder.Services;
 
 services
     .AddControllers()
-    .AddModuleControllers();
+    .AddModuleControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    });
 
 services
     .RegisterSwagger();
 
-services.AddEndpointsApiExplorer();
+services
+    .AddEndpointsApiExplorer();
 
 services
+    .RegisterHostServices()
     .RegisterModuleServices(config);
 
 var app = builder.Build();
@@ -34,6 +41,7 @@ app
         .AllowCredentials());
 
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

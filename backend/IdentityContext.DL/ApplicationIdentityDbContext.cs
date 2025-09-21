@@ -24,7 +24,7 @@ namespace IdentityContext.DL
                 .Entity<ApplicationUser>();
 
             user
-                .ToTable("ApplicationUser");
+                .ToTable("ApplicationUsers");
 
             user
                 .HasIndex(x => x.Email)

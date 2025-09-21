@@ -1,0 +1,11 @@
+<div *ngIf="book" class="layout">
+  <div class="content">
+    <div class="controls">
+      <book-page-actions [bookId]="book.id"></book-page-actions>
+    </div>
+    <div class="info"><book-preview [book]="book"></book-preview></div>
+  </div>
+</div>
+<div *ngIf="!book" class="layout-not-found"><p>Book Not Found</p></div>
+<hr />
+<books-page></books-page>

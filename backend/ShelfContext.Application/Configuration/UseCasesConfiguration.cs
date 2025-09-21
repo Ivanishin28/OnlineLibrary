@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ShelfContext.Contract.Commands.CreateTag;
+using ShelfContext.DL.Read.Queries;
 using ShelfContext.UseCases.Commands;
 
 namespace ShelfContext.Application.Configuration
@@ -15,6 +16,9 @@ namespace ShelfContext.Application.Configuration
 
                 var handlersAssembly = typeof(CreateTagRequestHandler).Assembly;
                 config.RegisterServicesFromAssembly(handlersAssembly);
+
+                var readsideHandlers = typeof(GetShelvesByUserIdRequestHandler).Assembly;
+                config.RegisterServicesFromAssembly(readsideHandlers);
             });
 
             return services;

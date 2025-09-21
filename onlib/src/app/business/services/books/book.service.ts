@@ -17,6 +17,12 @@ export class BookService {
 
   constructor(private http: HttpClient) {}
 
+  public getFull(id: string): Observable<BookPreview> {
+    const url = `${environment.api_main}/${this.COMPONENT}/full/${id}`;
+
+    return this.http.get<BookPreview>(url);
+  }
+
   public getAll(): Observable<BookPreview[]> {
     const url = `${environment.api_main}/${this.COMPONENT}/all`;
 

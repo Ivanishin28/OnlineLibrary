@@ -20,6 +20,7 @@ export class BookCreationWindowManager {
       showHeader: true,
       header: 'Create Book',
     });
+    
     return ref.onClose.pipe(
       filter((output: BookCreation | undefined) => !!output),
       switchMap((output: BookCreation) => {

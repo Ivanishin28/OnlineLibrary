@@ -6,8 +6,14 @@ form {
   padding: 25px;
 }
 
-.validation-summary {
-  p {
-    color: red;
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }

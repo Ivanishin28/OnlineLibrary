@@ -6,7 +6,9 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { LaraLightBlue } from '../assets/theme';
 import { StorageService } from './business/services/_shared/storage.service';
-import { AuthService } from './business/services/auth/authService';
+import { AccountService } from './business/services/auth/account.service';
+import { AuthService } from './business/services/auth/auth.service';
+import { DialogService } from 'primeng/dynamicdialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,6 +27,8 @@ export const appConfig: ApplicationConfig = {
     }),
 
     StorageService,
+    AccountService,
     AuthService,
+    DialogService,
   ],
 };

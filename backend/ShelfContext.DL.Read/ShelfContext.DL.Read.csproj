@@ -17,8 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
+    <ProjectReference Include="..\ShelfContext.Contract\ShelfContext.Contract.csproj" />
     <ProjectReference Include="..\ShelfContext.Domain\ShelfContext.Domain.csproj" />
-    <ProjectReference Include="..\UserContext.Contract\UserContext.Contract.csproj" />
   </ItemGroup>
 
 </Project>

@@ -45,14 +45,14 @@ namespace BookContext.Application.Controllers
             return FromResult(result);
         }
 
-        [HttpPost("full/{id}")]
+        [HttpGet("full/{id}")]
         public async Task<IActionResult> GetFull(Guid id)
         {
             var query = new GetFullBookQuery(id);
 
             var book = await _metiator.Send(query);
 
-            return Success(book);
+            return Ok(book);
         }
     }
 }

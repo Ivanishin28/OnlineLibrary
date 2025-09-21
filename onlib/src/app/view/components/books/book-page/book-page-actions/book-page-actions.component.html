@@ -1,0 +1,8 @@
+<div class="layout">
+  <p-select
+    [(ngModel)]="selectedShelf"
+    (ngModelChange)="shelveBookOn($event)"
+    [options]="shelves"
+    optionLabel="name"
+  ></p-select>
+</div>

@@ -1,53 +1,107 @@
 <div class="layout">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div *ngIf="form.controls.login as login" class="form-group">
-      <label for="login">Login</label>
-      <input
-        id="login"
-        pInputText
-        [formControl]="login"
-        class="form-control"
-        type="text"
-      />
-      <div *ngIf="login.invalid && login.dirty" class="validation-message">
-        <p>Invalid</p>
+    <div class="controls">
+      <div class="account fields">
+        <div *ngIf="form.controls.login as login" class="form-group">
+          <label for="login">Login</label>
+          <input
+            id="login"
+            pInputText
+            [formControl]="login"
+            class="form-control"
+            type="text"
+          />
+          <div *ngIf="login.invalid && login.dirty" class="validation-message">
+            <p>Invalid</p>
+          </div>
+        </div>
+
+        <div *ngIf="form.controls.email as email" class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            pInputText
+            [formControl]="email"
+            class="form-control"
+            type="text"
+          />
+          <div *ngIf="email.invalid && email.dirty" class="validation-message">
+            <p>Invalid</p>
+          </div>
+        </div>
+
+        <div *ngIf="form.controls.password as password" class="form-group">
+          <label for="password">Password</label>
+          <p-password
+            inputId="password"
+            [formControl]="password"
+            class="form-control"
+            type="text"
+          />
+          <div
+            *ngIf="password.invalid && password.dirty"
+            class="validation-message"
+          >
+            <p>Invalid</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="personal-info fields">
+        <div *ngIf="form.controls.firstName as firstName" class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            id="firstName"
+            pInputText
+            [formControl]="firstName"
+            class="form-control"
+            type="text"
+          />
+          <div
+            *ngIf="firstName.invalid && firstName.dirty"
+            class="validation-message"
+          >
+            <p>Invalid</p>
+          </div>
+        </div>
+
+        <div *ngIf="form.controls.lastName as lastName" class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            id="lastName"
+            pInputText
+            [formControl]="lastName"
+            class="form-control"
+            type="text"
+          />
+          <div
+            *ngIf="lastName.invalid && lastName.dirty"
+            class="validation-message"
+          >
+            <p>Invalid</p>
+          </div>
+        </div>
+
+        <div *ngIf="form.controls.birthDate as control" class="form-group">
+          <label for="birthDate">Birth Date</label>
+          <p-date-picker
+            [formControl]="control"
+            [readonlyInput]="true"
+            inputId="birthDate"
+          ></p-date-picker>
+          <div
+            *ngIf="control.invalid && control.dirty"
+            class="validation-message"
+          >
+            <p>Invalid</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div *ngIf="form.controls.email as email" class="form-group">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        pInputText
-        [formControl]="email"
-        class="form-control"
-        type="text"
-      />
-      <div *ngIf="email.invalid && email.dirty" class="validation-message">
-        <p>Invalid</p>
-      </div>
-    </div>
+    <app-validation-summary [errors]="error?.errors"></app-validation-summary>
 
-    <div *ngIf="form.controls.password as password" class="form-group">
-      <label for="password">Password</label>
-      <p-password
-        inputId="password"
-        [formControl]="password"
-        class="form-control"
-        type="text"
-      />
-      <div
-        *ngIf="password.invalid && password.dirty"
-        class="validation-message"
-      >
-        <p>Invalid</p>
-      </div>
-    </div>
-
-    <div *ngIf="errorMessage" class="validation-summary">
-      <p>{{ errorMessage }}</p>
-    </div>
-
+    {{ form.value | json }}
     <button type="submit">Register</button>
   </form>
 </div>

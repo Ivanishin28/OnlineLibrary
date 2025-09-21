@@ -1,4 +1,5 @@
-﻿using IdentityContext.Contracts.Commands.Register;
+﻿using IdentityContext.Contracts.Commands.Login;
+using IdentityContext.Contracts.Commands.Register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Controllers;
@@ -17,6 +18,14 @@ namespace IdentityContext.Application.Controllers
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequest request)
+        {
+            var result = await _mediator.Send(request);
+
+            return FromResult(result);
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginRequest request)
         {
             var result = await _mediator.Send(request);
 

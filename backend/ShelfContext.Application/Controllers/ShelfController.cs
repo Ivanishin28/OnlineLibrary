@@ -2,11 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShelfContext.Contract.Commands.CreateShelf;
 using ShelfContext.Contract.Commands.EditShelf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShelfContext.Contract.Queries.GetShelvesByUserId;
 
 namespace ShelfContext.Application.Controllers
 {
@@ -33,6 +29,16 @@ namespace ShelfContext.Application.Controllers
             var response = await _mediator.Send(request);
 
             return FromResult(response);
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> Get(Guid userId)
+        {
+            var query = new GetShelvesByUserIdRequest(userId);
+
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
     }
 }
