@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ShelfContext.Contract.Commands.ShelveBook
 {
-    public class ShelveBookRequest : IResultRequest<ShelveBookResponse>
+    public class ShelveBookRequest : IResultRequest<Guid?>
     {
         [JsonPropertyName("book_id")]
         public Guid BookId { get; private set; }

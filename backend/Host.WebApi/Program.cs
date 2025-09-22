@@ -23,6 +23,7 @@ services
 
 services
     .RegisterHostServices()
+    .RegisterWebServices()
     .RegisterModuleServices(config);
 
 var app = builder.Build();
