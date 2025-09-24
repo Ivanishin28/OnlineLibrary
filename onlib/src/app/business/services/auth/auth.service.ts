@@ -10,6 +10,7 @@ import { UserCredentials } from '../../models/_shared/userCredentials';
 import { UserId } from '../../models/_shared/userId';
 import { IdentityId } from '../../models/_shared/identityId';
 import { Token } from '../../models/_shared/token';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,8 @@ export class AuthService {
 
   constructor(
     private accountService: AccountService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {}
 
   public init(credentials: UserCredentials, token: Token): void {
@@ -62,5 +64,6 @@ export class AuthService {
     this.user.next(undefined);
     this.token.next(undefined);
     this.storageService.clear();
+    this.router.navigate(['/account/login']);
   }
 }
