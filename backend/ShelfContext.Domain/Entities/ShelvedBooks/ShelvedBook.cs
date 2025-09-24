@@ -4,6 +4,7 @@ using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.BookTags;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Tags;
+using ShelfContext.Domain.Entities.Users;
 using System.Collections.Immutable;
 
 namespace ShelfContext.Domain.Entities.ShelvedBooks
@@ -11,20 +12,24 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
     public class ShelvedBook
     {
         private List<BookTag> _bookTags = new();
-        
-        public ShelvedBookId Id { get; private set; }
-        public ShelfId ShelfId { get; private set; }
-        public BookId BookId { get; private set; }
+
+        public ShelvedBookId Id { get; private set; } = null!;
+        public UserId UserId { get; private set; } = null!;
+        public ShelfId ShelfId { get; private set; } = null!;
+        public BookId BookId { get; private set; } = null!;
         public DateTime DateShelved { get; private set; }
 
         public IImmutableList<BookTag> BookTags => _bookTags.ToImmutableList();
 
-        private ShelvedBook(ShelvedBookId id, ShelfId shelfId, BookId bookId, DateTime dateShelved)
+        public ShelvedBook() { }
+
+        private ShelvedBook(ShelvedBookId id, ShelfId shelfId, BookId bookId, DateTime dateShelved, UserId userId)
         {
             Id = id;
             ShelfId = shelfId;
             BookId = bookId;
             DateShelved = dateShelved;
+            UserId = userId;
         }
 
         public Result Add(Tag tag)
@@ -65,12 +70,12 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
             DateShelved = TimeExtensions.Now();
         }
 
-        public static ShelvedBook Create(ShelfId shelfId, BookId bookId)
+        public static ShelvedBook Create(ShelfId shelfId, BookId bookId, UserId userId)
         {
             var id = new ShelvedBookId(Guid.NewGuid());
             var dateCreated = DateTime.Now;
 
-            return new ShelvedBook(id, shelfId, bookId, dateCreated);
+            return new ShelvedBook(id, shelfId, bookId, dateCreated, userId);
         }
     }
 }

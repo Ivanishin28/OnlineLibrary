@@ -3,6 +3,7 @@ using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Tags;
+using ShelfContext.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,8 @@ namespace ShelfContext.Tests.Domain.Entities.ShelvedBooks
         {
             var bookId = new BookId(Guid.NewGuid());
             var shelfId = new ShelfId(Guid.NewGuid());
-            _shelvedBook = ShelvedBook.Create(shelfId, bookId);
+            var userId = new UserId(Guid.NewGuid());
+            _shelvedBook = ShelvedBook.Create(shelfId, bookId, userId);
         }
 
         [Test]

@@ -29,7 +29,7 @@ namespace ShelfContext.Domain.Entities.Shelves
 
         public Result<ShelvedBook> Shelve(Book book)
         {
-            return ShelvedBook.Create(Id, book.Id);
+            return ShelvedBook.Create(Id, book.Id, UserId);
         }
 
         public static Result<Shelf> Create(UserId clientId, ShelfName shelfName)
