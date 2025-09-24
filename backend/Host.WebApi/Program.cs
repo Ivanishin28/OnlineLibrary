@@ -1,6 +1,7 @@
 
 using Host.WebApi.Configuration;
 using Host.WebApi.Web.JsonConverters;
+using IdentityContext.Application.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ services
     .RegisterHostServices()
     .RegisterWebServices()
     .RegisterModuleServices(config);
+
+services
+    .AddJWTAuthentication()
+    .AddAuthorization();
 
 var app = builder.Build();
 

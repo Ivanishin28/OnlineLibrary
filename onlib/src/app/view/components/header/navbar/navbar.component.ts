@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
+import { AuthService } from '../../../../business/services/auth/auth.service';
 
 @Component({
   selector: 'navbar',
@@ -11,7 +12,7 @@ import { MenubarModule } from 'primeng/menubar';
 export class NavbarComponent {
   public items: MenuItem[];
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.items = [
       {
         label: 'Books',
@@ -28,6 +29,10 @@ export class NavbarComponent {
       {
         label: 'Shelves',
         routerLink: 'shelves',
+      },
+      {
+        label: 'LogOut',
+        command: () => this.authService.logout(),
       },
     ];
   }

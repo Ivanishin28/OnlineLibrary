@@ -10,6 +10,7 @@ namespace IdentityContext.Application.Configuration
         {
             services
                 .ConfigureIdentity()
+                .RegisterServices()
                 .RegisterDataLayer()
                 .RegisterUseCases();
 
