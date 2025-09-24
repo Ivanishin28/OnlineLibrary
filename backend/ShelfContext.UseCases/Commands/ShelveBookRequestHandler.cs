@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Shared.Core.Extensions;
 using Shared.Core.Interfaces;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands.ShelveBook;
@@ -49,7 +50,7 @@ namespace ShelfContext.UseCases.Commands
 
             var book = await _bookRepository.GetBy(bookId);
 
-            if (shelf is null)
+            if (book is null)
             {
                 return Result<Guid?>.Failure(EntityErrors.NotFound);
             }
@@ -58,7 +59,13 @@ namespace ShelfContext.UseCases.Commands
 
             if (shelvedBook is null)
             {
-                shelvedBook = ShelvedBook.Create(shelfId, bookId);
+                var result = shelf.Shelve(book);
+                if (result.IsFailure)
+                {
+                    return result.ToFailure<Guid?>();
+                }
+
+                shelvedBook = result.Model;
                 _shelvedBookRepository.Add(shelvedBook);
             }
             else

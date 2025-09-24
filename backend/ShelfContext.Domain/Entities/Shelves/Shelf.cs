@@ -27,6 +27,11 @@ namespace ShelfContext.Domain.Entities.Shelves
             Name = name;
         }
 
+        public Result<ShelvedBook> Shelve(Book book)
+        {
+            return ShelvedBook.Create(Id, book.Id);
+        }
+
         public static Result<Shelf> Create(UserId clientId, ShelfName shelfName)
         {
             var dateCreated = DateTime.Now;
