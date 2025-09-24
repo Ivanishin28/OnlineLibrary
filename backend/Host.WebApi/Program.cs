@@ -28,7 +28,7 @@ services
     .RegisterModuleServices(config);
 
 services
-    .AddJWTAuthentication()
+    .AddJWTAuthentication(config)
     .AddAuthorization();
 
 var app = builder.Build();

@@ -9,7 +9,7 @@ namespace IdentityContext.Application.Configuration
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services
-                .AddTransient<ITokenBuilder, JWTTokenBuilder>();
+                .AddTransient<ITokenBuilder, JwtTokenBuilder>();
 
             return services;
         }

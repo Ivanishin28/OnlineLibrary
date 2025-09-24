@@ -3,18 +3,21 @@ using IdentityContext.Application.Interfaces;
 using IdentityContext.Application.Models;
 using IdentityContext.DL.Entities.ApplicationUser;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityContext.Application.Concrete
 {
-    public class JWTTokenBuilder : ITokenBuilder
+    public class JwtTokenBuilder : ITokenBuilder
     {
+        private JwtTokenConfig _config;
+
+        public JwtTokenBuilder(JwtTokenConfig config)
+        {
+            _config = config;
+        }
+
         public Token BuildFor(ApplicationUser user)
         {
             var claims = new[]
@@ -23,14 +26,14 @@ namespace IdentityContext.Application.Concrete
                 new Claim(Claims.IDENTITY_ID, user.Id.ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this_is_a_much_longer_secret_key_1234567890"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.IssuerSigningKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "yourdomain.com",
-                audience: "yourdomain.com",
+                issuer: _config.Issuer,
+                audience: _config.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: _config.LifeTime.HasValue ? DateTime.Now.Add(_config.LifeTime.Value) : null,
                 signingCredentials: creds);
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
