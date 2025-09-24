@@ -21,4 +21,8 @@
     <ProjectReference Include="..\UserContext.Application\UserContext.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Web\Providers\" />
+  </ItemGroup>
+
 </Project>
