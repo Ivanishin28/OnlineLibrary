@@ -53,7 +53,7 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<ShelfId, Guid>());
 
             builder
-                .HasIndex(x => new { x.UserId, x.ShelfId })
+                .HasIndex(x => new { x.UserId, x.BookId })
                 .IsUnique(true);
 
             const string bookTagsNavigation = "_bookTags";
