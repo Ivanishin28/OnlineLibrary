@@ -8,10 +8,12 @@ namespace ShelfContext.DL.SqlServer.Configuration
     {
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IShelfRepository, ShelfRepository>();
-            services.AddTransient<ITagRepository, TagRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IShelvedBookRepository, ShelvedBookRepository>();
+            services
+                .AddTransient<IBookRepository, BookRepository>()
+                .AddTransient<IShelfRepository, ShelfRepository>()
+                .AddTransient<ITagRepository, TagRepository>()
+                .AddTransient<IUserRepository, UserRepository>()
+                .AddTransient<IShelvedBookRepository, ShelvedBookRepository>();
 
             return services;
         }
