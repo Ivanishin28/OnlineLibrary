@@ -17,7 +17,6 @@ namespace BookContext.UseCases.Commands
     public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Result<CreateBookResponse>>
     {
         private IBookRepository _bookRepository;
-        private IAuthorRepository _authorRepository;
         private IUnitOfWork _unitOfWork;
         private IUserContext _context;
 
@@ -29,13 +28,12 @@ namespace BookContext.UseCases.Commands
         {
             _bookRepository = bookRepository;
             _unitOfWork = unitOfWork;
-            _authorRepository = authorRepository;
             _context = context;
         }
 
         public async Task<Result<CreateBookResponse>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
-            var bookResult = Book.Create(_context.UserId, request.Title);
+            var bookResult = Book.Create(_context.UserId, request.Title, Domain.Enums.BookVisibility.Public);
 
             if(bookResult.IsFailure)
             {

@@ -1,4 +1,5 @@
-﻿using BookContext.Domain.Errors;
+﻿using BookContext.Domain.Enums;
+using BookContext.Domain.Errors;
 using Shared.Core.Models;
 
 namespace BookContext.Domain.Entities
@@ -8,17 +9,19 @@ namespace BookContext.Domain.Entities
         public Guid Id { get; private set; }
         public string Title { get; private set; } = null!;
         public Guid CreatorId { get; private set; }
+        public BookVisibility Visibility { get; private set; }
 
         private Book() { }
 
-        private Book(Guid id, string title, Guid creatorId)
+        private Book(Guid id, string title, Guid creatorId, BookVisibility visibility)
         {
             Id = id;
             Title = title;
             CreatorId = creatorId;
+            Visibility = visibility;
         }
 
-        public static Result<Book> Create(Guid creatorId, string title)
+        public static Result<Book> Create(Guid creatorId, string title, BookVisibility visibility)
         {
             var bookId = Guid.NewGuid();
 
@@ -27,7 +30,7 @@ namespace BookContext.Domain.Entities
                 return Result<Book>.Failure(BookErrors.EmptyTitle);
             }
 
-            return new Book(bookId, title, creatorId);
+            return new Book(bookId, title, creatorId, visibility);
         }
     }
 }
