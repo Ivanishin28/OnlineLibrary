@@ -1,20 +1,23 @@
 ﻿using BookContext.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BookContext.DL.SqlServer.EntityTypeConfigurations
 {
-    public class BookEntityTypeConfiguration : IEntityTypeConfiguration<Book>
+    internal class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Book> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder
                 .HasKey(x => x.Id);
 
             builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(x => x.CreatorId);
+                .ToView("Users");
         }
     }
 }
