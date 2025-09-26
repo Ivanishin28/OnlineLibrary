@@ -16,5 +16,8 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
 
         public static readonly Error TagNotFound =
             _errors.BuildError("Tag.NotFound", "Tag NotFound");
+
+        public static readonly Error RESHELVE_TO_OTHER_USER =
+            _errors.BuildError("UserId", "Reshelve");
     }
 }

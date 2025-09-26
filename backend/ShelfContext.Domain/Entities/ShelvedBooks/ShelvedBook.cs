@@ -64,9 +64,9 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
             return Result.Success();
         }
 
-        public void ReshelveTo(ShelfId shelfId)
+        public void ReshelveTo(Shelf shelf)
         {
-            ShelfId = shelfId;
+            ShelfId = shelf.Id;
             DateShelved = TimeExtensions.Now();
         }
 
