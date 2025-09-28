@@ -9,7 +9,7 @@ namespace ShelfContext.DL.SqlServer.Configuration
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
             services
-                .AddTransient<IBookRepository, BookRepository>()
+                .AddTransient<IBookAccessor, BookAccessor>()
                 .AddTransient<IShelfRepository, ShelfRepository>()
                 .AddTransient<ITagRepository, TagRepository>()
                 .AddTransient<IUserRepository, UserRepository>()

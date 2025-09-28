@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.Domain.Interfaces.Repositories
 {
-    public interface IBookRepository
+    public interface IBookAccessor
     {
         Task<Book?> GetBy(BookId id);
     }

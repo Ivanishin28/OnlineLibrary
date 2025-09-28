@@ -5,6 +5,7 @@ using Shared.Core.Models;
 using ShelfContext.Contract.Commands.ShelveBook;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Books;
+using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces;
@@ -18,7 +19,7 @@ namespace ShelfContext.UseCases.Commands
     {
         private IUnitOfWork _unitOfWork;
         private IShelfRepository _shelfRepository;
-        private IBookRepository _bookRepository;
+        private IBookAccessor _bookRepository;
         private IShelvedBookRepository _shelvedBookRepository;
         private IUserContext _userContext;
         private IShelvingService _shelvingService;
@@ -26,7 +27,7 @@ namespace ShelfContext.UseCases.Commands
         public ShelveBookRequestHandler(
             IUnitOfWork unitOfWork,
             IShelfRepository shelfRepository,
-            IBookRepository bookRepository,
+            IBookAccessor bookRepository,
             IShelvedBookRepository shelvedBook,
             IUserContext userContext,
             IShelvingService shelvingService)
