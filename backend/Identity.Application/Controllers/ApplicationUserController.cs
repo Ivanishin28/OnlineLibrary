@@ -32,11 +32,5 @@ namespace IdentityContext.Application.Controllers
 
             return FromResult(result);
         }
-
-        [Authorize]
-        public async Task<IActionResult> Test()
-        {
-            return Ok(new int[] { 1, 2, 3 });
-        }
     }
 }

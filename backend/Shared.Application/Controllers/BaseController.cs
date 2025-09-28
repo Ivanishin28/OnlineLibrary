@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IdentityContext.Application.Consts;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Models;
 using Shared.Core.Models;
 using System;
@@ -49,6 +50,15 @@ namespace Shared.Application.Controllers
             var apiResponse = new ApiResponse<T>(model, Array.Empty<Error>());
 
             return Ok(apiResponse);
+        }
+
+        protected Guid GetUserId()
+        {
+            var user = User
+                .Claims
+                .First(x => x.Type == Claims.USER_ID);
+
+            return new Guid(user.Value);
         }
     }
 }
