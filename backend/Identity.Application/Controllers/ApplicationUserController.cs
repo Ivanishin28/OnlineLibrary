@@ -1,6 +1,7 @@
 ﻿using IdentityContext.Contracts.Commands.Login;
 using IdentityContext.Contracts.Commands.Register;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Controllers;
 

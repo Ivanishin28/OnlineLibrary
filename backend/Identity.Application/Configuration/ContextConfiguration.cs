@@ -1,15 +1,19 @@
 ﻿using IdentityContext.Application.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IdentityContext.Application.Configuration
 {
     public static class ContextConfiguration
     {
-        public static IServiceCollection RegisterIdentityContext(this IServiceCollection services)
+        public static IServiceCollection RegisterIdentityContext(
+            this IServiceCollection services, 
+            ConfigurationManager config)
         {
             services
                 .ConfigureIdentity()
+                .RegisterServices()
                 .RegisterDataLayer()
                 .RegisterUseCases();
 

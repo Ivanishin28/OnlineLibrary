@@ -1,48 +1,27 @@
-﻿using BookContext.Domain.Errors;
-using BookContext.Domain.ValueObjects;
-using Shared.Core.Extensions;
+﻿using BookContext.Domain.Enums;
+using BookContext.Domain.Errors;
 using Shared.Core.Models;
-using System.Collections.Immutable;
 
 namespace BookContext.Domain.Entities
 {
     public class Book
     {
-        private List<BookAuthor> _bookAuthors = null!;
-
         public Guid Id { get; private set; }
         public string Title { get; private set; } = null!;
-
-        public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.ToImmutableArray();
+        public Guid CreatorId { get; private set; }
+        public BookVisibility Visibility { get; private set; }
 
         private Book() { }
 
-        private Book(Guid id, string title, ICollection<BookAuthor> bookAuthors)
+        private Book(Guid id, string title, Guid creatorId, BookVisibility visibility)
         {
             Id = id;
             Title = title;
-            _bookAuthors = bookAuthors.ToList();
+            CreatorId = creatorId;
+            Visibility = visibility;
         }
 
-        public void UpdateTitle(string title)
-        {
-            Title = title;
-        }
-
-        public Result UpdateAuthors(AuthorsOfABook authorsOfABook)
-        {
-            if(authorsOfABook.BookId != Id)
-            {
-                Result.Failure(BookErrors.DifferentBookAuthor);
-            }
-
-            _bookAuthors.Clear();
-            _bookAuthors.AddRange(authorsOfABook.BookAuthors);
-
-            return Result.Success();
-        }
-
-        public static Result<Book> Create(string title, ICollection<Guid> authorIds)
+        public static Result<Book> Create(Guid creatorId, string title, BookVisibility visibility)
         {
             var bookId = Guid.NewGuid();
 
@@ -51,17 +30,7 @@ namespace BookContext.Domain.Entities
                 return Result<Book>.Failure(BookErrors.EmptyTitle);
             }
 
-            if(authorIds.AllUnique())
-            {
-                return Result<Book>.Failure(BookErrors.DuplicateAuthors);
-            }
-
-            var bookAuthors = authorIds
-                .Select(authorId =>
-                    BookAuthor.Create(bookId, authorId))
-                .ToList();
-
-            return new Book(bookId, title, bookAuthors);
+            return new Book(bookId, title, creatorId, visibility);
         }
     }
 }

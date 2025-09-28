@@ -1,11 +1,6 @@
 ﻿using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookContext.DL.SqlServer.Repositories
 {
@@ -37,8 +32,7 @@ namespace BookContext.DL.SqlServer.Repositories
 
         private IQueryable<Book> BookAggregates()
         {
-            return _dbSet
-                .Include(book => book.BookAuthors);
+            return _dbSet;
         }
     }
 }

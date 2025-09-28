@@ -1,12 +1,8 @@
 ﻿using BookContext.Contract.Commands.CreateBook;
-using BookContext.Contract.Commands.UpdateBook;
 using BookContext.Contract.Queries.GetAllBooks;
 using BookContext.Contract.Queries.GetBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Application.Controllers;
-using Shared.Core.Models;
-using System.Text.Json.Serialization;
 
 namespace BookContext.Application.Controllers
 {
@@ -31,14 +27,6 @@ namespace BookContext.Application.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateBookRequest request)
-        {
-            var result = await _metiator.Send(request);
-
-            return FromResult(result);
-        }
-
-        [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateBookRequest request)
         {
             var result = await _metiator.Send(request);
 

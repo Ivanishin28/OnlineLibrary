@@ -18,7 +18,7 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
 
             builder
                 .HasOne<Book>()
-                .WithMany(x => x.BookAuthors)
+                .WithMany()
                 .HasForeignKey(x => x.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
 

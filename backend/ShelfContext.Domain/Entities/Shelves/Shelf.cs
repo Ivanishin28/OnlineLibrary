@@ -2,6 +2,7 @@
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Users;
+using ShelfContext.Domain.Enums;
 
 namespace ShelfContext.Domain.Entities.Shelves
 {
@@ -25,6 +26,11 @@ namespace ShelfContext.Domain.Entities.Shelves
         public void UpdateName(ShelfName name)
         {
             Name = name;
+        }
+
+        public ShelvedBook Shelve(BookId bookId)
+        {
+            return ShelvedBook.Create(Id, bookId, UserId);
         }
 
         public static Result<Shelf> Create(UserId clientId, ShelfName shelfName)

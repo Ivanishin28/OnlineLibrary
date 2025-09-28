@@ -12,7 +12,7 @@ namespace Host.WebApi.Configuration
             ConfigurationManager config)
         {
             services
-                .RegisterIdentityContext()
+                .RegisterIdentityContext(config)
                 .RegisterUserContext()
                 .RegisterBookContext(config)
                 .RegisterShelfContext();

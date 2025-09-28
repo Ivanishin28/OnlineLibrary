@@ -5,6 +5,7 @@ using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.BookTags;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
+using ShelfContext.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,15 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
 
             builder
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
+
+            builder
+                .Property(x => x.UserId)
+                .HasConversion(new EntityIdValueConverter<UserId, Guid>());
+
+            builder
                 .HasOne<Shelf>()
                 .WithMany()
                 .HasForeignKey(e => e.ShelfId);
@@ -41,6 +51,10 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
             builder
                 .Property(e => e.ShelfId)
                 .HasConversion(new EntityIdValueConverter<ShelfId, Guid>());
+
+            builder
+                .HasIndex(x => new { x.UserId, x.BookId })
+                .IsUnique(true);
 
             const string bookTagsNavigation = "_bookTags";
 

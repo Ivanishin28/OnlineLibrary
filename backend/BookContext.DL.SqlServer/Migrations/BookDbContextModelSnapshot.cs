@@ -42,11 +42,19 @@ namespace BookContext.DL.SqlServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Visibility")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Books");
                 });
@@ -73,6 +81,18 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("BookAuthors");
+                });
+
+            modelBuilder.Entity("BookContext.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("Users", (string)null);
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.Author", b =>
@@ -111,6 +131,15 @@ namespace BookContext.DL.SqlServer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BookContext.Domain.Entities.Book", b =>
+                {
+                    b.HasOne("BookContext.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BookContext.Domain.Entities.BookAuthor", b =>
                 {
                     b.HasOne("BookContext.Domain.Entities.Author", null)
@@ -120,15 +149,10 @@ namespace BookContext.DL.SqlServer.Migrations
                         .IsRequired();
 
                     b.HasOne("BookContext.Domain.Entities.Book", null)
-                        .WithMany("BookAuthors")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BookContext.Domain.Entities.Book", b =>
-                {
-                    b.Navigation("BookAuthors");
                 });
 #pragma warning restore 612, 618
         }

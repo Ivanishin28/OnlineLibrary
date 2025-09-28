@@ -3,6 +3,7 @@ using BookContext.DL.Interfaces;
 using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
 using MediatR;
+using Shared.Core.Interfaces;
 using Shared.Core.Models;
 using System;
 using System.Collections;
@@ -16,21 +17,23 @@ namespace BookContext.UseCases.Commands
     public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Result<CreateBookResponse>>
     {
         private IBookRepository _bookRepository;
-        private IAuthorRepository _authorRepository;
         private IUnitOfWork _unitOfWork;
+        private IUserContext _context;
 
-        public CreateBookRequestHandler(IBookRepository bookRepository, IUnitOfWork unitOfWork, IAuthorRepository authorRepository)
+        public CreateBookRequestHandler(
+            IBookRepository bookRepository,
+            IUnitOfWork unitOfWork,
+            IAuthorRepository authorRepository,
+            IUserContext context)
         {
             _bookRepository = bookRepository;
             _unitOfWork = unitOfWork;
-            _authorRepository = authorRepository;
+            _context = context;
         }
 
         public async Task<Result<CreateBookResponse>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
-            var authorIds = await GetExistingAuthorIds(request.AuthorIds);
-
-            var bookResult = Book.Create(request.Title, authorIds);
+            var bookResult = Book.Create(_context.UserId, request.Title, Domain.Enums.BookVisibility.Public);
 
             if(bookResult.IsFailure)
             {
@@ -42,15 +45,6 @@ namespace BookContext.UseCases.Commands
             await AddBook(book);
 
             return new CreateBookResponse(book.Id);
-        }
-
-        private async Task<ICollection<Guid>> GetExistingAuthorIds(IEnumerable<Guid> authorIds)
-        {
-            var authors = await _authorRepository.GetByIds(authorIds);
-
-            return authors
-                .Select(author => author.Id)
-                .ToList();
         }
 
         private async Task AddBook(Book book)

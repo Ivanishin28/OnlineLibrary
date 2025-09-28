@@ -1,12 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ShelfContext.Application.Dtos.Commands;
 using ShelfContext.Contract.Commands.ShelveBook;
 using ShelfContext.Contract.Queries.GetShelvedBookByBookId;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.Application.Controllers
 {
@@ -20,8 +16,12 @@ namespace ShelfContext.Application.Controllers
         }
 
         [HttpPost("shelve")]
-        public async Task<IActionResult> Shelve([FromBody] ShelveBookRequest request)
+        public async Task<IActionResult> Shelve(ShelveBookDto dto)
         {
+            var request = new ShelveBookRequest(
+                dto.BookId, 
+                dto.ShelfId, 
+                GetUserId());
             var response = await _mediator.Send(request);
 
             return FromResult(response);

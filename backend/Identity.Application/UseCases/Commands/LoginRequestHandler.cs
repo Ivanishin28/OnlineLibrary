@@ -1,7 +1,8 @@
 ﻿using IdentityContext.Application.Errors;
+using IdentityContext.Application.Interfaces;
 using IdentityContext.Contracts.Commands.Login;
+using IdentityContext.Contracts.Dtos;
 using IdentityContext.DL.Entities.ApplicationUser;
-using IdentityContext.DL.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Shared.Core.Extensions;
@@ -13,13 +14,16 @@ namespace IdentityContext.Application.UseCases.Commands
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private ITokenBuilder _tokenBuilder;
 
         public LoginRequestHandler(
-            UserManager<ApplicationUser> userManager, 
-            SignInManager<ApplicationUser> signInManager)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ITokenBuilder tokenBuilder)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenBuilder = tokenBuilder;
         }
 
         public async Task<Result<ApplicationUserLoginDto>> Handle(LoginRequest request, CancellationToken cancellationToken)
@@ -38,11 +42,7 @@ namespace IdentityContext.Application.UseCases.Commands
                 return loginResult.ToFailure<ApplicationUserLoginDto>();
             }
 
-            return new ApplicationUserLoginDto(
-                user.Email!, 
-                user.UserName!, 
-                user.Id,
-                user.UserId!.Value);
+            return BuildResponseFrom(user);
         }
 
         private Task<ApplicationUser?> GetBy(string login)
@@ -58,6 +58,20 @@ namespace IdentityContext.Application.UseCases.Commands
             return result.Succeeded ?
                 Result.Success() :
                 Result.Failure(LoginErrors.NOT_ALLOWED);
+        }
+
+        private ApplicationUserLoginDto BuildResponseFrom(ApplicationUser user)
+        {
+            var token = _tokenBuilder.BuildFor(user);
+
+            var tokenDto = new TokenDto(token.Value);
+
+            return new ApplicationUserLoginDto(
+                user.Email!,
+                user.UserName!,
+                user.Id,
+                user.UserId!.Value,
+                tokenDto);
         }
     }
 }

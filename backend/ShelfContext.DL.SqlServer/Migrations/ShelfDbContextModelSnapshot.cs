@@ -43,7 +43,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("BookTags", (string)null);
+                    b.ToTable("BookTags");
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Books.Book", b =>
@@ -72,13 +72,19 @@ namespace ShelfContext.DL.SqlServer.Migrations
                     b.Property<Guid>("ShelfId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
                     b.HasIndex("ShelfId");
 
-                    b.ToTable("ShelvedBooks", (string)null);
+                    b.HasIndex("UserId", "BookId")
+                        .IsUnique();
+
+                    b.ToTable("ShelvedBooks");
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Shelves.Shelf", b =>
@@ -107,7 +113,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Shelves", (string)null);
+                    b.ToTable("Shelves");
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Tags.Tag", b =>
@@ -120,7 +126,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Users.User", b =>
@@ -138,7 +144,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
             modelBuilder.Entity("ShelfContext.Domain.Entities.BookTags.BookTag", b =>
                 {
                     b.HasOne("ShelfContext.Domain.Entities.ShelvedBooks.ShelvedBook", null)
-                        .WithMany("BookTags")
+                        .WithMany("_bookTags")
                         .HasForeignKey("ShelvedBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -161,6 +167,12 @@ namespace ShelfContext.DL.SqlServer.Migrations
                     b.HasOne("ShelfContext.Domain.Entities.Shelves.Shelf", null)
                         .WithMany()
                         .HasForeignKey("ShelfId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShelfContext.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -189,7 +201,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                             b1.HasKey("TagId");
 
-                            b1.ToTable("Tags", (string)null);
+                            b1.ToTable("Tags");
 
                             b1.WithOwner()
                                 .HasForeignKey("TagId");
@@ -201,7 +213,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.ShelvedBooks.ShelvedBook", b =>
                 {
-                    b.Navigation("BookTags");
+                    b.Navigation("_bookTags");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,8 +15,6 @@ import { CommonModule } from '@angular/common';
 import { Result } from '../../../../business/models/_shared/result';
 import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
 import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
-import { StorageService } from '../../../../business/services/_shared/storage.service';
-import { AuthStorageKeys } from '../../../../business/consts/authStorageKeys';
 import { AuthService } from '../../../../business/services/auth/auth.service';
 
 @Component({

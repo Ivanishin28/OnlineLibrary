@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShelfContext.DL.SqlServer.ValueConverters;
 using ShelfContext.Domain.Entities.Books;
+using ShelfContext.Domain.Entities.Users;
 
 namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
 {
@@ -20,6 +21,10 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
             builder
                 .Property(e => e.Id)
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
+
+            builder
+                .Property(e => e.CreatorId)
+                .HasConversion(new EntityIdValueConverter<UserId, Guid>());
 
             builder
                 .ToView("Books");

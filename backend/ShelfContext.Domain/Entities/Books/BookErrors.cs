@@ -10,5 +10,7 @@ namespace ShelfContext.Domain.Entities.Books
     public static class BookErrors
     {
         private static ErrorBuilder _errors = new ErrorBuilder("Book");
+
+        public static readonly Error CANNOT_ACCESS_BOOK = _errors.BuildError("Visibility", "Visibility");
     }
 }
