@@ -25,10 +25,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
             return _db
                 .Books
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => 
-                    x.Id == id &&
-                    (x.Visibility == BookVisibility.Public ||
-                    x.CreatorId == userId));
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

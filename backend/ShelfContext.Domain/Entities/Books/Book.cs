@@ -14,16 +14,7 @@ namespace ShelfContext.Domain.Entities.Books
     public class Book
     {
         public BookId Id { get; private set; } = null!;
-        public UserId CreatorId { get; private set; } = null!;
-        public BookVisibility Visibility { get; private set; }
 
         private Book() { }
-
-        public bool IsAccessibleTo(UserId userId)
-        {
-            return
-                Visibility != BookVisibility.Private ||
-                CreatorId == userId;
-        }
     }
 }

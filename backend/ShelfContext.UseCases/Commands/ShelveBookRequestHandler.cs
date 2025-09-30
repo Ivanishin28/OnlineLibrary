@@ -5,12 +5,10 @@ using Shared.Core.Models;
 using ShelfContext.Contract.Commands.ShelveBook;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Books;
-using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces;
 using ShelfContext.Domain.Interfaces.Repositories;
-using ShelfContext.Domain.Interfaces.Services;
 
 namespace ShelfContext.UseCases.Commands
 {
@@ -22,22 +20,19 @@ namespace ShelfContext.UseCases.Commands
         private IBookAccessor _bookRepository;
         private IShelvedBookRepository _shelvedBookRepository;
         private IUserContext _userContext;
-        private IShelvingService _shelvingService;
 
         public ShelveBookRequestHandler(
             IUnitOfWork unitOfWork,
             IShelfRepository shelfRepository,
             IBookAccessor bookRepository,
             IShelvedBookRepository shelvedBook,
-            IUserContext userContext,
-            IShelvingService shelvingService)
+            IUserContext userContext)
         {
             _unitOfWork = unitOfWork;
             _shelfRepository = shelfRepository;
             _bookRepository = bookRepository;
             _shelvedBookRepository = shelvedBook;
             _userContext = userContext;
-            _shelvingService = shelvingService;
         }
 
         public async Task<Result<Guid?>> Handle(ShelveBookRequest request, CancellationToken cancellationToken)
@@ -63,18 +58,12 @@ namespace ShelfContext.UseCases.Commands
 
             if (shelvedBook is null)
             {
-                var result = _shelvingService.Shelve(shelf, book);
-                if (result.IsFailure)
-                {
-                    return result.ToFailure<Guid?>();
-                }
-
-                shelvedBook = result.Model;
+                shelvedBook = shelf.Shelve(bookId);
                 _shelvedBookRepository.Add(shelvedBook);
             }
             else
             {
-                var result = _shelvingService.Reshelve(shelvedBook, shelf);
+                var result = shelvedBook.ReshelveTo(shelf);
                 if (result.IsFailure)
                 {
                     return result.ToFailure<Guid?>();
