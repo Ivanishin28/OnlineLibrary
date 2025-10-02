@@ -2,7 +2,6 @@
 using Shared.Core.Interfaces;
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.Users;
-using ShelfContext.Domain.Enums;
 using ShelfContext.Domain.Interfaces.Repositories;
 
 namespace ShelfContext.DL.SqlServer.Repositories

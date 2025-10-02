@@ -8,8 +8,10 @@ namespace ShelfContext.DL.Read.Configuration
     {
         public static IServiceCollection RegisterQueries(this IServiceCollection services)
         {
-            services.AddTransient<IBookShelvedChecker, BookShelvedChecker>();
-            services.AddTransient<IShelfNameUniquenessChecker, ShelfNameUniquenessChecker>();
+            services
+                .AddTransient<IResouceAccessibilityChecker, ResouceAccessibilityChecker>()
+                .AddTransient<IBookShelvedChecker, BookShelvedChecker>()
+                .AddTransient<IShelfNameUniquenessChecker, ShelfNameUniquenessChecker>();
 
             return services;
         }

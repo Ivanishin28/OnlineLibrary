@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShelfContext.Domain.Enums
+namespace ShelfContext.DL.Read.Enums
 {
     public enum BookVisibility
     {
