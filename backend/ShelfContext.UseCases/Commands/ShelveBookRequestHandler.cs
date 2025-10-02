@@ -21,20 +21,17 @@ namespace ShelfContext.UseCases.Commands
     {
         private IUnitOfWork _unitOfWork;
         private IShelfRepository _shelfRepository;
-        private IBookAccessor _bookRepository;
         private IShelvedBookRepository _shelvedBookRepository;
         private IResouceAccessibilityChecker _checker;
 
         public ShelveBookRequestHandler(
             IUnitOfWork unitOfWork,
             IShelfRepository shelfRepository,
-            IBookAccessor bookRepository,
             IShelvedBookRepository shelvedBook,
             IResouceAccessibilityChecker checker)
         {
             _unitOfWork = unitOfWork;
             _shelfRepository = shelfRepository;
-            _bookRepository = bookRepository;
             _shelvedBookRepository = shelvedBook;
             _checker = checker;
         }
@@ -52,9 +49,8 @@ namespace ShelfContext.UseCases.Commands
             }
 
             var shelf = await _shelfRepository.GetBy(shelfId);
-            var book = await _bookRepository.GetBy(bookId);
 
-            if (shelf is null || book is null)
+            if (shelf is null)
             {
                 throw new ExpectedResouceUnavailableException();
             }
