@@ -13,16 +13,14 @@ namespace ShelfContext.DL.SqlServer.Repositories
             _dbSet = db.Shelves;
         }
 
-        public Task Add(Shelf shelf)
+        public void Add(Shelf shelf)
         {
             _dbSet.Add(shelf);
-            return Task.CompletedTask;
         }
 
-        public Task Delete(Shelf shelf)
+        public void Delete(Shelf shelf)
         {
             _dbSet.Remove(shelf);
-            return Task.CompletedTask;
         }
 
         public async Task<Shelf?> GetBy(ShelfId id)

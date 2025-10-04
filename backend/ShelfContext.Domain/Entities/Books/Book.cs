@@ -2,8 +2,8 @@
 {
     public class Book
     {
-        public BookId Id { get; private set; } = null!;
+        public BookId Id { get; init; } = null!;
 
-        private Book() { }
+        public Book() { }
     }
 }

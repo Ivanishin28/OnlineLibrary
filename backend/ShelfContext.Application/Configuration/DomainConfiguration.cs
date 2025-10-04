@@ -14,6 +14,7 @@ namespace ShelfContext.Application.Configuration
         public static IServiceCollection RegisterDomainServices(this IServiceCollection services)
         {
             services
+                .AddTransient<IShelvingService, ShelvingService>()
                 .AddTransient<IShelfNameCreationService, ShelfNameCreationService>();
 
             return services;

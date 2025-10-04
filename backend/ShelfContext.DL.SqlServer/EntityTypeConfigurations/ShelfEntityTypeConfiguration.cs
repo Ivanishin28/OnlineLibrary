@@ -2,13 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShelfContext.DL.SqlServer.ValueConverters;
 using ShelfContext.Domain.Entities.Shelves;
-using ShelfContext.Domain.Entities.Tags;
 using ShelfContext.Domain.Entities.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
 {
@@ -33,7 +27,7 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<UserId, Guid>());
 
             builder
-                .ComplexProperty(
+                .OwnsOne(
                 e => e.Name,
                 p =>
                 {
