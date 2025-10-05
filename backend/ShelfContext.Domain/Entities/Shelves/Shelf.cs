@@ -2,7 +2,6 @@
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Users;
-using ShelfContext.Domain.Enums;
 
 namespace ShelfContext.Domain.Entities.Shelves
 {

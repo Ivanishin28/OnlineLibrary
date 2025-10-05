@@ -19,7 +19,7 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
         public BookId BookId { get; private set; } = null!;
         public DateTime DateShelved { get; private set; }
 
-        public IImmutableList<BookTag> BookTags => _bookTags.ToImmutableList();
+        public IReadOnlyCollection<BookTag> BookTags => _bookTags.AsReadOnly();
 
         public ShelvedBook() { }
 
@@ -64,10 +64,17 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
             return Result.Success();
         }
 
-        public void ReshelveTo(Shelf shelf)
+        public Result ReshelveTo(Shelf shelf)
         {
+            if (shelf.UserId != UserId)
+            {
+                return Result.Failure(ShelvedBookErrors.RESHELVE_TO_OTHER_USER);
+            }
+
             ShelfId = shelf.Id;
             DateShelved = TimeExtensions.Now();
+
+            return Result.Success();
         }
 
         public static ShelvedBook Create(ShelfId shelfId, BookId bookId, UserId userId)

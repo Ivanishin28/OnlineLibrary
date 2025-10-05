@@ -13,7 +13,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
     {
         Task<Shelf?> GetBy(ShelfId id);
 
-        Task Add(Shelf shelf);
-        Task Delete(Shelf shelf);
+        void Add(Shelf shelf);
+        void Delete(Shelf shelf);
     }
 }

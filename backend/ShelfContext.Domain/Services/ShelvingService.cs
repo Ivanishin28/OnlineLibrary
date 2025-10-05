@@ -1,33 +1,77 @@
-﻿using Shared.Core.Models;
+﻿using Shared.Core.Extensions;
+using Shared.Core.Models;
+using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
+using ShelfContext.Domain.Interfaces.Repositories;
 using ShelfContext.Domain.Interfaces.Services;
 
 namespace ShelfContext.Domain.Services
 {
     public class ShelvingService : IShelvingService
     {
-        public Result<ShelvedBook> Shelve(Shelf shelf, Book book)
-        {
-            if (!book.IsAccessibleTo(shelf.UserId))
-            {
-                return Result<ShelvedBook>.Failure(BookErrors.CANNOT_ACCESS_BOOK);
-            }
+        private readonly IShelfRepository _shelfRepository;
+        private readonly IBookAccessor _bookAccessor;
+        private readonly IShelvedBookRepository _shelvedBookRepository;
 
-            return shelf.Shelve(book.Id);
+        public ShelvingService(
+            IShelfRepository shelfRepository, 
+            IBookAccessor bookAccessor, 
+            IShelvedBookRepository shelvedBookRepository)
+        {
+            _shelfRepository = shelfRepository;
+            _bookAccessor = bookAccessor;
+            _shelvedBookRepository = shelvedBookRepository;
         }
 
-        public Result Reshelve(ShelvedBook book, Shelf shelf)
+        public async Task<Result<ShelvedBookId>> Shelve(ShelfId shelfId, BookId bookId)
         {
-            if (book.UserId != shelf.UserId)
+            var shelf = await _shelfRepository.GetBy(shelfId);
+
+            if (shelf is null)
             {
-                return Result.Failure(ShelvedBookErrors.RESHELVE_TO_OTHER_USER);
+                return Result<ShelvedBookId>.Failure(EntityErrors.NotFound);
             }
 
-            book.ReshelveTo(shelf);
+            var book = await _bookAccessor.GetBy(bookId);
 
-            return Result.Success();
+            if (book is null)
+            {
+                return Result<ShelvedBookId>.Failure(EntityErrors.NotFound);
+            }
+
+            var shelvedBook = await _shelvedBookRepository.GetBy(shelf.UserId, book.Id);
+
+            if (shelvedBook is null)
+            {
+                return ShelveNewBook(shelf, book);
+            }
+            else
+            {
+                return Reshelve(shelvedBook, shelf);
+            }
+        }
+
+        private ShelvedBookId ShelveNewBook(Shelf shelf, Book book)
+        {
+            var shelvedBook = shelf.Shelve(book.Id);
+            _shelvedBookRepository.Add(shelvedBook);
+            return shelvedBook.Id;
+        }
+
+        private Result<ShelvedBookId> Reshelve(ShelvedBook shelvedBook, Shelf shelf)
+        {
+            var result = shelvedBook.ReshelveTo(shelf);
+
+            if (result.IsFailure)
+            {
+                return result.ToFailure<ShelvedBookId>();
+            }
+            else
+            {
+                return shelvedBook.Id;
+            }
         }
     }
 }

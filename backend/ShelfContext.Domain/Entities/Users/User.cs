@@ -10,8 +10,8 @@ namespace ShelfContext.Domain.Entities.Users
 {
     public class User
     {
-        public UserId Id { get; private set; } = null!;
+        public UserId Id { get; init; } = null!;
 
-        private User() { }
+        public User() { }
     }
 }

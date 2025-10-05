@@ -1,15 +1,13 @@
 ﻿using MediatR;
 using Shared.Core.Extensions;
-using Shared.Core.Interfaces;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands.ShelveBook;
-using ShelfContext.Domain.Entities.Base;
+using ShelfContext.Contract.Errors;
+using ShelfContext.Contract.Services;
 using ShelfContext.Domain.Entities.Books;
-using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces;
-using ShelfContext.Domain.Interfaces.Repositories;
 using ShelfContext.Domain.Interfaces.Services;
 
 namespace ShelfContext.UseCases.Commands
@@ -18,25 +16,16 @@ namespace ShelfContext.UseCases.Commands
         : IRequestHandler<ShelveBookRequest, Result<Guid?>>
     {
         private IUnitOfWork _unitOfWork;
-        private IShelfRepository _shelfRepository;
-        private IBookAccessor _bookRepository;
-        private IShelvedBookRepository _shelvedBookRepository;
-        private IUserContext _userContext;
+        private IResouceAccessibilityChecker _checker;
         private IShelvingService _shelvingService;
 
         public ShelveBookRequestHandler(
             IUnitOfWork unitOfWork,
-            IShelfRepository shelfRepository,
-            IBookAccessor bookRepository,
-            IShelvedBookRepository shelvedBook,
-            IUserContext userContext,
+            IResouceAccessibilityChecker checker,
             IShelvingService shelvingService)
         {
             _unitOfWork = unitOfWork;
-            _shelfRepository = shelfRepository;
-            _bookRepository = bookRepository;
-            _shelvedBookRepository = shelvedBook;
-            _userContext = userContext;
+            _checker = checker;
             _shelvingService = shelvingService;
         }
 
@@ -44,46 +33,38 @@ namespace ShelfContext.UseCases.Commands
         {
             var bookId = new BookId(request.BookId);
             var shelfId = new ShelfId(request.ShelfId);
+            var userId = new UserId(request.UserId);
 
-            var shelf = await _shelfRepository.GetBy(shelfId);
-
-            if (shelf is null)
+            var canAccess = await CanAccess(userId, bookId, shelfId);
+            if (canAccess.IsFailure)
             {
-                return Result<Guid?>.Failure(EntityErrors.NotFound);
+                return canAccess.ToFailure<Guid?>();
             }
 
-            var book = await _bookRepository.GetBy(bookId);
+            var result = await _shelvingService.Shelve(shelfId, bookId);
 
-            if (book is null)
+            if (result.IsFailure)
             {
-                return Result<Guid?>.Failure(EntityErrors.NotFound);
-            }
-
-            var shelvedBook = await _shelvedBookRepository.GetBy(new UserId(_userContext.UserId), bookId);
-
-            if (shelvedBook is null)
-            {
-                var result = _shelvingService.Shelve(shelf, book);
-                if (result.IsFailure)
-                {
-                    return result.ToFailure<Guid?>();
-                }
-
-                shelvedBook = result.Model;
-                _shelvedBookRepository.Add(shelvedBook);
-            }
-            else
-            {
-                var result = _shelvingService.Reshelve(shelvedBook, shelf);
-                if (result.IsFailure)
-                {
-                    return result.ToFailure<Guid?>();
-                }
+                return result.ToFailure<Guid?>();
             }
 
             await _unitOfWork.SaveChanges();
 
-            return shelvedBook.Id.Value;
+            return result.Model.Value;
+        }
+
+        private async Task<Result> CanAccess(UserId userId, BookId bookId, ShelfId shelfId)
+        {
+            if (!await _checker.IsBookAccessibleToUser(bookId.Value, userId.Value))
+            {
+                return Result.Failure(AccessibilityErrors.CannotAccessBook(userId.Value, bookId.Value));
+            }
+            if (!await _checker.IsShelfAccesibleToUser(shelfId.Value, userId.Value))
+            {
+                return Result.Failure(AccessibilityErrors.CannotAccessShelf(userId.Value, shelfId.Value));
+            }
+
+            return Result.Success();
         }
     }
 }

@@ -1,29 +1,9 @@
-﻿using ShelfContext.Domain.Entities.BookTags;
-using ShelfContext.Domain.Entities.Shelves;
-using ShelfContext.Domain.Entities.Users;
-using ShelfContext.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShelfContext.Domain.Entities.Books
+﻿namespace ShelfContext.Domain.Entities.Books
 {
     public class Book
     {
-        public BookId Id { get; private set; } = null!;
-        public UserId CreatorId { get; private set; } = null!;
-        public BookVisibility Visibility { get; private set; }
+        public BookId Id { get; init; } = null!;
 
-        private Book() { }
-
-        public bool IsAccessibleTo(UserId userId)
-        {
-            return
-                Visibility != BookVisibility.Private ||
-                CreatorId == userId;
-        }
+        public Book() { }
     }
 }

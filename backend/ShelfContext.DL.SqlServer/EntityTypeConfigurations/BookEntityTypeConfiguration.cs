@@ -23,10 +23,6 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
 
             builder
-                .Property(e => e.CreatorId)
-                .HasConversion(new EntityIdValueConverter<UserId, Guid>());
-
-            builder
                 .ToView("Books");
         }
     }

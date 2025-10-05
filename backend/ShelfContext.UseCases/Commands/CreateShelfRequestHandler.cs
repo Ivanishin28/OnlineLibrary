@@ -38,7 +38,7 @@ namespace ShelfContext.UseCases.Commands
 
             var shelf = creationResult.Model;
 
-            await _shelfRepository.Add(shelf);
+            _shelfRepository.Add(shelf);
 
             await _unitOfWork.SaveChanges();
 

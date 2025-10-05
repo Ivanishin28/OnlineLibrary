@@ -1,8 +1,6 @@
 <Project>
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1998;0612</NoWarn>
   </PropertyGroup>
-	<PropertyGroup>
-    <NoWarn>1998</NoWarn>
-	</PropertyGroup>
 </Project>

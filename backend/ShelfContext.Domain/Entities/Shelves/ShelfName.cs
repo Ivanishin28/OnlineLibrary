@@ -13,12 +13,15 @@ namespace ShelfContext.Domain.Entities.Shelves
     {
         public const int MAX_LENGTH = 32;
 
-        public string Value { get; private set; }
+        public string Value { get; private set; } = null!;
 
         private ShelfName(string value)
         {
             Value = value;
         }
+
+        [Obsolete]
+        private ShelfName() { }
 
         public static Result<ShelfName> Create(string name)
         {
