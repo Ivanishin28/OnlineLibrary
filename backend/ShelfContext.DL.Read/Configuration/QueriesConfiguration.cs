@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ShelfContext.Contract.Services;
 using ShelfContext.DL.Read.Queries;
 using ShelfContext.Domain.Interfaces.Queries;
 

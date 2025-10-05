@@ -1,14 +1,16 @@
 ﻿using Shared.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.Contract.Errors
 {
     public static class AccessibilityErrors
     {
-        public static readonly Error CANNOT_ACCESS_RESOUCE = new Error("Accessibility", "Error");
+        private static readonly ErrorBuilder _errors = new ErrorBuilder("Accessibility");
+
+        public static Error CannotAccessTag(Guid userId, Guid resourceId) =>
+            _errors.BuildError("Tag", $"User {userId} cannot access Tag {resourceId}");
+        public static Error CannotAccessShelf(Guid userId, Guid resourceId) =>
+            _errors.BuildError("Shelf", $"User {userId} cannot access Shelf {resourceId}");
+        public static Error CannotAccessBook(Guid userId, Guid resourceId) =>
+            _errors.BuildError("Book", $"User {userId} cannot access Book {resourceId}");
     }
 }
