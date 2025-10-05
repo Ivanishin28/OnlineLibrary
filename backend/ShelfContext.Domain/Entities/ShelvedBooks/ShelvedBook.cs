@@ -19,7 +19,7 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
         public BookId BookId { get; private set; } = null!;
         public DateTime DateShelved { get; private set; }
 
-        public IImmutableList<BookTag> BookTags => _bookTags.ToImmutableList();
+        public IReadOnlyCollection<BookTag> BookTags => _bookTags.AsReadOnly();
 
         public ShelvedBook() { }
 

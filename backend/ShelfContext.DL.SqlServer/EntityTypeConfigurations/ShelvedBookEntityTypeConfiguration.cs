@@ -6,11 +6,6 @@ using ShelfContext.Domain.Entities.BookTags;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
 {
@@ -56,20 +51,9 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasIndex(x => new { x.UserId, x.BookId })
                 .IsUnique(true);
 
-            const string bookTagsNavigation = "_bookTags";
-
             builder
-                .Ignore(e => e.BookTags);
-
-            builder
-                .HasMany(typeof(BookTag), bookTagsNavigation)
-                .WithOne()
-                .HasForeignKey(nameof(BookTag.ShelvedBookId));
-
-            builder
-                .Metadata
-                .FindNavigation(bookTagsNavigation)!
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+                .HasMany(x => x.BookTags)
+                .WithOne();
         }
     }
 }

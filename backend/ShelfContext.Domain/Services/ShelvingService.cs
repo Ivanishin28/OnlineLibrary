@@ -11,9 +11,9 @@ namespace ShelfContext.Domain.Services
 {
     public class ShelvingService : IShelvingService
     {
-        private IShelfRepository _shelfRepository;
-        private IBookAccessor _bookAccessor;
-        private IShelvedBookRepository _shelvedBookRepository;
+        private readonly IShelfRepository _shelfRepository;
+        private readonly IBookAccessor _bookAccessor;
+        private readonly IShelvedBookRepository _shelvedBookRepository;
 
         public ShelvingService(
             IShelfRepository shelfRepository, 
