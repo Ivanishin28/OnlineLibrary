@@ -16,5 +16,8 @@ namespace ShelfContext.Domain.Entities.Tags
 
         public static readonly Error TooLongName =
             _erros.BuildError("Name.TooLong", "Empty tag name too long");
+
+        public static readonly Error NameTaken =
+            _erros.BuildError("Name.Taken", "Empty tag name too long");
     }
 }

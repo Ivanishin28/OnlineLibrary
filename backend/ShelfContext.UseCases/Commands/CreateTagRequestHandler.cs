@@ -3,43 +3,47 @@ using Shared.Core.Extensions;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands.CreateTag;
 using ShelfContext.Domain.Entities.Tags;
+using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces;
+using ShelfContext.Domain.Interfaces.Queries;
 using ShelfContext.Domain.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.UseCases.Commands
 {
     public class CreateTagRequestHandler :
-        IRequestHandler<CreateTagRequest, Result<CreateTagResponse>>
+        IRequestHandler<CreateTagRequest, Result<Guid?>>
     {
         private ITagRepository _tagRepository;
+        private ITagNameUniquenessChecker _checker;
         private IUnitOfWork _unitOfWork;
 
-        public CreateTagRequestHandler(ITagRepository tagRepository, IUnitOfWork unitOfWork)
+        public CreateTagRequestHandler(
+            ITagRepository tagRepository, 
+            ITagNameUniquenessChecker checker, 
+            IUnitOfWork unitOfWork)
         {
             _tagRepository = tagRepository;
+            _checker = checker;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result<CreateTagResponse>> Handle(CreateTagRequest request, CancellationToken cancellationToken)
+        public async Task<Result<Guid?>> Handle(CreateTagRequest request, CancellationToken cancellationToken)
         {
-            var tagResult = CreateTag(request);
+            var tagResult = await CreateTag(request);
 
             if(tagResult.IsFailure)
             {
-                return tagResult.ToFailure<CreateTagResponse>();
+                return tagResult.ToFailure<Guid?>();
             }
 
             await AddTag(tagResult.Model);
 
-            return new CreateTagResponse(tagResult.Model.Id.Value);
+            await _unitOfWork.SaveChanges();
+
+            return tagResult.Model.Id.Value;
         }
 
-        private Result<Tag> CreateTag(CreateTagRequest request)
+        private async Task<Result<Tag>> CreateTag(CreateTagRequest request)
         {
             var nameResult = TagName.Create(request.Name);
 
@@ -48,13 +52,17 @@ namespace ShelfContext.UseCases.Commands
                 return nameResult.ToFailure<Tag>();
             }
 
+            if (await _checker.IsNameTakenBy(nameResult.Model, new UserId(request.UserId)))
+            {
+                return Result<Tag>.Failure(TagErrors.NameTaken);
+            }
+
             return Tag.Create(nameResult.Model);
         }
 
         private async Task AddTag(Tag tag)
         {
             await _tagRepository.Add(tag);
-            await _unitOfWork.SaveChanges();
         }
     }
 }
