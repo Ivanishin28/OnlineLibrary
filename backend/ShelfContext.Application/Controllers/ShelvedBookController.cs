@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ShelfContext.Application.Dtos.Commands;
+using ShelfContext.Contract.Commands.AddTagToBook;
 using ShelfContext.Contract.Commands.ShelveBook;
 using ShelfContext.Contract.Queries.GetShelvedBookByBookId;
 
@@ -33,6 +34,14 @@ namespace ShelfContext.Application.Controllers
             var request = new GetShelvedBookByBookIdRequest(userId, bookId);
             var result = await _mediator.Send(request);
             return Ok(result);
+        }
+
+        [HttpPost("add_tag")]
+        public async Task<IActionResult> AddTag(AddTagToBookDto request)
+        {
+            var command = new AddTagToBookRequest(request.ShelvedBookId, request.TagId, GetUserId());
+            var result = await _mediator.Send(command);
+            return FromResult(result);
         }
     }
 }

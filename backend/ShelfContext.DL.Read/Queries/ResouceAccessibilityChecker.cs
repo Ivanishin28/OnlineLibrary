@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelfContext.Contract.Services;
 using ShelfContext.DL.Read.Enums;
+using ShelfContext.Domain.Entities.Tags;
 
 namespace ShelfContext.DL.Read.Queries
 {
@@ -29,6 +30,15 @@ namespace ShelfContext.DL.Read.Queries
                 .Shelves
                 .AnyAsync(x =>
                     x.Id == shelfId &&
+                    x.UserId == userId);
+        }
+
+        public Task<bool> IsShelvedBookAccessibleToUser(Guid shelvedBookId, Guid userId)
+        {
+            return _db
+                .ShelvedBooks
+                .AnyAsync(x =>
+                    x.Id == shelvedBookId &&
                     x.UserId == userId);
         }
 

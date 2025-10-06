@@ -32,7 +32,7 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
             UserId = userId;
         }
 
-        public Result Add(Tag tag)
+        public Result<BookTagId> Add(Tag tag)
         {
             var alreadyTagged = _bookTags
                 .Any(bookTag => 
@@ -40,13 +40,13 @@ namespace ShelfContext.Domain.Entities.ShelvedBooks
 
             if(alreadyTagged)
             {
-                return Result.Failure(ShelvedBookErrors.AlreadyTagged);
+                return Result<BookTagId>.Failure(ShelvedBookErrors.AlreadyTagged);
             }
 
             var bookTag = BookTag.Create(tag.Id, Id);
             _bookTags.Add(bookTag);
 
-            return Result.Success();
+            return bookTag.Id;
         }
 
         public Result Remove(TagId tagId)

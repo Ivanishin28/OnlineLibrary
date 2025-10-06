@@ -19,6 +19,11 @@ namespace ShelfContext.Tests.Fakes
             return Task.FromResult(true);
         }
 
+        public Task<bool> IsShelvedBookAccessibleToUser(Guid shelvedBookId, Guid userId)
+        {
+            return Task.FromResult(true);
+        }
+
         public Task<bool> IsTagAccessibleToUser(Guid tagId, Guid userId)
         {
             return Task.FromResult(true);

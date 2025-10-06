@@ -12,5 +12,7 @@ namespace ShelfContext.Contract.Errors
             _errors.BuildError("Shelf", $"User {userId} cannot access Shelf {resourceId}");
         public static Error CannotAccessBook(Guid userId, Guid resourceId) =>
             _errors.BuildError("Book", $"User {userId} cannot access Book {resourceId}");
+        public static Error CannotAccessShelvedBook(Guid userId, Guid resourceId) =>
+            _errors.BuildError("ShelvedBook", $"User {userId} cannot access ShelvedBook {resourceId}");
     }
 }
