@@ -1,13 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using ShelfContext.Contract.Dtos;
 using ShelfContext.Contract.Queries.GetShelvedBookByBookId;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShelfContext.DL.Read.Queries
 {
@@ -27,7 +21,20 @@ namespace ShelfContext.DL.Read.Queries
                 .Where(x =>
                     x.BookId == request.BookId &&
                     x.Shelf.UserId == request.UserId)
-                .Select(x => new ShelvedBookDto(x.Id, x.BookId, x.ShelfId, x.DateShelved))
+                .Select(x => new ShelvedBookDto(
+                    x.Id, 
+                    x.BookId, 
+                    x.ShelfId, 
+                    x.DateShelved, 
+                    x.BookTags.Select(x => new BookTagDto()
+                    {
+                        DateAdded = x.DateAdded,
+                        Id = x.Id,
+                        Name = x.Tag.Name,
+                        ShelvedBookId = x.ShelvedBookId,
+                        TagId = x.TagId
+                    })
+                    .ToList()))
                 .FirstOrDefaultAsync();
         }
     }

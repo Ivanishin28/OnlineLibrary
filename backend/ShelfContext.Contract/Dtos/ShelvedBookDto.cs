@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ShelfContext.Contract.Dtos
 {
@@ -17,13 +12,16 @@ namespace ShelfContext.Contract.Dtos
         public Guid ShelfId { get; private set; }
         [JsonPropertyName("date_shelved")]
         public DateTime DateShelved { get; private set; }
+        [JsonPropertyName("tags")]
+        public ICollection<BookTagDto> Tags { get; private set; }
 
-        public ShelvedBookDto(Guid id, Guid bookId, Guid shelfId, DateTime dateShelved)
+        public ShelvedBookDto(Guid id, Guid bookId, Guid shelfId, DateTime dateShelved, ICollection<BookTagDto> tags)
         {
             Id = id;
             BookId = bookId;
             ShelfId = shelfId;
             DateShelved = dateShelved;
+            Tags = tags;
         }
     }
 }
