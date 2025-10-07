@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../../business/services/auth/auth.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShelfService } from '../../../../business/services/shelves/shelf.service';
-import { switchMap, take, tap } from 'rxjs';
 import { ShelfPreview } from '../../../../business/models/shelves/shelfPreview';
 import { CommonModule } from '@angular/common';
 import { ShelfCreationWindowManager } from '../../../../business/managers/windows/shelfCreationWindowManager';
@@ -17,29 +15,22 @@ import { UserId } from '../../../../business/models/_shared/userId';
   styleUrl: './shelves-controls.component.scss',
 })
 export class ShelvesControlsComponent implements OnInit {
+  @Input({ required: true }) userId!: UserId;
+
   public shelves: ShelfPreview[] = [];
 
-  public userId!: UserId;
-
   constructor(
-    private authService: AuthService,
     private shelfService: ShelfService,
     private creationWindow: ShelfCreationWindowManager
   ) {}
 
   public ngOnInit(): void {
-    this.authService.loggedUser$
-      .pipe(
-        take(1),
-        tap((credentials) => (this.userId = credentials.userId)),
-        switchMap(() => this.shelfService.getByUserId(this.userId))
-      )
+    this.shelfService
+      .getByUserId(this.userId)
       .subscribe((shelves) => (this.shelves = shelves));
   }
 
   public createShelf(): void {
-    this.creationWindow
-      .createShelfFor(this.userId)
-      .subscribe();
+    this.creationWindow.createShelfFor(this.userId).subscribe();
   }
 }

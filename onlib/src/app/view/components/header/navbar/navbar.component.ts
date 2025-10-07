@@ -27,8 +27,8 @@ export class NavbarComponent {
         routerLink: 'account/login',
       },
       {
-        label: 'Shelves',
-        routerLink: 'shelves',
+        label: 'Organization',
+        routerLink: 'organization',
       },
       {
         label: 'LogOut',
