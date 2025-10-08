@@ -12,7 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { AccountService } from '../../../../business/services/auth/account.service';
 import { Result } from '../../../../business/models/_shared/result';
-import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
+import { markAllAsDirty } from '../../../forms/helpers/markAllAsDirty';
 import { Router, RouterModule } from '@angular/router';
 import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
 import { DatePickerModule } from 'primeng/datepicker';

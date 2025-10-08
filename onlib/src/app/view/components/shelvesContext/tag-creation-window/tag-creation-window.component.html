@@ -1,1 +1,25 @@
-<p>tag-creation-window works!</p>
+<div class="layout">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()">
+    <div class="controls">
+      <div *ngIf="form.controls.name as control" class="form-group">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          pInputText
+          [formControl]="control"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="validation-message"
+        >
+          <p>Invalid</p>
+          <p *ngIf="control.getError('tagNameTaken') as error">TagName taken</p>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>

@@ -14,7 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Result } from '../../../../business/models/_shared/result';
 import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
-import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
+import { markAllAsDirty } from '../../../forms/helpers/markAllAsDirty';
 import { AuthService } from '../../../../business/services/auth/auth.service';
 
 @Component({

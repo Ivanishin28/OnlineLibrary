@@ -4,11 +4,12 @@ import { ShelvesControlsComponent } from '../shelves-controls/shelves-controls.c
 import { AuthService } from '../../../../business/services/auth/auth.service';
 import { UserCredentials } from '../../../../business/models/_shared/userCredentials';
 import { take } from 'rxjs';
+import { TagsControlsComponent } from "../tags-controls/tags-controls.component";
 
 @Component({
   standalone: true,
   selector: 'library-organization',
-  imports: [CommonModule, ShelvesControlsComponent],
+  imports: [CommonModule, ShelvesControlsComponent, TagsControlsComponent],
   templateUrl: './library-organization.component.html',
   styleUrl: './library-organization.component.scss',
 })

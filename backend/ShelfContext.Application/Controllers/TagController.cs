@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ShelfContext.Contract.Commands.CreateTag;
+using ShelfContext.Contract.Queries;
 
 namespace ShelfContext.Application.Controllers
 {
@@ -19,6 +20,15 @@ namespace ShelfContext.Application.Controllers
             var response = await _mediator.Send(request);
 
             return FromResult(response);
+        }
+
+        [HttpGet("name-taken")]
+        public async Task<IActionResult> IsNameTaken([FromQuery] string name, [FromQuery] Guid? userId)
+        {
+            var query = new IsTagNameTakenQuery(userId ?? GetUserId(), name);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
     }
 }

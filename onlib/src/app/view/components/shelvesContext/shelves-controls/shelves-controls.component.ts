@@ -10,7 +10,7 @@ import { UserId } from '../../../../business/models/_shared/userId';
   standalone: true,
   selector: 'shelves-controls',
   imports: [CommonModule, DynamicDialogModule],
-  providers: [ShelfService, ShelfCreationWindowManager],
+  providers: [ShelfCreationWindowManager],
   templateUrl: './shelves-controls.component.html',
   styleUrl: './shelves-controls.component.scss',
 })

@@ -10,6 +10,9 @@ import { AccountService } from './business/services/auth/account.service';
 import { AuthService } from './business/services/auth/auth.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { tokenAppendingInterceptor } from './business/interceptors/token-appending.interceptor';
+import { TagService } from './business/services/shelves/tag.service';
+import { BookService } from './business/services/books/book.service';
+import { ShelfService } from './business/services/shelves/shelf.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,5 +34,8 @@ export const appConfig: ApplicationConfig = {
     AccountService,
     AuthService,
     DialogService,
+    TagService,
+    BookService,
+    ShelfService,
   ],
 };

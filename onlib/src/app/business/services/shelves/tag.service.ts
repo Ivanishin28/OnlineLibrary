@@ -20,6 +20,14 @@ export class TagService {
     return this.connection.get<Tag[]>(url);
   }
 
+  public isTagNameTakenByUser(
+    userId: UserId,
+    name: string
+  ): Observable<boolean> {
+    const url = `${this.COMPONENT}/name-taken?name=${name}&userId=${userId.value}`;
+    return this.connection.get<boolean>(url);
+  }
+
   public create(request: CreateTagRequest): Observable<Result<string>> {
     const url = `${this.COMPONENT}/create`;
     return this.connection
