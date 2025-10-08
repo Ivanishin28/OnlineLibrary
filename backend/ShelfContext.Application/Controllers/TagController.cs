@@ -14,6 +14,14 @@ namespace ShelfContext.Application.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetAllUserTags(Guid userId)
+        {
+            var query = new GetUserTagsQuery(userId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateTagRequest request)
         {

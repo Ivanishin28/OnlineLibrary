@@ -16,7 +16,7 @@ export class TagService {
   constructor(private connection: HttpClient) {}
 
   public getAllByUserId(userId: UserId): Observable<Tag[]> {
-    const url = `${this.COMPONENT}/userid/${userId.value}`;
+    const url = `${this.COMPONENT}/user/${userId.value}`;
     return this.connection.get<Tag[]>(url);
   }
 

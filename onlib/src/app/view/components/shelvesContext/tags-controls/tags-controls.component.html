@@ -1,3 +1,7 @@
 <h2>Tags</h2>
 <button (click)="createTag()">Create Tag</button>
-<div class="tag-list"></div>
+<div *ngIf="tags" class="tag-list">
+  <div *ngFor="let item of tags" class="tag-item">
+    <p class="name">{{ item.name }}</p>
+  </div>
+</div>
