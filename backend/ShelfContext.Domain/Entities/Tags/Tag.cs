@@ -1,4 +1,5 @@
 ﻿using Shared.Core.Models;
+using ShelfContext.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace ShelfContext.Domain.Entities.Tags
     public class Tag
     {
         public TagId Id { get; private set; } = null!;
+        public UserId UserId { get; set; } = null!;
         public TagName Name { get; private set; } = null!;
         public DateTime DateCreated { get; private set; }
 
