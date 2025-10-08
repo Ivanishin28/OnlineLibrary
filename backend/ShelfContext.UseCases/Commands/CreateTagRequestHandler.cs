@@ -52,12 +52,13 @@ namespace ShelfContext.UseCases.Commands
                 return nameResult.ToFailure<Tag>();
             }
 
-            if (await _checker.IsNameTakenBy(nameResult.Model, new UserId(request.UserId)))
+            var userId = new UserId(request.UserId);
+            if (await _checker.IsNameTakenBy(nameResult.Model, userId))
             {
                 return Result<Tag>.Failure(TagErrors.NameTaken);
             }
 
-            return Tag.Create(nameResult.Model);
+            return Tag.Create(userId, nameResult.Model);
         }
 
         private async Task AddTag(Tag tag)
