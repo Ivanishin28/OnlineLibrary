@@ -13,7 +13,6 @@ import { TagSelection } from '../../../../business/models/shelves/tagSelection';
   styleUrl: './tag-selection.component.scss',
 })
 export class TagSelectionComponent implements OnInit {
-  @Input({ required: true }) userId!: UserId;
   @Input({ required: true }) shelvedBook!: ShelvedBook;
 
   public tags: TagSelection[] | undefined;
@@ -27,7 +26,7 @@ export class TagSelectionComponent implements OnInit {
 
   private load(): void {
     forkJoin({
-      userTags: this.tagService.getAllByUserId(this.userId),
+      userTags: this.tagService.getPersonalTags(),
       shelvedBook: this.shelvedBookService.get(this.shelvedBook!.book_id),
     }).subscribe(({ userTags, shelvedBook }) => {
       if (!shelvedBook) {
@@ -45,6 +44,4 @@ export class TagSelectionComponent implements OnInit {
       });
     });
   }
-
-  private add(tag: TagSelection): void {}
 }

@@ -15,8 +15,6 @@ import { Tag } from '../../../../business/models/shelves/tag';
   styleUrl: './tags-controls.component.scss',
 })
 export class TagsControlsComponent implements OnInit {
-  @Input({ required: true }) userId!: UserId;
-
   public tags: Tag[] | undefined;
 
   constructor(
@@ -25,9 +23,7 @@ export class TagsControlsComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.tagService
-      .getAllByUserId(this.userId)
-      .subscribe((x) => (this.tags = x));
+    this.tagService.getPersonalTags().subscribe((x) => (this.tags = x));
   }
 
   public createTag(): void {
