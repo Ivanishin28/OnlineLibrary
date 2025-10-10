@@ -36,7 +36,7 @@ namespace ShelfContext.Application.Controllers
             return Ok(result);
         }
 
-        [HttpPost("add_tag")]
+        [HttpPost("add-tag")]
         public async Task<IActionResult> AddTag(AddTagToBookDto request)
         {
             var command = new AddTagToBookRequest(request.ShelvedBookId, request.TagId, GetUserId());

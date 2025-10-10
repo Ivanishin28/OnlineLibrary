@@ -22,7 +22,7 @@ export class TagSelectionPanelComponent {
   constructor(private shelvedBookService: ShelvedBookService) {}
 
   public toggle(tag: TagSelectionOption): void {
-    const operation = tag.isSelected ? this.addTag(tag) : this.removeTag(tag);
+    const operation = !tag.isSelected ? this.addTag(tag) : this.removeTag(tag);
     operation.subscribe((x) => {
       if (!x.isSuccess) {
         console.log('something went wrong');
@@ -31,26 +31,30 @@ export class TagSelectionPanelComponent {
   }
 
   private addTag(tag: TagSelectionOption): Observable<Result<void>> {
-    return this.shelvedBookService.addTag('', tag.tag.id).pipe(
-      map((x) => {
-        if (x.isSuccess) {
-          tag.isSelected = true;
-        }
+    return this.shelvedBookService
+      .addTag(this.tagSelection.shelvedBookId, tag.tag.id)
+      .pipe(
+        map((x) => {
+          if (x.isSuccess) {
+            tag.set();
+          }
 
-        return x.toVoid();
-      })
-    );
+          return x.toVoid();
+        })
+      );
   }
 
   private removeTag(tag: TagSelectionOption): Observable<Result<void>> {
-    return this.shelvedBookService.removeTag('', tag.tag.id).pipe(
-      map((x) => {
-        if (x.isSuccess) {
-          tag.isSelected = true;
-        }
+    return this.shelvedBookService
+      .removeTag(this.tagSelection.shelvedBookId, tag.tag.id)
+      .pipe(
+        map((x) => {
+          if (x.isSuccess) {
+            tag.reset();
+          }
 
-        return x.toVoid();
-      })
-    );
+          return x.toVoid();
+        })
+      );
   }
 }

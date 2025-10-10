@@ -25,4 +25,12 @@ export class TagSelection {
 
 export class TagSelectionOption {
   constructor(public readonly tag: Tag, public isSelected: boolean) {}
+
+  public set(): void {
+    this.isSelected = true;
+  }
+
+  public reset(): void {
+    this.isSelected = false;
+  }
 }
