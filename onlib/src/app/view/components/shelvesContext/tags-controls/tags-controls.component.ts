@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserId } from '../../../../business/models/_shared/userId';
+import { Component, OnInit } from '@angular/core';
 import { TagService } from '../../../../business/services/shelves/tag.service';
 import { CommonModule } from '@angular/common';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';

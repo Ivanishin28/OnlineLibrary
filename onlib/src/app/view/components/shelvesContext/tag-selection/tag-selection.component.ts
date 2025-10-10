@@ -2,18 +2,21 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ShelvedBookService } from '../../../../business/services/shelves/shelvedBook.service';
 import { TagService } from '../../../../business/services/shelves/tag.service';
 import { forkJoin } from 'rxjs';
-import { UserId } from '../../../../business/models/_shared/userId';
 import { ShelvedBook } from '../../../../business/models/shelves/shelvedBook';
 import { TagSelection } from '../../../../business/models/shelves/tagSelection';
+import { PopoverModule } from 'primeng/popover';
+import { TagSelectionPanelComponent } from './tag-selection-panel/tag-selection-panel.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'tag-selection',
-  imports: [],
+  imports: [CommonModule, PopoverModule, TagSelectionPanelComponent],
   templateUrl: './tag-selection.component.html',
   styleUrl: './tag-selection.component.scss',
 })
 export class TagSelectionComponent implements OnInit {
-  @Input({ required: true }) shelvedBook!: ShelvedBook;
+  @Input({ required: true }) shelvedBook: ShelvedBook | undefined;
 
   public tags: TagSelection[] | undefined;
 
@@ -24,10 +27,14 @@ export class TagSelectionComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  private load(): void {
+  public loadTags(): void {
+    if (!this.shelvedBook) {
+      return;
+    }
+
     forkJoin({
       userTags: this.tagService.getPersonalTags(),
-      shelvedBook: this.shelvedBookService.get(this.shelvedBook!.book_id),
+      shelvedBook: this.shelvedBookService.get(this.shelvedBook.book_id),
     }).subscribe(({ userTags, shelvedBook }) => {
       if (!shelvedBook) {
         return;
@@ -40,8 +47,12 @@ export class TagSelectionComponent implements OnInit {
           )
         );
 
-        return new TagSelection(x.id, isSelected);
+        return new TagSelection(x, isSelected);
       });
     });
+  }
+
+  public clearTags(): void {
+    this.tags = undefined;
   }
 }

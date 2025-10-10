@@ -15,11 +15,12 @@ import { SelectModule } from 'primeng/select';
 import { Shelf } from '../../../../../business/models/shelves/shelf';
 import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
 import { FormsModule } from '@angular/forms';
+import { TagSelectionComponent } from "../../../shelvesContext/tag-selection/tag-selection.component";
 
 @Component({
   standalone: true,
   selector: 'book-page-actions',
-  imports: [CommonModule, SelectModule, FormsModule],
+  imports: [CommonModule, SelectModule, FormsModule, TagSelectionComponent],
   providers: [ShelvedBookService, ShelfService],
   templateUrl: './book-page-actions.component.html',
   styleUrl: './book-page-actions.component.scss',
@@ -30,7 +31,7 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   public selectedShelf: Shelf | undefined;
   public shelves: Shelf[] = [];
 
-  private shelvedBook: ShelvedBook | undefined;
+  public shelvedBook: ShelvedBook | undefined;
 
   constructor(
     private authService: AuthService,

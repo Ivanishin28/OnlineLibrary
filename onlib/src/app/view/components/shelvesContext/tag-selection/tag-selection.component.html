@@ -1,3 +1,10 @@
 <div class="layout">
-  <button [disabled]="!shelvedBook"><p>Select Tags</p></button>
+  <button (click)="panel.show($event)" [disabled]="!shelvedBook">
+    <p>Select Tags</p>
+  </button>
+
+  <p-popover #panel (onShow)="loadTags()" (onHide)="clearTags()">
+    <p *ngIf="!tags">Loading...</p>
+    <tag-selection-panel *ngIf="tags" [tags]="tags!"></tag-selection-panel>
+  </p-popover>
 </div>
