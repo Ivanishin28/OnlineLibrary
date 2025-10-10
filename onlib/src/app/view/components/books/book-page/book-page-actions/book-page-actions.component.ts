@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { UserCredentials } from '../../../../../business/models/_shared/userCredentials';
 import { AuthService } from '../../../../../business/services/auth/auth.service';
 import { switchMap, take } from 'rxjs';
@@ -18,7 +24,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './book-page-actions.component.html',
   styleUrl: './book-page-actions.component.scss',
 })
-export class BookPageActionsComponent implements OnInit {
+export class BookPageActionsComponent implements OnInit, OnChanges {
   @Input({ required: true }) bookId!: string;
 
   public selectedShelf: Shelf | undefined;
@@ -45,6 +51,12 @@ export class BookPageActionsComponent implements OnInit {
           this.setShelvedBook(this.shelvedBook);
         }
       });
+  }
+
+  public ngOnChanges(): void {
+    this.shelvedBookService
+      .get(this.bookId)
+      .subscribe((x) => this.setShelvedBook(x));
   }
 
   private setShelvedBook(book: ShelvedBook | undefined) {
