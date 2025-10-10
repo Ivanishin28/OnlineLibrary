@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import {
   TagSelection,
   TagSelectionOption,
@@ -7,7 +7,7 @@ import {
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { ShelvedBookService } from '../../../../../business/services/shelves/shelvedBook.service';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { Result } from '../../../../../business/models/_shared/result';
 
 @Component({
@@ -19,14 +19,21 @@ import { Result } from '../../../../../business/models/_shared/result';
 export class TagSelectionPanelComponent {
   @Input({ required: true }) tagSelection!: TagSelection;
 
+  @Output() failure: Subject<void> = new Subject<void>();
+
   constructor(private shelvedBookService: ShelvedBookService) {}
 
   public toggle(tag: TagSelectionOption): void {
     const operation = !tag.isSelected ? this.addTag(tag) : this.removeTag(tag);
-    operation.subscribe((x) => {
-      if (!x.isSuccess) {
-        console.log('something went wrong');
-      }
+    operation.subscribe({
+      next: (x) => {
+        if (!x.isSuccess) {
+          this.failure.next();
+        }
+      },
+      error: () => {
+        this.failure.next();
+      },
     });
   }
 

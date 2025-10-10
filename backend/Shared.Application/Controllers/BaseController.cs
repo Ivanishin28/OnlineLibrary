@@ -17,12 +17,7 @@ namespace Shared.Application.Controllers
         {
             var apiResponse = new ApiResponse(result.Errors.ToArray());
 
-            if(result.IsFailure)
-            {
-                return BadRequest(apiResponse);
-            }
-
-            return Ok();
+            return result.IsSuccess ? Ok(apiResponse) : BadRequest(apiResponse);
         }
 
         protected IActionResult FromResult<T>(Result<T> result)
