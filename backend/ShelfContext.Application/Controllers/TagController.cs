@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ShelfContext.Application.Dtos.Commands;
 using ShelfContext.Contract.Commands.CreateTag;
 using ShelfContext.Contract.Queries;
 
@@ -23,9 +24,10 @@ namespace ShelfContext.Application.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateTagRequest request)
+        public async Task<IActionResult> Create(CreateTagRequestDto request)
         {
-            var response = await _mediator.Send(request);
+            var command = new CreateTagRequest(GetUserId(), request.Name);
+            var response = await _mediator.Send(command);
 
             return FromResult(response);
         }

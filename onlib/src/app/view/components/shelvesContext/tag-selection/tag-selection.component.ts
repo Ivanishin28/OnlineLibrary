@@ -43,7 +43,12 @@ export class TagSelectionComponent implements OnInit {
         return;
       }
 
-      this.tagSelection = TagSelection.from(shelvedBook.id, userTags, shelvedBook.tags);
+      console.log(userTags, shelvedBook.tags);
+      this.tagSelection = TagSelection.from(
+        shelvedBook.id,
+        userTags,
+        shelvedBook.tags
+      );
     });
   }
 

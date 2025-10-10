@@ -1,3 +1,4 @@
+import { BookTag } from './bookTag';
 import { Tag } from './tag';
 
 export class TagSelection {
@@ -9,15 +10,17 @@ export class TagSelection {
   public static from(
     shelvedBookId: string,
     userTags: Tag[],
-    selectedTags: Tag[]
+    selectedTags: BookTag[]
   ): TagSelection {
     const options = userTags.map((x) => {
-      const isSelected = userTags.some((userTag) =>
-        selectedTags.some((shelvedBookTag) => shelvedBookTag.id == userTag.id)
+      const isSelected = selectedTags.some(
+        (selectedTag) => selectedTag.tag_id == x.id
       );
 
       return new TagSelectionOption(x, isSelected);
     });
+
+    console.log(options);
 
     return new TagSelection(shelvedBookId, options);
   }

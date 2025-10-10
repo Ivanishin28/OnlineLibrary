@@ -1,4 +1,4 @@
-import { Tag } from './tag';
+import { BookTag } from './bookTag';
 
 export interface ShelvedBook {
   id: string;
@@ -6,5 +6,5 @@ export interface ShelvedBook {
   book_id: string;
   date_shelved: Date;
 
-  tags: Tag[];
+  tags: BookTag[];
 }

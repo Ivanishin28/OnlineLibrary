@@ -6,6 +6,7 @@ namespace ShelfContext.Contract.Errors
     {
         private static readonly ErrorBuilder _errors = new ErrorBuilder("Accessibility");
 
+        public static Error INACCESSIBLE = _errors.BuildError("Resouce", "Error");
         public static Error CannotAccessTag(Guid userId, Guid resourceId) =>
             _errors.BuildError("Tag", $"User {userId} cannot access Tag {resourceId}");
         public static Error CannotAccessShelf(Guid userId, Guid resourceId) =>
