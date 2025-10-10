@@ -4,7 +4,10 @@
   </button>
 
   <p-popover #panel (onShow)="loadTags()" (onHide)="clearTags()">
-    <p *ngIf="!tags">Loading...</p>
-    <tag-selection-panel *ngIf="tags" [tags]="tags!"></tag-selection-panel>
+    <p *ngIf="!tagSelection">Loading...</p>
+    <tag-selection-panel
+      *ngIf="tagSelection"
+      [tagSelection]="tagSelection!"
+    ></tag-selection-panel>
   </p-popover>
 </div>

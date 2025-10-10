@@ -3,7 +3,10 @@ import { ShelvedBookService } from '../../../../business/services/shelves/shelve
 import { TagService } from '../../../../business/services/shelves/tag.service';
 import { forkJoin } from 'rxjs';
 import { ShelvedBook } from '../../../../business/models/shelves/shelvedBook';
-import { TagSelection } from '../../../../business/models/shelves/tagSelection';
+import {
+  TagSelection,
+  TagSelectionOption,
+} from '../../../../business/models/shelves/tagSelection';
 import { PopoverModule } from 'primeng/popover';
 import { TagSelectionPanelComponent } from './tag-selection-panel/tag-selection-panel.component';
 import { CommonModule } from '@angular/common';
@@ -18,7 +21,7 @@ import { CommonModule } from '@angular/common';
 export class TagSelectionComponent implements OnInit {
   @Input({ required: true }) shelvedBook: ShelvedBook | undefined;
 
-  public tags: TagSelection[] | undefined;
+  public tagSelection: TagSelection | undefined;
 
   constructor(
     private tagService: TagService,
@@ -40,19 +43,11 @@ export class TagSelectionComponent implements OnInit {
         return;
       }
 
-      this.tags = userTags.map((x) => {
-        const isSelected = userTags.some((userTag) =>
-          shelvedBook.tags.some(
-            (shelvedBookTag) => shelvedBookTag.id == userTag.id
-          )
-        );
-
-        return new TagSelection(x, isSelected);
-      });
+      this.tagSelection = TagSelection.from(shelvedBook.id, userTags, shelvedBook.tags);
     });
   }
 
   public clearTags(): void {
-    this.tags = undefined;
+    this.tagSelection = undefined;
   }
 }

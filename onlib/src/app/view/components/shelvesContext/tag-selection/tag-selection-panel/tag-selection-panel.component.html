@@ -1,10 +1,12 @@
 <div class="layout">
   <div class="tag-list">
-    <div *ngFor="let item of tags" class="tag-item">
+    <div *ngFor="let item of tagSelection.options" class="tag-item">
       <p-check-box
+        (click)="toggle(item)"
         [inputId]="item.tag.id"
         [ngModel]="item.isSelected"
         [binary]="true"
+        [readonly]="true"
       ></p-check-box>
       <label [for]="item.tag.id"
         ><p>{{ item.tag.name }}</p></label

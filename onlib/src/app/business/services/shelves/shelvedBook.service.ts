@@ -10,6 +10,7 @@ import { ShelveBookRequest } from '../../models/shelves/shelveBookRequest';
 import { resultFromApiResult } from '../mappings/fromApiResult';
 import { AddTagToBookRequest } from '../../models/shelves/addTagToBookRequest';
 import { AuthService } from '../auth/auth.service';
+import { RemoveTagFromBookRequest } from '../../models/shelves/removeTagFromBookRequest';
 
 @Injectable()
 export class ShelvedBookService {
@@ -52,6 +53,21 @@ export class ShelvedBookService {
     };
 
     const url = `${this.CONTROLLER}/add-tag`;
+    return this.connection
+      .post<ApiResult<void>>(url, request)
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
+
+  public removeTag(
+    shelvedBookId: string,
+    tagId: string
+  ): Observable<Result<void>> {
+    const request: RemoveTagFromBookRequest = {
+      shelved_book_id: shelvedBookId,
+      tag_id: tagId,
+    };
+
+    const url = `${this.CONTROLLER}/remove-tag`;
     return this.connection
       .post<ApiResult<void>>(url, request)
       .pipe(map((x) => resultFromApiResult(x)));
