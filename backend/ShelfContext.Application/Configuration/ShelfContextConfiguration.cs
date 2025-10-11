@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
+using ShelfContext.Application.Concrete;
 using ShelfContext.Application.Controllers;
+using ShelfContext.Application.Interfaces;
 
 namespace ShelfContext.Application.Configuration
 {
@@ -8,6 +10,9 @@ namespace ShelfContext.Application.Configuration
     {
         public static IServiceCollection RegisterShelfContext(this IServiceCollection services)
         {
+            services
+                .AddTransient<IResouceAuthChecker, ResouceAuthChecker>();
+
             services
                 .RegisterDataAccess()
                 .RegisterDomainServices()

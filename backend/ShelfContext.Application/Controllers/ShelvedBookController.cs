@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Models;
 using ShelfContext.Application.Dtos.Commands;
+using ShelfContext.Application.Interfaces;
+using ShelfContext.Application.Models;
 using ShelfContext.Contract.Commands.AddTagToBook;
 using ShelfContext.Contract.Commands.DislodgeBook;
 using ShelfContext.Contract.Commands.RemoveTag;
@@ -15,9 +17,9 @@ namespace ShelfContext.Application.Controllers
     public class ShelvedBookController : BaseShelfController
     {
         private IMediator _mediator;
-        private IResouceAccessibilityChecker _checker;
+        private IResouceAuthChecker _checker;
 
-        public ShelvedBookController(IMediator mediator, IResouceAccessibilityChecker checker)
+        public ShelvedBookController(IMediator mediator, IResouceAuthChecker checker)
         {
             _mediator = mediator;
             _checker = checker;
@@ -55,10 +57,11 @@ namespace ShelfContext.Application.Controllers
         public async Task<IActionResult> RemoveTag(RemoveTagFromBookDto request)
         {
             var userId = GetUserId();
-            if (!(await _checker.IsTagAccessibleToUser(request.TagId, userId)) ||
-                !(await _checker.IsShelvedBookAccessibleToUser(request.ShelvedBookId, userId)))
+            var resouces = new Resouces { TagId = request.TagId, ShelvedBookId = request.ShelvedBookId };
+            var accessCheck = await _checker.CheckResouceAccessibilityToUser(userId, resouces);
+            if (accessCheck.IsFailure)
             {
-                return FromResult(Result.Failure(AccessibilityErrors.INACCESSIBLE));
+                return FromResult(accessCheck);
             }
 
             var command = new RemoveTagRequest(request.ShelvedBookId, request.TagId, GetUserId());
@@ -69,9 +72,12 @@ namespace ShelfContext.Application.Controllers
         [HttpDelete("dislodge/{shelvedBookId}")]
         public async Task<IActionResult> Dislodge(Guid shelvedBookId)
         {
-            if (!(await _checker.IsShelvedBookAccessibleToUser(shelvedBookId, GetUserId())))
+            var userId = GetUserId();
+            var resouces = new Resouces { ShelvedBookId = shelvedBookId };
+            var accessCheck = await _checker.CheckResouceAccessibilityToUser(userId, resouces);
+            if (accessCheck.IsFailure)
             {
-                return FromResult(Result.Failure(AccessibilityErrors.INACCESSIBLE));
+                return FromResult(accessCheck);
             }
 
             var command = new DislodgeBookRequest(shelvedBookId);
