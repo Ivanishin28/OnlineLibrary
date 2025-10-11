@@ -12,10 +12,12 @@ import { UserId } from '../../models/_shared/userId';
 
 @Injectable()
 export class ShelfService {
+  private readonly CONTROLLER = `${environment.api_main}/api/shelf/shelf`;
+
   constructor(private connection: HttpClient) {}
 
   public getByUserId(userId: UserId): Observable<ShelfPreview[]> {
-    const url = `${environment.api_main}/api/shelf/shelf/user/${userId.value}`;
+    const url = `${this.CONTROLLER}/user/${userId.value}`;
 
     return this.connection.get<ShelfPreview[]>(url);
   }
@@ -23,10 +25,17 @@ export class ShelfService {
   public create(
     requst: CreateShelfRequest
   ): Observable<Result<CreateShelfResponse>> {
-    const url = `${environment.api_main}/api/shelf/shelf/create`;
+    const url = `${environment.api_main}/create`;
 
     return this.connection
       .post<ApiResult<CreateShelfResponse>>(url, requst)
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
+
+  public delete(shelfId: string): Observable<Result<void>> {
+    const url = `${this.CONTROLLER}/delete/${shelfId}`;
+    return this.connection
+      .delete<ApiResult<void>>(url)
       .pipe(map((x) => resultFromApiResult(x)));
   }
 }

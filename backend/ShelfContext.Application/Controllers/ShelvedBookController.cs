@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Models;
 using ShelfContext.Application.Dtos.Commands;
 using ShelfContext.Contract.Commands.AddTagToBook;
+using ShelfContext.Contract.Commands.DislodgeBook;
 using ShelfContext.Contract.Commands.RemoveTag;
 using ShelfContext.Contract.Commands.ShelveBook;
 using ShelfContext.Contract.Errors;
@@ -61,6 +62,19 @@ namespace ShelfContext.Application.Controllers
             }
 
             var command = new RemoveTagRequest(request.ShelvedBookId, request.TagId, GetUserId());
+            var result = await _mediator.Send(command);
+            return FromResult(result);
+        }
+
+        [HttpPost("dislodge/{shelvedBookId}")]
+        public async Task<IActionResult> Dislodge(Guid shelvedBookId)
+        {
+            if (await _checker.IsShelvedBookAccessibleToUser(shelvedBookId, GetUserId()))
+            {
+                return FromResult(Result.Failure(AccessibilityErrors.INACCESSIBLE));
+            }
+
+            var command = new DislodgeBookRequest(shelvedBookId);
             var result = await _mediator.Send(command);
             return FromResult(result);
         }

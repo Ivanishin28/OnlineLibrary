@@ -1,18 +1,24 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Core.Models;
 using ShelfContext.Application.Dtos.Commands;
+using ShelfContext.Contract.Commands;
 using ShelfContext.Contract.Commands.CreateTag;
+using ShelfContext.Contract.Errors;
 using ShelfContext.Contract.Queries;
+using ShelfContext.Contract.Services;
 
 namespace ShelfContext.Application.Controllers
 {
     public class TagController : BaseShelfController
     {
         private IMediator _mediator;
+        private IResouceAccessibilityChecker _checker;
 
-        public TagController(IMediator mediator)
+        public TagController(IMediator mediator, IResouceAccessibilityChecker checker)
         {
             _mediator = mediator;
+            _checker = checker;
         }
 
         [HttpGet("user/{userId}")]
@@ -39,6 +45,19 @@ namespace ShelfContext.Application.Controllers
             var result = await _mediator.Send(query);
 
             return Ok(result);
+        }
+
+        [HttpDelete("delete/{tagId}")]
+        public async Task<IActionResult> Delete(Guid tagId)
+        {
+            if (!(await _checker.IsTagAccessibleToUser(tagId, GetUserId())))
+            {
+                return FromResult(Result.Failure(AccessibilityErrors.INACCESSIBLE));
+            }
+
+            var command = new DeleteTagRequest(tagId);
+            var result = await _mediator.Send(command);
+            return FromResult(result);
         }
     }
 }

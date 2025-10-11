@@ -47,4 +47,11 @@ export class TagService {
       .post<ApiResult<string>>(url, request)
       .pipe(map((x) => resultFromApiResult(x)));
   }
+
+  public delete(tagId: string): Observable<Result<void>> {
+    const url = `${this.COMPONENT}/delete/${tagId}`;
+    return this.connection
+      .delete<ApiResult<void>>(url)
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
 }

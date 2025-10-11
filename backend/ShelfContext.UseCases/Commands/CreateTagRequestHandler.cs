@@ -36,7 +36,7 @@ namespace ShelfContext.UseCases.Commands
                 return tagResult.ToFailure<Guid?>();
             }
 
-            await AddTag(tagResult.Model);
+            _tagRepository.Add(tagResult.Model);
 
             await _unitOfWork.SaveChanges();
 
@@ -59,11 +59,6 @@ namespace ShelfContext.UseCases.Commands
             }
 
             return Tag.Create(userId, nameResult.Model);
-        }
-
-        private async Task AddTag(Tag tag)
-        {
-            await _tagRepository.Add(tag);
         }
     }
 }
