@@ -3,5 +3,6 @@
 <div *ngIf="tags" class="tag-list">
   <div *ngFor="let item of tags" class="tag-item">
     <p class="name">{{ item.name }}</p>
+    <button (click)="delete(item)">X</button>
   </div>
 </div>

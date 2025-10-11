@@ -22,10 +22,18 @@ export class TagsControlsComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.tagService.getPersonalTags().subscribe((x) => (this.tags = x));
+    this.loadTags();
   }
 
   public createTag(): void {
-    this.tagCreationWindowManager.createTag().subscribe((x) => console.log(x));
+    this.tagCreationWindowManager.createTag().subscribe(() => this.loadTags());
+  }
+
+  public delete(tag: Tag): void {
+    this.tagService.delete(tag.id).subscribe(() => this.loadTags());
+  }
+
+  private loadTags(): void {
+    this.tagService.getPersonalTags().subscribe((x) => (this.tags = x));
   }
 }
