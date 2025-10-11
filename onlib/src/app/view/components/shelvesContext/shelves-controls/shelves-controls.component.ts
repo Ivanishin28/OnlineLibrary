@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { ShelfCreationWindowManager } from '../../../../business/managers/windows/shelfCreationWindowManager';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { UserId } from '../../../../business/models/_shared/userId';
+import { Shelf } from '../../../../business/models/shelves/shelf';
+import { map, Observable, switchMap, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -25,12 +27,27 @@ export class ShelvesControlsComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.shelfService
-      .getByUserId(this.userId)
-      .subscribe((shelves) => (this.shelves = shelves));
+    this.loadShelves().subscribe();
   }
 
   public createShelf(): void {
-    this.creationWindow.createShelfFor(this.userId).subscribe();
+    this.creationWindow
+      .createShelfFor(this.userId)
+      .pipe(switchMap(() => this.loadShelves()))
+      .subscribe();
+  }
+
+  public delete(shelf: Shelf): void {
+    this.shelfService
+      .delete(shelf.id)
+      .pipe(switchMap((x) => this.loadShelves()))
+      .subscribe();
+  }
+
+  private loadShelves(): Observable<void> {
+    return this.shelfService.getByUserId(this.userId).pipe(
+      tap((shelves) => (this.shelves = shelves)),
+      map((x) => void 0)
+    );
   }
 }

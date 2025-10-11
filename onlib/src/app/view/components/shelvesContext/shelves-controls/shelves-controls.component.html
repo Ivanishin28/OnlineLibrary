@@ -6,8 +6,9 @@
   </div>
 
   <ul class="shelf-list">
-    <li *ngFor="let item of shelves" class="item">
+    <li *ngFor="let item of shelves" class="shelf-item">
       <p class="name">{{ item.name }}</p>
+      <button (click)="delete(item)">X</button>
     </li>
   </ul>
 </div>
