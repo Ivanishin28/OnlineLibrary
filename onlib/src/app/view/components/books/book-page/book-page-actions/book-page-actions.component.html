@@ -2,6 +2,8 @@
   <p-select
     [(ngModel)]="selectedShelf"
     (ngModelChange)="shelveBookOn($event)"
+    [showClear]="true"
+    (onClear)="dislodge()"
     [options]="shelves"
     optionLabel="name"
   ></p-select>

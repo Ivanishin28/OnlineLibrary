@@ -25,7 +25,7 @@ export class ShelfService {
   public create(
     requst: CreateShelfRequest
   ): Observable<Result<CreateShelfResponse>> {
-    const url = `${environment.api_main}/create`;
+    const url = `${this.CONTROLLER}/create`;
 
     return this.connection
       .post<ApiResult<CreateShelfResponse>>(url, requst)

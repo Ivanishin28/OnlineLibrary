@@ -72,4 +72,12 @@ export class ShelvedBookService {
       .post<ApiResult<void>>(url, request)
       .pipe(map((x) => resultFromApiResult(x)));
   }
+
+  public dislodge(shelvedBookId: string): Observable<Result<void>> {
+    const url = `${this.CONTROLLER}/dislodge/${shelvedBookId}`;
+
+    return this.connection
+      .delete<ApiResult<void>>(url)
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
 }

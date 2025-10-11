@@ -15,7 +15,7 @@ import { SelectModule } from 'primeng/select';
 import { Shelf } from '../../../../../business/models/shelves/shelf';
 import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
 import { FormsModule } from '@angular/forms';
-import { TagSelectionComponent } from "../../../shelvesContext/tag-selection/tag-selection.component";
+import { TagSelectionComponent } from '../../../shelvesContext/tag-selection/tag-selection.component';
 
 @Component({
   standalone: true,
@@ -55,6 +55,16 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges(): void {
+    this.loadShelvedBook();
+  }
+
+  public shelveBookOn(shelf: Shelf): void {
+    this.shelvedBookService
+      .shelve(shelf.id, this.bookId)
+      .subscribe(() => this.loadShelvedBook());
+  }
+
+  private loadShelvedBook(): void {
     this.shelvedBookService
       .get(this.bookId)
       .subscribe((x) => this.setShelvedBook(x));
@@ -72,7 +82,19 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
     }
   }
 
-  public shelveBookOn(shelf: Shelf): void {
-    this.shelvedBookService.shelve(shelf.id, this.bookId).subscribe();
+  public dislodge(): void {
+    if (!this.shelvedBook) {
+      return;
+    }
+
+    this.shelvedBookService
+      .dislodge(this.shelvedBook.id)
+      .subscribe((result) => {
+        if (!result.isSuccess) {
+          return;
+        }
+
+        this.shelvedBook = undefined;
+      });
   }
 }

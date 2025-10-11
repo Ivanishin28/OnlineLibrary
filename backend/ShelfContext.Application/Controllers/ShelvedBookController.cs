@@ -66,10 +66,10 @@ namespace ShelfContext.Application.Controllers
             return FromResult(result);
         }
 
-        [HttpPost("dislodge/{shelvedBookId}")]
+        [HttpDelete("dislodge/{shelvedBookId}")]
         public async Task<IActionResult> Dislodge(Guid shelvedBookId)
         {
-            if (await _checker.IsShelvedBookAccessibleToUser(shelvedBookId, GetUserId()))
+            if (!(await _checker.IsShelvedBookAccessibleToUser(shelvedBookId, GetUserId())))
             {
                 return FromResult(Result.Failure(AccessibilityErrors.INACCESSIBLE));
             }
