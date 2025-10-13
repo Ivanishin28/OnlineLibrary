@@ -13,8 +13,4 @@
     <ProjectReference Include="..\ShelfContext.UseCases\ShelfContext.UseCases.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

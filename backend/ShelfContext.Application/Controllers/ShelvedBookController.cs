@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Core.Models;
 using ShelfContext.Application.Dtos.Commands;
 using ShelfContext.Application.Interfaces;
 using ShelfContext.Application.Models;
@@ -8,9 +7,8 @@ using ShelfContext.Contract.Commands.AddTagToBook;
 using ShelfContext.Contract.Commands.DislodgeBook;
 using ShelfContext.Contract.Commands.RemoveTag;
 using ShelfContext.Contract.Commands.ShelveBook;
-using ShelfContext.Contract.Errors;
+using ShelfContext.Contract.Queries.GetLibrarySummary;
 using ShelfContext.Contract.Queries.GetShelvedBookByBookId;
-using ShelfContext.Contract.Services;
 
 namespace ShelfContext.Application.Controllers
 {
@@ -83,6 +81,14 @@ namespace ShelfContext.Application.Controllers
             var command = new DislodgeBookRequest(shelvedBookId);
             var result = await _mediator.Send(command);
             return FromResult(result);
+        }
+
+        [HttpGet("summary/{userId}")]
+        public async Task<IActionResult> GetSummary(Guid userId)
+        {
+            var query = new GetLibrarySummaryForUserQuery(userId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }
