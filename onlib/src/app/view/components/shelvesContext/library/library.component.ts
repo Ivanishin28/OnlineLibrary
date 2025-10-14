@@ -6,12 +6,13 @@ import { LibraryFilter } from '../../../../business/models/shelves/libraryFilter
 import { LibrarySummary } from '../../../../business/models/shelves/librarySummary';
 import { ShelvedBookService } from '../../../../business/services/shelves/shelvedBook.service';
 import { UserId } from '../../../../business/models/_shared/userId';
+import { LibraryService } from '../../../../business/services/shelves/library.service';
 
 @Component({
   standalone: true,
   selector: 'library',
   imports: [CommonModule, RouterModule],
-  providers: [ShelvedBookService],
+  providers: [LibraryService],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss',
 })
@@ -22,7 +23,7 @@ export class LibraryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private shelvedBookService: ShelvedBookService
+    private libraryService: LibraryService
   ) {}
 
   public ngOnInit(): void {
@@ -30,9 +31,7 @@ export class LibraryComponent implements OnInit {
       .pipe(
         take(1),
         tap((x) => (this.userId = new UserId(x.get('userId')!))),
-        switchMap(() =>
-          this.shelvedBookService.getLibrarySummaryBy(this.userId!)
-        )
+        switchMap(() => this.libraryService.getLibrarySummaryBy(this.userId!))
       )
       .subscribe((x) => {
         this.librarySummary = x;

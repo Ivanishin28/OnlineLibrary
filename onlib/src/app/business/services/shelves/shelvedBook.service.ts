@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserId } from '../../models/_shared/userId';
 import { map, Observable, switchMap, take } from 'rxjs';
 import { ShelvedBook } from '../../models/shelves/shelvedBook';
 import { environment } from '../../../environments/environment';
@@ -11,7 +10,6 @@ import { resultFromApiResult } from '../mappings/fromApiResult';
 import { AddTagToBookRequest } from '../../models/shelves/addTagToBookRequest';
 import { AuthService } from '../auth/auth.service';
 import { RemoveTagFromBookRequest } from '../../models/shelves/removeTagFromBookRequest';
-import { LibrarySummary } from '../../models/shelves/librarySummary';
 
 @Injectable()
 export class ShelvedBookService {
@@ -80,12 +78,5 @@ export class ShelvedBookService {
     return this.connection
       .delete<ApiResult<void>>(url)
       .pipe(map((x) => resultFromApiResult(x)));
-  }
-
-  public getLibrarySummaryBy(
-    userId: UserId
-  ): Observable<LibrarySummary | undefined> {
-    const url = `${this.CONTROLLER}/summary/${userId.value}`;
-    return this.connection.get<LibrarySummary>(url);
   }
 }
