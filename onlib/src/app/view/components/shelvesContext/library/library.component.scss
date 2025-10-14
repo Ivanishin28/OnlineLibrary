@@ -1,0 +1,16 @@
+.layout {
+}
+
+.content {
+  display: grid;
+  grid-template-areas: "filter display";
+  grid-template-columns: 1fr 4fr;
+}
+
+.filter {
+  grid-area: filter;
+}
+
+.display {
+  grid-area: display;
+}

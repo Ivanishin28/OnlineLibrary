@@ -7,11 +7,12 @@ import { LibrarySummary } from '../../../../business/models/shelves/librarySumma
 import { ShelvedBookService } from '../../../../business/services/shelves/shelvedBook.service';
 import { UserId } from '../../../../business/models/_shared/userId';
 import { LibraryService } from '../../../../business/services/shelves/library.service';
+import { LibraryFilterComponent } from "./library-filter/library-filter.component";
 
 @Component({
   standalone: true,
   selector: 'library',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LibraryFilterComponent],
   providers: [LibraryService],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss',

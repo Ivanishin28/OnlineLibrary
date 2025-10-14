@@ -1,0 +1,18 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .item {
+    p {
+      cursor: pointer;
+      display: inline-block;
+    }
+  }
+}

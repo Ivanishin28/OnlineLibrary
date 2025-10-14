@@ -1,0 +1,22 @@
+<div class="layout">
+  <div class="content">
+    <div class="shelf-list list">
+      <h2>Shelves:</h2>
+      <div *ngFor="let item of summary.shelves" class="shelf-item item">
+        <p (click)="selectShelf(item)">
+          <span class="name">{{ item.name }}</span
+          ><span class="count">{{ item.book_count }}</span>
+        </p>
+      </div>
+    </div>
+    <div class="tag-list list">
+      <h2>Tags:</h2>
+      <div *ngFor="let item of summary.tags" class="tag-item item">
+        <p (click)="selectTag(item)">
+          <span class="name">{{ item.name }}</span
+          ><span class="count">{{ item.book_count }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
