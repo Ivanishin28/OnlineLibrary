@@ -33,6 +33,7 @@ namespace ShelfContext.DL.Read.Queries
 
             return new LibrarySummary(
                 request.UserId,
+                shelves.Sum(x => x.BookCount),
                 shelves,
                 tags);
         }

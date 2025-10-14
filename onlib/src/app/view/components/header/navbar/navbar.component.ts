@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { AuthService } from '../../../../business/services/auth/auth.service';
+import { take } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -12,7 +14,7 @@ import { AuthService } from '../../../../business/services/auth/auth.service';
 export class NavbarComponent {
   public items: MenuItem[];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.items = [
       {
         label: 'Books',
@@ -29,6 +31,15 @@ export class NavbarComponent {
       {
         label: 'Organization',
         routerLink: 'organization',
+      },
+      {
+        label: 'Library',
+        command: () =>
+          this.authService.loggedUser$
+            .pipe(take(1))
+            .subscribe((x) =>
+              this.router.navigate(['library', x.userId.value])
+            ),
       },
       {
         label: 'LogOut',
