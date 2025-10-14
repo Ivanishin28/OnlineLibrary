@@ -17,11 +17,15 @@ export class LibraryFilterComponent {
   @Output() itemSelected: EventEmitter<LibraryFilter> =
     new EventEmitter<LibraryFilter>();
 
-  public selectTag(tag: TagSummary) {
+  public selectAll(): void {
+    this.itemSelected.emit({ tagId: undefined, shelfId: undefined });
+  }
+
+  public selectTag(tag: TagSummary): void {
     this.itemSelected.emit({ tagId: tag.id, shelfId: undefined });
   }
 
-  public selectShelf(shelf: ShelfSummary) {
+  public selectShelf(shelf: ShelfSummary): void {
     this.itemSelected.emit({ shelfId: shelf.id, tagId: undefined });
   }
 }

@@ -8,11 +8,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
 
-  .item {
-    p {
-      cursor: pointer;
-      display: inline-block;
-    }
+.container-info {
+  cursor: pointer;
+  display: inline-block;
+  
+  .count {
+    margin-left: 5px;
   }
 }
