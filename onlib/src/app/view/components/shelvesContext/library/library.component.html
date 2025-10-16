@@ -6,5 +6,15 @@
         [summary]="librarySummary"
       ></library-filter>
     </div>
+    <div class="display">
+      <div class="pagination">
+        <pagination
+          [pageSize]="paginator.pageSize"
+          [pageIndex]="paginator.pageIndex"
+          [totalItems]="100"
+          (paginationChange)="paginator.loadPagination($event)"
+        ></pagination>
+      </div>
+    </div>
   </div>
 </div>
