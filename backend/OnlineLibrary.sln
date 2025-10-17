@@ -73,6 +73,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityContext.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityContext.Contracts", "Identity.Contracts\IdentityContext.Contracts.csproj", "{63479191-8E21-433E-A255-B9CE06D762E6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Composition", "Composition", "{7642507E-14B9-4874-9FD9-98805087B8F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Composition.Contract", "Composition.Contracts\Composition.Contract.csproj", "{C3813D9C-2CEE-4B24-BD64-66F9BB0FACFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Composition.UseCases", "Composition.UseCases\Composition.UseCases.csproj", "{6D236A6F-AA5B-44B6-B53B-5D9B1E2662DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +205,14 @@ Global
 		{63479191-8E21-433E-A255-B9CE06D762E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63479191-8E21-433E-A255-B9CE06D762E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63479191-8E21-433E-A255-B9CE06D762E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3813D9C-2CEE-4B24-BD64-66F9BB0FACFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3813D9C-2CEE-4B24-BD64-66F9BB0FACFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3813D9C-2CEE-4B24-BD64-66F9BB0FACFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3813D9C-2CEE-4B24-BD64-66F9BB0FACFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D236A6F-AA5B-44B6-B53B-5D9B1E2662DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D236A6F-AA5B-44B6-B53B-5D9B1E2662DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D236A6F-AA5B-44B6-B53B-5D9B1E2662DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D236A6F-AA5B-44B6-B53B-5D9B1E2662DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,5 +247,7 @@ Global
 		{B949D504-FEE4-48C0-A3C9-96B6CA344C73} = {F857FFC9-E442-4B02-A93C-183A0856B3A8}
 		{4B560D0F-56FD-4B66-9183-36EE63B6CEF9} = {F857FFC9-E442-4B02-A93C-183A0856B3A8}
 		{63479191-8E21-433E-A255-B9CE06D762E6} = {F857FFC9-E442-4B02-A93C-183A0856B3A8}
+		{C3813D9C-2CEE-4B24-BD64-66F9BB0FACFC} = {7642507E-14B9-4874-9FD9-98805087B8F2}
+		{6D236A6F-AA5B-44B6-B53B-5D9B1E2662DD} = {7642507E-14B9-4874-9FD9-98805087B8F2}
 	EndGlobalSection
 EndGlobal
