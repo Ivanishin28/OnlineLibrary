@@ -36,7 +36,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private libraryService: LibraryService
   ) {
-    this.paginator = new Paginator({ pageIndex: 0, pageSize: 10 });
+    this.paginator = new Paginator({ page_index: 0, page_size: 10 });
   }
 
   public ngOnDestroy(): void {
@@ -47,7 +47,15 @@ export class LibraryComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.paginator.paginationChanged$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((x) => {});
+      .subscribe((x) => {
+        this.libraryService
+          .getLibraryPage({
+            user_id: this.userId!.value,
+            filter: this.filter,
+            page: x,
+          })
+          .subscribe();
+      });
 
     this.route.paramMap
       .pipe(

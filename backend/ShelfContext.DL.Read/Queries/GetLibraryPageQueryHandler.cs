@@ -62,7 +62,7 @@ namespace ShelfContext.DL.Read.Queries
             else if (filter.ShelfId is not null)
             {
                 return shelvedBooks
-                    .Where(x => x.ShelfId == filter.TagId);
+                    .Where(x => x.ShelfId == filter.ShelfId);
             }
             else
             {

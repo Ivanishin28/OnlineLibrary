@@ -1,4 +1,4 @@
 export interface Page {
-  pageSize: number;
-  pageIndex: number;
+  page_size: number;
+  page_index: number;
 }

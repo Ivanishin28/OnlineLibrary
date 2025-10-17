@@ -17,15 +17,15 @@ export class Paginator {
   }
 
   public get pageSize(): number {
-    return this.page.pageSize;
+    return this.page.page_size;
   }
 
   public get pageIndex(): number {
-    return this.page.pageIndex;
+    return this.page.page_index;
   }
 
   public loadFirstPage(): void {
-    this.loadPagination({ pageIndex: 0, pageSize: this.page.pageSize });
+    this.loadPagination({ page_index: 0, page_size: this.page.page_size });
   }
 
   public reloadPage(): void {

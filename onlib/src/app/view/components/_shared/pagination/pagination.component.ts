@@ -31,8 +31,8 @@ export class PaginationComponent implements OnChanges {
 
   public onPageChange(state: PaginatorState) {
     this.paginationChange.next({
-      pageIndex: state.page!,
-      pageSize: state.rows!,
+      page_index: state.page!,
+      page_size: state.rows!,
     });
   }
 }

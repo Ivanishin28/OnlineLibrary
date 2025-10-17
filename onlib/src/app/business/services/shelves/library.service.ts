@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Page } from '../../models/_shared/page';
 import { LibraryFilter } from '../../models/shelves/libraryFilter';
+import { GetLibraryPageRequest } from '../../models/shelves/getLibraryPageRequest';
 
 @Injectable()
 export class LibraryService {
@@ -18,8 +19,8 @@ export class LibraryService {
     return this.connection.get<LibrarySummary>(url);
   }
 
-  public getLibraryPage(page: Page, filter: LibraryFilter): Observable<any> {
-    const url = `${environment.api_main}/api/shelf/shelvedbook/summary`;
-    return this.connection.post<any>(url, { ...page, ...filter });
+  public getLibraryPage(request: GetLibraryPageRequest): Observable<any> {
+    const url = `${environment.api_main}/api/composition/library/page`;
+    return this.connection.post<any>(url, request);
   }
 }
