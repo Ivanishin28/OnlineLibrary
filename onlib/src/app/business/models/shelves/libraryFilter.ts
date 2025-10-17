@@ -1,4 +1,4 @@
 export interface LibraryFilter {
-  shelfId: string | undefined;
-  tagId: string | undefined;
+  shelf_id: string | undefined;
+  tag_id: string | undefined;
 }

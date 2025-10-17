@@ -2,7 +2,7 @@
   <div class="content">
     <div class="shelf-list list">
       <h2>Shelves:</h2>
-      <p class="container-info">
+      <p (click)="selectAll()" class="container-info">
         <span class="name">All:</span
         ><span class="count">{{ summary.book_count }}</span>
       </p>

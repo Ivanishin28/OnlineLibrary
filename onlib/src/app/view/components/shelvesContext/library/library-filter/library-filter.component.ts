@@ -14,18 +14,18 @@ import { ShelfSummary } from '../../../../../business/models/shelves/shelfSummar
 export class LibraryFilterComponent {
   @Input({ required: true }) summary!: LibrarySummary;
 
-  @Output() itemSelected: EventEmitter<LibraryFilter> =
+  @Output() filterSelected: EventEmitter<LibraryFilter> =
     new EventEmitter<LibraryFilter>();
 
   public selectAll(): void {
-    this.itemSelected.emit({ tagId: undefined, shelfId: undefined });
+    this.filterSelected.emit({ tag_id: undefined, shelf_id: undefined });
   }
 
   public selectTag(tag: TagSummary): void {
-    this.itemSelected.emit({ tagId: tag.id, shelfId: undefined });
+    this.filterSelected.emit({ tag_id: tag.id, shelf_id: undefined });
   }
 
   public selectShelf(shelf: ShelfSummary): void {
-    this.itemSelected.emit({ shelfId: shelf.id, tagId: undefined });
+    this.filterSelected.emit({ tag_id: undefined, shelf_id: shelf.id });
   }
 }

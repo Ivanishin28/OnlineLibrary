@@ -3,11 +3,18 @@ import { Page } from './page';
 
 export class Paginator {
   private _pagination: Subject<Page> = new Subject<Page>();
+  private _page: Page;
 
-  constructor(private page: Page) {}
+  constructor(page: Page) {
+    this._page = page;
+  }
 
   public readonly paginationChanged$: Observable<Page> =
     this._pagination.asObservable();
+
+  public get page(): Page {
+    return this._page;
+  }
 
   public get pageSize(): number {
     return this.page.pageSize;
@@ -26,7 +33,7 @@ export class Paginator {
   }
 
   public loadPagination(page: Page): void {
-    this.page = page;
+    this._page = page;
     this._pagination.next(page);
   }
 }

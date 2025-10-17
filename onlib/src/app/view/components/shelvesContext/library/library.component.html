@@ -4,6 +4,7 @@
       <library-filter
         *ngIf="librarySummary"
         [summary]="librarySummary"
+        (filterSelected)="setFilter($event)"
       ></library-filter>
     </div>
     <div class="display">

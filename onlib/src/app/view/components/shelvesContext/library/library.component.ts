@@ -27,6 +27,7 @@ import { PaginationComponent } from '../../_shared/pagination/pagination.compone
 export class LibraryComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   private userId: UserId | undefined;
+  private filter: LibraryFilter = { shelf_id: undefined, tag_id: undefined };
 
   public librarySummary: LibrarySummary | undefined;
   public paginator: Paginator;
@@ -58,6 +59,11 @@ export class LibraryComponent implements OnInit, OnDestroy {
         this.librarySummary = x;
       });
 
+    this.paginator.loadFirstPage();
+  }
+
+  public setFilter(filter: LibraryFilter): void {
+    this.filter = filter;
     this.paginator.loadFirstPage();
   }
 }
