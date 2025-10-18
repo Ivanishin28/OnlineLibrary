@@ -3,11 +3,12 @@ import { LibraryShelvedBook } from '../../../../../business/models/shelves/libra
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { RouterModule } from '@angular/router';
+import { OnlibDatePipe } from '../../../../pipes/onlib-date.pipe';
 
 @Component({
   standalone: true,
   selector: 'library-book-display',
-  imports: [CommonModule, TableModule, RouterModule],
+  imports: [CommonModule, TableModule, RouterModule, OnlibDatePipe],
   templateUrl: './library-book-display.component.html',
   styleUrl: './library-book-display.component.scss',
 })

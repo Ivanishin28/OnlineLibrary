@@ -17,7 +17,7 @@
           </td>
           <td>-</td>
           <td>{{ item.shelf.name }}</td>
-          <td>{{ item.date_shelved | date }}</td>
+          <td>{{ item.date_shelved | onlibDate }}</td>
           <td>
             <div class="tag-list">
               <p *ngFor="let tag of item.tags" class="tag">{{ tag.name }}</p>
