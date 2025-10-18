@@ -10,6 +10,9 @@ import { LibraryService } from '../../../../business/services/shelves/library.se
 import { LibraryFilterComponent } from './library-filter/library-filter.component';
 import { Paginator } from '../../../../business/models/_shared/paginator';
 import { PaginationComponent } from '../../_shared/pagination/pagination.component';
+import { Pagination } from '../../../../business/models/_shared/pagination';
+import { LibraryShelvedBook } from '../../../../business/models/shelves/libraryShelvedBook';
+import { LibraryBookDisplayComponent } from "./library-book-display/library-book-display.component";
 
 @Component({
   standalone: true,
@@ -19,7 +22,8 @@ import { PaginationComponent } from '../../_shared/pagination/pagination.compone
     RouterModule,
     LibraryFilterComponent,
     PaginationComponent,
-  ],
+    LibraryBookDisplayComponent
+],
   providers: [LibraryService],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss',
@@ -29,13 +33,15 @@ export class LibraryComponent implements OnInit, OnDestroy {
   private userId: UserId | undefined;
   private filter: LibraryFilter = { shelf_id: undefined, tag_id: undefined };
 
-  public librarySummary: LibrarySummary | undefined;
   public paginator: Paginator;
+  public bookPage: Pagination<LibraryShelvedBook>;
+  public librarySummary: LibrarySummary | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private libraryService: LibraryService
   ) {
+    this.bookPage = new Pagination<LibraryShelvedBook>(0, []);
     this.paginator = new Paginator({ page_index: 0, page_size: 10 });
   }
 
@@ -54,7 +60,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
             filter: this.filter,
             page: x,
           })
-          .subscribe();
+          .subscribe((page) => (this.bookPage = page));
       });
 
     this.route.paramMap

@@ -8,11 +8,12 @@
       ></library-filter>
     </div>
     <div class="display">
+      <library-book-display [books]="bookPage.items"></library-book-display>
       <div class="pagination">
         <pagination
           [pageSize]="paginator.pageSize"
           [pageIndex]="paginator.pageIndex"
-          [totalItems]="100"
+          [totalItems]="bookPage.total"
           (paginationChange)="paginator.loadPagination($event)"
         ></pagination>
       </div>

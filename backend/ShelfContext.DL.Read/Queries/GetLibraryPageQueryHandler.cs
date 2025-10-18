@@ -29,13 +29,13 @@ namespace ShelfContext.DL.Read.Queries
                 .CountAsync();
 
             var items = await shelvedBooks
-                .OrderBy(x => x.DateShelved)
+                .OrderByDescending(x => x.DateShelved)
                 .Skip(request.Page.PageIndex * request.Page.PageSize)
                 .Take(request.Page.PageSize)
                 .Select(x => new ShelvedBookDto(
                     x.Id,
                     x.BookId,
-                    x.ShelfId,
+                    new ShelfDto(x.Shelf.Id, x.Shelf.Name),
                     x.DateShelved,
                     x.BookTags.Select(x => new BookTagDto()
                     {

@@ -23,8 +23,8 @@ namespace ShelfContext.DL.Read.Queries
                     x.Shelf.UserId == request.UserId)
                 .Select(x => new ShelvedBookDto(
                     x.Id, 
-                    x.BookId, 
-                    x.ShelfId, 
+                    x.BookId,
+                    new ShelfDto(x.Shelf.Id, x.Shelf.Name),
                     x.DateShelved, 
                     x.BookTags.Select(x => new BookTagDto()
                     {

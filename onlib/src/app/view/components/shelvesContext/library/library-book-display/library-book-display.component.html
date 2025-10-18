@@ -1,0 +1,30 @@
+<div class="layout">
+  <div class="content">
+    <p-table [value]="books">
+      <ng-template #header>
+        <tr>
+          <th>Title</th>
+          <th>Cover</th>
+          <th>Shelf</th>
+          <th>Date Shelved</th>
+          <th>Tags</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr *ngIf="cast(row) as item">
+          <td>
+            <a [routerLink]="['/books', item.book_id]">{{ item.book.title }}</a>
+          </td>
+          <td>-</td>
+          <td>{{ item.shelf.name }}</td>
+          <td>{{ item.date_shelved | date }}</td>
+          <td>
+            <div class="tag-list">
+              <p *ngFor="let tag of item.tags" class="tag">{{ tag.name }}</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

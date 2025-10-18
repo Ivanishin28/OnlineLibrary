@@ -75,7 +75,7 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
 
     if (book) {
       this.selectedShelf = this.shelves.find(
-        (shelf) => book?.shelf_id == shelf.id
+        (shelf) => book?.shelf.id == shelf.id
       );
     } else {
       this.selectedShelf = undefined;
