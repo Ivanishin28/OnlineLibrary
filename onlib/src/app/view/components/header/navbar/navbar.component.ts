@@ -2,34 +2,44 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { AuthService } from '../../../../business/services/auth/auth.service';
+import { take } from 'rxjs';
+import { Router } from '@angular/router';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { MenuModule } from 'primeng/menu';
 
 @Component({
   selector: 'navbar',
-  imports: [MenubarModule],
+  imports: [MenubarModule, MenuModule, AvatarGroupModule, AvatarModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
   public items: MenuItem[];
+  public accountItems: MenuItem[];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.items = [
       {
         label: 'Books',
         routerLink: 'books',
       },
       {
-        label: 'Register',
-        routerLink: 'account/register',
+        label: 'Organization',
+        routerLink: 'organization',
       },
       {
-        label: 'Login',
-        routerLink: 'account/login',
+        label: 'Library',
+        command: () =>
+          this.authService.loggedUser$
+            .pipe(take(1))
+            .subscribe((x) =>
+              this.router.navigate(['library', x.userId.value])
+            ),
       },
-      {
-        label: 'Shelves',
-        routerLink: 'shelves',
-      },
+    ];
+
+    this.accountItems = [
       {
         label: 'LogOut',
         command: () => this.authService.logout(),

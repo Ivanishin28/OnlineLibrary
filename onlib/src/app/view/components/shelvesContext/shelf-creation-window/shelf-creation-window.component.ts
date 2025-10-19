@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { ShelfNameConsts } from '../../../../business/consts/shelfContext/shelfNameConsts';
 import { InputTextModule } from 'primeng/inputtext';
-import { markAllAsDirty } from '../../../../business/helpers/forms/markAllAsDirty';
+import { markAllAsDirty } from '../../../forms/helpers/markAllAsDirty';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ShelfCreationWindowOutput } from '../../../../business/models/shelves/shelfCreationWindowOutput';
 

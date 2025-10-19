@@ -1,0 +1,10 @@
+.tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .tag-item {
+    display: flex;
+    justify-content: space-between;
+  }
+}

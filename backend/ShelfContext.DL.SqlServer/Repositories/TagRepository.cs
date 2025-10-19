@@ -18,7 +18,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
             _dbSet = db.Tags;
         }
 
-        public async Task Add(Tag tag)
+        public void Add(Tag tag)
         {
             _dbSet.Add(tag);
         }
@@ -30,7 +30,7 @@ namespace ShelfContext.DL.SqlServer.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task Remove(Tag tag)
+        public void Remove(Tag tag)
         {
             _dbSet.Remove(tag);
         }

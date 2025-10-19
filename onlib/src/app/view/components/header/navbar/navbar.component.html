@@ -1,1 +1,11 @@
-<p-menubar [model]="items"></p-menubar>
+<p-menubar [model]="items">
+  <ng-template #end>
+    <p-avatar
+      (click)="accountMenu.toggle($event)"
+      image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+      shape="square"
+      class="avatar"
+    />
+  </ng-template>
+</p-menubar>
+<p-menu #accountMenu [model]="accountItems" [popup]="true" />

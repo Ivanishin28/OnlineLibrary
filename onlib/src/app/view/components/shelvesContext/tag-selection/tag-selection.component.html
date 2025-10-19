@@ -1,0 +1,14 @@
+<div class="layout">
+  <button (click)="panel.show($event)" [disabled]="!shelvedBook">
+    <p>Select Tags</p>
+  </button>
+
+  <p-popover #panel (onShow)="loadTags()" (onHide)="clearTags()">
+    <p *ngIf="!tagSelection">Loading...</p>
+    <tag-selection-panel
+      *ngIf="tagSelection"
+      (failure)="onFailure(panel)"
+      [tagSelection]="tagSelection!"
+    ></tag-selection-panel>
+  </p-popover>
+</div>

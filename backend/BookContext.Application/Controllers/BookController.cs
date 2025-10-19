@@ -1,4 +1,5 @@
 ﻿using BookContext.Contract.Commands.CreateBook;
+using BookContext.Contract.Queries;
 using BookContext.Contract.Queries.GetAllBooks;
 using BookContext.Contract.Queries.GetBook;
 using MediatR;
@@ -31,6 +32,15 @@ namespace BookContext.Application.Controllers
             var result = await _metiator.Send(request);
 
             return FromResult(result);
+        }
+
+        [HttpGet("userId/{userId}")]
+        public async Task<IActionResult> GetUserBooks(Guid userId)
+        {
+            var request = new GetUserBooksQuery(userId);
+            var result = await _metiator.Send(request);
+
+            return Ok(result);
         }
 
         [HttpGet("full/{id}")]

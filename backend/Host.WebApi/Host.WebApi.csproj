@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookContext.Application\BookContext.Application.csproj" />
+    <ProjectReference Include="..\Composition.Application\Composition.Application.csproj" />
     <ProjectReference Include="..\Identity.Application\IdentityContext.Application.csproj" />
     <ProjectReference Include="..\ShelfContext.Application\ShelfContext.Application.csproj" />
     <ProjectReference Include="..\UserContext.Application\UserContext.Application.csproj" />

@@ -1,0 +1,7 @@
+<ul class="book-list">
+  <li *ngFor="let item of books" class="item">
+    <a [routerLink]="['/books', item.id]">
+      <book-preview [book]="item"></book-preview>
+    </a>
+  </li>
+</ul>

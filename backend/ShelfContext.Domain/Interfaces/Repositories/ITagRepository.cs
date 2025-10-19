@@ -11,7 +11,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
     {
         Task<Tag?> GetBy(TagId id);
         
-        Task Add(Tag tag);
-        Task Remove(Tag tag);
+        void Add(Tag tag);
+        void Remove(Tag tag);
     }
 }

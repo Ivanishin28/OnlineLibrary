@@ -3,13 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { KnobModule } from 'primeng/knob';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './view/components/header/navbar/navbar.component';
 import { Application } from './application';
 
 @Component({
   selector: 'app-root',
   imports: [
-    NavbarComponent,
     RouterOutlet,
     KnobModule,
     ReactiveFormsModule,
@@ -22,7 +20,7 @@ import { Application } from './application';
 })
 export class AppComponent implements OnInit {
   public isReady: boolean = false;
-  
+
   constructor(private application: Application) {}
 
   public ngOnInit(): void {

@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { UserCredentials } from '../../../../../business/models/_shared/userCredentials';
 import { AuthService } from '../../../../../business/services/auth/auth.service';
 import { switchMap, take } from 'rxjs';
@@ -9,11 +15,12 @@ import { SelectModule } from 'primeng/select';
 import { Shelf } from '../../../../../business/models/shelves/shelf';
 import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
 import { FormsModule } from '@angular/forms';
+import { TagSelectionComponent } from '../../../shelvesContext/tag-selection/tag-selection.component';
 
 @Component({
   standalone: true,
   selector: 'book-page-actions',
-  imports: [CommonModule, SelectModule, FormsModule],
+  imports: [CommonModule, SelectModule, FormsModule, TagSelectionComponent],
   providers: [ShelvedBookService, ShelfService],
   templateUrl: './book-page-actions.component.html',
   styleUrl: './book-page-actions.component.scss',
@@ -24,7 +31,7 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   public selectedShelf: Shelf | undefined;
   public shelves: Shelf[] = [];
 
-  private shelvedBook: ShelvedBook | undefined;
+  public shelvedBook: ShelvedBook | undefined;
 
   constructor(
     private authService: AuthService,
@@ -48,29 +55,46 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges(): void {
-    this.authService.loggedUser$
-      .pipe(
-        take(1),
-        switchMap((user) =>
-          this.shelvedBookService.get(user.userId, this.bookId)
-        )
-      )
+    this.loadShelvedBook();
+  }
+
+  public shelveBookOn(shelf: Shelf): void {
+    this.shelvedBookService
+      .shelve(shelf.id, this.bookId)
+      .subscribe(() => this.loadShelvedBook());
+  }
+
+  private loadShelvedBook(): void {
+    this.shelvedBookService
+      .get(this.bookId)
       .subscribe((x) => this.setShelvedBook(x));
   }
 
   private setShelvedBook(book: ShelvedBook | undefined) {
     this.shelvedBook = book;
-    
+
     if (book) {
       this.selectedShelf = this.shelves.find(
-        (shelf) => book?.shelf_id == shelf.id
+        (shelf) => book?.shelf.id == shelf.id
       );
     } else {
       this.selectedShelf = undefined;
     }
   }
 
-  public shelveBookOn(shelf: Shelf): void {
-    this.shelvedBookService.shelve(shelf.id, this.bookId).subscribe();
+  public dislodge(): void {
+    if (!this.shelvedBook) {
+      return;
+    }
+
+    this.shelvedBookService
+      .dislodge(this.shelvedBook.id)
+      .subscribe((result) => {
+        if (!result.isSuccess) {
+          return;
+        }
+
+        this.shelvedBook = undefined;
+      });
   }
 }

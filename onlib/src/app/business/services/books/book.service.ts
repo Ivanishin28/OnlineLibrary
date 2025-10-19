@@ -10,6 +10,7 @@ import {
 } from '../mappings/fromApiResult';
 import { CreateBookRequest } from '../../models/books/createBookRequest';
 import { Result } from '../../models/_shared/result';
+import { UserId } from '../../models/_shared/userId';
 
 @Injectable()
 export class BookService {

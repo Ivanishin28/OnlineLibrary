@@ -12,6 +12,7 @@ namespace Host.WebApi.Configuration
             ConfigurationManager config)
         {
             services
+                .RegisterComposition()
                 .RegisterIdentityContext(config)
                 .RegisterUserContext()
                 .RegisterBookContext(config)
@@ -23,6 +24,7 @@ namespace Host.WebApi.Configuration
         public static IMvcBuilder AddModuleControllers(this IMvcBuilder mvcBuilder)
         {
             return mvcBuilder
+                .AddCompositionControllers()
                 .AddIdentityContextControllers()
                 .AddUserContextControllers()
                 .AddBookContextControllers()

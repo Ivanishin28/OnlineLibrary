@@ -1,0 +1,22 @@
+<div class="layout">
+  <div class="content">
+    <div class="filter">
+      <library-filter
+        *ngIf="librarySummary"
+        [summary]="librarySummary"
+        (filterSelected)="setFilter($event)"
+      ></library-filter>
+    </div>
+    <div class="display">
+      <library-book-display [books]="bookPage.items"></library-book-display>
+      <div class="pagination">
+        <pagination
+          [pageSize]="paginator.pageSize"
+          [pageIndex]="paginator.pageIndex"
+          [totalItems]="bookPage.total"
+          (paginationChange)="paginator.loadPagination($event)"
+        ></pagination>
+      </div>
+    </div>
+  </div>
+</div>

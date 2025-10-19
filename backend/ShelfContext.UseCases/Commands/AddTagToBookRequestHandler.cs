@@ -1,54 +1,84 @@
 ﻿using MediatR;
+using Shared.Core.Extensions;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands.AddTagToBook;
+using ShelfContext.Contract.Errors;
+using ShelfContext.Contract.Services;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Tags;
+using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Interfaces;
 using ShelfContext.Domain.Interfaces.Repositories;
 
 namespace ShelfContext.UseCases.Commands
 {
     public class AddTagToBookRequestHandler
-        : IRequestHandler<AddTagToBookRequest, Result>
+        : IRequestHandler<AddTagToBookRequest, Result<Guid?>>
     {
-        private IUnitOfWork _unitOfWork;
-        private IShelvedBookRepository _shelvedBookRepository;
-        private ITagRepository _tagRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IShelvedBookRepository _shelvedBookRepository;
+        private readonly ITagRepository _tagRepository;
+        private readonly IResouceAccessibilityChecker _checker;
 
         public AddTagToBookRequestHandler(
-            IUnitOfWork unitOfWork, 
-            IShelvedBookRepository shelvedBookRepository, 
-            ITagRepository tagRepository)
+            IUnitOfWork unitOfWork,
+            IShelvedBookRepository shelvedBookRepository,
+            ITagRepository tagRepository,
+            IResouceAccessibilityChecker checker)
         {
             _unitOfWork = unitOfWork;
             _shelvedBookRepository = shelvedBookRepository;
             _tagRepository = tagRepository;
+            _checker = checker;
         }
 
-        public async Task<Result> Handle(AddTagToBookRequest request, CancellationToken cancellationToken)
+        public async Task<Result<Guid?>> Handle(AddTagToBookRequest request, CancellationToken cancellationToken)
         {
             var tagId = new TagId(request.TagId);
-            var tag = await _tagRepository.GetBy(tagId);
+            var shelvedBookId = new ShelvedBookId(request.ShelvedBookId);
+            var userId = new UserId(request.UserId);
 
-            if (tag is null)
+            var canAccess = await CanAccess(tagId, shelvedBookId, userId);
+            if (canAccess.IsFailure)
             {
-                return Result.Failure(EntityErrors.NotFound);
+                return canAccess.ToFailure<Guid?>();
             }
 
-            var shelvedBookId = new ShelvedBookId(request.ShelvedBookId);
+            var tag = await _tagRepository.GetBy(tagId);
             var shelvedBook = await _shelvedBookRepository.GetBy(shelvedBookId);
 
-            if (shelvedBook is null)
+            if (tag is null || shelvedBook is null)
             {
-                return Result.Failure(EntityErrors.NotFound);
+                return Result<Guid?>.Failure(EntityErrors.NotFound);
             }
 
-            shelvedBook.Add(tag);
+            var result = shelvedBook.Add(tag);
+
+            if (result.IsFailure)
+            {
+                return result.ToFailure<Guid?>();
+            }
 
             await _unitOfWork.SaveChanges();
 
-            return Result.Success();
+            return result.Model.Value;
+        }
+
+        private async Task<Result> CanAccess(TagId tagId, ShelvedBookId shelvedBookId, UserId userId)
+        {
+            if (!(await _checker.IsTagAccessibleToUser(tagId.Value, userId.Value)))
+            {
+                return Result.Failure(AccessibilityErrors.CannotAccessTag(userId.Value, tagId.Value));
+            }
+            else if (!(await _checker.IsShelvedBookAccessibleToUser(shelvedBookId.Value, userId.Value)))
+            {
+                return Result.Failure(AccessibilityErrors.CannotAccessTag(userId.Value, tagId.Value));
+            }
+            else
+            {
+                return Result.Success();
+            }
         }
     }
 }

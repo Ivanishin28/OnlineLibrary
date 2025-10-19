@@ -101,7 +101,9 @@
 
     <app-validation-summary [errors]="error?.errors"></app-validation-summary>
 
-    {{ form.value | json }}
-    <button type="submit">Register</button>
+    <div class="control-buttons">
+      <p-button [routerLink]="['/account/login']">Login</p-button>
+      <p-button type="submit">Register</p-button>
+    </div>
   </form>
 </div>

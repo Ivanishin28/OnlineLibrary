@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.Contract.Commands.CreateTag
 {
-    public class CreateTagRequest : IResultRequest<CreateTagResponse>
+    public class CreateTagRequest : IResultRequest<Guid?>
     {
+        [JsonPropertyName("user_id")]
+        public Guid UserId { get; private set; }
         [JsonPropertyName("name")]
         public string Name { get; private set; }
 
-        public CreateTagRequest(string name)
+        public CreateTagRequest(Guid userId, string name)
         {
             Name = name;
+            UserId = userId;
         }
     }
 }

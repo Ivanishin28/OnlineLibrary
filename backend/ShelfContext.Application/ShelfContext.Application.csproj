@@ -13,9 +13,4 @@
     <ProjectReference Include="..\ShelfContext.UseCases\ShelfContext.UseCases.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Commands\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

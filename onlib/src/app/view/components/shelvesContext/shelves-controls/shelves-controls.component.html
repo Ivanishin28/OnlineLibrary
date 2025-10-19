@@ -1,11 +1,14 @@
 <div class="layout">
+  <h2>Shelves</h2>
+
   <div class="controls">
     <button (click)="createShelf()">Create Shelf</button>
   </div>
 
   <ul class="shelf-list">
-    <li *ngFor="let item of shelves" class="item">
+    <li *ngFor="let item of shelves" class="shelf-item">
       <p class="name">{{ item.name }}</p>
+      <button (click)="delete(item)">X</button>
     </li>
   </ul>
 </div>
