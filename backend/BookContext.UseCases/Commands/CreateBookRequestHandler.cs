@@ -33,7 +33,7 @@ namespace BookContext.UseCases.Commands
 
         public async Task<Result<CreateBookResponse>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
-            var bookResult = Book.Create(_context.UserId, request.Title, Domain.Enums.BookVisibility.Public);
+            var bookResult = Book.Create(_context.UserId, request.Title);
 
             if(bookResult.IsFailure)
             {
