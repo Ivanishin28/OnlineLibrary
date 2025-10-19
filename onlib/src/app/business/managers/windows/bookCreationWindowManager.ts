@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { BookCreationWindowComponent } from '../../../view/components/booksPage/book-creation-window/book-creation-window.component';
+import { BookCreationWindowComponent } from '../../../view/components/books/book-creation-window/book-creation-window.component';
 import { filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Result } from '../../models/_shared/result';
 import { CreateBookRequest } from '../../models/books/createBookRequest';

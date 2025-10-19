@@ -4,9 +4,9 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { BookService } from '../../../../business/services/books/book.service';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
-import { BookPreviewComponent } from '../../booksPage/book-preview/book-preview.component';
+import { BookPreviewComponent } from '../book-preview/book-preview.component';
 import { BookPageActionsComponent } from './book-page-actions/book-page-actions.component';
-import { BooksPageComponent } from "../../booksPage/books-page/books-page.component";
+import { BooksPageComponent } from "../books-page/books-page.component";
 
 @Component({
   standalone: true,
