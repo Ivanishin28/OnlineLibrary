@@ -16,6 +16,7 @@ import { markAllAsDirty } from '../../../forms/helpers/markAllAsDirty';
 import { Router, RouterModule } from '@angular/router';
 import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
 import { DatePickerModule } from 'primeng/datepicker';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
@@ -29,6 +30,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     RouterModule,
     ValidationSummaryComponent,
     DatePickerModule,
+    ButtonModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
