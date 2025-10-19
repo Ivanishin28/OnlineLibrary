@@ -19,6 +19,7 @@ export class ShelfCreationWindowManager {
     const ref = this.dialog.open(ShelfCreationWindowComponent, {
       closable: true,
       showHeader: true,
+      modal: true,
       header: 'Create Shelf',
     });
 

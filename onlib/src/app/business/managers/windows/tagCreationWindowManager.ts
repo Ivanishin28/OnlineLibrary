@@ -30,6 +30,7 @@ export class TagCreationWindowManager {
       showHeader: true,
       header: 'Create Shelf',
       data: userId,
+      modal: true,
     });
 
     return ref.onClose.pipe(
