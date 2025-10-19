@@ -25,14 +25,6 @@ export class NavbarComponent {
         routerLink: 'books',
       },
       {
-        label: 'Register',
-        routerLink: 'account/register',
-      },
-      {
-        label: 'Login',
-        routerLink: 'account/login',
-      },
-      {
         label: 'Organization',
         routerLink: 'organization',
       },

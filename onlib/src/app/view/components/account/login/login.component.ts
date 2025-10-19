@@ -16,6 +16,7 @@ import { Result } from '../../../../business/models/_shared/result';
 import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
 import { markAllAsDirty } from '../../../forms/helpers/markAllAsDirty';
 import { AuthService } from '../../../../business/services/auth/auth.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
@@ -28,6 +29,7 @@ import { AuthService } from '../../../../business/services/auth/auth.service';
     PasswordModule,
     RouterModule,
     ValidationSummaryComponent,
+    ButtonModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private builder: FormBuilder,
+    private router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -70,7 +73,7 @@ export class LoginComponent implements OnInit {
       })
       .subscribe((loginResult) => {
         if (loginResult.isSuccess) {
-          console.log('user_id', loginResult.value.user_id);
+          this.router.navigate(['/books']);
         } else {
           this.error = loginResult.toFailure<void>();
         }

@@ -1,30 +1,37 @@
 <div class="layout">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div *ngIf="form.controls.login as login" class="form-group">
-      <label for="login">Login</label>
-      <input
-        id="login"
-        pInputText
-        [formControl]="login"
-        class="form-control"
-        type="text"
-      />
-    </div>
+    <div class="fields">
+      <div *ngIf="form.controls.login as login" class="form-group">
+        <label for="login">Login</label>
+        <input
+          id="login"
+          pInputText
+          [formControl]="login"
+          class="form-control"
+          type="text"
+        />
+      </div>
 
-    <div *ngIf="form.controls.password as password" class="form-group">
-      <label for="password">Password</label>
-      <p-password
-        inputId="password"
-        [feedback]="false"
-        [toggleMask]="true"
-        [formControl]="password"
-        class="form-control"
-        type="text"
-      />
+      <div *ngIf="form.controls.password as password" class="form-group">
+        <label for="password">Password</label>
+        <p-password
+          inputId="password"
+          [feedback]="false"
+          [toggleMask]="true"
+          [formControl]="password"
+          class="form-control"
+          type="text"
+        />
+      </div>
     </div>
 
     <app-validation-summary [errors]="error?.errors"></app-validation-summary>
 
-    <button type="submit">Submit</button>
+    <div class="controls">
+      <p-button class="register" [routerLink]="['/account/register']"
+        >Register</p-button
+      >
+      <p-button class="login" type="submit">Login</p-button>
+    </div>
   </form>
 </div>
