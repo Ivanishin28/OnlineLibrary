@@ -8,12 +8,13 @@ import { BookService } from '../../../../business/services/books/book.service';
 import { BookCreationWindowManager } from '../../../../business/managers/windows/bookCreationWindowManager';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
+import { PersonalBooksService } from '../../../../business/services/books/personal-books.service';
 
 @Component({
   standalone: true,
   selector: 'books-controls',
   imports: [CommonModule, ButtonModule, DynamicDialogModule],
-  providers: [BookCreationWindowManager, BookService],
+  providers: [BookCreationWindowManager, PersonalBooksService],
   templateUrl: './books-controls.component.html',
   styleUrl: './books-controls.component.scss',
 })
@@ -24,8 +25,8 @@ export class BooksControlsComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private bookService: BookService,
-    private bookCreationWindow: BookCreationWindowManager
+    private bookCreationWindow: BookCreationWindowManager,
+    private personalBooksService: PersonalBooksService
   ) {}
 
   public ngOnInit(): void {
@@ -41,8 +42,7 @@ export class BooksControlsComponent implements OnInit {
   }
 
   private loadBooks(): void {
-    this.bookService.getByUserId(this.user).subscribe((x) => {
-      console.log(x);
+    this.personalBooksService.getPersonalBooks().subscribe((x) => {
       this.books = x;
     });
   }

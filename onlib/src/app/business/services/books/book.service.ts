@@ -24,12 +24,6 @@ export class BookService {
     return this.http.get<BookPreview>(url);
   }
 
-  public getByUserId(userId: UserId): Observable<BookPreview[]> {
-    const url = `${environment.api_main}/${this.COMPONENT}/userId/${userId.value}`;
-
-    return this.http.get<BookPreview[]>(url);
-  }
-
   public getAll(): Observable<BookPreview[]> {
     const url = `${environment.api_main}/${this.COMPONENT}/all`;
 
