@@ -10,6 +10,7 @@ import {
 } from '../mappings/fromApiResult';
 import { CreateBookRequest } from '../../models/books/createBookRequest';
 import { Result } from '../../models/_shared/result';
+import { UserId } from '../../models/_shared/userId';
 
 @Injectable()
 export class BookService {
@@ -21,6 +22,12 @@ export class BookService {
     const url = `${environment.api_main}/${this.COMPONENT}/full/${id}`;
 
     return this.http.get<BookPreview>(url);
+  }
+
+  public getByUserId(userId: UserId): Observable<BookPreview[]> {
+    const url = `${environment.api_main}/${this.COMPONENT}/userId/${userId.value}`;
+
+    return this.http.get<BookPreview[]>(url);
   }
 
   public getAll(): Observable<BookPreview[]> {

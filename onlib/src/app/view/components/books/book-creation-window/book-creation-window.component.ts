@@ -11,6 +11,7 @@ import { Button } from 'primeng/button';
 import { BookCreation } from '../../../../business/models/books/bookCreation';
 
 @Component({
+  standalone: true,
   selector: 'book-creation-window',
   imports: [CommonModule, ReactiveFormsModule, JsonPipe, Button],
   templateUrl: './book-creation-window.component.html',

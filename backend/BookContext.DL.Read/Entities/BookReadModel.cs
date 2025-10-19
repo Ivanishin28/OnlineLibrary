@@ -9,6 +9,7 @@ namespace BookContext.DL.Read.Entities
     public class BookReadModel
     {
         public Guid Id { get; private set; }
+        public Guid CreatorId { get; private set; }
         public string Title { get; private set; } = null!;
         public IReadOnlyCollection<BookAuthorReadModel> BookAuthors { get; private set; } 
             = new List<BookAuthorReadModel>();

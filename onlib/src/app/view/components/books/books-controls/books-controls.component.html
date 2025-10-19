@@ -1,0 +1,16 @@
+<div class="layout">
+  <h2>Books</h2>
+  <p-button (onClick)="createBook()">Create book</p-button>
+
+  <div class="book-list">
+    <div *ngFor="let book of books" class="book-card">
+      <div class="info">
+        <p class="title">{{ book.title }}</p>
+      </div>
+      <div class="actions">
+        <p-button class="delete">Delete</p-button>
+        <p-button class="edit">Edit</p-button>
+      </div>
+    </div>
+  </div>
+</div>
