@@ -1,10 +1,22 @@
 <div class="layout">
   <div class="content">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <input formControlName="title" />
-      <p>{{ form.value | json }}</p>
+      <div class="fields">
+        <div *ngIf="form.controls.title as control" class="form-group">
+          <label for="title">Title</label>
+          <input
+            id="title"
+            pInputText
+            [formControl]="control"
+            class="form-control"
+            type="text"
+          />
+        </div>
+      </div>
 
-      <p-button [disabled]="form.invalid" type="submit">Submit</p-button>
+      <div class="controls">
+        <p-button [disabled]="form.invalid" type="submit">Create</p-button>
+      </div>
     </form>
   </div>
 </div>
