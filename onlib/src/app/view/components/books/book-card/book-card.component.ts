@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 
@@ -12,4 +12,6 @@ import { BookPreview } from '../../../../business/models/books/bookPreview';
 })
 export class BookCardComponent {
   @Input({ required: true }) book!: BookPreview;
+
+  @ContentChild('bottom') bottomTemplate?: TemplateRef<any>;
 }

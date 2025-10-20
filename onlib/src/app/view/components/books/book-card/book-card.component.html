@@ -2,5 +2,9 @@
   <div class="info">
     <book-cover></book-cover>
     <p class="title">{{ book.title }}</p>
+    <ng-container
+      *ngIf="bottomTemplate"
+      [ngTemplateOutlet]="bottomTemplate"
+    ></ng-container>
   </div>
 </div>

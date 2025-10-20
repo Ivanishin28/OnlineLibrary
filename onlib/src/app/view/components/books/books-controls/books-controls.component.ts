@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { UserId } from '../../../../business/models/_shared/userId';
 import { AuthService } from '../../../../business/services/auth/auth.service';
-import { Observable, take } from 'rxjs';
+import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { BookService } from '../../../../business/services/books/book.service';
 import { BookCreationWindowManager } from '../../../../business/managers/windows/bookCreationWindowManager';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { PersonalBooksService } from '../../../../business/services/books/personal-books.service';
-import { BookCoverComponent } from "../book-cover/book-cover.component";
-import { BookCardComponent } from "../book-card/book-card.component";
+import { BookCardWithActionsComponent } from '../book-card-with-actions/book-card-with-actions.component';
 
 @Component({
   standalone: true,
   selector: 'books-controls',
-  imports: [CommonModule, ButtonModule, DynamicDialogModule, BookCoverComponent, BookCardComponent],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    DynamicDialogModule,
+    BookCardWithActionsComponent,
+  ],
   providers: [BookCreationWindowManager, PersonalBooksService],
   templateUrl: './books-controls.component.html',
   styleUrl: './books-controls.component.scss',
