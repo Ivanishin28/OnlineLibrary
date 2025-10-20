@@ -12,4 +12,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class BookCardWithActionsComponent {
   @Input({ required: true }) book!: BookPreview;
+
+  @Output() delete: EventEmitter<void> = new EventEmitter<void>();
 }

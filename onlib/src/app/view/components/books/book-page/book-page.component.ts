@@ -39,6 +39,7 @@ export class BookPageComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         switchMap((params) => {
           const bookId = params.get('id')!;
+          window.scrollTo(0, 0);
           return this.bookService.getFull(bookId);
         })
       )

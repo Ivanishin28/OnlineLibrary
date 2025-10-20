@@ -43,7 +43,15 @@ export class BooksControlsComponent implements OnInit {
   }
 
   public createBook(): void {
-    this.bookCreationWindow.create().subscribe((x) => console.log(x));
+    this.bookCreationWindow.create().subscribe((x) => this.loadBooks());
+  }
+
+  public delete(bookId: string): void {
+    this.personalBooksService.delete(bookId).subscribe((result) => {
+      if (result.isSuccess) {
+        this.loadBooks();
+      }
+    });
   }
 
   private loadBooks(): void {

@@ -6,7 +6,10 @@
 
   <div class="book-list">
     <div *ngFor="let item of books" class="book-item">
-      <book-card-with-actions [book]="item"></book-card-with-actions>
+      <book-card-with-actions
+        [book]="item"
+        (delete)="delete(item.id)"
+      ></book-card-with-actions>
     </div>
   </div>
 </div>
