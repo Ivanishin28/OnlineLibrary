@@ -9,11 +9,12 @@ import { BookCreationWindowManager } from '../../../../business/managers/windows
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { PersonalBooksService } from '../../../../business/services/books/personal-books.service';
+import { BookCoverComponent } from "../book-cover/book-cover.component";
 
 @Component({
   standalone: true,
   selector: 'books-controls',
-  imports: [CommonModule, ButtonModule, DynamicDialogModule],
+  imports: [CommonModule, ButtonModule, DynamicDialogModule, BookCoverComponent],
   providers: [BookCreationWindowManager, PersonalBooksService],
   templateUrl: './books-controls.component.html',
   styleUrl: './books-controls.component.scss',

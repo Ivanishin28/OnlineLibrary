@@ -5,6 +5,7 @@
   <div class="book-list">
     <div *ngFor="let book of books" class="book-card">
       <div class="info">
+        <book-cover></book-cover>
         <p class="title">{{ book.title }}</p>
       </div>
       <div class="actions">
