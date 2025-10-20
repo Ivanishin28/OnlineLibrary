@@ -49,7 +49,7 @@ namespace BookContext.UseCases.Commands
 
         private async Task AddBook(Book book)
         {
-            await _bookRepository.Add(book);
+            _bookRepository.Add(book);
             await _unitOfWork.SaveChangesAsync();
         }
     }

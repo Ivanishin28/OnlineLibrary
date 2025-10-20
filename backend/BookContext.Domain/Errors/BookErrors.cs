@@ -1,4 +1,5 @@
 ﻿using Shared.Core.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace BookContext.Domain.Errors
 {
@@ -14,5 +15,7 @@ namespace BookContext.Domain.Errors
 
         public static readonly Error EmptyTitle
             = _error.BuildError("Title.Empty", "Title.Empty");
+
+        public static Error NotFound(Guid bookId) => _error.BuildError("NotFound", $"Book {bookId} was not found");
     }
 }

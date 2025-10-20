@@ -10,7 +10,7 @@ namespace BookContext.Domain.Interfaces.Repositories
     public interface IBookRepository
     {
         Task<Book?> GetBy(Guid id);
-        Task Add(Book book);
-        Task Delete(Book book);
+        void Add(Book book);
+        void Delete(Book book);
     }
 }
