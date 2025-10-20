@@ -5,7 +5,10 @@
   </div>
 
   <div class="book-list">
-    <div *ngFor="let book of books" class="book-card">
+    <div *ngFor="let item of books" class="book-item">
+      <book-card [book]="item"></book-card>
+    </div>
+    <!-- <div *ngFor="let book of books" class="book-card">
       <div class="info">
         <book-cover></book-cover>
         <p class="title">{{ book.title }}</p>
@@ -14,6 +17,6 @@
         <p-button class="delete" severity="danger">Delete</p-button>
         <p-button class="edit">Edit</p-button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
