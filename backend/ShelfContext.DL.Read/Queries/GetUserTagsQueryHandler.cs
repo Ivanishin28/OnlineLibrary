@@ -23,6 +23,7 @@ namespace ShelfContext.DL.Read.Queries
         {
             return await _db
                 .Tags
+                .Where(x => x.UserId == request.UserId)
                 .Select(x => new TagDto()
                 {
                     Id = x.Id,
