@@ -1,6 +1,8 @@
 <div class="layout">
-  <h2>Books</h2>
-  <p-button (onClick)="createBook()">Create book</p-button>
+  <div class="header">
+    <h2>Books</h2>
+    <p-button (onClick)="createBook()">Create book</p-button>
+  </div>
 
   <div class="book-list">
     <div *ngFor="let book of books" class="book-card">

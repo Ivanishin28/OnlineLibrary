@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TagCreationWindowManager } from '../../../../business/managers/windows/tagCreationWindowManager';
 import { Tag } from '../../../../business/models/shelves/tag';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   selector: 'tags-controls',
-  imports: [CommonModule, DynamicDialogModule],
+  imports: [CommonModule, DynamicDialogModule, ButtonModule],
   providers: [TagCreationWindowManager],
   templateUrl: './tags-controls.component.html',
   styleUrl: './tags-controls.component.scss',

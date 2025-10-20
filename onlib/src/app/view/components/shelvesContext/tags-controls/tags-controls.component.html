@@ -1,8 +1,15 @@
-<h2>Tags</h2>
-<button (click)="createTag()">Create Tag</button>
+<div class="header">
+  <h2>Tags</h2>
+  <p-button (click)="createTag()">Create Tag</p-button>
+</div>
 <div *ngIf="tags" class="tag-list">
   <div *ngFor="let item of tags" class="tag-item">
     <p class="name">{{ item.name }}</p>
-    <button (click)="delete(item)">X</button>
+    <p-button
+      (click)="delete(item)"
+      icon="pi pi-times"
+      severity="danger"
+      size="small"
+    ></p-button>
   </div>
 </div>
