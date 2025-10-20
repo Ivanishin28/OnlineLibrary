@@ -1,7 +1,7 @@
 ﻿using BookContext.Contract.Commands.CreateBook;
-using BookContext.DL.Interfaces;
-using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
+using BookContext.Domain.Interfaces;
+using BookContext.Domain.Interfaces.Repositories;
 using MediatR;
 using Shared.Core.Interfaces;
 using Shared.Core.Models;

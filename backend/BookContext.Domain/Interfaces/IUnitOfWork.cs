@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookContext.DL.Interfaces
+namespace BookContext.Domain.Interfaces
 {
     public interface IUnitOfWork
     {

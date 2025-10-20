@@ -1,7 +1,7 @@
-﻿using BookContext.DL.Interfaces;
-using BookContext.DL.Repositories;
-using BookContext.DL.SqlServer.Concrete;
+﻿using BookContext.DL.SqlServer.Concrete;
 using BookContext.DL.SqlServer.Repositories;
+using BookContext.Domain.Interfaces;
+using BookContext.Domain.Interfaces.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

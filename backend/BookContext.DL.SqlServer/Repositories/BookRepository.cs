@@ -1,5 +1,5 @@
-﻿using BookContext.DL.Repositories;
-using BookContext.Domain.Entities;
+﻿using BookContext.Domain.Entities;
+using BookContext.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookContext.DL.SqlServer.Repositories
