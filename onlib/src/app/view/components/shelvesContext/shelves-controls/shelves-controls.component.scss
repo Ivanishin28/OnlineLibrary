@@ -1,9 +1,27 @@
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 900;
+  }
+}
+
 .shelf-list {
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 
   .shelf-item {
     display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .name {
+      font-size: 20px;
+    }
   }
 }

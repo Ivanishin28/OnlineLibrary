@@ -7,11 +7,12 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { UserId } from '../../../../business/models/_shared/userId';
 import { Shelf } from '../../../../business/models/shelves/shelf';
 import { map, Observable, switchMap, tap } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   selector: 'shelves-controls',
-  imports: [CommonModule, DynamicDialogModule],
+  imports: [CommonModule, DynamicDialogModule, ButtonModule],
   providers: [ShelfCreationWindowManager],
   templateUrl: './shelves-controls.component.html',
   styleUrl: './shelves-controls.component.scss',
