@@ -10,11 +10,6 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
         {
             builder
                 .HasKey(x => x.Id);
-
-            builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(x => x.CreatorId);
         }
     }
 }

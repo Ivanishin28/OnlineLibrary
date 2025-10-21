@@ -2,6 +2,7 @@
 using BookContext.Domain.Entities;
 using BookContext.Domain.Interfaces;
 using BookContext.Domain.Interfaces.Repositories;
+using BookContext.Domain.ValueObjects;
 using MediatR;
 using Shared.Core.Interfaces;
 using Shared.Core.Models;
@@ -33,7 +34,8 @@ namespace BookContext.UseCases.Commands
 
         public async Task<Result<CreateBookResponse>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
-            var bookResult = Book.Create(_context.UserId, request.Title);
+            var userId = new UserId(_context.UserId);
+            var bookResult = Book.Create(userId, request.Title);
 
             if(bookResult.IsFailure)
             {
