@@ -35,7 +35,7 @@ namespace BookContext.UseCases.Commands
             _bookRepository.Delete(book);
             await _unitOfWork.SaveChangesAsync();
 
-            var notification = new BookDeletedEvent(book.Id);
+            var notification = new BookDeletedEvent(book.Id.Value);
             await _mediator.Publish(notification);
 
             return Result.Success();

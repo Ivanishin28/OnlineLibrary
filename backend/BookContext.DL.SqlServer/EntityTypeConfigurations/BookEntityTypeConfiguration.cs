@@ -15,6 +15,10 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
                 .HasKey(x => x.Id);
 
             builder
+                .Property(x => x.Id)
+                .HasConversion(new EntityIdValueConverter<BookId, Guid>());
+
+            builder
                 .Property(x => x.CreatorId)
                 .HasConversion(new EntityIdValueConverter<UserId, Guid>());
         }

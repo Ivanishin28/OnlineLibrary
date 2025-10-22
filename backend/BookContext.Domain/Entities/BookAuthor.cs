@@ -1,4 +1,5 @@
-﻿using Shared.Core.Models;
+﻿using BookContext.Domain.ValueObjects;
+using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,20 @@ namespace BookContext.Domain.Entities
     public class BookAuthor
     {
         public Guid Id { get; private set; }
-        public Guid BookId { get; private set; }
+        public BookId BookId { get; private set; } = null!;
         public Guid AuthorId { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
         private BookAuthor() { }
 
-        private BookAuthor(Guid bookId, Guid authorId, DateTime createdAt)
+        private BookAuthor(BookId bookId, Guid authorId, DateTime createdAt)
         {
             BookId = bookId;
             AuthorId = authorId;
             CreatedAt = createdAt;
         }
 
-        public static BookAuthor Create(Guid bookId, Guid authorId)
+        public static BookAuthor Create(BookId bookId, Guid authorId)
         {
             return new BookAuthor(bookId, authorId, DateTime.Now);
         }

@@ -26,7 +26,7 @@ namespace BookContext.DL.SqlServer.Repositories
         public async Task<Book?> GetBy(Guid id)
         {
             return await BookAggregates()
-                .Where(book => book.Id == id)
+                .Where(book => book.Id.Value == id)
                 .FirstOrDefaultAsync();
         }
 

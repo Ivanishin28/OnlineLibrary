@@ -53,13 +53,13 @@ namespace BookContext.Tests.Integration.BookTests
             _db.Books.Add(book);
             await _db.SaveChangesAsync();
 
-            var request = new DeleteBookRequest(book.Id);
+            var request = new DeleteBookRequest(book.Id.Value);
             var result = await sut.Handle(request, CancellationToken.None);
 
             Assert.That(result.IsSuccess, Is.True);
             _mediator.Verify(x =>
                 x.Publish(
-                    It.Is<BookDeletedEvent>(e => e.BookId == book.Id),
+                    It.Is<BookDeletedEvent>(e => e.BookId == book.Id.Value),
                     It.IsAny<CancellationToken>()),
                 Times.Once());
         }

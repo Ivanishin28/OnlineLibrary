@@ -1,4 +1,6 @@
 ﻿using BookContext.Domain.Entities;
+using BookContext.Domain.ValueObjects;
+using BookContext.DL.SqlServer.ValueConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,6 +17,10 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
         {
             builder
                 .HasKey(x => x.Id);
+
+            builder
+                .Property(x => x.BookId)
+                .HasConversion(new EntityIdValueConverter<BookId, Guid>());
 
             builder
                 .HasOne<Book>()

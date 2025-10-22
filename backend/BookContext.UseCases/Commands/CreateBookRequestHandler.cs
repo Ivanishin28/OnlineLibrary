@@ -46,7 +46,7 @@ namespace BookContext.UseCases.Commands
 
             await AddBook(book);
 
-            return new CreateBookResponse(book.Id);
+            return new CreateBookResponse(book.Id.Value);
         }
 
         private async Task AddBook(Book book)
