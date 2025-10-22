@@ -17,11 +17,13 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
         {
             builder
                 .HasKey(x => x.Id);
+            builder
+                .Property(x => x.Id)
+                .HasConversion(new EntityIdValueConverter<BookAuthorId, Guid>());
 
             builder
                 .Property(x => x.BookId)
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
-
             builder
                 .HasOne<Book>()
                 .WithMany()
@@ -31,12 +33,15 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
             builder
                 .Property(x => x.AuthorId)
                 .HasConversion(new EntityIdValueConverter<AuthorId, Guid>());
-
             builder
                 .HasOne<Author>()
                 .WithMany()
                 .HasForeignKey(x => x.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasIndex(x => new { x.BookId, x.AuthorId })
+                .IsUnique(true);
         }
     }
 }

@@ -10,23 +10,19 @@ namespace BookContext.Domain.Entities
 {
     public class BookAuthor
     {
-        public Guid Id { get; private set; }
+        public BookAuthorId Id { get; private set; } = null!;
         public BookId BookId { get; private set; } = null!;
         public AuthorId AuthorId { get; private set; } = null!;
         public DateTime CreatedAt { get; private set; }
 
         private BookAuthor() { }
 
-        private BookAuthor(BookId bookId, AuthorId authorId, DateTime createdAt)
+        public BookAuthor(BookAuthorId id, BookId bookId, AuthorId authorId, DateTime createdAt)
         {
+            Id = id;
             BookId = bookId;
             AuthorId = authorId;
             CreatedAt = createdAt;
-        }
-
-        public static BookAuthor Create(BookId bookId, AuthorId authorId)
-        {
-            return new BookAuthor(bookId, authorId, DateTime.Now);
         }
     }
 }
