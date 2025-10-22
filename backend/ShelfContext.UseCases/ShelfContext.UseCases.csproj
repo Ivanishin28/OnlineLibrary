@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\BookContext.Contracts\BookContext.Contract.csproj" />
+	  <ProjectReference Include="..\BookContext.Integration\BookContext.Integration.csproj" />
 	  <ProjectReference Include="..\ShelfContext.Contract\ShelfContext.Contract.csproj" />
 	  <ProjectReference Include="..\ShelfContext.Domain\ShelfContext.Domain.csproj" />
 	</ItemGroup>
