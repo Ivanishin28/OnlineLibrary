@@ -30,11 +30,6 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
 
             builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(x => x.UserId);
-
-            builder
                 .Property(x => x.UserId)
                 .HasConversion(new EntityIdValueConverter<UserId, Guid>());
 

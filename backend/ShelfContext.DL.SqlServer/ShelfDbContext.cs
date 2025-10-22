@@ -16,7 +16,6 @@ namespace ShelfContext.DL.SqlServer
 {
     public class ShelfDbContext : DbContext
     {
-        public DbSet<User> Users { get; private set; }
         public DbSet<Book> Books { get; private set; }
         public DbSet<Tag> Tags { get; private set; }
         public DbSet<Shelf> Shelves { get; private set; }
