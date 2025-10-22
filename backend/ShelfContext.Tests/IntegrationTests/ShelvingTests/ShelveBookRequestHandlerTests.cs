@@ -47,19 +47,16 @@ namespace ShelfContext.Tests.IntegrationTests.ShelvingTests
         [Test]
         public async Task Creates_new_ShelvedBook()
         {
-            var user = new User()
-            {
-                Id = new UserId(Guid.NewGuid())
-            };
-            var shelf = Shelf.Create(user.Id, ShelfName.Create("Shelf").Model).Model;
+            var userId = new UserId(Guid.NewGuid());
+            var shelf = Shelf.Create(userId, ShelfName.Create("Shelf").Model).Model;
             var book = new Book()
             {
                 Id = new BookId(Guid.NewGuid())
             };
-            _db.AddRange(user, shelf, book);
+            _db.AddRange(shelf, book);
             await _db.SaveChangesAsync();
 
-            var command = new ShelveBookRequest(book.Id.Value, shelf.Id.Value, user.Id.Value);
+            var command = new ShelveBookRequest(book.Id.Value, shelf.Id.Value, userId.Value);
             var result = await sut.Handle(command, CancellationToken.None);
 
             Assert.That(result.IsSuccess, Is.True);
@@ -70,21 +67,19 @@ namespace ShelfContext.Tests.IntegrationTests.ShelvingTests
         [Test]
         public async Task Reshelves_old_ShelvedBook()
         {
-            var user = new User()
-            {
-                Id = new UserId(Guid.NewGuid())
-            };
+            var userId = new UserId(Guid.NewGuid());
+
             var book = new Book()
             {
                 Id = new BookId(Guid.NewGuid())
             };
-            var shelf1 = Shelf.Create(user.Id, ShelfName.Create("Shelf1").Model).Model;
-            var shelf2 = Shelf.Create(user.Id, ShelfName.Create("Shelf2").Model).Model;
+            var shelf1 = Shelf.Create(userId, ShelfName.Create("Shelf1").Model).Model;
+            var shelf2 = Shelf.Create(userId, ShelfName.Create("Shelf2").Model).Model;
             var shelvedBook = shelf1.Shelve(book.Id);
-            _db.AddRange(user, book, shelf1, shelf2, shelvedBook);
+            _db.AddRange(book, shelf1, shelf2, shelvedBook);
             await _db.SaveChangesAsync();
 
-            var command = new ShelveBookRequest(book.Id.Value, shelf2.Id.Value, user.Id.Value);
+            var command = new ShelveBookRequest(book.Id.Value, shelf2.Id.Value, userId.Value);
             var result = await sut.Handle(command, CancellationToken.None);
 
             Assert.That(result.IsSuccess, Is.True);

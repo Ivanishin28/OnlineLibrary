@@ -18,11 +18,6 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<ShelfId, Guid>());
 
             builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UserId);
-
-            builder
                 .Property(e => e.UserId)
                 .HasConversion(new EntityIdValueConverter<UserId, Guid>());
 
