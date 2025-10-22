@@ -25,10 +25,17 @@ namespace ShelfContext.DL.SqlServer.Repositories
         public async Task<ShelvedBook?> GetBy(UserId userId, BookId bookId)
         {
             return await GetShelvedBookAggregate()
-                .Join(_db.Shelves, x => x.ShelfId, x => x.Id, (book, shelf) => new { book, shelf })
-                .Where(x => x.shelf.UserId == userId && x.book.BookId == bookId)
-                .Select(x => x.book)
+                .Where(x => 
+                    x.UserId == userId && 
+                    x.BookId == bookId)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<ICollection<ShelvedBook>> GetBy(BookId bookId)
+        {
+            return await GetShelvedBookAggregate()
+                .Where(x => x.BookId == bookId)
+                .ToListAsync();
         }
 
         public void Add(ShelvedBook shelvedBook)

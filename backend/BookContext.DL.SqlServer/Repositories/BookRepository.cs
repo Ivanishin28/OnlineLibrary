@@ -6,21 +6,21 @@ namespace BookContext.DL.SqlServer.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private DbSet<Book> _dbSet;
+        private BookDbContext _db;
 
         public BookRepository(BookDbContext db)
         {
-            _dbSet = db.Books;
+            _db = db;
         }
 
-        public async void Add(Book book)
+        public void Add(Book book)
         {
-            _dbSet.Add(book);
+            _db.Books.Add(book);
         }
 
-        public async void Delete(Book book)
+        public void Delete(Book book)
         {
-            _dbSet.Remove(book);
+            _db.Books.Remove(book);
         }
 
         public async Task<Book?> GetBy(Guid id)
@@ -32,7 +32,7 @@ namespace BookContext.DL.SqlServer.Repositories
 
         private IQueryable<Book> BookAggregates()
         {
-            return _dbSet;
+            return _db.Books;
         }
     }
 }

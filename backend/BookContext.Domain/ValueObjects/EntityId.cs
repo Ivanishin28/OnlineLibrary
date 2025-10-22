@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace BookContext.Domain.ValueObjects
 {
-    public record UserId(Guid Value) : EntityId<Guid>(Value)
-    {
-    }
+    public abstract record EntityId<T>(T Value);
 }
