@@ -6,12 +6,12 @@ using ShelfContext.Domain.Interfaces.Repositories;
 
 namespace ShelfContext.UseCases.EventHandlers
 {
-    public class BookDeletedEventHandlers : INotificationHandler<BookDeletedEvent>
+    public class BookDeletedEventHandler : INotificationHandler<BookDeletedEvent>
     {
         private IUnitOfWork _unitOfWork;
         private IShelvedBookRepository _shelvedBookRepository;
 
-        public BookDeletedEventHandlers(IUnitOfWork unitOfWork, IShelvedBookRepository shelvedBookRepository)
+        public BookDeletedEventHandler(IUnitOfWork unitOfWork, IShelvedBookRepository shelvedBookRepository)
         {
             _unitOfWork = unitOfWork;
             _shelvedBookRepository = shelvedBookRepository;
