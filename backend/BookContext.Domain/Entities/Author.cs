@@ -6,26 +6,29 @@ namespace BookContext.Domain.Entities
 {
     public class Author
     {
-        public Guid Id { get; private set; }
+        public AuthorId Id { get; private set; } = null!;
         public FullName FullName { get; private set; } = null!;
         public DateOnly BirthDate { get; private set; }
 
         private Author() { }
 
-        private Author(FullName fullName, DateOnly birthDate)
+        private Author(AuthorId id, FullName fullName, DateOnly birthDate)
         {
+            Id = id;
             FullName = fullName;
             BirthDate = birthDate;
         }
 
         public static Result<Author> Create(FullName fullName, DateOnly birthDate)
         {
+            var authorId = new AuthorId(Guid.NewGuid());
+
             if(fullName is null)
             {
                 return Result<Author>.Failure(AuthorErrors.FullNameError);
             }
 
-            return new Author(fullName, birthDate);
+            return new Author(authorId, fullName, birthDate);
         }
     }
 }

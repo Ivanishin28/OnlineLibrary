@@ -42,7 +42,7 @@ namespace BookContext.UseCases.Commands
 
             await _unitOfWork.SaveChangesAsync();
 
-            return new CreateAuthorResponse(author.Id);
+            return new CreateAuthorResponse(author.Id.Value);
         }
     }
 }

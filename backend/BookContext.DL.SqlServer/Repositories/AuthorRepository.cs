@@ -26,7 +26,7 @@ namespace BookContext.DL.SqlServer.Repositories
         public async Task<Author?> GetBy(Guid id)
         {
             return await _dbSet
-                .Where(author => author.Id == id)
+                .Where(author => author.Id.Value == id)
                 .FirstOrDefaultAsync();
         }
 
@@ -34,7 +34,7 @@ namespace BookContext.DL.SqlServer.Repositories
         {
             return _dbSet
                 .Where(author => 
-                    ids.Contains(author.Id));
+                    ids.Contains(author.Id.Value));
         }
     }
 }
