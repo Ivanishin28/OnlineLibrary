@@ -9,7 +9,7 @@ using Shared.Core.Models;
 
 namespace BookContext.UseCases.Commands
 {
-    public class CreateAuthorRequestHandler : IRequestHandler<CreateAuthorRequest, Result<CreateAuthorResponse>>
+    public class CreateAuthorRequestHandler : IRequestHandler<CreateAuthorRequest, Result<Guid?>>
     {
         private IAuthorRepository _authorRepository;
         private IUnitOfWork _unitOfWork;
@@ -20,20 +20,23 @@ namespace BookContext.UseCases.Commands
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result<CreateAuthorResponse>> Handle(CreateAuthorRequest request, CancellationToken cancellationToken)
+        public async Task<Result<Guid?>> Handle(CreateAuthorRequest request, CancellationToken cancellationToken)
         {
             var fullNameResult = FullName.Create(request.FirstName, request.LastName);
 
             if(fullNameResult.IsFailure)
             {
-                return fullNameResult.ToFailure<CreateAuthorResponse>();
+                return fullNameResult.ToFailure<Guid?>();
             }
 
-            var authorResult = Author.Create(fullNameResult.Model, request.BirthDate);
+            var authorResult = Author.Create(
+                new UserId(request.CreatorId), 
+                fullNameResult.Model, 
+                request.BirthDate);
 
             if(authorResult.IsFailure)
             {
-                return Result<CreateAuthorResponse>.Failure(authorResult.Errors);
+                return Result<Guid?>.Failure(authorResult.Errors);
             }
 
             var author = authorResult.Model;
@@ -42,7 +45,7 @@ namespace BookContext.UseCases.Commands
 
             await _unitOfWork.SaveChangesAsync();
 
-            return new CreateAuthorResponse(author.Id.Value);
+            return author.Id.Value;
         }
     }
 }
