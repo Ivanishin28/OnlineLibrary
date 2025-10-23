@@ -3,11 +3,6 @@ using BookContext.Domain.ValueObjects;
 using BookContext.DL.SqlServer.ValueConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookContext.DL.SqlServer.EntityTypeConfigurations
 {
@@ -26,7 +21,7 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
             builder
                 .HasOne<Book>()
-                .WithMany()
+                .WithMany(x => x.BookTags)
                 .HasForeignKey(x => x.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
 

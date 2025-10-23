@@ -32,7 +32,7 @@ namespace BookContext.DL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.Book", b =>
@@ -49,7 +49,7 @@ namespace BookContext.DL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.BookAuthor", b =>
@@ -73,7 +73,7 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.HasIndex("BookId", "AuthorId")
                         .IsUnique();
 
-                    b.ToTable("BookAuthors");
+                    b.ToTable("BookAuthors", (string)null);
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.Author", b =>
@@ -102,7 +102,7 @@ namespace BookContext.DL.SqlServer.Migrations
 
                             b1.HasKey("AuthorId");
 
-                            b1.ToTable("Authors");
+                            b1.ToTable("Authors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("AuthorId");

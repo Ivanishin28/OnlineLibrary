@@ -10,8 +10,8 @@ namespace BookContext.Domain.Errors
         public static readonly Error DuplicateAuthors 
             = _error.BuildError("Authors.Duplicates", "DuplicateAuthors");
 
-        public static readonly Error DifferentBookAuthor
-            = _error.BuildError("Authors.DifferentBook", "DifferentBookAuthor");
+        public static readonly Error AuthorNotFound
+            = _error.BuildError("Authors.NotFound", "Author not found");
 
         public static readonly Error EmptyTitle
             = _error.BuildError("Title.Empty", "Title.Empty");
