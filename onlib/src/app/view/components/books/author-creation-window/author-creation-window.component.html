@@ -1,0 +1,58 @@
+<div class="layout">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()">
+    <div class="fields">
+      <div *ngIf="form.controls.first_name as control" class="form-group">
+        <label for="first_name">First Name</label>
+        <input
+          id="first_name"
+          pInputText
+          [formControl]="control"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="validation-message"
+        >
+          <p>First name is required</p>
+        </div>
+      </div>
+
+      <div *ngIf="form.controls.last_name as control" class="form-group">
+        <label for="last_name">Last Name</label>
+        <input
+          id="last_name"
+          pInputText
+          [formControl]="control"
+          class="form-control"
+          type="text"
+        />
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="validation-message"
+        >
+          <p>Last name is required</p>
+        </div>
+      </div>
+
+      <div *ngIf="form.controls.birth_date as control" class="form-group">
+        <label for="birth_date">Birth Date</label>
+        <p-date-picker
+          [formControl]="control"
+          [readonlyInput]="true"
+          inputId="birth_date"
+        ></p-date-picker>
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="validation-message"
+        >
+          <p>Birth date is required</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <p-button class="save" type="submit">Create</p-button>
+    </div>
+  </form>
+</div>

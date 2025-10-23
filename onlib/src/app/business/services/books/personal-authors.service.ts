@@ -11,7 +11,7 @@ import { resultFromApiResult } from '../mappings/fromApiResult';
 
 @Injectable()
 export class PersonalAuthorsService {
-  private CONTROLLER = `${environment.api_main}/book/author`;
+  private CONTROLLER = `${environment.api_main}/api/book/author`;
 
   constructor(
     private connection: HttpClient,
@@ -22,7 +22,7 @@ export class PersonalAuthorsService {
     return this.authService.loggedUser$.pipe(
       take(1),
       switchMap((x) => {
-        const url = `${this.CONTROLLER}/userId=${x.userId.value}`;
+        const url = `${this.CONTROLLER}/userId/${x.userId.value}`;
         return this.connection.get<AuthorPreview[]>(url);
       })
     );
