@@ -5,18 +5,17 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BookContext.DL.Read.Entities
+namespace BookContext.Contract.Dtos
 {
-    public class AuthorReadModel
+    public class AuthorPreview
     {
+        [JsonPropertyName("id")]
         public Guid Id { get; init; }
-        public Guid CreatorId { get; init; }
+        [JsonPropertyName("first_name")]
         public string FirstName { get; init; } = null!;
+        [JsonPropertyName("last_name")]
         public string LastName { get; init; } = null!;
-        public string? MiddleName { get; init; }
+        [JsonPropertyName("birth_date")]
         public DateOnly BirthDate { get; init; }
-
-        public IReadOnlyCollection<BookAuthorReadModel> BookAuthors { get; private set; }
-            = new List<BookAuthorReadModel>();
     }
 }

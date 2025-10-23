@@ -1,13 +1,8 @@
 ﻿using BookContext.Contract.Commands.CreateAuthor;
 using BookContext.Contract.Dtos.Commands;
+using BookContext.Contract.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Application.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookContext.Application.Controllers
 {
@@ -18,6 +13,14 @@ namespace BookContext.Application.Controllers
         public AuthorController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("userId/{userId}")]
+        public async Task<IActionResult> GetByUserId(Guid userId)
+        {
+            var request = new GetUserAuthorsQuery(userId);
+            var result = await _mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpPost("create")]

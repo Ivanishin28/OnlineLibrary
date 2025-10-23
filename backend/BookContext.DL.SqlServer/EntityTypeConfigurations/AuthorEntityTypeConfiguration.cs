@@ -17,10 +17,13 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<Author> builder)
         {
             builder.HasKey(e => e.Id);
-
             builder
                 .Property(x => x.Id)
                 .HasConversion(new EntityIdValueConverter<AuthorId, Guid>());
+
+            builder
+                .Property(x => x.CreatorId)
+                .HasConversion(new EntityIdValueConverter<UserId, Guid>());
 
             builder.OwnsOne(
                 a => a.FullName,
