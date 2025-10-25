@@ -23,7 +23,7 @@ namespace MediaContext.Application.Controllers
             return result is not null ? Ok(result) : BadRequest();
         }
 
-        [HttpGet("{fileId}")]
+        [HttpGet("download/{fileId}")]
         public async Task<IActionResult> Download(Guid fileId)
         {
             var query = new GetFileQuery(fileId);

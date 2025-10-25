@@ -35,7 +35,8 @@ namespace MediaContext.Application.UseCases.Queries
             var dto = new MediaFileDto()
             {
                 Id = file.Id,
-                Content = file.Content
+                Content = file.Content,
+                ContentType = file.ContentType
             };
             return dto;
         }

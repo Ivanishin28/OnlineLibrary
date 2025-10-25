@@ -14,7 +14,9 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { Subject, takeUntil } from 'rxjs';
 import { useValidatedFormSubmit } from '../../../forms/helpers/useValidatedFormSubmit';
 import { ButtonModule } from 'primeng/button';
-import { MediaFileUploadComponent } from "../../_shared/media-file-upload/media-file-upload.component";
+import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
+import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
+import { MediaImageComponent } from "../../_shared/media-image/media-image.component";
 
 @Component({
   selector: 'author-creation-window',
@@ -24,7 +26,8 @@ import { MediaFileUploadComponent } from "../../_shared/media-file-upload/media-
     InputTextModule,
     DatePickerModule,
     ButtonModule,
-    MediaFileUploadComponent
+    MediaFileUploadComponent,
+    MediaImageComponent
 ],
   templateUrl: './author-creation-window.component.html',
   styleUrl: './author-creation-window.component.scss',
@@ -33,6 +36,8 @@ export class AuthorCreationWindowComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
   public formSubmit$: Subject<void> = new Subject<void>();
+
+  public avatar: MediaFileId | undefined;
 
   public form!: FormGroup<{
     first_name: FormControl<string | null>;
@@ -76,5 +81,9 @@ export class AuthorCreationWindowComponent implements OnInit, OnDestroy {
       this.form.value.birth_date!
     );
     this.ref.close(output);
+  }
+
+  public onAvatarUploaded(avatar: MediaFileId): void {
+    this.avatar = avatar;
   }
 }

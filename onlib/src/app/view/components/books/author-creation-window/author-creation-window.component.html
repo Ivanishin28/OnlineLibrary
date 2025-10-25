@@ -51,7 +51,13 @@
       </div>
 
       <div class="from-group">
-        <media-file-upload [uploadedFileId]="undefined"></media-file-upload>
+        <media-file-upload
+          [uploadedFileId]="undefined"
+          (fileUploaded)="onAvatarUploaded($event)"
+        ></media-file-upload>
+      </div>
+      <div class="avatar">
+        <media-image [fileId]="avatar"> </media-image>
       </div>
     </div>
 

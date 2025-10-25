@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MediaFileService } from '../../../../business/services/media/media-file.service';
+import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -18,25 +19,29 @@ interface UploadEvent {
 export class MediaFileUploadComponent {
   @Input({ required: true }) uploadedFileId: string | undefined;
 
+  @Output() fileUploaded: EventEmitter<MediaFileId> =
+    new EventEmitter<MediaFileId>();
+
   constructor(private mediaFileService: MediaFileService) {}
 
   public upload(model: UploadEvent): void {
     const file = model.files[0];
     const reader = new FileReader();
-
     reader.onload = () => {
       const result = reader.result as string;
-
       const base64 = result.split(',')[1];
-
       this.mediaFileService
         .upload({
           content: base64,
           content_type: file.type,
         })
-        .subscribe(console.log);
+        .subscribe((uploadResult) => {
+          console.log(uploadResult);
+          if (uploadResult.isSuccess) {
+            this.fileUploaded.next(new MediaFileId(uploadResult.value));
+          }
+        });
     };
-
     reader.readAsDataURL(file);
   }
 }

@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { Result } from '../../models/_shared/result';
 import { UploadFileRequest } from '../../models/media/uploadFileRequest';
 import { BusinessError } from '../../models/_shared/businessError';
+import { MediaFileId } from '../../models/_shared/mediaFileId';
 
 @Injectable()
 export class MediaFileService {
@@ -12,9 +13,9 @@ export class MediaFileService {
 
   constructor(private connection: HttpClient) {}
 
-  public get(fileId: string): Observable<any> {
-    const url = `${this.COMPONENT}/${fileId}`;
-    return this.connection.get(url);
+  public download(fileId: MediaFileId): Observable<Blob> {
+    const url = `${this.COMPONENT}/download/${fileId.value}`;
+    return this.connection.get(url, { responseType: 'blob' });
   }
 
   public upload(request: UploadFileRequest): Observable<Result<string>> {
