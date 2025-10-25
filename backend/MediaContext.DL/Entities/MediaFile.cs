@@ -9,16 +9,18 @@ namespace MediaContext.DL.Entities
     public class MediaFile
     {
         public Guid Id { get; set; }
-        public byte[] Cotnext { get; set; } = null!;
+        public byte[] Content { get; set; } = null!;
+        public string ContentType { get; set; } = null!;
 
-        public MediaFile()
+        private MediaFile()
         {
         }
 
-        public MediaFile(Guid id, byte[] cotnext)
+        public MediaFile(Guid id, byte[] cotnext, string contentType)
         {
             Id = id;
-            Cotnext = cotnext;
+            Content = cotnext;
+            ContentType = contentType;
         }
     }
 }
