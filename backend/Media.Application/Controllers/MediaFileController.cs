@@ -17,10 +17,10 @@ namespace MediaContext.Application.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFile(UploadFileRequest request)
+        public async Task<IActionResult> UploadFile([FromBody] UploadFileRequest request)
         {
             var result = await _mediator.Send(request);
-            return result is null ? Ok(result) : BadRequest();
+            return result is not null ? Ok(result) : BadRequest();
         }
 
         [HttpGet("{fileId}")]

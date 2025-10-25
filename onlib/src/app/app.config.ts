@@ -15,6 +15,7 @@ import { BookService } from './business/services/books/book.service';
 import { ShelfService } from './business/services/shelves/shelf.service';
 import { OnlibDatePipe } from './view/pipes/onlib-date.pipe';
 import { DatePipe } from '@angular/common';
+import { MediaFileService } from './business/services/media/media-file.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,6 +40,7 @@ export const appConfig: ApplicationConfig = {
     TagService,
     BookService,
     ShelfService,
+    MediaFileService,
     DatePipe,
   ],
 };

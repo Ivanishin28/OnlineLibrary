@@ -14,6 +14,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { Subject, takeUntil } from 'rxjs';
 import { useValidatedFormSubmit } from '../../../forms/helpers/useValidatedFormSubmit';
 import { ButtonModule } from 'primeng/button';
+import { MediaFileUploadComponent } from "../../_shared/media-file-upload/media-file-upload.component";
 
 @Component({
   selector: 'author-creation-window',
@@ -23,7 +24,8 @@ import { ButtonModule } from 'primeng/button';
     InputTextModule,
     DatePickerModule,
     ButtonModule,
-  ],
+    MediaFileUploadComponent
+],
   templateUrl: './author-creation-window.component.html',
   styleUrl: './author-creation-window.component.scss',
 })
