@@ -69,7 +69,8 @@ namespace BookContext.Tests.Integration.AuthorTests
             var author = await _db.Authors.FirstAsync();
             var metadata = await _db.AuthorMetadatas.FirstAsync();
             Assert.That(metadata.AuthorId, Is.EqualTo(author.Id));
-            Assert.That(metadata.Biography, Is.Null);
+            Assert.That(metadata.Biography, Is.Not.Null);
+            Assert.That(metadata.Biography.Value, Is.Null.Or.Empty);
             Assert.That(metadata.AvatarId, Is.Null);
         }
 

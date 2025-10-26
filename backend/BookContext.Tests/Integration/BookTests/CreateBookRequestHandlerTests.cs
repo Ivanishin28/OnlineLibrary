@@ -68,7 +68,8 @@ namespace BookContext.Tests.Integration.BookTests
             var book = await _db.Books.FirstAsync();
             var metadata = await _db.BookMetadatas.FirstAsync();
             Assert.That(metadata.BookId, Is.EqualTo(book.Id));
-            Assert.That(metadata.Description, Is.Null);
+            Assert.That(metadata.Description, Is.Not.Null);
+            Assert.That(metadata.Description.Value, Is.Null.Or.Empty);
             Assert.That(metadata.CoverId, Is.Null);
         }
 

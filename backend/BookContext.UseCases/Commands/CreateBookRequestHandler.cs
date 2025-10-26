@@ -60,14 +60,7 @@ namespace BookContext.UseCases.Commands
 
         private Result<BookMetadata> CreateMetadataFrom(BookId bookId, CreateBookRequest request)
         {
-            Result<BookDescription?> descResult = request.Description is not null ?
-                BookDescription.Create(request.Description).Nullable() :
-                Result<BookDescription?>.Success(null);
-            if (descResult.IsFailure)
-            {
-                return descResult.ToFailure<BookMetadata>();
-            }
-
+            var descResult = BookDescription.Create(request.Description);
             var coverId = request.CoverId is not null ?
                 new MediaFileId(request.CoverId.Value) :
                 null;

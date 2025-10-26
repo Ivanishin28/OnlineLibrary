@@ -15,18 +15,18 @@ namespace BookContext.Domain.ValueObjects
     {
         public const int MAX_LENGTH = 5000;
 
-        public string Value { get; private set; } = null!;
+        public string? Value { get; private set; }
 
         private AuthorBiography() { }
 
-        private AuthorBiography(string value)
+        private AuthorBiography(string? value)
         {
             Value = value;
         }
 
-        public static Result<AuthorBiography> Create(string value)
+        public static Result<AuthorBiography> Create(string? value)
         {
-            if (String.IsNullOrEmpty(value) || value.Length > MAX_LENGTH)
+            if (value is not null && value.Length > MAX_LENGTH)
             {
                 return Result<AuthorBiography>.Failure(AuthorMetadataErrors.BiographyTooLong(MAX_LENGTH));
             }

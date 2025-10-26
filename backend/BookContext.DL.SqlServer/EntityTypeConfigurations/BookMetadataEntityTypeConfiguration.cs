@@ -45,6 +45,7 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
                         owned
                             .Property(o => o.Value)
                             .HasMaxLength(BookDescription.MAX_LENGTH)
+                            .IsRequired(false)
                             .HasColumnName("Description");
                     });
         }

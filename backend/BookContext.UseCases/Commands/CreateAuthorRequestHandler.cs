@@ -62,14 +62,7 @@ namespace BookContext.UseCases.Commands
 
         private Result<AuthorMetadata> CreateMetadataFrom(AuthorId authorId, CreateAuthorRequest request)
         {
-            Result<AuthorBiography?> bioResult = request.Biography is not null ?
-                AuthorBiography.Create(request.Biography).Nullable() :
-                Result<AuthorBiography?>.Success(null);
-            if (bioResult.IsFailure)
-            {
-                return bioResult.ToFailure<AuthorMetadata>();
-            }
-
+            var bioResult = AuthorBiography.Create(request.Biography);
             var avatar = request.AvatarId is not null ?
                 new MediaFileId(request.AvatarId.Value) :
                 null;

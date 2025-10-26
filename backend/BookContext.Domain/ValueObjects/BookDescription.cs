@@ -8,18 +8,18 @@ namespace BookContext.Domain.ValueObjects
     {
         public const int MAX_LENGTH = 5000;
 
-        public string Value { get; private set; } = null!;
+        public string? Value { get; private set; } = null;
 
         private BookDescription() { }
 
-        private BookDescription(string value)
+        private BookDescription(string? value)
         {
             Value = value;
         }
 
-        public static Result<BookDescription> Create(string value)
+        public static Result<BookDescription> Create(string? value)
         {
-            if (String.IsNullOrEmpty(value) || value.Length > MAX_LENGTH)
+            if (value is not null && value.Length > MAX_LENGTH)
             {
                 return Result<BookDescription>.Failure(BookMetadataErrors.DescriptionTooLong(MAX_LENGTH));
             }
