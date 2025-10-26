@@ -30,7 +30,9 @@ namespace BookContext.Application.Controllers
                 GetUserId(), 
                 dto.FirstName, 
                 dto.LastName, 
-                dto.BirthDate);
+                dto.BirthDate,
+                dto.AvatarId,
+                dto.Biography);
             var createAuthorResult = await _mediator.Send(request);
             return FromResult(createAuthorResult);
         }

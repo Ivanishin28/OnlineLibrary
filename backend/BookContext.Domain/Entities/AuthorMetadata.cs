@@ -11,9 +11,9 @@ namespace BookContext.Domain.Entities
 
         private AuthorMetadata() { }
 
-        public AuthorMetadata(AuthorMetadataId id, AuthorId authorId, MediaFileId? avatarId, AuthorBiography? biography)
+        public AuthorMetadata(AuthorId authorId, MediaFileId? avatarId, AuthorBiography? biography)
         {
-            Id = id;
+            Id = new AuthorMetadataId(Guid.NewGuid());
             AuthorId = authorId;
             AvatarId = avatarId;
             Biography = biography;

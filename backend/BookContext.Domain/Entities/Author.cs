@@ -25,11 +25,6 @@ namespace BookContext.Domain.Entities
         {
             var authorId = new AuthorId(Guid.NewGuid());
 
-            if(fullName is null)
-            {
-                return Result<Author>.Failure(AuthorErrors.FullNameError);
-            }
-
             return new Author(authorId, fullName, birthDate, creatorId);
         }
     }

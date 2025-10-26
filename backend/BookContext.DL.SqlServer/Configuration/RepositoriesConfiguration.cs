@@ -17,8 +17,10 @@ namespace BookContext.DL.SqlServer.Configuration
         {
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<IBookRepository, BookRepository>();
-            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services
+                .AddTransient<IAuthorMetadataRepository, AuthorMetadataRepository>()
+                .AddTransient<IBookRepository, BookRepository>()
+                .AddTransient<IAuthorRepository, AuthorRepository>();
 
             return services;
         }

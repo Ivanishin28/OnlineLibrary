@@ -10,17 +10,15 @@ namespace BookContext.Contract.Dtos.Commands
     public record CreateAuthorRequestDto
     {
         [JsonPropertyName("first_name")]
-        public string FirstName { get; private set; }
+        public string FirstName { get; init; } = null!;
         [JsonPropertyName("last_name")]
-        public string LastName { get; private set; }
+        public string LastName { get; init; } = null!;
         [JsonPropertyName("birth_date")]
-        public DateOnly BirthDate { get; private set; }
+        public DateOnly BirthDate { get; init; }
 
-        public CreateAuthorRequestDto(string firstName, string lastName, DateOnly birthDate)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            BirthDate = birthDate;
-        }
+        [JsonPropertyName("biography")]
+        public string? Biography { get; init; } = null!;
+        [JsonPropertyName("avatar_id")]
+        public Guid? AvatarId { get; init; }
     }
 }

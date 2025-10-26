@@ -15,7 +15,9 @@ namespace BookContext.Domain.ValueObjects
     {
         public const int MAX_LENGTH = 5000;
 
-        public string Value { get; private set; }
+        public string Value { get; private set; } = null!;
+
+        private AuthorBiography() { }
 
         private AuthorBiography(string value)
         {

@@ -34,6 +34,11 @@ namespace Shared.Core.Extensions
             return Result.Failure(errors);
         }
 
+        public static Result<T?> Nullable<T>(this Result<T> result)
+        {
+            return result as Result<T?>;
+        }
+
         public static bool HasError(this Result result, Error error)
         {
             return result.Errors.Any(error => error.Code == error.Code);

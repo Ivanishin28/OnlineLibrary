@@ -12,40 +12,68 @@ namespace BookContext.UseCases.Commands
     public class CreateAuthorRequestHandler : IRequestHandler<CreateAuthorRequest, Result<Guid?>>
     {
         private IAuthorRepository _authorRepository;
+        private IAuthorMetadataRepository _authorMetadataRepository;
         private IUnitOfWork _unitOfWork;
 
-        public CreateAuthorRequestHandler(IAuthorRepository authorRepository, IUnitOfWork unitOfWork)
+        public CreateAuthorRequestHandler(
+            IAuthorRepository authorRepository, 
+            IUnitOfWork unitOfWork, 
+            IAuthorMetadataRepository authorMetadataRepository)
         {
             _authorRepository = authorRepository;
             _unitOfWork = unitOfWork;
+            _authorMetadataRepository = authorMetadataRepository;
         }
 
         public async Task<Result<Guid?>> Handle(CreateAuthorRequest request, CancellationToken cancellationToken)
         {
-            var fullNameResult = FullName.Create(request.FirstName, request.LastName);
-
-            if(fullNameResult.IsFailure)
+            var author = CreateAuthorFrom(request);
+            if (author.IsFailure)
             {
-                return fullNameResult.ToFailure<Guid?>();
+                return author.ToFailure<Guid?>();
             }
+            _authorRepository.Add(author.Model);
 
-            var authorResult = Author.Create(
-                new UserId(request.CreatorId), 
-                fullNameResult.Model, 
-                request.BirthDate);
-
-            if(authorResult.IsFailure)
+            var metadata = CreateMetadataFrom(author.Model.Id, request);
+            if (metadata.IsFailure)
             {
-                return Result<Guid?>.Failure(authorResult.Errors);
+                return metadata.ToFailure<Guid?>();
             }
-
-            var author = authorResult.Model;
-
-            await _authorRepository.Add(author);
+            _authorMetadataRepository.Add(metadata.Model);
 
             await _unitOfWork.SaveChangesAsync();
+            return author.Model.Id.Value;
+        }
 
-            return author.Id.Value;
+        private Result<Author> CreateAuthorFrom(CreateAuthorRequest request)
+        {
+            var fullNameResult = FullName.Create(request.FirstName, request.LastName);
+
+            if (fullNameResult.IsFailure)
+            {
+                return fullNameResult.ToFailure<Author>();
+            }
+
+            return Author.Create(
+                new UserId(request.CreatorId),
+                fullNameResult.Model,
+                request.BirthDate);
+        }
+
+        private Result<AuthorMetadata> CreateMetadataFrom(AuthorId authorId, CreateAuthorRequest request)
+        {
+            Result<AuthorBiography?> bioResult = request.Biography is not null ?
+                AuthorBiography.Create(request.Biography).Nullable() :
+                Result<AuthorBiography?>.Success(null);
+            if (bioResult.IsFailure)
+            {
+                return bioResult.ToFailure<AuthorMetadata>();
+            }
+
+            var avatar = request.AvatarId is not null ?
+                new MediaFileId(request.AvatarId.Value) :
+                null;
+            return new AuthorMetadata(authorId, avatar, bioResult.Model);
         }
     }
 }

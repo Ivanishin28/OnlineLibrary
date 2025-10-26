@@ -13,12 +13,12 @@ namespace BookContext.DL.SqlServer.Repositories
             _dbSet = db.Authors;
         }
 
-        public async Task Add(Author author)
+        public void Add(Author author)
         {
             _dbSet.Add(author);
         }
 
-        public async Task Delete(Author author)
+        public void Remove(Author author)
         {
             _dbSet.Remove(author);
         }
