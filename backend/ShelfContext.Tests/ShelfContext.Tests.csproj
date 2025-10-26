@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.Tests\Shared.Tests.csproj" />
     <ProjectReference Include="..\ShelfContext.Application\ShelfContext.Application.csproj" />
   </ItemGroup>
 
