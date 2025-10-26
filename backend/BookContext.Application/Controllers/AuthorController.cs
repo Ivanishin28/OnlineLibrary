@@ -26,13 +26,15 @@ namespace BookContext.Application.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateAuthorRequestDto dto)
         {
-            var request = new CreateAuthorRequest(
-                GetUserId(), 
-                dto.FirstName, 
-                dto.LastName, 
-                dto.BirthDate,
-                dto.AvatarId,
-                dto.Biography);
+            var request = new CreateAuthorRequest()
+            {
+                CreatorId = GetUserId(),
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                BirthDate = dto.BirthDate,
+                AvatarId = dto.AvatarId,
+                Biography = dto.Biography
+            };
             var createAuthorResult = await _mediator.Send(request);
             return FromResult(createAuthorResult);
         }
