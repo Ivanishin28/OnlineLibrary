@@ -1,5 +1,5 @@
-﻿using BookContext.DL.Repositories;
-using BookContext.Domain.Entities;
+﻿using BookContext.Domain.Entities;
+using BookContext.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookContext.DL.SqlServer.Repositories
@@ -13,12 +13,12 @@ namespace BookContext.DL.SqlServer.Repositories
             _dbSet = db.Authors;
         }
 
-        public async Task Add(Author author)
+        public void Add(Author author)
         {
             _dbSet.Add(author);
         }
 
-        public async Task Delete(Author author)
+        public void Remove(Author author)
         {
             _dbSet.Remove(author);
         }
@@ -26,7 +26,7 @@ namespace BookContext.DL.SqlServer.Repositories
         public async Task<Author?> GetBy(Guid id)
         {
             return await _dbSet
-                .Where(author => author.Id == id)
+                .Where(author => author.Id.Value == id)
                 .FirstOrDefaultAsync();
         }
 
@@ -34,7 +34,7 @@ namespace BookContext.DL.SqlServer.Repositories
         {
             return _dbSet
                 .Where(author => 
-                    ids.Contains(author.Id));
+                    ids.Contains(author.Id.Value));
         }
     }
 }

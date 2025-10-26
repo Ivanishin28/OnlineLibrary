@@ -7,3 +7,22 @@ p-password {
     }
   }
 }
+
+p-button {
+  button {
+    width: auto !important;
+  }
+}
+
+p-select {
+  width: 100%;
+}
+
+p-date-picker {
+  span {
+    width: 100%;
+    input {
+      width: 100%;
+    }
+  }
+}

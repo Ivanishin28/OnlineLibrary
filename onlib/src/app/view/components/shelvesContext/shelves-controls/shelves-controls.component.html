@@ -1,14 +1,21 @@
 <div class="layout">
-  <h2>Shelves</h2>
-
-  <div class="controls">
-    <button (click)="createShelf()">Create Shelf</button>
+  <div class="header">
+    <h2>Shelves</h2>
+    <div class="controls">
+      <p-button (click)="createShelf()">Create Shelf</p-button>
+    </div>
   </div>
 
   <ul class="shelf-list">
     <li *ngFor="let item of shelves" class="shelf-item">
       <p class="name">{{ item.name }}</p>
-      <button (click)="delete(item)">X</button>
+      <p-button
+        (onClick)="delete(item)"
+        size="small"
+        severity="danger"
+        icon="pi pi-times"
+        ></p-button
+      >
     </li>
   </ul>
 </div>

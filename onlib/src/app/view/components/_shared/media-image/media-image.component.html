@@ -1,0 +1,9 @@
+<div class="layout">
+  <img
+    *ngIf="imageUrl"
+    [src]="imageUrl"
+    [style.object-fit]="objectFit"
+    [style.aspect-ratio]="aspectRatio"
+    alt="image"
+  />
+</div>

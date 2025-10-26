@@ -1,8 +1,10 @@
 ﻿using BookContext.Contract.Commands.CreateBook;
-using BookContext.DL.Interfaces;
-using BookContext.DL.Repositories;
 using BookContext.Domain.Entities;
+using BookContext.Domain.Interfaces;
+using BookContext.Domain.Interfaces.Repositories;
+using BookContext.Domain.ValueObjects;
 using MediatR;
+using Shared.Core.Extensions;
 using Shared.Core.Interfaces;
 using Shared.Core.Models;
 using System;
@@ -14,43 +16,55 @@ using System.Threading.Tasks;
 
 namespace BookContext.UseCases.Commands
 {
-    public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Result<CreateBookResponse>>
+    public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Result<Guid?>>
     {
         private IBookRepository _bookRepository;
+        private IBookMetadataRepository _bookMetadataRepository;
         private IUnitOfWork _unitOfWork;
-        private IUserContext _context;
 
         public CreateBookRequestHandler(
             IBookRepository bookRepository,
-            IUnitOfWork unitOfWork,
-            IAuthorRepository authorRepository,
-            IUserContext context)
+            IBookMetadataRepository bookMetadataRepository,
+            IUnitOfWork unitOfWork)
         {
             _bookRepository = bookRepository;
+            _bookMetadataRepository = bookMetadataRepository;
             _unitOfWork = unitOfWork;
-            _context = context;
         }
 
-        public async Task<Result<CreateBookResponse>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
+        public async Task<Result<Guid?>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
-            var bookResult = Book.Create(_context.UserId, request.Title);
+            var userId = new UserId(request.CreatorId);
+            var bookResult = Book.Create(userId, request.Title);
 
             if(bookResult.IsFailure)
             {
-                return Result<CreateBookResponse>.Failure(bookResult.Errors);
+                return Result<Guid?>.Failure(bookResult.Errors);
             }
 
             var book = bookResult.Model;
 
-            await AddBook(book);
+            var metadataResult = CreateMetadataFrom(book.Id, request);
+            if (metadataResult.IsFailure)
+            {
+                return metadataResult.ToFailure<Guid?>();
+            }
 
-            return new CreateBookResponse(book.Id);
+            _bookRepository.Add(book);
+            _bookMetadataRepository.Add(metadataResult.Model);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return book.Id.Value;
         }
 
-        private async Task AddBook(Book book)
+        private Result<BookMetadata> CreateMetadataFrom(BookId bookId, CreateBookRequest request)
         {
-            await _bookRepository.Add(book);
-            await _unitOfWork.SaveChangesAsync();
+            var descResult = BookDescription.Create(request.Description);
+            var coverId = request.CoverId is not null ?
+                new MediaFileId(request.CoverId.Value) :
+                null;
+            return new BookMetadata(bookId, request.PublishingDate, coverId, descResult.Model);
         }
     }
 }

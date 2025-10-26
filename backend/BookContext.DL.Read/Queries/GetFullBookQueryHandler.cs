@@ -1,5 +1,5 @@
 ﻿using BookContext.Contract.Dtos;
-using BookContext.Contract.Queries.GetBook;
+using BookContext.Contract.Queries.GetFullBook;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

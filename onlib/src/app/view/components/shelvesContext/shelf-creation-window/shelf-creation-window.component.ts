@@ -12,11 +12,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { markAllAsDirty } from '../../../forms/helpers/markAllAsDirty';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ShelfCreationWindowOutput } from '../../../../business/models/shelves/shelfCreationWindowOutput';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   selector: 'shelf-creation-window',
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule],
   templateUrl: './shelf-creation-window.component.html',
   styleUrl: './shelf-creation-window.component.scss',
 })

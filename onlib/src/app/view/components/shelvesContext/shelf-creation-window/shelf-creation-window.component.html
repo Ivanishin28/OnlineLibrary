@@ -1,6 +1,6 @@
 <div class="layout">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="controls">
+    <div class="fields">
       <div *ngIf="form.controls.name as control" class="form-group">
         <label for="name">Name</label>
         <input
@@ -19,6 +19,8 @@
       </div>
     </div>
 
-    <button type="submit">Submit</button>
+    <div class="controls">
+      <p-button type="submit">Create</p-button>
+    </div>
   </form>
 </div>

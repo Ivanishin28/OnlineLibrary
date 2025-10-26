@@ -57,6 +57,30 @@ namespace ShelfContext.DL.SqlServer.Migrations
                     b.ToView("Books", (string)null);
                 });
 
+            modelBuilder.Entity("ShelfContext.Domain.Entities.Review.Review", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ShelvedBookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShelvedBookId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("ShelfContext.Domain.Entities.ShelvedBooks.ShelvedBook", b =>
                 {
                     b.Property<Guid>("Id")
@@ -99,8 +123,6 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Shelves");
                 });
 
@@ -117,21 +139,7 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("ShelfContext.Domain.Entities.Users.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("Users", (string)null);
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.BookTags.BookTag", b =>
@@ -149,6 +157,56 @@ namespace ShelfContext.DL.SqlServer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ShelfContext.Domain.Entities.Review.Review", b =>
+                {
+                    b.HasOne("ShelfContext.Domain.Entities.ShelvedBooks.ShelvedBook", null)
+                        .WithMany()
+                        .HasForeignKey("ShelvedBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("ShelfContext.Domain.Entities.Review.Rating", "Rating", b1 =>
+                        {
+                            b1.Property<Guid>("ReviewId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Value")
+                                .HasColumnType("int")
+                                .HasColumnName("Rating");
+
+                            b1.HasKey("ReviewId");
+
+                            b1.ToTable("Reviews");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ReviewId");
+                        });
+
+                    b.OwnsOne("ShelfContext.Domain.Entities.Review.ReviewText", "Text", b1 =>
+                        {
+                            b1.Property<Guid>("ReviewId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .HasMaxLength(5000)
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Text");
+
+                            b1.HasKey("ReviewId");
+
+                            b1.ToTable("Reviews");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ReviewId");
+                        });
+
+                    b.Navigation("Rating")
+                        .IsRequired();
+
+                    b.Navigation("Text")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ShelfContext.Domain.Entities.ShelvedBooks.ShelvedBook", b =>
                 {
                     b.HasOne("ShelfContext.Domain.Entities.Books.Book", null)
@@ -162,22 +220,10 @@ namespace ShelfContext.DL.SqlServer.Migrations
                         .HasForeignKey("ShelfId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ShelfContext.Domain.Entities.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Shelves.Shelf", b =>
                 {
-                    b.HasOne("ShelfContext.Domain.Entities.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("ShelfContext.Domain.Entities.Shelves.ShelfName", "Name", b1 =>
                         {
                             b1.Property<Guid>("ShelfId")
@@ -203,12 +249,6 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Tags.Tag", b =>
                 {
-                    b.HasOne("ShelfContext.Domain.Entities.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("ShelfContext.Domain.Entities.Tags.TagName", "Name", b1 =>
                         {
                             b1.Property<Guid>("TagId")

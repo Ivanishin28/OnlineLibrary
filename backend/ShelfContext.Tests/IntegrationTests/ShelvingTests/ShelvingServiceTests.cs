@@ -37,16 +37,13 @@ namespace ShelfContext.Tests.IntegrationTests.ShelvingTests
         [Test]
         public async Task Marks_new_shelved_book_for_inserting()
         {
-            var user = new User()
-            {
-                Id = new UserId(Guid.NewGuid())
-            };
-            var shelf = Shelf.Create(user.Id, ShelfName.Create("Shelf").Model).Model;
+            var userId = new UserId(Guid.NewGuid());
+            var shelf = Shelf.Create(userId, ShelfName.Create("Shelf").Model).Model;
             var book = new Book()
             {
                 Id = new BookId(Guid.NewGuid())
             };
-            _db.AddRange(user, shelf, book);
+            _db.AddRange(shelf, book);
             await _db.SaveChangesAsync();
 
             var result = await sut.Shelve(shelf.Id, book.Id);
@@ -59,18 +56,15 @@ namespace ShelfContext.Tests.IntegrationTests.ShelvingTests
         [Test]
         public async Task Marks_old_shelved_book_for_update()
         {
-            var user = new User()
-            {
-                Id = new UserId(Guid.NewGuid())
-            };
+            var userId = new UserId(Guid.NewGuid());
             var book = new Book()
             {
                 Id = new BookId(Guid.NewGuid())
             };
-            var shelf1 = Shelf.Create(user.Id, ShelfName.Create("Shelf1").Model).Model;
-            var shelf2 = Shelf.Create(user.Id, ShelfName.Create("Shelf2").Model).Model;
+            var shelf1 = Shelf.Create(userId, ShelfName.Create("Shelf1").Model).Model;
+            var shelf2 = Shelf.Create(userId, ShelfName.Create("Shelf2").Model).Model;
             var shelvedBook = shelf1.Shelve(book.Id);
-            _db.AddRange(user, book, shelf1, shelf2, shelvedBook);
+            _db.AddRange(book, shelf1, shelf2, shelvedBook);
             await _db.SaveChangesAsync();
 
             var result = await sut.Shelve(shelf2.Id, book.Id);

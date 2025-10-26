@@ -1,7 +1,7 @@
-﻿using BookContext.DL.Interfaces;
-using BookContext.DL.Repositories;
-using BookContext.DL.SqlServer.Concrete;
+﻿using BookContext.DL.SqlServer.Concrete;
 using BookContext.DL.SqlServer.Repositories;
+using BookContext.Domain.Interfaces;
+using BookContext.Domain.Interfaces.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,8 +17,11 @@ namespace BookContext.DL.SqlServer.Configuration
         {
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<IBookRepository, BookRepository>();
-            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services
+                .AddTransient<IAuthorMetadataRepository, AuthorMetadataRepository>()
+                .AddTransient<IBookMetadataRepository, BookMetadataRepository>()
+                .AddTransient<IBookRepository, BookRepository>()
+                .AddTransient<IAuthorRepository, AuthorRepository>();
 
             return services;
         }

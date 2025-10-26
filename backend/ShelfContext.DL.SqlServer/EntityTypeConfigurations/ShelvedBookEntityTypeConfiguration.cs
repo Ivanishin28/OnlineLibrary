@@ -15,7 +15,6 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
         {
             builder
                 .HasKey(e => e.Id);
-
             builder
                 .Property(e => e.Id)
                 .HasConversion(new EntityIdValueConverter<ShelvedBookId, Guid>());
@@ -24,28 +23,21 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasOne<Book>()
                 .WithMany()
                 .HasForeignKey(e => e.BookId);
-
             builder
                 .Property(e => e.BookId)
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
 
             builder
-                .HasOne<User>()
+                .HasOne<Shelf>()
                 .WithMany()
-                .HasForeignKey(x => x.UserId);
+                .HasForeignKey(e => e.ShelfId);
+            builder
+                .Property(e => e.ShelfId)
+                .HasConversion(new EntityIdValueConverter<ShelfId, Guid>());
 
             builder
                 .Property(x => x.UserId)
                 .HasConversion(new EntityIdValueConverter<UserId, Guid>());
-
-            builder
-                .HasOne<Shelf>()
-                .WithMany()
-                .HasForeignKey(e => e.ShelfId);
-
-            builder
-                .Property(e => e.ShelfId)
-                .HasConversion(new EntityIdValueConverter<ShelfId, Guid>());
 
             builder
                 .HasIndex(x => new { x.UserId, x.BookId })

@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\BookContext.DL\BookContext.DL.csproj" />
+    <ProjectReference Include="..\BookContext.Domain\BookContext.Domain.csproj" />
     <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
   </ItemGroup>
 

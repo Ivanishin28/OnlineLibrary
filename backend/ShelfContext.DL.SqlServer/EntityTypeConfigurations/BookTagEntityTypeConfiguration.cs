@@ -18,19 +18,17 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
         {
             builder
                 .HasKey(e => e.Id);
-
             builder
                 .Property(e => e.Id)
                 .HasConversion(new EntityIdValueConverter<BookTagId, Guid>());
 
             builder
-                .Property(e => e.ShelvedBookId)
-                .HasConversion(new EntityIdValueConverter<ShelvedBookId, Guid>());
-
-            builder
                 .HasOne<Tag>()
                 .WithMany()
                 .HasForeignKey(e => e.TagId);
+            builder
+                .Property(e => e.ShelvedBookId)
+                .HasConversion(new EntityIdValueConverter<ShelvedBookId, Guid>());
 
             builder
                 .Property(e => e.TagId)

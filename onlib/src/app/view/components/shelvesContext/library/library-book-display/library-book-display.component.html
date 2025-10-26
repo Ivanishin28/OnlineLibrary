@@ -2,9 +2,9 @@
   <div class="content">
     <p-table [value]="books">
       <ng-template #header>
-        <tr>
+        <tr class="table-header">
+          <th class="cover">Cover</th>
           <th>Title</th>
-          <th>Cover</th>
           <th>Shelf</th>
           <th>Date Shelved</th>
           <th>Tags</th>
@@ -12,10 +12,10 @@
       </ng-template>
       <ng-template #body let-row>
         <tr *ngIf="cast(row) as item">
+          <td><book-cover></book-cover></td>
           <td>
             <a [routerLink]="['/books', item.book_id]">{{ item.book.title }}</a>
           </td>
-          <td>-</td>
           <td>{{ item.shelf.name }}</td>
           <td>{{ item.date_shelved | onlibDate }}</td>
           <td>

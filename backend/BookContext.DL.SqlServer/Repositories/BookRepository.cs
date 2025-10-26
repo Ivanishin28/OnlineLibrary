@@ -1,38 +1,38 @@
-﻿using BookContext.DL.Repositories;
-using BookContext.Domain.Entities;
+﻿using BookContext.Domain.Entities;
+using BookContext.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookContext.DL.SqlServer.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private DbSet<Book> _dbSet;
+        private BookDbContext _db;
 
         public BookRepository(BookDbContext db)
         {
-            _dbSet = db.Books;
+            _db = db;
         }
 
-        public async Task Add(Book book)
+        public void Add(Book book)
         {
-            _dbSet.Add(book);
+            _db.Books.Add(book);
         }
 
-        public async Task Delete(Book book)
+        public void Delete(Book book)
         {
-            _dbSet.Remove(book);
+            _db.Books.Remove(book);
         }
 
         public async Task<Book?> GetBy(Guid id)
         {
             return await BookAggregates()
-                .Where(book => book.Id == id)
+                .Where(book => book.Id.Value == id)
                 .FirstOrDefaultAsync();
         }
 
         private IQueryable<Book> BookAggregates()
         {
-            return _dbSet;
+            return _db.Books;
         }
     }
 }

@@ -1,27 +1,22 @@
-.book-list {
-  margin-top: 20px;
+.header {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 16px;
+
+  h2 {
+    font-size: 28px;
+  }
 }
 
-.book-card {
-  min-width: 180px;
-  border: 1px solid black;
-  padding: 10px;
+.book-list {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-  .info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .title {
-      text-align: center;
-    }
-  }
-
-  .actions {
-    margin-top: 15px;
-    display: flex;
-    gap: 15px;
-  }
+.book-item {
+  max-width: 200px;
+  min-width: 175px;
+  width: 20%;
 }

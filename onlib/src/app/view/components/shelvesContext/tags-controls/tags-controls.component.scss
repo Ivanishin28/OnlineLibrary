@@ -1,9 +1,26 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  h2 {
+    font-size: 28px;
+  }
+}
+
 .tag-list {
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 
   .tag-item {
     display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .name {
+      font-size: 20px;
+    }
   }
 }

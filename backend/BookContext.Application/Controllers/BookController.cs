@@ -1,7 +1,9 @@
-﻿using BookContext.Contract.Commands.CreateBook;
+﻿using BookContext.Application.Dtos.Commands;
+using BookContext.Contract.Commands;
+using BookContext.Contract.Commands.CreateBook;
 using BookContext.Contract.Queries;
 using BookContext.Contract.Queries.GetAllBooks;
-using BookContext.Contract.Queries.GetBook;
+using BookContext.Contract.Queries.GetFullBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +29,17 @@ namespace BookContext.Application.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateBookRequest request)
+        public async Task<IActionResult> Create(CreateBookRequestDto dto)
         {
+            var request = new CreateBookRequest()
+            {
+                CreatorId = GetUserId(),
+                Title = dto.Title,
+                AuthorIds = dto.AuthorIds,
+                PublishingDate = dto.PublishingDate,
+                CoverId = dto.CoverId,
+                Description = dto.Description
+            };
             var result = await _metiator.Send(request);
 
             return FromResult(result);
@@ -51,6 +62,15 @@ namespace BookContext.Application.Controllers
             var book = await _metiator.Send(query);
 
             return Ok(book);
+        }
+
+        [HttpDelete("delete/{bookId}")]
+        public async Task<IActionResult> Delete(Guid bookId)
+        {
+            var request = new DeleteBookRequest(bookId);
+            var result = await _metiator.Send(request);
+
+            return FromResult(result);
         }
     }
 }

@@ -12,11 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookContext.Contracts\BookContext.Contract.csproj" />
-    <ProjectReference Include="..\BookContext.DL\BookContext.DL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Queries\" />
+    <ProjectReference Include="..\BookContext.Domain\BookContext.Domain.csproj" />
+    <ProjectReference Include="..\BookContext.Integration\BookContext.Integration.csproj" />
   </ItemGroup>
 
 </Project>

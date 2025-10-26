@@ -1,0 +1,10 @@
+<p-fileupload
+  mode="basic"
+  name="demo[]"
+  chooseIcon="pi pi-upload"
+  accept="image/*"
+  maxFileSize="1000000"
+  [auto]="true"
+  chooseLabel="Browse"
+  (onSelect)="upload($event)"
+/>

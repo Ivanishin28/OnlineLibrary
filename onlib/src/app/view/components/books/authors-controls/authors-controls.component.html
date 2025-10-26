@@ -1,0 +1,25 @@
+<div class="layout">
+  <div class="header">
+    <h2>Authors</h2>
+    <p-button (click)="createAuthor()">Create Author</p-button>
+  </div>
+
+  <div *ngIf="authors.length > 0" class="author-list">
+    <div *ngFor="let author of authors" class="author-item">
+      <div class="author-info">
+        <p class="name">{{ author.first_name }} {{ author.last_name }}</p>
+        <p class="birth-date">Born: {{ author.birth_date | date:'dd/MM/yyyy' }}</p>
+      </div>
+      <p-button
+        (click)="delete(author.id)"
+        icon="pi pi-times"
+        severity="danger"
+        size="small"
+      ></p-button>
+    </div>
+  </div>
+
+  <div *ngIf="authors.length === 0" class="empty-state">
+    <p>No authors found. Create your first author!</p>
+  </div>
+</div>

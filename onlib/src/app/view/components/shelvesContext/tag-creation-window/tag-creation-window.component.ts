@@ -15,10 +15,11 @@ import { Subject, takeUntil } from 'rxjs';
 import { useValidatedFormSubmit } from '../../../forms/helpers/useValidatedFormSubmit';
 import { TagService } from '../../../../business/services/shelves/tag.service';
 import { UserId } from '../../../../business/models/_shared/userId';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'tag-creation-window',
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule],
   templateUrl: './tag-creation-window.component.html',
   styleUrl: './tag-creation-window.component.scss',
 })

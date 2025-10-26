@@ -10,11 +10,17 @@ import {
 import { Popover, PopoverModule } from 'primeng/popover';
 import { TagSelectionPanelComponent } from './tag-selection-panel/tag-selection-panel.component';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   selector: 'tag-selection',
-  imports: [CommonModule, PopoverModule, TagSelectionPanelComponent],
+  imports: [
+    CommonModule,
+    PopoverModule,
+    TagSelectionPanelComponent,
+    ButtonModule,
+  ],
   templateUrl: './tag-selection.component.html',
   styleUrl: './tag-selection.component.scss',
 })

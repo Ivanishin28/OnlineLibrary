@@ -1,9 +1,18 @@
 <div *ngIf="book" class="layout">
   <div class="content">
-    <div class="controls">
-      <book-page-actions [bookId]="book.id"></book-page-actions>
+    <div class="left">
+      <div class="book-preview">
+        <div class="cover">
+          <book-cover></book-cover>
+        </div>
+      </div>
+      <div class="actions">
+        <book-page-actions [bookId]="book.id"></book-page-actions>
+      </div>
     </div>
-    <div class="info"><book-preview [book]="book"></book-preview></div>
+    <div class="right">
+      <h2 class="title">{{ book.title }}</h2>
+    </div>
   </div>
 </div>
 <div *ngIf="!book" class="layout-not-found"><p>Book Not Found</p></div>

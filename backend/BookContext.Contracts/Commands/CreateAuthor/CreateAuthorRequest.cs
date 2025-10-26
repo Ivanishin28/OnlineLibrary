@@ -1,27 +1,14 @@
 ﻿using Shared.Contracts.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BookContext.Contract.Commands.CreateAuthor
 {
-    public class CreateAuthorRequest : IResultRequest<CreateAuthorResponse>
+    public record CreateAuthorRequest : IResultRequest<Guid?>
     {
-        [JsonPropertyName("first_name")]
-        public string FirstName { get; private set; }
-        [JsonPropertyName("last_name")]
-        public string LastName { get; private set; }
-        [JsonPropertyName("birth_date")]
-        public DateOnly BirthDate { get; private set; }
-
-        public CreateAuthorRequest(string firstName, string lastName, DateOnly birthDate)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            BirthDate = birthDate;
-        }
+        public required Guid CreatorId { get; init; }
+        public required string FirstName { get; init; }
+        public required string LastName { get; init; }
+        public DateOnly BirthDate { get; init; }
+        public Guid? AvatarId { get; init; }
+        public string? Biography { get; init; }
     }
 }

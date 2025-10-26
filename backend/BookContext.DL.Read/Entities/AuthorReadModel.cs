@@ -10,6 +10,7 @@ namespace BookContext.DL.Read.Entities
     public class AuthorReadModel
     {
         public Guid Id { get; init; }
+        public Guid CreatorId { get; init; }
         public string FirstName { get; init; } = null!;
         public string LastName { get; init; } = null!;
         public string? MiddleName { get; init; }

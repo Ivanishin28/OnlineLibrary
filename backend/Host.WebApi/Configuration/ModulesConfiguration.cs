@@ -2,6 +2,7 @@
 using IdentityContext.Application.Configuration;
 using ShelfContext.Application.Configuration;
 using UserContext.Application.Configuration;
+using MediaContext.Application.Configuration;
 
 namespace Host.WebApi.Configuration
 {
@@ -12,6 +13,7 @@ namespace Host.WebApi.Configuration
             ConfigurationManager config)
         {
             services
+                .RegisterMediaContext(config)
                 .RegisterComposition()
                 .RegisterIdentityContext(config)
                 .RegisterUserContext()
@@ -24,6 +26,7 @@ namespace Host.WebApi.Configuration
         public static IMvcBuilder AddModuleControllers(this IMvcBuilder mvcBuilder)
         {
             return mvcBuilder
+                .AddMediaControllers()
                 .AddCompositionControllers()
                 .AddIdentityContextControllers()
                 .AddUserContextControllers()
