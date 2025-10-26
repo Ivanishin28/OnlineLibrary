@@ -2,7 +2,7 @@
 using BookContext.Contract.Commands.CreateBook;
 using BookContext.Contract.Queries;
 using BookContext.Contract.Queries.GetAllBooks;
-using BookContext.Contract.Queries.GetBook;
+using BookContext.Contract.Queries.GetFullBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

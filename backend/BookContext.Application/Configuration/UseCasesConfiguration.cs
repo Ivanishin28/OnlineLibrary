@@ -1,5 +1,5 @@
 ﻿using BookContext.Contract.Commands.CreateAuthor;
-using BookContext.Contract.Queries.GetBook;
+using BookContext.Contract.Queries.GetFullBook;
 using BookContext.DL.Read.Queries;
 using BookContext.UseCases.Commands;
 using Microsoft.Extensions.DependencyInjection;

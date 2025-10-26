@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookContext.Contract.Queries.GetBook
+namespace BookContext.Contract.Queries.GetFullBook
 {
     public record GetFullBookQuery(Guid BookId) : IRequest<FullBookDto?>
     {

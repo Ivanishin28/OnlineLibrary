@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace BookContext.UseCases.Commands
 {
-    public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Result<CreateBookResponse>>
+    public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Result<Guid?>>
     {
         private IBookRepository _bookRepository;
         private IUnitOfWork _unitOfWork;
@@ -32,21 +32,21 @@ namespace BookContext.UseCases.Commands
             _context = context;
         }
 
-        public async Task<Result<CreateBookResponse>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
+        public async Task<Result<Guid?>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
             var userId = new UserId(_context.UserId);
             var bookResult = Book.Create(userId, request.Title);
 
             if(bookResult.IsFailure)
             {
-                return Result<CreateBookResponse>.Failure(bookResult.Errors);
+                return Result<Guid?>.Failure(bookResult.Errors);
             }
 
             var book = bookResult.Model;
 
             await AddBook(book);
 
-            return new CreateBookResponse(book.Id.Value);
+            return book.Id.Value;
         }
 
         private async Task AddBook(Book book)

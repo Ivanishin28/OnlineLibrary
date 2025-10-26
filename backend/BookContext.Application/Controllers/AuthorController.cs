@@ -1,5 +1,5 @@
-﻿using BookContext.Contract.Commands.CreateAuthor;
-using BookContext.Contract.Dtos.Commands;
+﻿using BookContext.Application.Dtos.Commands;
+using BookContext.Contract.Commands.CreateAuthor;
 using BookContext.Contract.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -9,17 +9,11 @@ using System.Threading.Tasks;
 
 namespace BookContext.Contract.Commands.CreateBook
 {
-    public class CreateBookRequest : IResultRequest<CreateBookResponse>
+    public record CreateBookRequest : IResultRequest<Guid?>
     {
         [JsonPropertyName("title")]
-        public string Title { get; private set; }
+        public required string Title { get; init; }
         [JsonPropertyName("author_ids")]
-        public ICollection<Guid> AuthorIds { get; private set; }
-
-        public CreateBookRequest(string title, ICollection<Guid> authorIds)
-        {
-            Title = title;
-            AuthorIds = authorIds;
-        }
+        public ICollection<Guid> AuthorIds { get; init; } = new List<Guid>();
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BookContext.Contract.Dtos.Commands
+namespace BookContext.Application.Dtos.Commands
 {
     public record CreateAuthorRequestDto
     {
