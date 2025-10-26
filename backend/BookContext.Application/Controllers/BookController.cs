@@ -1,4 +1,5 @@
-﻿using BookContext.Contract.Commands;
+﻿using BookContext.Application.Dtos.Commands;
+using BookContext.Contract.Commands;
 using BookContext.Contract.Commands.CreateBook;
 using BookContext.Contract.Queries;
 using BookContext.Contract.Queries.GetAllBooks;
@@ -28,8 +29,17 @@ namespace BookContext.Application.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateBookRequest request)
+        public async Task<IActionResult> Create(CreateBookRequestDto dto)
         {
+            var request = new CreateBookRequest()
+            {
+                CreatorId = GetUserId(),
+                Title = dto.Title,
+                AuthorIds = dto.AuthorIds,
+                PublishingDate = dto.PublishingDate,
+                CoverId = dto.CoverId,
+                Description = dto.Description
+            };
             var result = await _metiator.Send(request);
 
             return FromResult(result);
