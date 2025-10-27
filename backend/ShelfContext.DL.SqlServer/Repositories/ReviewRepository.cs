@@ -52,5 +52,13 @@ namespace ShelfContext.DL.SqlServer.Repositories
                     x.UserId == userId &&
                     x.BookId == bookId);
         }
+
+        public async Task<ICollection<Review>> GetAllBy(BookId bookId)
+        {
+            return await _db
+                .Reviews
+                .Where(x => x.BookId == bookId)
+                .ToListAsync();
+        }
     }
 }

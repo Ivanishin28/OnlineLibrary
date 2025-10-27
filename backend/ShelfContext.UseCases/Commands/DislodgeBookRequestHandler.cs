@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands.DislodgeBook;
+using ShelfContext.Contract.Events;
 using ShelfContext.Domain.Entities.Base;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Interfaces;
@@ -13,11 +14,13 @@ namespace ShelfContext.UseCases.Commands
     {
         private IUnitOfWork _unitOfWork;
         private IShelvedBookRepository _shelvedBookRepository;
+        private IMediator _mediator;
 
-        public DislodgeBookRequestHandler(IUnitOfWork unitOfWork, IShelvedBookRepository shelvedBookRepository)
+        public DislodgeBookRequestHandler(IUnitOfWork unitOfWork, IShelvedBookRepository shelvedBookRepository, IMediator mediator)
         {
             _unitOfWork = unitOfWork;
             _shelvedBookRepository = shelvedBookRepository;
+            _mediator = mediator;
         }
 
         public async Task<Result> Handle(DislodgeBookRequest request, CancellationToken cancellationToken)
@@ -31,8 +34,14 @@ namespace ShelfContext.UseCases.Commands
             }
 
             _shelvedBookRepository.Remove(shelvedBook);
-
             await _unitOfWork.SaveChanges();
+
+            await _mediator.Send(new BookDislodgedEvent()
+            {
+                BookId = shelvedBook.BookId.Value,
+                UserId = shelvedBook.UserId.Value,
+                ShelvedBookId = shelvedBook.Id.Value
+            });
 
             return Result.Success();
         }
