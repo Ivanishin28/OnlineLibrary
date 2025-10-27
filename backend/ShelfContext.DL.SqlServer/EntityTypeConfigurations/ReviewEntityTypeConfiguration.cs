@@ -19,15 +19,6 @@ namespace ShelfContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<ReviewId, Guid>());
 
             builder
-                .HasOne<ShelvedBook>()
-                .WithMany()
-                .HasForeignKey(x => x.ShelvedBookId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder
-                .Property(x => x.ShelvedBookId)
-                .HasConversion(new EntityIdValueConverter<ShelvedBookId, Guid>());
-
-            builder
                 .OwnsOne(
                     x => x.Text,
                     owned =>

@@ -1,7 +1,7 @@
-﻿using Composition.Contract.Models;
-using MediatR;
+﻿using MediatR;
 using Shared.Contracts.Models;
 using ShelfContext.Contract.Dtos;
+using ShelfContext.Contract.Models;
 
 namespace ShelfContext.Contract.Queries
 {

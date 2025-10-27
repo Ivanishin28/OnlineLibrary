@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Composition.Contract.Models
+namespace ShelfContext.Contract.Models
 {
     public record LibraryFilter
     {
