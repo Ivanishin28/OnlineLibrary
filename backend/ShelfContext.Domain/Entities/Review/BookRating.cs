@@ -3,6 +3,7 @@ using Shared.Core.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,8 @@ namespace ShelfContext.Domain.Entities.Review
 
             return new Rating(value);
         }
+
+        public static Rating Min => new Rating(ReviewConsts.MIN_RATING);
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
