@@ -16,6 +16,7 @@ namespace ShelfContext.Domain.Interfaces.Repositories
 
         public Task<Review?> GetBy(ReviewId id);
         public Task<Review?> GetBy(UserId userId, BookId bookId);
+        public Task<ICollection<Review>> GetAllBy(BookId bookId);
 
         public Task<bool> Exists(UserId userId, BookId bookId);
     }

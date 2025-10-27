@@ -4,14 +4,14 @@ using ShelfContext.Domain.Entities.Books;
 using ShelfContext.Domain.Interfaces;
 using ShelfContext.Domain.Interfaces.Repositories;
 
-namespace ShelfContext.UseCases.EventHandlers
+namespace ShelfContext.UseCases.EventHandlers.BookDeletedEventHandlers
 {
-    public class BookDeletedEventHandler : INotificationHandler<BookDeletedEvent>
+    public class ShelvedBookBookDeletionHandler : INotificationHandler<BookDeletedEvent>
     {
         private IUnitOfWork _unitOfWork;
         private IShelvedBookRepository _shelvedBookRepository;
 
-        public BookDeletedEventHandler(IUnitOfWork unitOfWork, IShelvedBookRepository shelvedBookRepository)
+        public ShelvedBookBookDeletionHandler(IUnitOfWork unitOfWork, IShelvedBookRepository shelvedBookRepository)
         {
             _unitOfWork = unitOfWork;
             _shelvedBookRepository = shelvedBookRepository;
@@ -26,7 +26,7 @@ namespace ShelfContext.UseCases.EventHandlers
                 return;
             }
 
-            foreach(var shelvedBook in shelvedBooks)
+            foreach (var shelvedBook in shelvedBooks)
             {
                 _shelvedBookRepository.Remove(shelvedBook);
             }
