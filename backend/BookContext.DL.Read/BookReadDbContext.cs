@@ -25,7 +25,7 @@ namespace BookContext.DL.Read
 
             builder
                 .Entity<BookAuthorReadModel>()
-                .ToView("BookAuthors");
+                .ToView("BookAuthor");
         }
     }
 }

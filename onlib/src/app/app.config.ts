@@ -13,6 +13,8 @@ import { tokenAppendingInterceptor } from './business/interceptors/token-appendi
 import { TagService } from './business/services/shelves/tag.service';
 import { BookService } from './business/services/books/book.service';
 import { ShelfService } from './business/services/shelves/shelf.service';
+import { ReviewService } from './business/services/shelves/review.service';
+import { ReviewCreationWindowManager } from './business/managers/windows/reviewCreationWindowManager';
 import { OnlibDatePipe } from './view/pipes/onlib-date.pipe';
 import { DatePipe } from '@angular/common';
 import { MediaFileService } from './business/services/media/media-file.service';
@@ -40,6 +42,8 @@ export const appConfig: ApplicationConfig = {
     TagService,
     BookService,
     ShelfService,
+    ReviewService,
+    ReviewCreationWindowManager,
     MediaFileService,
     DatePipe,
   ],

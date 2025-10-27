@@ -8,6 +8,8 @@ import { BookPreviewComponent } from '../book-preview/book-preview.component';
 import { BookPageActionsComponent } from './book-page-actions/book-page-actions.component';
 import { BooksPageComponent } from '../books-page/books-page.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
+import { Button } from 'primeng/button';
+import { ReviewCreationWindowManager } from '../../../../business/managers/windows/reviewCreationWindowManager';
 
 @Component({
   standalone: true,
@@ -18,8 +20,9 @@ import { BookCoverComponent } from '../book-cover/book-cover.component';
     BookPageActionsComponent,
     BooksPageComponent,
     BookCoverComponent,
+    Button,
   ],
-  providers: [BookService],
+  providers: [BookService, ReviewCreationWindowManager],
   templateUrl: './book-page.component.html',
   styleUrl: './book-page.component.scss',
 })
@@ -30,7 +33,8 @@ export class BookPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private bookService: BookService
+    private bookService: BookService,
+    private reviewWindow: ReviewCreationWindowManager
   ) {}
 
   public ngOnInit(): void {
@@ -50,5 +54,13 @@ export class BookPageComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  public review(): void {
+    if (!this.book) {
+      return;
+    }
+
+    this.reviewWindow.createReviewFor(this.book?.id).subscribe();
   }
 }

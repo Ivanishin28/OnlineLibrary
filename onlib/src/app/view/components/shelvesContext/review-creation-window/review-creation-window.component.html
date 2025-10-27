@@ -1,0 +1,37 @@
+<div class="layout">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()">
+    <div class="fields">
+      <div *ngIf="form.controls.rating as control" class="form-group">
+        <label for="rating">Rating</label>
+        <p-rating formControlName="rating" [stars]="5"></p-rating>
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="validation-message"
+        >
+          <p>Rating is required (1-5 stars)</p>
+        </div>
+      </div>
+
+      <div *ngIf="form.controls.text as control" class="form-group">
+        <label for="text">Review Text (Optional)</label>
+        <textarea
+          id="text"
+          [formControl]="control"
+          class="form-control"
+          rows="5"
+          placeholder="Write your review..."
+        ></textarea>
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="validation-message"
+        >
+          <p>Review text must be less than 500 characters</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <p-button class="save" type="submit">Create</p-button>
+    </div>
+  </form>
+</div>
