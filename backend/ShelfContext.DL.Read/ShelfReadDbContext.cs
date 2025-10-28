@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelfContext.DL.Read.Entities;
-using ShelfContext.DL.Read.EntityTypeConfigurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +22,11 @@ namespace ShelfContext.DL.Read
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var configurationAssembly = typeof(ShelfReadModelEntityTypeConfiguration).Assembly;
-            modelBuilder.ApplyConfigurationsFromAssembly(configurationAssembly);
+            modelBuilder.Entity<BookTagReadModel>().ToView("BookTags");
+            modelBuilder.Entity<ShelfReadModel>().ToView("Shelves");
+            modelBuilder.Entity<ShelvedBookReadModel>().ToView("ShelvedBooks");
+            modelBuilder.Entity<TagReadModel>().ToView("Tags");
+            modelBuilder.Entity<ReviewReadModel>().ToView("Reviews");
         }
     }
 }
