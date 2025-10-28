@@ -14,7 +14,7 @@ namespace ShelfContext.DL.Read
         public DbSet<ShelfReadModel> Shelves { get; set; }
         public DbSet<ShelvedBookReadModel> ShelvedBooks { get; set; }
         public DbSet<TagReadModel> Tags { get; set; }
-
+        public DbSet<ReviewReadModel> Reviews { get; set; }
 
         public ShelfReadDbContext(DbContextOptions<ShelfReadDbContext> options) : base(options)
         {
