@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShelfContext.Application.Dtos.Commands;
 using ShelfContext.Contract.Commands;
+using ShelfContext.Contract.Queries;
 
 namespace ShelfContext.Application.Controllers
 {
@@ -29,6 +30,14 @@ namespace ShelfContext.Application.Controllers
             var result = await _mediator.Send(request);
 
             return FromResult(result);
+        }
+
+        [HttpGet("statistics/{bookId}")]
+        public async Task<IActionResult> GetStatistics(Guid bookId)
+        {
+            var query = new GetBookReviewStatisticsQuery(bookId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

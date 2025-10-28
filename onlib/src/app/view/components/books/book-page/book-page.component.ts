@@ -9,7 +9,8 @@ import { BooksPageComponent } from '../books-page/books-page.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
 import { Button } from 'primeng/button';
 import { ReviewCreationWindowManager } from '../../../../business/managers/windows/reviewCreationWindowManager';
-import { BookReviewsDisplayComponent } from "./book-reviews-display/book-reviews-display.component";
+import { BookReviewsDisplayComponent } from './book-reviews-display/book-reviews-display.component';
+import { BookReviewStatisticsComponent } from "./book-review-statistics/book-review-statistics.component";
 
 @Component({
   standalone: true,
@@ -21,7 +22,8 @@ import { BookReviewsDisplayComponent } from "./book-reviews-display/book-reviews
     BooksPageComponent,
     BookCoverComponent,
     Button,
-    BookReviewsDisplayComponent
+    BookReviewsDisplayComponent,
+    BookReviewStatisticsComponent
 ],
   providers: [BookService, ReviewCreationWindowManager],
   templateUrl: './book-page.component.html',

@@ -12,6 +12,7 @@
     </div>
     <div class="right">
       <h2 class="title">{{ book.title }}</h2>
+      <book-review-statistics [bookId]="book.id"></book-review-statistics>
       <p-button (onClick)="review()">Review</p-button>
       <book-reviews-display [bookId]="book.id"></book-reviews-display>
     </div>
