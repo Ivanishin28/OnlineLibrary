@@ -83,9 +83,9 @@ namespace ShelfContext.Tests.IntegrationTests.ReviewTests
             var shelf = Shelf.Create(userId, ShelfName.Create("name").Model).Model;
             var shelvedBook = ShelvedBook.Create(shelf.Id, bookId, userId);
             _db.AddRange(shelf, shelvedBook);
-            var existingReview = new Review(
-                userId, bookId, 
-                ReviewText.Blank, Rating.Min, DateTime.Now);
+            var existingReview = Review.Create(
+                userId, bookId, Rating.Min, 
+                ReviewText.Blank);
             _db.Reviews.Add(existingReview);
             await _db.SaveChangesAsync();
 

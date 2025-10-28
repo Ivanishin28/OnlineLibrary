@@ -61,7 +61,7 @@ namespace ShelfContext.UseCases.Commands
                 return result.ToFailure<Review>();
             }
 
-            return new Review(userId, bookId, text.Model, rating.Model, DateTime.Now);
+            return Review.Create(userId, bookId, rating.Model, text.Model);
         }
     }
 }

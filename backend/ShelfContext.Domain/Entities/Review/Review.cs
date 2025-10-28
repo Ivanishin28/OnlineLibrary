@@ -11,20 +11,42 @@ namespace ShelfContext.Domain.Entities.Review
         public BookId BookId { get; private set; } = null!;
         public ReviewText Text { get; private set; } = null!;
         public Rating Rating { get; private set; } = null!;
-        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
         private Review() { }
 
-        public Review(
-            UserId userId, BookId bookId, 
+        private Review(
+            ReviewId id, UserId userId, BookId bookId, 
             ReviewText text, Rating rating, DateTime createdAt)
         {
-            Id = new ReviewId(Guid.NewGuid());
+            Id = id;
             UserId = userId;
             BookId = bookId;
             Text = text;
             Rating = rating;
             CreatedAt = createdAt;
+            UpdatedAt = createdAt;
+        }
+
+        public static Review Create(
+            UserId userId, BookId bookId, 
+            Rating rating, ReviewText text)
+        {
+            var id = new ReviewId(Guid.NewGuid());
+            return new Review(id, userId, bookId, text, rating, DateTime.Now);
+        }
+
+        public void UpdateRating(Rating rating)
+        {
+            Rating = rating;
+            UpdatedAt = DateTime.Now;
+        }
+
+        public void UpdateText(ReviewText text)
+        {
+            Text = text;
+            UpdatedAt = DateTime.Now;
         }
     }
 }
