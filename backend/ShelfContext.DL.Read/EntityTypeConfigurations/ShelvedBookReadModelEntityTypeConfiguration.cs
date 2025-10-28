@@ -22,11 +22,6 @@ namespace ShelfContext.DL.Read.EntityTypeConfigurations
                 .HasForeignKey(e => e.ShelfId);
 
             builder
-                .HasOne(e => e.Book)
-                .WithMany(e => e.ShelvedBooks)
-                .HasForeignKey(e => e.BookId);
-
-            builder
                 .ToView("ShelvedBooks");
         }
     }

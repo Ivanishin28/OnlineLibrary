@@ -11,12 +11,10 @@ namespace ShelfContext.DL.Read
 {
     public class ShelfReadDbContext : DbContext
     {
-        public DbSet<BookReadModel> Books { get; set; }
         public DbSet<BookTagReadModel> BookTags { get; set; }
         public DbSet<ShelfReadModel> Shelves { get; set; }
         public DbSet<ShelvedBookReadModel> ShelvedBooks { get; set; }
         public DbSet<TagReadModel> Tags { get; set; }
-        public DbSet<UserReadModel> Users { get; set; }
 
 
         public ShelfReadDbContext(DbContextOptions<ShelfReadDbContext> options) : base(options)

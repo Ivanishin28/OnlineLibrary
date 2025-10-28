@@ -13,7 +13,6 @@ namespace ShelfContext.DL.Read.Entities
         public string Name { get; set; } = null!;
         public DateTime DateCreated { get; set; }
 
-        public UserReadModel User { get; set; } = null!;
         public IEnumerable<BookTagReadModel> BookTags { get; set; } = null!;
     }
 }
