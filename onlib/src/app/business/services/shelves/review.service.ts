@@ -3,6 +3,8 @@ import { GetBookReviewsPageRequest } from '../../models/shelves/getBookReviewsPa
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Pagination } from '../../models/_shared/pagination';
+import { ReviewPreview } from '../../models/shelves/reviewPreview';
 
 @Injectable()
 export class ReviewService {
@@ -10,8 +12,10 @@ export class ReviewService {
 
   constructor(private connection: HttpClient) {}
 
-  public getPage(request: GetBookReviewsPageRequest): Observable<any> {
+  public getPage(
+    request: GetBookReviewsPageRequest
+  ): Observable<Pagination<ReviewPreview>> {
     const url = `${this.COMPONENT}/reviews`;
-    return this.connection.post(url, request);
+    return this.connection.post<Pagination<ReviewPreview>>(url, request);
   }
 }

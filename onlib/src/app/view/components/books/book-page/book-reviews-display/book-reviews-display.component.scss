@@ -1,0 +1,20 @@
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-item {
+  border: 1px solid black;
+  padding: 15px;
+  
+  .content {
+    .header {
+      display: flex;
+    }
+
+    .info {
+      margin-top: 15px;
+    }
+  }
+}

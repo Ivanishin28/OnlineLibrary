@@ -30,13 +30,13 @@ namespace ShelfContext.UseCases.Commands
 
             if (shelvedBook is null)
             {
-                return Result.Failure(EntityErrors.NotFound);
+                return Result.Failure(ShelvedBookErrors.NotFound(id));
             }
 
             _shelvedBookRepository.Remove(shelvedBook);
             await _unitOfWork.SaveChanges();
 
-            await _mediator.Send(new BookDislodgedEvent()
+            await _mediator.Publish(new BookDislodgedEvent()
             {
                 BookId = shelvedBook.BookId.Value,
                 UserId = shelvedBook.UserId.Value,

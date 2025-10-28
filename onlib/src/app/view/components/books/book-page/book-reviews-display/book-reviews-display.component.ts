@@ -35,6 +35,9 @@ export class BookReviewsDisplayComponent implements OnChanges, OnDestroy {
         book_id: this.bookId,
         page: this.paginator.page,
       })
-      .subscribe((x) => (this.reviews = x));
+      .subscribe((pagination) => {
+        this.reviews = pagination.items;
+        console.log(pagination);
+      });
   }
 }

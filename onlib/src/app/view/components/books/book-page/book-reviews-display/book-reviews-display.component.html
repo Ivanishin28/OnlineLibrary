@@ -1,1 +1,10 @@
-<p>book-reviews-display works!</p>
+<div class="layout">
+  <div class="review-list">
+    <div *ngFor="let item of reviews" class="review-item">
+      <div class="content">
+        <div class="header">{{ item.identity.nickname }}</div>
+        <div class="info">{{ item.rating }}</div>
+      </div>
+    </div>
+  </div>
+</div>
