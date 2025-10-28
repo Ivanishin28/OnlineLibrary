@@ -27,7 +27,9 @@ namespace IdentityContext.Application.UseCases.Queries
                     request.UserIds.Contains(x.UserId.Value))
                 .Select(x => new IdentityPreviewDto()
                 {
-                    Nickname = x.UserName!
+                    UserId = x.UserId!.Value,
+                    IdentityId = x.Id,
+                    Nickname = x.UserName!,
                 })
                 .ToListAsync();
         }

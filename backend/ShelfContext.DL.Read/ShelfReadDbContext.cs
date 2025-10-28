@@ -18,6 +18,7 @@ namespace ShelfContext.DL.Read
         public DbSet<TagReadModel> Tags { get; set; }
         public DbSet<UserReadModel> Users { get; set; }
 
+
         public ShelfReadDbContext(DbContextOptions<ShelfReadDbContext> options) : base(options)
         {
         }

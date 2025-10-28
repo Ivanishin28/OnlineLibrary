@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookContext.Contracts\BookContext.Contract.csproj" />
+    <ProjectReference Include="..\Identity.Contracts\IdentityContext.Contracts.csproj" />
     <ProjectReference Include="..\Shared.Contracts\Shared.Contracts.csproj" />
     <ProjectReference Include="..\ShelfContext.Contract\ShelfContext.Contract.csproj" />
   </ItemGroup>
