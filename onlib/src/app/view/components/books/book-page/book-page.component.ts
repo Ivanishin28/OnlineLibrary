@@ -4,12 +4,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { BookService } from '../../../../business/services/books/book.service';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
-import { BookPreviewComponent } from '../book-preview/book-preview.component';
 import { BookPageActionsComponent } from './book-page-actions/book-page-actions.component';
 import { BooksPageComponent } from '../books-page/books-page.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
 import { Button } from 'primeng/button';
 import { ReviewCreationWindowManager } from '../../../../business/managers/windows/reviewCreationWindowManager';
+import { BookReviewsDisplayComponent } from "./book-reviews-display/book-reviews-display.component";
 
 @Component({
   standalone: true,
@@ -21,7 +21,8 @@ import { ReviewCreationWindowManager } from '../../../../business/managers/windo
     BooksPageComponent,
     BookCoverComponent,
     Button,
-  ],
+    BookReviewsDisplayComponent
+],
   providers: [BookService, ReviewCreationWindowManager],
   templateUrl: './book-page.component.html',
   styleUrl: './book-page.component.scss',

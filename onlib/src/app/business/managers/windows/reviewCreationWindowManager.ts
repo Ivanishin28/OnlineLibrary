@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { filter, map, Observable, switchMap } from 'rxjs';
 import { Result } from '../../models/_shared/result';
-import { ReviewService } from '../../services/shelves/review.service';
+import { ReviewerService } from '../../services/shelves/reviewer.service';
 import { ReviewCreationWindowComponent } from '../../../view/components/shelvesContext/review-creation-window/review-creation-window.component';
 import { ReviewCreationWindowOutput } from '../../models/shelves/reviewCreationWindowOutput';
 import { AddBookReviewRequest } from '../../models/shelves/addBookReviewRequest';
@@ -11,7 +11,7 @@ import { AddBookReviewRequest } from '../../models/shelves/addBookReviewRequest'
 export class ReviewCreationWindowManager {
   constructor(
     private dialog: DialogService,
-    private reviewService: ReviewService
+    private reviewService: ReviewerService
   ) {}
 
   public createReviewFor(bookId: string): Observable<Result<void>> {
