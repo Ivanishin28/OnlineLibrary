@@ -12,6 +12,52 @@
             type="text"
           />
         </div>
+
+        <div
+          *ngIf="form.controls.publishing_date as control"
+          class="form-group"
+        >
+          <label for="publishing_date">Publishing Date</label>
+          <p-date-picker
+            [formControl]="control"
+            [readonlyInput]="true"
+            inputId="publishing_date"
+          ></p-date-picker>
+        </div>
+
+        <div *ngIf="form.controls.description as control" class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            [formControl]="control"
+            class="form-control"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div
+          *ngIf="form.controls.author_ids_input as control"
+          class="form-group"
+        >
+          <label for="author_ids_input">Author IDs</label>
+          <input
+            id="author_ids_input"
+            pInputText
+            [formControl]="control"
+            class="form-control"
+            type="text"
+          />
+        </div>
+
+        <div class="from-group">
+          <media-file-upload
+            [uploadedFileId]="undefined"
+            (fileUploaded)="onCoverUploaded($event)"
+          ></media-file-upload>
+        </div>
+        <div class="cover">
+          <media-image [fileId]="cover"> </media-image>
+        </div>
       </div>
 
       <div class="controls">

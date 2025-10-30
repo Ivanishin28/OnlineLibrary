@@ -9,22 +9,44 @@ import {
 } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Button } from 'primeng/button';
-import { BookCreation } from '../../../../business/models/books/bookCreation';
 import { InputTextModule } from 'primeng/inputtext';
+import { DatePickerModule } from 'primeng/datepicker';
+import { BookCreationWindowOutput } from '../../../../business/models/books/bookCreationWindowOutput';
+import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
+import { MediaImageComponent } from '../../_shared/media-image/media-image.component';
+import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
 
 @Component({
   standalone: true,
   selector: 'book-creation-window',
-  imports: [CommonModule, ReactiveFormsModule, Button, InputTextModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    Button,
+    InputTextModule,
+    DatePickerModule,
+    MediaFileUploadComponent,
+    MediaImageComponent,
+  ],
   templateUrl: './book-creation-window.component.html',
   styleUrl: './book-creation-window.component.scss',
 })
 export class BookCreationWindowComponent {
-  public form: FormGroup<{ title: FormControl<string | null> }>;
+  public form: FormGroup<{
+    title: FormControl<string | null>;
+    publishing_date: FormControl<Date | null>;
+    description: FormControl<string | null>;
+    author_ids_input: FormControl<string | null>;
+  }>;
+
+  public cover: MediaFileId | undefined;
 
   constructor(private ref: DynamicDialogRef, formBuilder: FormBuilder) {
     this.form = formBuilder.group({
       title: ['', Validators.required],
+      publishing_date: [null as Date | null, Validators.required],
+      description: [''],
+      author_ids_input: [''],
     });
   }
 
@@ -33,8 +55,18 @@ export class BookCreationWindowComponent {
       return;
     }
 
-    const book = new BookCreation(this.form.value.title!);
+    const output = new BookCreationWindowOutput(
+      this.form.value.title!,
+      this.form.value.publishing_date!,
+      this.form.value.author_ids_input ?? null,
+      this.form.value.description ?? null,
+      this.cover?.value ?? null
+    );
 
-    this.ref.close(book);
+    this.ref.close(output);
+  }
+
+  public onCoverUploaded(fileId: MediaFileId): void {
+    this.cover = fileId;
   }
 }

@@ -1,3 +1,7 @@
-export class CreateBookRequest {
-  constructor(public title: string, public author_ids: string[] = []) {}
+export interface CreateBookRequest {
+  title: string;
+  author_ids: string[];
+  publishing_date: Date;
+  cover_id?: string | null;
+  description?: string | null;
 }
