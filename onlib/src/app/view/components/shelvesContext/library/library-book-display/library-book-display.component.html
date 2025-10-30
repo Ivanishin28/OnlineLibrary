@@ -12,7 +12,7 @@
       </ng-template>
       <ng-template #body let-row>
         <tr *ngIf="cast(row) as item">
-          <td><book-cover></book-cover></td>
+          <td><book-cover [coverId]="item.book.cover_id"></book-cover></td>
           <td>
             <a [routerLink]="['/books', item.book_id]">{{ item.book.title }}</a>
           </td>

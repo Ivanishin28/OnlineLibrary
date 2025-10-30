@@ -8,13 +8,16 @@ namespace BookContext.Contract.Dtos
         public Guid Id { get; init; }
         [JsonPropertyName("title")]
         public string Title { get; init; }
+        [JsonPropertyName("cover_id")]
+        public Guid? CoverId { get; init; }
         [JsonPropertyName("authors")]
         public IReadOnlyCollection<AuthorDto> Authors { get; init; }
 
-        public FullBookDto(Guid id, string title, IReadOnlyCollection<AuthorDto> authors)
+        public FullBookDto(Guid id, string title, Guid? coverId, IReadOnlyCollection<AuthorDto> authors)
         {
             Id = id;
             Title = title;
+            CoverId = coverId;
             Authors = authors;
         }
     }

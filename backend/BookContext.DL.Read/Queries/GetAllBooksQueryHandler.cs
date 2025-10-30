@@ -16,8 +16,10 @@ namespace BookContext.DL.Read.Queries
 
         public async Task<IEnumerable<BookPreviewDto>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
-            return await _db.Books
-                .Select(x => new BookPreviewDto(x.Id, x.Title))
+            return await _db
+                .Books
+                .Include(b => b.BookMetadata)
+                .Select(b => new BookPreviewDto(b.Id, b.Title, b.BookMetadata != null ? b.BookMetadata.CoverId : (Guid?)null))
                 .ToListAsync();
         }
     }

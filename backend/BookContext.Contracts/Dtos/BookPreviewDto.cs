@@ -13,11 +13,14 @@ namespace BookContext.Contract.Dtos
         public Guid Id { get; init; }
         [JsonPropertyName("title")]
         public string Title { get; init; }
+        [JsonPropertyName("cover_id")]
+        public Guid? CoverId { get; init; }
 
-        public BookPreviewDto(Guid id, string title)
+        public BookPreviewDto(Guid id, string title, Guid? coverId)
         {
             Id = id;
             Title = title;
+            CoverId = coverId;
         }
     }
 }

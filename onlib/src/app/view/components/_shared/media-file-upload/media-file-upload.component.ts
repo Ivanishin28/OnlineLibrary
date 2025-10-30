@@ -36,7 +36,6 @@ export class MediaFileUploadComponent {
           content_type: file.type,
         })
         .subscribe((uploadResult) => {
-          console.log(uploadResult);
           if (uploadResult.isSuccess) {
             this.fileUploaded.next(new MediaFileId(uploadResult.value));
           }

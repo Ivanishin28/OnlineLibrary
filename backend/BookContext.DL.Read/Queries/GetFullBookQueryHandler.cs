@@ -19,6 +19,7 @@ namespace BookContext.DL.Read.Queries
             var fromDb = await _db.Books
                 .Include(x => x.BookAuthors)
                 .ThenInclude(x => x.Author)
+                .Include(x => x.BookMetadata)
                 .Where(x => x.Id == request.BookId)
                 .FirstOrDefaultAsync();
 
@@ -30,6 +31,7 @@ namespace BookContext.DL.Read.Queries
             return new FullBookDto(
                 fromDb.Id,
                 fromDb.Title,
+                fromDb.BookMetadata.CoverId,
                 fromDb.BookAuthors
                 .Select(ba =>
                     new AuthorDto(

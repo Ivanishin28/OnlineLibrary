@@ -35,9 +35,6 @@ export class AuthorsControlsComponent implements OnInit {
   }
 
   public delete(authorId: string): void {
-    // Note: Delete functionality would need to be implemented in PersonalAuthorsService
-    // For now, this is a placeholder
-    console.log('Delete author:', authorId);
   }
 
   private loadAuthors(): void {

@@ -57,7 +57,6 @@ export class TagSelectionComponent {
 
   public onFailure(panel: Popover): void {
     panel.hide();
-    console.log('something went wrong');
   }
 
   public clearTags(): void {

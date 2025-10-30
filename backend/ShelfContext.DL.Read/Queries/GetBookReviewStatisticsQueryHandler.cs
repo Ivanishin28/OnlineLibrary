@@ -27,15 +27,22 @@ namespace ShelfContext.DL.Read.Queries
                 .Reviews
                 .Where(x => x.BookId == request.BookId)
                 .CountAsync();
+            if (count == 0)
+            {
+                return new BookReviewStatistics()
+                {
+                    ReviewCount = 0,
+                    AvgRating = 0
+                };
+            }
             var avg = await _db
                 .Reviews
                 .Where(x => x.BookId == request.BookId)
-                .AverageAsync(x => x.Rating);
-
+                .SumAsync(x => x.Rating);
             return new BookReviewStatistics()
             {
+                ReviewCount = count,
                 AvgRating = avg,
-                ReviewCount = count
             };
         }
     }
