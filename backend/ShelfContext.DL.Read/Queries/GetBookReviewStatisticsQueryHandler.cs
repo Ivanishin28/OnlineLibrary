@@ -38,7 +38,7 @@ namespace ShelfContext.DL.Read.Queries
             var avg = await _db
                 .Reviews
                 .Where(x => x.BookId == request.BookId)
-                .SumAsync(x => x.Rating);
+                .AverageAsync(x => x.Rating);
             return new BookReviewStatistics()
             {
                 ReviewCount = count,

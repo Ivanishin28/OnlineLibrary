@@ -1,6 +1,14 @@
 <div class="book-card">
   <div class="info">
-    <book-cover [coverId]="book.cover_id"></book-cover>
+    <div class="image-container">
+      <a *ngIf="navigateOnImageClick" [routerLink]="['/books', book.id]">
+        <book-cover [coverId]="book.cover_id"></book-cover>
+      </a>
+      <book-cover
+        *ngIf="!navigateOnImageClick"
+        [coverId]="book.cover_id"
+      ></book-cover>
+    </div>
     <p class="title">{{ book.title }}</p>
     <ng-container
       *ngIf="bottomTemplate"

@@ -3,6 +3,7 @@ using BookContext.Contract.Events;
 using BookContext.Domain.Errors;
 using BookContext.Domain.Interfaces;
 using BookContext.Domain.Interfaces.Repositories;
+using BookContext.Domain.ValueObjects;
 using MediatR;
 using Shared.Core.Models;
 
@@ -26,7 +27,8 @@ namespace BookContext.UseCases.Commands
 
         public async Task<Result> Handle(DeleteBookRequest request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.GetBy(request.BookId);
+            var bookId = new BookId(request.BookId);
+            var book = await _bookRepository.GetBy(bookId);
             if (book is null)
             {
                 return Result.Failure(BookErrors.NotFound(request.BookId));

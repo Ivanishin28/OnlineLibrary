@@ -1,5 +1,5 @@
 <div class="layout">
-  <book-card [book]="book">
+  <book-card [navigateOnImageClick]="true" [book]="book">
     <ng-template #bottom>
       <div class="actions">
         <p-button (onClick)="delete.emit()" class="delete" severity="danger"

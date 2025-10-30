@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../../../business/services/books/book.service';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { CommonModule } from '@angular/common';
-import { BookPreviewComponent } from '../book-preview/book-preview.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { RouterLink } from '@angular/router';
 import { BookCardComponent } from "../book-card/book-card.component";
@@ -13,7 +12,6 @@ import { BookCardComponent } from "../book-card/book-card.component";
   imports: [
     CommonModule,
     DynamicDialogModule,
-    RouterLink,
     BookCardComponent
 ],
   providers: [BookService],
