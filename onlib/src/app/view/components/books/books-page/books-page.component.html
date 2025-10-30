@@ -1,5 +1,5 @@
 <ul class="book-list">
   <li *ngFor="let item of books" class="book-item">
-    <book-card [navigateOnImageClick]="true" [book]="item"></book-card>
+    <book-card-with-popover [book]="item"></book-card-with-popover>
   </li>
 </ul>

@@ -4,16 +4,13 @@ import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { CommonModule } from '@angular/common';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { RouterLink } from '@angular/router';
-import { BookCardComponent } from "../book-card/book-card.component";
+import { BookCardComponent } from '../book-card/book-card.component';
+import { BookCardWithPopoverComponent } from '../book-card-with-popover/book-card-with-popover.component';
 
 @Component({
   standalone: true,
   selector: 'books-page',
-  imports: [
-    CommonModule,
-    DynamicDialogModule,
-    BookCardComponent
-],
+  imports: [CommonModule, DynamicDialogModule, BookCardWithPopoverComponent],
   providers: [BookService],
   templateUrl: './books-page.component.html',
   styleUrl: './books-page.component.scss',

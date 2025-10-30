@@ -1,0 +1,7 @@
+<div class="layout">
+  <div *ngIf="!book" class="loading">Loading</div>
+  <div *ngIf="book" class="content">
+    <h2>{{ book.title }}</h2>
+    <book-review-statistics [bookId]="book.id"></book-review-statistics>
+  </div>
+</div>
