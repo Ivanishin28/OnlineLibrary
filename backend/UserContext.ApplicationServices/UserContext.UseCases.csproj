@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\UserContext.Contract\UserContext.Contract.csproj" />
     <ProjectReference Include="..\UserContext.Core\UserContext.Domain.csproj" />
+    <ProjectReference Include="..\UserContext.DL.SqlServer\UserContext.DL.SqlServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
