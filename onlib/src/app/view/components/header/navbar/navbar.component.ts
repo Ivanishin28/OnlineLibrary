@@ -1,24 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { AuthService } from '../../../../business/services/auth/auth.service';
-import { take } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 import { Router } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
+import { AccountService } from '../../../../business/services/auth/account.service';
+import { IdentityPreview } from '../../../../business/models/identity/identityPreview';
+import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'navbar',
-  imports: [MenubarModule, MenuModule, AvatarGroupModule, AvatarModule],
+  imports: [
+    MenubarModule,
+    MenuModule,
+    AvatarGroupModule,
+    AvatarModule,
+    UserAvatarComponent,
+    CommonModule,
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   public items: MenuItem[];
   public accountItems: MenuItem[];
+  public identity: IdentityPreview | undefined;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private accountService: AccountService,
+    private router: Router
+  ) {
     this.items = [
       {
         label: 'Books',
@@ -45,5 +61,14 @@ export class NavbarComponent {
         command: () => this.authService.logout(),
       },
     ];
+  }
+
+  public ngOnInit(): void {
+    this.authService.loggedUser$
+      .pipe(
+        take(1),
+        switchMap((creds) => this.accountService.getIdentityBy(creds.userId))
+      )
+      .subscribe((identity) => (this.identity = identity));
   }
 }

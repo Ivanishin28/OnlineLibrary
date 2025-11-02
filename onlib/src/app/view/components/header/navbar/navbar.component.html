@@ -1,11 +1,8 @@
-<p-menubar [model]="items">
+<p-menubar *ngIf="identity" [model]="items">
   <ng-template #end>
-    <p-avatar
-      (click)="accountMenu.toggle($event)"
-      image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-      shape="square"
-      class="avatar"
-    />
+    <div (click)="accountMenu.show($event)" class="avatar">
+      <user-avatar [fileId]="identity!.avatar_id"></user-avatar>
+    </div>
   </ng-template>
 </p-menubar>
 <p-menu #accountMenu [model]="accountItems" [popup]="true" />
