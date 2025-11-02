@@ -25,7 +25,8 @@ namespace BookContext.Tests.Integration.BookTests
             sut = new CreateBookRequestHandler(
                 new BookRepository(_db),
                 new BookMetadataRepository(_db),
-                new UnitOfWork(_db));
+                new UnitOfWork(_db),
+                new AuthorRepository(_db));
         }
 
         [TearDown]

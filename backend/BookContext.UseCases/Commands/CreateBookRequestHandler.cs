@@ -5,14 +5,7 @@ using BookContext.Domain.Interfaces.Repositories;
 using BookContext.Domain.ValueObjects;
 using MediatR;
 using Shared.Core.Extensions;
-using Shared.Core.Interfaces;
 using Shared.Core.Models;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookContext.UseCases.Commands
 {
@@ -20,26 +13,27 @@ namespace BookContext.UseCases.Commands
     {
         private IBookRepository _bookRepository;
         private IBookMetadataRepository _bookMetadataRepository;
+        private IAuthorRepository _authorRepository;
         private IUnitOfWork _unitOfWork;
 
         public CreateBookRequestHandler(
             IBookRepository bookRepository,
             IBookMetadataRepository bookMetadataRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IAuthorRepository authorRepository)
         {
             _bookRepository = bookRepository;
             _bookMetadataRepository = bookMetadataRepository;
             _unitOfWork = unitOfWork;
+            _authorRepository = authorRepository;
         }
 
         public async Task<Result<Guid?>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
-            var userId = new UserId(request.CreatorId);
-            var bookResult = Book.Create(userId, request.Title);
-
+            var bookResult = await CreateBookFrom(request);
             if(bookResult.IsFailure)
             {
-                return Result<Guid?>.Failure(bookResult.Errors);
+                return bookResult.ToFailure<Guid?>();
             }
 
             var book = bookResult.Model;
@@ -56,6 +50,17 @@ namespace BookContext.UseCases.Commands
             await _unitOfWork.SaveChangesAsync();
 
             return book.Id.Value;
+        }
+
+        private async Task<Result<Book>> CreateBookFrom(CreateBookRequest request)
+        {
+            var idsToSet = request
+                .AuthorIds
+                .Select(x => new AuthorId(x)).ToList();
+            var existingIds = await _authorRepository.EnsureExist(idsToSet);
+
+            var userId = new UserId(request.CreatorId);
+            return Book.Create(userId, request.Title, existingIds);
         }
 
         private Result<BookMetadata> CreateMetadataFrom(BookId bookId, CreateBookRequest request)

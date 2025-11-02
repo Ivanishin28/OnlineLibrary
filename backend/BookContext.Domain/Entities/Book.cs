@@ -43,7 +43,7 @@ namespace BookContext.Domain.Entities
             return new Book(bookId, title, creatorId);
         }
 
-        public Result AddAuthor(AuthorId authorId, DateTime creationTime)
+        public Result AddAuthor(AuthorId authorId)
         {
             if (_bookAuthors.Any(x => x.Id == authorId))
             {
@@ -51,7 +51,7 @@ namespace BookContext.Domain.Entities
             }
 
             var baId = new BookAuthorId(Guid.NewGuid());
-            var bookAuthor = new BookAuthor(baId, Id, authorId, creationTime);
+            var bookAuthor = new BookAuthor(baId, Id, authorId, DateTime.Now);
             _bookAuthors.Add(bookAuthor);
 
             return Result.Success();
