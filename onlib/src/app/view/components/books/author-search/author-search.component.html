@@ -1,0 +1,12 @@
+<p-autocomplete
+  [(ngModel)]="selectedAuthor"
+  [suggestions]="filteredAuthors"
+  (completeMethod)="searchAuthors($event)"
+  optionLabel="first_name"
+  placeholder="Search for authors..."
+>
+  <ng-template let-author #item>
+    <author-search-result [author]="author"></author-search-result>
+  </ng-template>
+</p-autocomplete>
+

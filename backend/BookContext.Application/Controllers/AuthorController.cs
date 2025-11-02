@@ -23,6 +23,14 @@ namespace BookContext.Application.Controllers
             return Ok(result);
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string query)
+        {
+            var searchQuery = new SearchAuthorQuery(query);
+            var result = await _mediator.Send(searchQuery);
+            return Ok(result);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateAuthorRequestDto dto)
         {

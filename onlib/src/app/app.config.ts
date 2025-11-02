@@ -19,6 +19,7 @@ import { OnlibDatePipe } from './view/pipes/onlib-date.pipe';
 import { DatePipe } from '@angular/common';
 import { MediaFileService } from './business/services/media/media-file.service';
 import { ReviewService } from './business/services/shelves/review.service';
+import { AuthorService } from './business/services/books/author.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,6 +48,7 @@ export const appConfig: ApplicationConfig = {
     ReviewService,
     ReviewCreationWindowManager,
     MediaFileService,
+    AuthorService,
     DatePipe,
   ],
 };
