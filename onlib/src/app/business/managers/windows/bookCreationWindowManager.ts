@@ -25,10 +25,7 @@ export class BookCreationWindowManager {
     return ref.onClose.pipe(
       filter((output: BookCreationWindowOutput | undefined) => !!output),
       switchMap((output: BookCreationWindowOutput) => {
-        const author_ids = (output.author_ids_input || '')
-          .split(',')
-          .map((x) => x.trim())
-          .filter((x) => !!x);
+        const author_ids = output.selectedAuthors.map((author) => author.id);
 
         const request: CreateBookRequest = {
           title: output.title,

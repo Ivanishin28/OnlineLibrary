@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AuthorService } from '../../../../business/services/books/author.service';
@@ -26,10 +32,12 @@ import { BookQueryConsts } from '../../../../business/consts/bookContext/bookQue
   providers: [AuthorService],
 })
 export class AuthorSearchComponent implements OnInit, OnDestroy {
+  @Output() authorSelected: EventEmitter<AuthorPreview> =
+    new EventEmitter<AuthorPreview>();
+
   private destroy$: Subject<void> = new Subject<void>();
   private searchSubject: Subject<string> = new Subject<string>();
 
-  public selectedAuthor: AuthorPreview | undefined = undefined;
   public filteredAuthors: AuthorPreview[] = [];
 
   constructor(private authorService: AuthorService) {}
@@ -65,5 +73,8 @@ export class AuthorSearchComponent implements OnInit, OnDestroy {
   public searchAuthors(event: { query: string }): void {
     this.searchSubject.next(event.query);
   }
-}
 
+  public selectAuthor(author: AuthorPreview): void {
+    this.authorSelected.emit(author);
+  }
+}

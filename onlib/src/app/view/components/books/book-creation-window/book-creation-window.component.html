@@ -35,18 +35,12 @@
           ></textarea>
         </div>
 
-        <div
-          *ngIf="form.controls.author_ids_input as control"
-          class="form-group"
-        >
-          <label for="author_ids_input">Author IDs</label>
-          <input
-            id="author_ids_input"
-            pInputText
-            [formControl]="control"
-            class="form-control"
-            type="text"
-          />
+        <div class="form-group">
+          <label>Authors</label>
+          <author-selection
+            [selectedAuthors]="selectedAuthors"
+            (selectedAuthorsChange)="onSelectedAuthorsChange($event)"
+          ></author-selection>
         </div>
 
         <div class="from-group">

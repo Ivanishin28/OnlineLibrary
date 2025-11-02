@@ -1,0 +1,14 @@
+<div class="layout">
+  <div class="author-list">
+    <div
+      *ngFor="let item of selectedAuthors"
+      (click)="removeAuthor(item)"
+      class="author-item"
+    >
+      <p>{{ item.first_name }} {{ item.last_name }}</p>
+    </div>
+  </div>
+  <div class="search">
+    <author-search (authorSelected)="selectAuthor($event)"></author-search>
+  </div>
+</div>
