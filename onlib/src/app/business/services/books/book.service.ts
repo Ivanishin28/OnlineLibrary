@@ -39,4 +39,9 @@ export class BookService {
       .post<ApiResult<void>>(url, request)
       .pipe(map((api) => resultFromApiResult(api)));
   }
+
+  public search(query: string): Observable<BookPreview[]> {
+    const url = `${environment.api_main}/${this.COMPONENT}/search?query=${query}`;
+    return this.http.get<BookPreview[]>(url);
+  }
 }

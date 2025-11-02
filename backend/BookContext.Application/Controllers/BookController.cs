@@ -28,6 +28,15 @@ namespace BookContext.Application.Controllers
             return Success(result);
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string query)
+        {
+            var searchQuery = new SearchBookQuery(query);
+            var result = await _metiator.Send(searchQuery);
+
+            return Ok(result);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateBookRequestDto dto)
         {
