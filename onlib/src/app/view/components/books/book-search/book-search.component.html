@@ -1,0 +1,12 @@
+<p-autocomplete
+  [(ngModel)]="selectedBook"
+  [suggestions]="filteredBooks"
+  (completeMethod)="searchBooks($event)"
+  optionLabel="title"
+  placeholder="Search for books..."
+>
+  <ng-template let-book #item>
+    <book-search-result [book]="book"></book-search-result>
+  </ng-template>
+</p-autocomplete>
+

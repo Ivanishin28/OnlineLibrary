@@ -1,4 +1,8 @@
-.avatar {
-  width: 50px;
-  cursor: pointer;
+.end {
+  display: flex;
+  gap: 15px;
+  .avatar {
+    width: 50px;
+    cursor: pointer;
+  }
 }

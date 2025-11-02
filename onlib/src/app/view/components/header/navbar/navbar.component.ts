@@ -11,6 +11,7 @@ import { AccountService } from '../../../../business/services/auth/account.servi
 import { IdentityPreview } from '../../../../business/models/identity/identityPreview';
 import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
 import { CommonModule } from '@angular/common';
+import { BookSearchComponent } from "../../books/book-search/book-search.component";
 
 @Component({
   selector: 'navbar',
@@ -21,7 +22,8 @@ import { CommonModule } from '@angular/common';
     AvatarModule,
     UserAvatarComponent,
     CommonModule,
-  ],
+    BookSearchComponent
+],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })

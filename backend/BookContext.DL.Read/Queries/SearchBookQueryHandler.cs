@@ -18,7 +18,7 @@ namespace BookContext.DL.Read.Queries
         public async Task<ICollection<BookPreviewDto>> Handle(SearchBookQuery request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.Query) ||
-                request.Query.Length <= BookQueryConsts.MIN_BOOK_SEARCH_QUERY_LENGTH)
+                request.Query.Length < BookQueryConsts.MIN_BOOK_SEARCH_QUERY_LENGTH)
             {
                 return new List<BookPreviewDto>();
             }
