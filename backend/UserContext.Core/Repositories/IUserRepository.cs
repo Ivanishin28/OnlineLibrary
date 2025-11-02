@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UserContext.Domain.Entities;
 
-namespace UserContext.DL.Repositories
+namespace UserContext.Domain.Repositories
 {
     public interface IUserRepository
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using UserContext.DL.Interfaces;
-using UserContext.DL.Repositories;
 using UserContext.DL.SqlServer.Concrete;
 using UserContext.DL.SqlServer.Repositories;
+using UserContext.Domain.Interfaces;
+using UserContext.Domain.Repositories;
 
 namespace UserContext.DL.SqlServer.Configuration
 {

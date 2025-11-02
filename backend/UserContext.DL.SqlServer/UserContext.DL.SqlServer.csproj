@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared.DL\Shared.DL.csproj" />
-    <ProjectReference Include="..\UserContext.DL\UserContext.DL.csproj" />
+    <ProjectReference Include="..\UserContext.Core\UserContext.Domain.csproj" />
   </ItemGroup>
 
 </Project>

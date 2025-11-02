@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserContext.DL.Repositories;
 using UserContext.Domain.Entities;
+using UserContext.Domain.Repositories;
 
 namespace UserContext.DL.SqlServer.Repositories
 {

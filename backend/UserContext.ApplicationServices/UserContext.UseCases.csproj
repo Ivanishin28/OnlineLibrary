@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserContext.Contract\UserContext.Contract.csproj" />
-    <ProjectReference Include="..\UserContext.DL\UserContext.DL.csproj" />
+    <ProjectReference Include="..\UserContext.Core\UserContext.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

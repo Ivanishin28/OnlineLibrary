@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Shared.Core.Models;
 using UserContext.Contract.Commands.CreateUser;
-using UserContext.DL.Interfaces;
-using UserContext.DL.Repositories;
 using UserContext.Domain.Entities;
+using UserContext.Domain.Interfaces;
+using UserContext.Domain.Repositories;
 
 namespace UserContext.UseCases.Commands
 {

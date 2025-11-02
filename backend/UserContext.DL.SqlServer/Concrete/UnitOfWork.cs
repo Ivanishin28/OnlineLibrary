@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserContext.DL.Interfaces;
+using UserContext.Domain.Interfaces;
 
 namespace UserContext.DL.SqlServer.Concrete
 {
