@@ -30,6 +30,7 @@ namespace IdentityContext.Application.UseCases.Queries
                     UserId = x.UserId!.Value,
                     IdentityId = x.Id,
                     Nickname = x.UserName!,
+                    AvatarId = x.AvatarId
                 })
                 .ToListAsync();
         }

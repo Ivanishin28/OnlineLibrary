@@ -96,6 +96,16 @@
             <p>Invalid</p>
           </div>
         </div>
+
+        <div class="from-group">
+          <media-file-upload
+            [uploadedFileId]="undefined"
+            (fileUploaded)="avatarUpload.upload($event)"
+          ></media-file-upload>
+        </div>
+        <div class="avatar">
+          <media-image [fileId]="avatarUpload.file"> </media-image>
+        </div>
       </div>
     </div>
 

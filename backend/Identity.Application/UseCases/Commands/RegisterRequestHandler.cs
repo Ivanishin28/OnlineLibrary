@@ -35,7 +35,8 @@ namespace IdentityContext.Application.UseCases.Commands
             var user = new ApplicationUser()
             {
                 Email = request.Email,
-                UserName = request.Login
+                UserName = request.Login,
+                AvatarId = request.AvatarId
             };
 
             var registrationResult = await Register(user, request.Password);

@@ -15,5 +15,7 @@ namespace IdentityContext.Contracts.Dtos
         public required Guid IdentityId { get; init; }
         [JsonPropertyName("nickname")]
         public required string Nickname { get; init; }
+        [JsonPropertyName("avatar_id")]
+        public Guid? AvatarId { get; init; }
     }
 }
