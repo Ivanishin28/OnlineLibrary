@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ShelfService } from '../../services/shelves/shelf.service';
+import { PersonalShelfService } from '../../services/shelves/personalShelf.service';
 import { filter, map, Observable, switchMap } from 'rxjs';
 import { Result } from '../../models/_shared/result';
 import { ShelfCreationWindowComponent } from '../../../view/components/shelvesContext/shelf-creation-window/shelf-creation-window.component';
@@ -12,7 +12,7 @@ import { UserId } from '../../models/_shared/userId';
 export class ShelfCreationWindowManager {
   constructor(
     private dialog: DialogService,
-    private shelfService: ShelfService
+    private shelfService: PersonalShelfService
   ) {}
 
   public createShelfFor(userId: UserId): Observable<Result<void>> {

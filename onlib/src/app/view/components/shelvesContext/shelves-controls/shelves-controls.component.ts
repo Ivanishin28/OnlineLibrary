@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ShelfService } from '../../../../business/services/shelves/shelf.service';
+import { PersonalShelfService } from '../../../../business/services/shelves/personalShelf.service';
 import { ShelfPreview } from '../../../../business/models/shelves/shelfPreview';
 import { CommonModule } from '@angular/common';
 import { ShelfCreationWindowManager } from '../../../../business/managers/windows/shelfCreationWindowManager';
@@ -28,7 +28,7 @@ export class ShelvesControlsComponent implements OnInit {
   public shelves: ShelfPreview[] = [];
 
   constructor(
-    private shelfService: ShelfService,
+    private shelfService: PersonalShelfService,
     private creationWindow: ShelfCreationWindowManager
   ) {}
 

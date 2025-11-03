@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil, combineLatest } from 'rxjs';
 import { BookService } from '../../../../business/services/books/book.service';
 import { FullBook } from '../../../../business/models/books/fullBook';
 import { BookPageActionsComponent } from './book-page-actions/book-page-actions.component';
@@ -11,6 +11,8 @@ import { Button } from 'primeng/button';
 import { ReviewCreationWindowManager } from '../../../../business/managers/windows/reviewCreationWindowManager';
 import { BookReviewsDisplayComponent } from './book-reviews-display/book-reviews-display.component';
 import { BookReviewStatisticsComponent } from "./book-review-statistics/book-review-statistics.component";
+import { ShelfService } from '../../../../business/services/shelves/shelf.service';
+import { ShelfForBook } from '../../../../business/models/shelves/shelfForBook';
 
 @Component({
   standalone: true,
@@ -33,11 +35,14 @@ export class BookPageComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
   public book: FullBook | undefined;
+  public shelvedCount: number | undefined;
+  public shelves: ShelfForBook[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
-    private reviewWindow: ReviewCreationWindowManager
+    private reviewWindow: ReviewCreationWindowManager,
+    private shelfService: ShelfService
   ) {}
 
   public ngOnInit(): void {
@@ -47,11 +52,17 @@ export class BookPageComponent implements OnInit, OnDestroy {
         switchMap((params) => {
           const bookId = params.get('id')!;
           window.scrollTo(0, 0);
-          return this.bookService.getFull(bookId);
+          return combineLatest([
+            this.bookService.getFull(bookId),
+            this.shelfService.getShelvedCount(bookId),
+            this.shelfService.getAllShelfsForBook(bookId)
+          ]);
         })
       )
-      .subscribe((book) => {
+      .subscribe(([book, count, shelves]) => {
         this.book = book;
+        this.shelvedCount = count;
+        this.shelves = shelves;
       });
   }
 

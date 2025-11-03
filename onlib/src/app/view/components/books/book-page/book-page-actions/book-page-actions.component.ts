@@ -13,7 +13,7 @@ import { ShelvedBookService } from '../../../../../business/services/shelves/she
 import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { Shelf } from '../../../../../business/models/shelves/shelf';
-import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
+import { PersonalShelfService } from '../../../../../business/services/shelves/personalShelf.service';
 import { FormsModule } from '@angular/forms';
 import { TagSelectionComponent } from '../../../shelvesContext/tag-selection/tag-selection.component';
 
@@ -21,7 +21,7 @@ import { TagSelectionComponent } from '../../../shelvesContext/tag-selection/tag
   standalone: true,
   selector: 'book-page-actions',
   imports: [CommonModule, SelectModule, FormsModule, TagSelectionComponent],
-  providers: [ShelvedBookService, ShelfService],
+  providers: [ShelvedBookService, PersonalShelfService],
   templateUrl: './book-page-actions.component.html',
   styleUrl: './book-page-actions.component.scss',
 })
@@ -36,7 +36,7 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   constructor(
     private authService: AuthService,
     private shelvedBookService: ShelvedBookService,
-    private shelfService: ShelfService
+    private shelfService: PersonalShelfService
   ) {}
 
   public ngOnInit(): void {

@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ShelfPreview } from '../../../../../business/models/shelves/shelfPreview';
-import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
+import { PersonalShelfService } from '../../../../../business/services/shelves/personalShelf.service';
 import { MessageWindowManager } from '../../../../../business/managers/windows/messageWindowManager';
 
 @Component({
@@ -33,7 +33,7 @@ export class ShelfControlComponent implements OnChanges {
   public editedName: string = '';
 
   constructor(
-    private shelfService: ShelfService,
+    private shelfService: PersonalShelfService,
     private messageWindowManager: MessageWindowManager
   ) {}
 

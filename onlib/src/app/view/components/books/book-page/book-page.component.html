@@ -12,6 +12,17 @@
     </div>
     <div class="right">
       <h2 class="title">{{ book.title }}</h2>
+      <div class="shelf-info" *ngIf="shelvedCount !== undefined">
+        <p><strong>Shelved {{ shelvedCount }} time{{ shelvedCount !== 1 ? 's' : '' }}</strong></p>
+        <div class="shelves-list" *ngIf="shelves.length > 0">
+          <p>Shelves:</p>
+          <ul>
+            <li *ngFor="let shelf of shelves">
+              {{ shelf.shelf_name }} ({{ shelf.count }})
+            </li>
+          </ul>
+        </div>
+      </div>
       <book-review-statistics [bookId]="book.id"></book-review-statistics>
       <p-button (onClick)="review()">Review</p-button>
       <book-reviews-display [bookId]="book.id"></book-reviews-display>
