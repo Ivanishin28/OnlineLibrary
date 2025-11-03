@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands;
 using ShelfContext.Contract.Commands.CreateShelf;
-using ShelfContext.Contract.Commands.EditShelf;
 using ShelfContext.Contract.Errors;
 using ShelfContext.Contract.Queries.GetShelvesByUserId;
 using ShelfContext.Contract.Services;
@@ -23,14 +22,6 @@ namespace ShelfContext.Application.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateShelfRequest request)
-        {
-            var response = await _mediator.Send(request);
-
-            return FromResult(response);
-        }
-
-        [HttpPost("edit")]
-        public async Task<IActionResult> Edit([FromBody] EditShelfRequest request)
         {
             var response = await _mediator.Send(request);
 

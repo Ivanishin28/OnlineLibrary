@@ -7,15 +7,11 @@
   </div>
 
   <ul class="shelf-list">
-    <li *ngFor="let item of shelves" class="shelf-item">
-      <p class="name">{{ item.name }}</p>
-      <p-button
-        (onClick)="delete(item)"
-        size="small"
-        severity="danger"
-        icon="pi pi-times"
-        ></p-button
-      >
-    </li>
+    <shelf-control
+      *ngFor="let item of shelves"
+      [shelf]="item"
+      (delete)="delete($event)"
+      (changeName)="rename(item.id, $event)"
+    ></shelf-control>
   </ul>
 </div>

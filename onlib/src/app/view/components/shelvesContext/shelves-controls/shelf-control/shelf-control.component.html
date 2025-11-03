@@ -1,0 +1,39 @@
+<li class="layout">
+  <p-button
+    (onClick)="onDelete()"
+    size="small"
+    severity="danger"
+    icon="pi pi-times"
+  ></p-button>
+
+  <input
+    pInputText
+    [readOnly]="!isEditing"
+    [(ngModel)]="editedName"
+    class="name"
+    type="text"
+  />
+
+  <p-button
+    *ngIf="!isEditing"
+    (onClick)="enableEditing()"
+    size="small"
+    label="Rename"
+  ></p-button>
+
+  <p-button
+    *ngIf="isEditing"
+    (onClick)="cancelEditing()"
+    size="small"
+    severity="secondary"
+    label="Cancel"
+  ></p-button>
+
+  <p-button
+    *ngIf="isEditing"
+    (onClick)="saveName()"
+    size="small"
+    severity="success"
+    label="Save"
+  ></p-button>
+</li>

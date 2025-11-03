@@ -5,14 +5,19 @@ import { CommonModule } from '@angular/common';
 import { ShelfCreationWindowManager } from '../../../../business/managers/windows/shelfCreationWindowManager';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { UserId } from '../../../../business/models/_shared/userId';
-import { Shelf } from '../../../../business/models/shelves/shelf';
 import { map, Observable, switchMap, tap } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
+import { ShelfControlComponent } from './shelf-control/shelf-control.component';
 
 @Component({
   standalone: true,
   selector: 'shelves-controls',
-  imports: [CommonModule, DynamicDialogModule, ButtonModule],
+  imports: [
+    CommonModule,
+    DynamicDialogModule,
+    ButtonModule,
+    ShelfControlComponent,
+  ],
   providers: [ShelfCreationWindowManager],
   templateUrl: './shelves-controls.component.html',
   styleUrl: './shelves-controls.component.scss',
@@ -38,11 +43,15 @@ export class ShelvesControlsComponent implements OnInit {
       .subscribe();
   }
 
-  public delete(shelf: Shelf): void {
+  public delete(shelf: ShelfPreview): void {
     this.shelfService
       .delete(shelf.id)
       .pipe(switchMap((x) => this.loadShelves()))
       .subscribe();
+  }
+
+  public rename(shelfId: string, name: string): void {
+    this.shelfService.rename(shelfId, name).subscribe();
   }
 
   private loadShelves(): Observable<void> {
