@@ -28,5 +28,8 @@ namespace ShelfContext.Domain.Entities.Shelves
 
         public static readonly Error AlreadyShelvedOnAnotherShelf =
             _errors.BuildError("Book.Shelved.Elsewhere", "Book.AlreadyShelved");
+
+        public static Error NotFound(ShelfId shelfId) =>
+            _errors.BuildError("NotFound", $"Didn't find shelf with Id {shelfId.Value}");
     }
 }

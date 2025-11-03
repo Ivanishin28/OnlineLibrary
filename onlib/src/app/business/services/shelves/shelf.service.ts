@@ -37,13 +37,10 @@ export class ShelfService {
   }
 
   public rename(shelf_id: string, name: string): Observable<Result<void>> {
-    const url = `${this.CONTROLLER}/rename`;
+    const url = `${this.CONTROLLER}/rename/${shelf_id}?name=${name}`;
 
     return this.connection
-      .post<ApiResult<void>>(url, {
-        shelf_id,
-        name,
-      })
+      .post<ApiResult<void>>(url, {})
       .pipe(map((x) => resultFromApiResult(x)));
   }
 
@@ -51,9 +48,8 @@ export class ShelfService {
     return this.authService.loggedUser$.pipe(
       take(1),
       switchMap((creds) => {
-        const url = `${this.CONTROLLER}/taken`;
-        const request = { user_id: creds.userId.value, name: name };
-        return this.connection.post<boolean>(url, request);
+        const url = `${this.CONTROLLER}/name-taken?name=${name}&userId=${creds.userId.value}`;
+        return this.connection.get<boolean>(url);
       })
     );
   }

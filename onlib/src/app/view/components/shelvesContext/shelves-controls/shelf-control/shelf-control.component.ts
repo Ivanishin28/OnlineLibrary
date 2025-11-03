@@ -12,11 +12,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ShelfPreview } from '../../../../../business/models/shelves/shelfPreview';
 import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
+import { MessageWindowManager } from '../../../../../business/managers/windows/messageWindowManager';
 
 @Component({
   standalone: true,
   selector: 'shelf-control',
   imports: [CommonModule, FormsModule, ButtonModule, InputTextModule],
+  providers: [MessageWindowManager],
   templateUrl: './shelf-control.component.html',
   styleUrl: './shelf-control.component.scss',
 })
@@ -30,7 +32,10 @@ export class ShelfControlComponent implements OnChanges {
   public isEditing: boolean = false;
   public editedName: string = '';
 
-  constructor(private shelfService: ShelfService) {}
+  constructor(
+    private shelfService: ShelfService,
+    private messageWindowManager: MessageWindowManager
+  ) {}
 
   public ngOnChanges(): void {
     this.editedName = this.shelf.name;
@@ -45,14 +50,14 @@ export class ShelfControlComponent implements OnChanges {
       return;
     }
 
-    this.shelfService
-      .isNameTaken(this.editedName)
-      .subscribe((isTaken) => {
-        if (!isTaken) {
-          this.changeName.emit(this.editedName.trim());
-          this.isEditing = false;
-        }
-      });
+    this.shelfService.isNameTaken(this.editedName).subscribe((isTaken) => {
+      if (!isTaken) {
+        this.changeName.emit(this.editedName.trim());
+        this.isEditing = false;
+      } else {
+        this.messageWindowManager.show('Error', 'This name is taken');
+      }
+    });
   }
 
   public get isValid(): boolean {
