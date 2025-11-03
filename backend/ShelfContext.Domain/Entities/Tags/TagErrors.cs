@@ -19,5 +19,8 @@ namespace ShelfContext.Domain.Entities.Tags
 
         public static readonly Error NameTaken =
             _erros.BuildError("Name.Taken", "Empty tag name too long");
+
+        public static Error NotFound(TagId tagId) =>
+            _erros.BuildError("NotFound", $"Didn't find tag with Id {tagId.Value}");
     }
 }

@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class TagService {
-  private readonly COMPONENT = `${environment.api_main}/api/shelf/tag`;
+  private readonly CONTROLLER = `${environment.api_main}/api/shelf/tag`;
 
   constructor(
     private authService: AuthService,
@@ -29,7 +29,7 @@ export class TagService {
   }
 
   public getAllByUserId(userId: UserId): Observable<Tag[]> {
-    const url = `${this.COMPONENT}/user/${userId.value}`;
+    const url = `${this.CONTROLLER}/user/${userId.value}`;
     return this.connection.get<Tag[]>(url);
   }
 
@@ -37,19 +37,27 @@ export class TagService {
     userId: UserId,
     name: string
   ): Observable<boolean> {
-    const url = `${this.COMPONENT}/name-taken?name=${name}&userId=${userId.value}`;
+    const url = `${this.CONTROLLER}/name-taken?name=${name}&userId=${userId.value}`;
     return this.connection.get<boolean>(url);
   }
 
   public create(request: CreateTagRequest): Observable<Result<string>> {
-    const url = `${this.COMPONENT}/create`;
+    const url = `${this.CONTROLLER}/create`;
     return this.connection
       .post<ApiResult<string>>(url, request)
       .pipe(map((x) => resultFromApiResult(x)));
   }
 
+  public rename(tag_id: string, name: string): Observable<Result<void>> {
+    const url = `${this.CONTROLLER}/rename/${tag_id}?name=${name}`;
+
+    return this.connection
+      .post<ApiResult<void>>(url, {})
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
+
   public delete(tagId: string): Observable<Result<void>> {
-    const url = `${this.COMPONENT}/delete/${tagId}`;
+    const url = `${this.CONTROLLER}/delete/${tagId}`;
     return this.connection
       .delete<ApiResult<void>>(url)
       .pipe(map((x) => resultFromApiResult(x)));

@@ -3,13 +3,10 @@
   <p-button (click)="createTag()">Create Tag</p-button>
 </div>
 <div *ngIf="tags" class="tag-list">
-  <div *ngFor="let item of tags" class="tag-item">
-    <p class="name">{{ item.name }}</p>
-    <p-button
-      (click)="delete(item)"
-      icon="pi pi-times"
-      severity="danger"
-      size="small"
-    ></p-button>
-  </div>
+  <tag-control
+    *ngFor="let item of tags"
+    [tag]="item"
+    (changeName)="onTagNameChange(item, $event)"
+    (delete)="delete($event)"
+  ></tag-control>
 </div>

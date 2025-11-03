@@ -32,5 +32,10 @@ namespace ShelfContext.Domain.Entities.Tags
 
             return new Tag(id, name, dateCreated, userId);
         }
+
+        public void UpdateName(TagName name)
+        {
+            Name = name;
+        }
     }
 }

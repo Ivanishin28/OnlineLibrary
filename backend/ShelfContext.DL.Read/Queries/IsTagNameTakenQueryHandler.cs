@@ -1,30 +1,31 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using ShelfContext.Contract.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShelfContext.Domain.Entities.Tags;
+using ShelfContext.Domain.Entities.Users;
+using ShelfContext.Domain.Interfaces.Queries;
 
 namespace ShelfContext.DL.Read.Queries
 {
     public class IsTagNameTakenQueryHandler : IRequestHandler<IsTagNameTakenQuery, bool>
     {
-        private ShelfReadDbContext _db;
+        private ITagNameUniquenessChecker _checker;
 
-        public IsTagNameTakenQueryHandler(ShelfReadDbContext db)
+        public IsTagNameTakenQueryHandler(ITagNameUniquenessChecker checker)
         {
-            _db = db;
+            _checker = checker;
         }
 
-        public Task<bool> Handle(IsTagNameTakenQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(IsTagNameTakenQuery request, CancellationToken cancellationToken)
         {
-            return _db
-                .Tags
-                .AnyAsync(x =>
-                    x.UserId == request.UserId &&
-                    x.Name == request.TagName);
+            var userId = new UserId(request.UserId);
+            var tagNameResult = TagName.Create(request.TagName);
+            
+            if (tagNameResult.IsFailure)
+            {
+                return false;
+            }
+
+            return await _checker.IsNameTakenBy(tagNameResult.Model, userId);
         }
     }
 }
