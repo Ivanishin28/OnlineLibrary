@@ -1,7 +1,10 @@
 <p-autocomplete
-  (onSelect)="selectAuthor($event.value)"
   [suggestions]="filteredAuthors"
+  (onSelect)="selectAuthor($event.value)"
   (completeMethod)="searchAuthors($event)"
+  [minLength]="MIN_QUERY_LENGTH"
+  [completeOnFocus]="true"
+  [delay]="300"
   optionLabel="first_name"
   placeholder="Search for authors..."
 >

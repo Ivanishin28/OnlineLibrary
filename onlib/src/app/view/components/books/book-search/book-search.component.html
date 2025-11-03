@@ -2,6 +2,9 @@
   [(ngModel)]="selectedBook"
   [suggestions]="filteredBooks"
   (completeMethod)="searchBooks($event)"
+  [minLength]="MIN_QUERY_LENGTH"
+  [completeOnFocus]="true"
+  [delay]="300"
   optionLabel="title"
   placeholder="Search for books..."
 >
@@ -9,4 +12,3 @@
     <book-search-result [book]="book"></book-search-result>
   </ng-template>
 </p-autocomplete>
-

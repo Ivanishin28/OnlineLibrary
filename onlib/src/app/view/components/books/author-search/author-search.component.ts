@@ -31,47 +31,23 @@ import { BookQueryConsts } from '../../../../business/consts/bookContext/bookQue
   styleUrl: './author-search.component.scss',
   providers: [AuthorService],
 })
-export class AuthorSearchComponent implements OnInit, OnDestroy {
+export class AuthorSearchComponent {
   @Output() authorSelected: EventEmitter<AuthorPreview> =
     new EventEmitter<AuthorPreview>();
 
-  private destroy$: Subject<void> = new Subject<void>();
-  private searchSubject: Subject<string> = new Subject<string>();
+  public MIN_QUERY_LENGTH = BookQueryConsts.MIN_BOOK_SEARCH_QUERY_LENGTH;
 
   public filteredAuthors: AuthorPreview[] = [];
 
   constructor(private authorService: AuthorService) {}
 
-  public ngOnInit(): void {
-    this.searchSubject
-      .pipe(
-        filter(
-          (x) => !!x && x.length >= BookQueryConsts.MIN_BOOK_SEARCH_QUERY_LENGTH
-        ),
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((query: string): Observable<AuthorPreview[]> => {
-          if (!query || query.trim().length === 0) {
-            return of([] as AuthorPreview[]);
-          }
-          return this.authorService
-            .search(query.trim())
-            .pipe(catchError(() => of([] as AuthorPreview[])));
-        }),
-        takeUntil(this.destroy$)
-      )
+  public searchAuthors(event: { query: string }): void {
+    this.authorService
+      .search(event.query.trim())
+      .pipe(catchError(() => of([] as AuthorPreview[])))
       .subscribe((authors: AuthorPreview[]) => {
         this.filteredAuthors = authors;
       });
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  public searchAuthors(event: { query: string }): void {
-    this.searchSubject.next(event.query);
   }
 
   public selectAuthor(author: AuthorPreview): void {

@@ -25,44 +25,20 @@ import { BookQueryConsts } from '../../../../business/consts/bookContext/bookQue
   styleUrl: './book-search.component.scss',
   providers: [BookService],
 })
-export class BookSearchComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<void> = new Subject<void>();
-  private searchSubject: Subject<string> = new Subject<string>();
+export class BookSearchComponent {
+  public MIN_QUERY_LENGTH = BookQueryConsts.MIN_BOOK_SEARCH_QUERY_LENGTH;
 
   public selectedBook: BookPreview | undefined = undefined;
   public filteredBooks: BookPreview[] = [];
 
   constructor(private bookService: BookService) {}
 
-  public ngOnInit(): void {
-    this.searchSubject
-      .pipe(
-        filter(
-          (x) => !!x && x.length >= BookQueryConsts.MIN_BOOK_SEARCH_QUERY_LENGTH
-        ),
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((query: string): Observable<BookPreview[]> => {
-          if (!query || query.trim().length === 0) {
-            return of([] as BookPreview[]);
-          }
-          return this.bookService
-            .search(query.trim())
-            .pipe(catchError(() => of([] as BookPreview[])));
-        }),
-        takeUntil(this.destroy$)
-      )
+  public searchBooks(event: { query: string }): void {
+    this.bookService
+      .search(event.query.trim())
+      .pipe(catchError(() => of([] as BookPreview[])))
       .subscribe((books: BookPreview[]) => {
         this.filteredBooks = books;
       });
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  public searchBooks(event: { query: string }): void {
-    this.searchSubject.next(event.query);
   }
 }
