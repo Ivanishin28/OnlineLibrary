@@ -81,5 +81,12 @@ namespace BookContext.Application.Controllers
 
             return FromResult(result);
         }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update(UpdateBookRequest request)
+        {
+            var result = await _metiator.Send(request);
+            return FromResult(result);
+        }
     }
 }

@@ -20,5 +20,20 @@ namespace BookContext.Domain.Entities
             CoverId = coverId;
             Description = description;
         }
+
+        public void SetCover(MediaFileId? cover)
+        {
+            CoverId = cover;
+        }
+
+        public void SetDescription(BookDescription? description)
+        {
+            Description = description;
+        }
+
+        public void SetPublishingDate(DateOnly date)
+        {
+            PublishingDate = date;
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace BookContext.Domain.Entities
 
         public Result AddAuthor(AuthorId authorId)
         {
-            if (_bookAuthors.Any(x => x.Id == authorId))
+            if (_bookAuthors.Any(x => x.AuthorId == authorId))
             {
                 return Result.Failure(BookErrors.DuplicateAuthors); 
             }
@@ -66,7 +66,7 @@ namespace BookContext.Domain.Entities
 
         public Result RemoveAuthor(AuthorId authorId)
         {
-            var bookAuthor = _bookAuthors.FirstOrDefault(x => x.Id == authorId);
+            var bookAuthor = _bookAuthors.FirstOrDefault(x => x.AuthorId == authorId);
             if (bookAuthor is null)
             {
                 return Result.Failure(BookErrors.AuthorNotFound);
@@ -74,6 +74,11 @@ namespace BookContext.Domain.Entities
 
             _bookAuthors.Remove(bookAuthor);
             return Result.Success();
+        }
+
+        public bool HasAuthor(AuthorId authorId)
+        {
+            return _bookAuthors.Any(x => x.AuthorId == authorId);
         }
     }
 }
