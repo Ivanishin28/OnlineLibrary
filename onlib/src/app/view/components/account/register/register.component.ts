@@ -19,8 +19,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
 import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
-import { MediaImageComponent } from '../../_shared/media-image/media-image.component';
 import { FileUploadViewModel } from '../../../../business/viewmodels/fileUploadViewModel';
+import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
 
 @Component({
   standalone: true,
@@ -36,7 +36,7 @@ import { FileUploadViewModel } from '../../../../business/viewmodels/fileUploadV
     DatePickerModule,
     ButtonModule,
     MediaFileUploadComponent,
-    MediaImageComponent,
+    UserAvatarComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',

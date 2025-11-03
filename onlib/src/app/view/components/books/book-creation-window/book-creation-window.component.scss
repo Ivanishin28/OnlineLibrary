@@ -7,3 +7,9 @@
 .layout {
   width: 500px;
 }
+
+.cover {
+  width: 200px;
+  height: 300px;
+  flex-shrink: 0;
+}

@@ -16,7 +16,7 @@ import { useValidatedFormSubmit } from '../../../forms/helpers/useValidatedFormS
 import { ButtonModule } from 'primeng/button';
 import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
 import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
-import { MediaImageComponent } from "../../_shared/media-image/media-image.component";
+import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'author-creation-window',
@@ -27,7 +27,7 @@ import { MediaImageComponent } from "../../_shared/media-image/media-image.compo
     DatePickerModule,
     ButtonModule,
     MediaFileUploadComponent,
-    MediaImageComponent
+    UserAvatarComponent
 ],
   templateUrl: './author-creation-window.component.html',
   styleUrl: './author-creation-window.component.scss',
@@ -37,7 +37,7 @@ export class AuthorCreationWindowComponent implements OnInit, OnDestroy {
 
   public formSubmit$: Subject<void> = new Subject<void>();
 
-  public avatar: MediaFileId | undefined;
+  public avatarId: string | undefined;
 
   public form!: FormGroup<{
     first_name: FormControl<string | null>;
@@ -84,6 +84,6 @@ export class AuthorCreationWindowComponent implements OnInit, OnDestroy {
   }
 
   public onAvatarUploaded(avatar: MediaFileId): void {
-    this.avatar = avatar;
+    this.avatarId = avatar.value;
   }
 }

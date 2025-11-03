@@ -13,9 +13,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 import { BookCreationWindowOutput } from '../../../../business/models/books/bookCreationWindowOutput';
 import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
-import { MediaImageComponent } from '../../_shared/media-image/media-image.component';
 import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
 import { AuthorSelectionComponent } from '../author-selection/author-selection.component';
+import { BookCoverComponent } from '../book-cover/book-cover.component';
 import { AuthorPreview } from '../../../../business/models/books/apiModels/authorPreview';
 import { FullBook } from '../../../../business/models/books/fullBook';
 import { toDate } from '../../../../business/types/dateOnly';
@@ -30,7 +30,7 @@ import { toDate } from '../../../../business/types/dateOnly';
     InputTextModule,
     DatePickerModule,
     MediaFileUploadComponent,
-    MediaImageComponent,
+    BookCoverComponent,
     AuthorSelectionComponent,
   ],
   templateUrl: './book-creation-window.component.html',
@@ -43,7 +43,7 @@ export class BookCreationWindowComponent implements OnInit {
     description: FormControl<string | null>;
   }>;
 
-  public cover: MediaFileId | undefined;
+  public coverId: string | undefined;
   public selectedAuthors: AuthorPreview[] = [];
   public isEditMode: boolean = false;
 
@@ -79,14 +79,14 @@ export class BookCreationWindowComponent implements OnInit {
       this.form.value.publishing_date!,
       this.selectedAuthors,
       this.form.value.description ?? null,
-      this.cover?.value ?? null
+      this.coverId ?? null
     );
 
     this.ref.close(output);
   }
 
   public onCoverUploaded(fileId: MediaFileId): void {
-    this.cover = fileId;
+    this.coverId = fileId.value;
   }
 
   public onSelectedAuthorsChange(authors: AuthorPreview[]): void {
@@ -100,7 +100,7 @@ export class BookCreationWindowComponent implements OnInit {
     );
     this.form.controls.description.setValue(fullBook.description ?? '');
     if (fullBook.cover_id) {
-      this.cover = new MediaFileId(fullBook.cover_id);
+      this.coverId = fullBook.cover_id;
     }
     this.selectedAuthors = fullBook.authors;
   }

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
-import { MediaImageComponent } from '../../_shared/media-image/media-image.component';
 import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
+import { UserAvatarComponent } from '../user-avatar/user-avatar.component';
 import { ProfileService } from '../../../../business/services/user/profile.service';
 import { AccountService } from '../../../../business/services/auth/account.service';
 import { AuthService } from '../../../../business/services/auth/auth.service';
@@ -17,7 +17,7 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [
     CommonModule,
     MediaFileUploadComponent,
-    MediaImageComponent,
+    UserAvatarComponent,
     InputTextModule,
   ],
   providers: [ProfileService],
@@ -26,7 +26,7 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class ProfileWindowComponent implements OnInit {
   public identity: IdentityPreview | undefined;
-  public currentAvatarId: MediaFileId | undefined;
+  public currentAvatarId: string | undefined;
 
   constructor(
     private ref: DynamicDialogRef,
@@ -41,7 +41,7 @@ export class ProfileWindowComponent implements OnInit {
 
   public onAvatarUploaded(fileId: MediaFileId): void {
     this.profileService.updateAvatar(fileId).subscribe(() => {
-      this.currentAvatarId = fileId;
+      this.currentAvatarId = fileId.value;
       if (this.identity) {
         this.identity = {
           ...this.identity,
@@ -60,7 +60,7 @@ export class ProfileWindowComponent implements OnInit {
       .subscribe((identity) => {
         this.identity = identity;
         if (identity.avatar_id) {
-          this.currentAvatarId = new MediaFileId(identity.avatar_id);
+          this.currentAvatarId = identity.avatar_id;
         }
       });
   }

@@ -4,6 +4,17 @@
   }
 }
 
+:deep(td:first-child) {
+  width: 100px;
+  
+  book-cover {
+    display: block;
+    width: 100px;
+    height: 150px;
+    flex-shrink: 0;
+  }
+}
+
 .layout {
   width: 100%;
 
