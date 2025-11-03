@@ -12,6 +12,7 @@ import { IdentityPreview } from '../../../../business/models/identity/identityPr
 import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
 import { CommonModule } from '@angular/common';
 import { BookSearchComponent } from "../../books/book-search/book-search.component";
+import { ProfileWindowManager } from '../../../../business/managers/windows/profileWindowManager';
 
 @Component({
   selector: 'navbar',
@@ -35,7 +36,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private profileWindowManager: ProfileWindowManager
   ) {
     this.items = [
       {
@@ -58,6 +60,10 @@ export class NavbarComponent implements OnInit {
     ];
 
     this.accountItems = [
+      {
+        label: 'Profile',
+        command: () => this.profileWindowManager.open().subscribe(),
+      },
       {
         label: 'LogOut',
         command: () => this.authService.logout(),

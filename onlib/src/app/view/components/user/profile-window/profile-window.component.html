@@ -1,0 +1,26 @@
+<div class="layout">
+  <div class="fields" *ngIf="identity">
+    <div class="form-group">
+      <label for="nickname">Nickname</label>
+      <input
+        id="nickname"
+        pInputText
+        [value]="identity.nickname"
+        readonly
+        class="form-control"
+        type="text"
+      />
+    </div>
+  </div>
+  <div class="avatar-section">
+    <div class="avatar-display">
+      <media-image [fileId]="currentAvatarId"></media-image>
+    </div>
+    <div class="avatar-upload">
+      <media-file-upload
+        [uploadedFileId]="identity?.avatar_id"
+        (fileUploaded)="onAvatarUploaded($event)"
+      ></media-file-upload>
+    </div>
+  </div>
+</div>

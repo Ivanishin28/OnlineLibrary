@@ -15,6 +15,7 @@ import { BookService } from './business/services/books/book.service';
 import { ShelfService } from './business/services/shelves/shelf.service';
 import { ReviewerService } from './business/services/shelves/reviewer.service';
 import { ReviewCreationWindowManager } from './business/managers/windows/reviewCreationWindowManager';
+import { ProfileWindowManager } from './business/managers/windows/profileWindowManager';
 import { OnlibDatePipe } from './view/pipes/onlib-date.pipe';
 import { DatePipe } from '@angular/common';
 import { MediaFileService } from './business/services/media/media-file.service';
@@ -47,6 +48,7 @@ export const appConfig: ApplicationConfig = {
     ReviewerService,
     ReviewService,
     ReviewCreationWindowManager,
+    ProfileWindowManager,
     MediaFileService,
     AuthorService,
     DatePipe,

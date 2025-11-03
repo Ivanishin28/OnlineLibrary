@@ -1,5 +1,7 @@
-﻿using IdentityContext.Contracts.Commands.Login;
+﻿using IdentityContext.Contracts.Commands;
+using IdentityContext.Contracts.Commands.Login;
 using IdentityContext.Contracts.Commands.Register;
+using IdentityContext.Contracts.Dtos;
 using IdentityContext.Contracts.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +41,14 @@ namespace IdentityContext.Application.Controllers
             var query = new GetIdentityPreviewByUserIdQuery(userId);
             var result = await _mediator.Send(query);
             return Ok(result);
+        }
+
+        [HttpPost("set-avatar")]
+        public async Task<IActionResult> SetAvatar(SetAvatarRequestDto dto)
+        {
+            var request = new SetAvatarRequest(GetUserId(), dto.AvatarId);
+            await _mediator.Send(request);
+            return Ok();
         }
     }
 }
