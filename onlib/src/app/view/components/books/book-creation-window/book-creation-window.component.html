@@ -8,6 +8,7 @@
             id="title"
             pInputText
             [formControl]="control"
+            [readonly]="isEditMode"
             class="form-control"
             type="text"
           />
@@ -55,7 +56,9 @@
       </div>
 
       <div class="controls">
-        <p-button [disabled]="form.invalid" type="submit">Create</p-button>
+        <p-button [disabled]="form.invalid" type="submit">
+          {{ isEditMode ? 'Save' : 'Create' }}
+        </p-button>
       </div>
     </form>
   </div>

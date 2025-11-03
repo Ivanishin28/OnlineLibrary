@@ -28,19 +28,23 @@ namespace BookContext.DL.Read.Queries
                 return null;
             }
 
-            return new FullBookDto(
-                fromDb.Id,
-                fromDb.Title,
-                fromDb.BookMetadata.CoverId,
-                fromDb.BookAuthors
-                .Select(ba =>
-                    new AuthorDto(
-                        ba.Author.Id,
-                        ba.Author.LastName,
-                        ba.Author.FirstName,
-                        ba.Author.MiddleName,
-                        ba.Author.BirthDate))
-                .ToList());
+            return new FullBookDto
+            {
+                Id = fromDb.Id,
+                Title = fromDb.Title,
+                CoverId = fromDb.BookMetadata.CoverId,
+                PublishingDate = fromDb.BookMetadata.PublishingDate,
+                Description = fromDb.BookMetadata.Description,
+                Authors = fromDb.BookAuthors
+                    .Select(ba =>
+                        new AuthorDto(
+                            ba.Author.Id,
+                            ba.Author.FirstName,
+                            ba.Author.LastName,
+                            ba.Author.MiddleName,
+                            ba.Author.BirthDate))
+                    .ToList()
+            };
         }
     }
 }

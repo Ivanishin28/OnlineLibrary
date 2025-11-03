@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { BookService } from '../../../../business/services/books/book.service';
-import { BookPreview } from '../../../../business/models/books/bookPreview';
+import { FullBook } from '../../../../business/models/books/fullBook';
 import { BookPageActionsComponent } from './book-page-actions/book-page-actions.component';
 import { BooksPageComponent } from '../books-page/books-page.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
@@ -32,7 +32,7 @@ import { BookReviewStatisticsComponent } from "./book-review-statistics/book-rev
 export class BookPageComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
-  public book: BookPreview | undefined;
+  public book: FullBook | undefined;
 
   constructor(
     private route: ActivatedRoute,

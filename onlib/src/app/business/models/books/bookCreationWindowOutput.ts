@@ -6,6 +6,6 @@ export class BookCreationWindowOutput {
     public readonly publishing_date: Date,
     public readonly selectedAuthors: AuthorPreview[],
     public readonly description: string | null,
-    public readonly cover_id: string | null
+    public readonly cover_id: string | null,
   ) {}
 }

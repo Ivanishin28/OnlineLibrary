@@ -21,7 +21,7 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
                 .HasConversion(new EntityIdValueConverter<BookId, Guid>());
             builder
                 .HasOne<Book>()
-                .WithMany(x => x.BookTags)
+                .WithMany(x => x.BookAuthors)
                 .HasForeignKey(x => x.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
 

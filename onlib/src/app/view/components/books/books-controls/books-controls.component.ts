@@ -46,6 +46,10 @@ export class BooksControlsComponent implements OnInit {
     this.bookCreationWindow.create().subscribe((x) => this.loadBooks());
   }
 
+  public editBook(bookId: string): void {
+    this.bookCreationWindow.edit(bookId).subscribe((x) => this.loadBooks());
+  }
+
   public delete(bookId: string): void {
     this.personalBooksService.delete(bookId).subscribe((result) => {
       if (result.isSuccess) {

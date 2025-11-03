@@ -11,15 +11,16 @@ namespace BookContext.Domain.Entities
         public BookId Id { get; private set; } = null!;
         public UserId CreatorId { get; private set; } = null!;
         public string Title { get; private set; } = null!;
-        public IReadOnlyCollection<BookAuthor> BookTags => _bookAuthors.AsReadOnly();
+        public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.AsReadOnly();
 
         private Book() { }
 
-        private Book(BookId id, string title, UserId creatorId)
+        private Book(BookId id, string title, UserId creatorId, List<BookAuthor> authors)
         {
             Id = id;
             Title = title;
             CreatorId = creatorId;
+            _bookAuthors = authors;
         }
 
         public static Result<Book> Create(UserId creatorId, string title)
@@ -40,7 +41,13 @@ namespace BookContext.Domain.Entities
                 return Result<Book>.Failure(BookErrors.DuplicateAuthors);
             }
 
-            return new Book(bookId, title, creatorId);
+            var bookAuthors = authorIds
+                .Select(x => new BookAuthor(
+                    new BookAuthorId(Guid.NewGuid()),
+                    bookId, x, DateTime.Now))
+                .ToList();
+
+            return new Book(bookId, title, creatorId, bookAuthors);
         }
 
         public Result AddAuthor(AuthorId authorId)

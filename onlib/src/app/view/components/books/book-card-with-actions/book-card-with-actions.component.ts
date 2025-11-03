@@ -14,4 +14,5 @@ export class BookCardWithActionsComponent {
   @Input({ required: true }) book!: BookPreview;
 
   @Output() delete: EventEmitter<void> = new EventEmitter<void>();
+  @Output() edit: EventEmitter<void> = new EventEmitter<void>();
 }

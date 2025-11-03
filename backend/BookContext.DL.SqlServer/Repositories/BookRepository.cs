@@ -26,14 +26,16 @@ namespace BookContext.DL.SqlServer.Repositories
 
         public async Task<Book?> GetBy(BookId id)
         {
-            return await BookAggregates()
+            return await BookAggregate()
                 .Where(book => book.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        private IQueryable<Book> BookAggregates()
+        private IQueryable<Book> BookAggregate()
         {
-            return _db.Books;
+            return _db
+                .Books
+                .Include(x => x.BookAuthors);
         }
     }
 }

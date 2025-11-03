@@ -5,20 +5,21 @@ namespace BookContext.Contract.Dtos
     public record FullBookDto
     {
         [JsonPropertyName("id")]
-        public Guid Id { get; init; }
+        public required Guid Id { get; init; }
+        
         [JsonPropertyName("title")]
-        public string Title { get; init; }
+        public required string Title { get; init; }
+        
         [JsonPropertyName("cover_id")]
         public Guid? CoverId { get; init; }
+        
         [JsonPropertyName("authors")]
-        public IReadOnlyCollection<AuthorDto> Authors { get; init; }
-
-        public FullBookDto(Guid id, string title, Guid? coverId, IReadOnlyCollection<AuthorDto> authors)
-        {
-            Id = id;
-            Title = title;
-            CoverId = coverId;
-            Authors = authors;
-        }
+        public IReadOnlyCollection<AuthorDto> Authors { get; init; } = new List<AuthorDto>();
+        
+        [JsonPropertyName("publishing_date")]
+        public required DateOnly PublishingDate { get; init; }
+        
+        [JsonPropertyName("description")]
+        public string? Description { get; init; }
     }
 }

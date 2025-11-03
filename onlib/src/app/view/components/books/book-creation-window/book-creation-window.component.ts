@@ -1,5 +1,5 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Button } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -17,6 +17,8 @@ import { MediaImageComponent } from '../../_shared/media-image/media-image.compo
 import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
 import { AuthorSelectionComponent } from '../author-selection/author-selection.component';
 import { AuthorPreview } from '../../../../business/models/books/apiModels/authorPreview';
+import { FullBook } from '../../../../business/models/books/fullBook';
+import { toDate } from '../../../../business/types/dateOnly';
 
 @Component({
   standalone: true,
@@ -34,7 +36,7 @@ import { AuthorPreview } from '../../../../business/models/books/apiModels/autho
   templateUrl: './book-creation-window.component.html',
   styleUrl: './book-creation-window.component.scss',
 })
-export class BookCreationWindowComponent {
+export class BookCreationWindowComponent implements OnInit {
   public form: FormGroup<{
     title: FormControl<string | null>;
     publishing_date: FormControl<Date | null>;
@@ -43,13 +45,28 @@ export class BookCreationWindowComponent {
 
   public cover: MediaFileId | undefined;
   public selectedAuthors: AuthorPreview[] = [];
+  public isEditMode: boolean = false;
 
-  constructor(private ref: DynamicDialogRef, formBuilder: FormBuilder) {
+  constructor(
+    private ref: DynamicDialogRef,
+    private formBuilder: FormBuilder,
+    private config: DynamicDialogConfig
+  ) {
+    const fullBook: FullBook | undefined = config.data?.fullBook;
+    this.isEditMode = !!fullBook;
+
     this.form = formBuilder.group({
       title: ['', Validators.required],
       publishing_date: [null as Date | null, Validators.required],
       description: [''],
     });
+  }
+
+  public ngOnInit(): void {
+    const fullBook: FullBook | undefined = this.config.data?.fullBook;
+    if (fullBook) {
+      this.loadBook(fullBook);
+    }
   }
 
   public submit(): void {
@@ -74,5 +91,17 @@ export class BookCreationWindowComponent {
 
   public onSelectedAuthorsChange(authors: AuthorPreview[]): void {
     this.selectedAuthors = authors;
+  }
+
+  private loadBook(fullBook: FullBook): void {
+    this.form.controls.title.setValue(fullBook.title);
+    this.form.controls.publishing_date.setValue(
+      toDate(fullBook.publishing_date)
+    );
+    this.form.controls.description.setValue(fullBook.description ?? '');
+    if (fullBook.cover_id) {
+      this.cover = new MediaFileId(fullBook.cover_id);
+    }
+    this.selectedAuthors = fullBook.authors;
   }
 }
