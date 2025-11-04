@@ -1,20 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BookService } from '../../../../business/services/books/book.service';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { BookSearchResultComponent } from './book-search-result/book-search-result.component';
-import {
-  Subject,
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-  catchError,
-  of,
-  takeUntil,
-  Observable,
-  filter,
-} from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { BookQueryConsts } from '../../../../business/consts/bookContext/bookQueryConsts';
 
 @Component({
@@ -26,6 +16,8 @@ import { BookQueryConsts } from '../../../../business/consts/bookContext/bookQue
   providers: [BookService],
 })
 export class BookSearchComponent {
+  @Output() bookSelected = new EventEmitter<BookPreview>();
+
   public MIN_QUERY_LENGTH = BookQueryConsts.MIN_BOOK_SEARCH_QUERY_LENGTH;
 
   public selectedBook: BookPreview | undefined = undefined;
@@ -40,5 +32,10 @@ export class BookSearchComponent {
       .subscribe((books: BookPreview[]) => {
         this.filteredBooks = books;
       });
+  }
+
+  public onBookSelect(book: BookPreview): void {
+    this.bookSelected.emit(book);
+    this.selectedBook = undefined;
   }
 }

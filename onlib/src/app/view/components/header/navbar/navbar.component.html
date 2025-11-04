@@ -1,13 +1,12 @@
-<p-menubar *ngIf="identity" [model]="items">
-  <ng-template #end>
-    <div class="end">
-      <div class="search">
-        <book-search></book-search>
-      </div>
-      <div (click)="accountMenu.show($event)" class="avatar">
-        <user-avatar [fileId]="identity!.avatar_id"></user-avatar>
-      </div>
+<div class="navbar-container" *ngIf="identity">
+  <p-menubar [model]="items" class="menubar-left"></p-menubar>
+  <div class="end">
+    <div class="search-container">
+      <book-search (bookSelected)="onBookSelected($event)"></book-search>
     </div>
-  </ng-template>
-</p-menubar>
+    <div (click)="accountMenu.show($event)" class="avatar">
+      <user-avatar [fileId]="identity!.avatar_id"></user-avatar>
+    </div>
+  </div>
+</div>
 <p-menu #accountMenu [model]="accountItems" [popup]="true" />

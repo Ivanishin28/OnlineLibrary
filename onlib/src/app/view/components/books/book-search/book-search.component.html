@@ -2,6 +2,8 @@
   [(ngModel)]="selectedBook"
   [suggestions]="filteredBooks"
   (completeMethod)="searchBooks($event)"
+  (ngModelChange)="onBookSelect($event)"
+  (onSelect)="onBookSelect($event.value)"
   [minLength]="MIN_QUERY_LENGTH"
   [completeOnFocus]="true"
   [delay]="300"

@@ -13,6 +13,7 @@ import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.componen
 import { CommonModule } from '@angular/common';
 import { BookSearchComponent } from "../../books/book-search/book-search.component";
 import { ProfileWindowManager } from '../../../../business/managers/windows/profileWindowManager';
+import { BookPreview } from '../../../../business/models/books/bookPreview';
 
 @Component({
   selector: 'navbar',
@@ -78,5 +79,9 @@ export class NavbarComponent implements OnInit {
         switchMap((creds) => this.accountService.getIdentityBy(creds.userId))
       )
       .subscribe((identity) => (this.identity = identity));
+  }
+
+  public onBookSelected(book: BookPreview): void {
+    this.router.navigate(['books', book.id]);
   }
 }

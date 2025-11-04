@@ -41,6 +41,14 @@
 .reviewer-info {
   flex: 1;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewer-avatar {
+  flex-shrink: 0;
+  width: 50px;
 }
 
 .reviewer-name {
@@ -52,13 +60,6 @@
 
 .review-rating {
   flex-shrink: 0;
-
-  ::ng-deep .p-rating {
-    .p-rating-icon {
-      font-size: 18px;
-      color: #fbbf24;
-    }
-  }
 }
 
 .review-content {
@@ -83,4 +84,10 @@
   font-size: 14px;
   color: #94a3b8;
   font-style: italic;
+}
+
+.pagination-container {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
 }

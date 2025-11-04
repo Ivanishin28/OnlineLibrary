@@ -1,2 +1,11 @@
-<book-cover *ngIf="book.cover_id" [coverId]="book.cover_id" style="width: 40px; height: 60px; flex-shrink: 0;"></book-cover>
-<div>{{ book.title }}</div>
+<div class="book-result">
+  <div class="book-cover-wrapper" *ngIf="book.cover_id">
+    <book-cover [coverId]="book.cover_id"></book-cover>
+  </div>
+  <div class="book-cover-placeholder" *ngIf="!book.cover_id">
+    <i class="pi pi-book"></i>
+  </div>
+  <div class="book-info">
+    <div class="book-title">{{ book.title }}</div>
+  </div>
+</div>

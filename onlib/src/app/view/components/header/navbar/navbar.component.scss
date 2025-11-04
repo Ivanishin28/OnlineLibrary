@@ -1,6 +1,27 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 24px;
+  width: 100%;
+}
+
+.menubar-left {
+  flex-shrink: 0;
+}
+
 .end {
   display: flex;
-  gap: 15px;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+
+  .search-container {
+    max-width: 300px;
+    width: 100%;
+  }
+
   .avatar {
     width: 50px;
     height: 50px;

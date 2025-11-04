@@ -1,0 +1,59 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+::ng-deep {
+  .p-autocomplete {
+    width: 100%;
+
+    .p-autocomplete-input {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      min-height: 48px;
+
+      &:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+
+    .p-autocomplete-panel {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e2e8f0;
+      margin-top: 4px;
+      overflow: hidden;
+    }
+
+    .p-autocomplete-items-wrapper {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .p-autocomplete-list-item {
+      padding: 0;
+      margin: 0;
+      border: none;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f8fafc;
+      }
+
+      &.p-highlight {
+        background-color: #eff6ff;
+      }
+    }
+  }
+}
+

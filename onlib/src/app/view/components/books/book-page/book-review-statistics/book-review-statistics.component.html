@@ -1,7 +1,7 @@
 <div class="layout" *ngIf="statistics">
   <div class="rating-section">
     <div class="rating">
-      <p-rating [ngModel]="statistics.avg_rating" [readonly]="true"></p-rating>
+      <book-rating [rating]="statistics.avg_rating" [fontSize]="20"></book-rating>
       <span class="rating-value">{{ statistics.avg_rating.toFixed(2) }}</span>
     </div>
     <div class="review-count">

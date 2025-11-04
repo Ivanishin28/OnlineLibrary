@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges } from '@angular/core';
 import { ReviewService } from '../../../../../business/services/shelves/review.service';
 import { ReviewStatistics } from '../../../../../business/models/shelves/reviewStatistics';
-import { RatingModule } from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import { BookRatingComponent } from '../book-rating/book-rating.component';
 
 @Component({
   standalone: true,
   selector: 'book-review-statistics',
-  imports: [CommonModule, RatingModule, FormsModule],
+  imports: [CommonModule, BookRatingComponent],
   templateUrl: './book-review-statistics.component.html',
   styleUrl: './book-review-statistics.component.scss',
 })
