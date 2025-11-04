@@ -5,9 +5,10 @@ import { CommonModule } from '@angular/common';
 import { ShelfCreationWindowManager } from '../../../../business/managers/windows/shelfCreationWindowManager';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { UserId } from '../../../../business/models/_shared/userId';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, pipe, switchMap, take, tap } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { ShelfControlComponent } from './shelf-control/shelf-control.component';
+import { AuthService } from '../../../../business/services/auth/auth.service';
 
 @Component({
   standalone: true,
@@ -23,17 +24,26 @@ import { ShelfControlComponent } from './shelf-control/shelf-control.component';
   styleUrl: './shelves-controls.component.scss',
 })
 export class ShelvesControlsComponent implements OnInit {
-  @Input({ required: true }) userId!: UserId;
+  private userId!: UserId;
 
   public shelves: ShelfPreview[] = [];
 
   constructor(
     private shelfService: PersonalShelfService,
-    private creationWindow: ShelfCreationWindowManager
+    private creationWindow: ShelfCreationWindowManager,
+    private authService: AuthService
   ) {}
 
   public ngOnInit(): void {
-    this.loadShelves().subscribe();
+    this.authService.loggedUser$
+      .pipe(
+        take(1),
+        pipe(
+          tap((x) => (this.userId = x.userId)),
+          switchMap((x) => this.loadShelves())
+        )
+      )
+      .subscribe();
   }
 
   public createShelf(): void {
