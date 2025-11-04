@@ -13,9 +13,9 @@ import { Paginator } from '../../../../../business/models/_shared/paginator';
   styleUrl: './book-reviews-display.component.scss',
 })
 export class BookReviewsDisplayComponent implements OnChanges, OnDestroy {
-  private destroy$: Subject<void> = new Subject<void>();
-
   @Input({ required: true }) bookId!: string;
+
+  private destroy$: Subject<void> = new Subject<void>();
 
   public reviews: ReviewPreview[] | undefined;
   public paginator: Paginator;
