@@ -5,6 +5,9 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,8 +25,9 @@ import { MessageWindowManager } from '../../../../../business/managers/windows/m
   templateUrl: './shelf-control.component.html',
   styleUrl: './shelf-control.component.scss',
 })
-export class ShelfControlComponent implements OnChanges {
+export class ShelfControlComponent implements OnChanges, AfterViewChecked {
   @Input({ required: true }) shelf!: ShelfPreview;
+  @ViewChild('nameInput') nameInputRef!: ElementRef<HTMLInputElement>;
 
   @Output() changeName: EventEmitter<string> = new EventEmitter<string>();
   @Output() delete: EventEmitter<ShelfPreview> =
@@ -31,6 +35,7 @@ export class ShelfControlComponent implements OnChanges {
 
   public isEditing: boolean = false;
   public editedName: string = '';
+  private shouldFocus: boolean = false;
 
   constructor(
     private shelfService: PersonalShelfService,
@@ -43,6 +48,15 @@ export class ShelfControlComponent implements OnChanges {
 
   public enableEditing(): void {
     this.isEditing = true;
+    this.shouldFocus = true;
+  }
+
+  public ngAfterViewChecked(): void {
+    if (this.shouldFocus && this.nameInputRef?.nativeElement) {
+      this.nameInputRef.nativeElement.focus();
+      this.nameInputRef.nativeElement.select();
+      this.shouldFocus = false;
+    }
   }
 
   public saveName(): void {

@@ -5,6 +5,9 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -24,14 +27,16 @@ import { take } from 'rxjs';
   templateUrl: './tag-control.component.html',
   styleUrl: './tag-control.component.scss',
 })
-export class TagControlComponent implements OnChanges {
+export class TagControlComponent implements OnChanges, AfterViewChecked {
   @Input({ required: true }) tag!: Tag;
+  @ViewChild('nameInput') nameInputRef!: ElementRef<HTMLInputElement>;
 
   @Output() changeName: EventEmitter<string> = new EventEmitter<string>();
   @Output() delete: EventEmitter<Tag> = new EventEmitter<Tag>();
 
   public isEditing: boolean = false;
   public editedName: string = '';
+  private shouldFocus: boolean = false;
 
   constructor(
     private tagService: TagService,
@@ -45,6 +50,15 @@ export class TagControlComponent implements OnChanges {
 
   public enableEditing(): void {
     this.isEditing = true;
+    this.shouldFocus = true;
+  }
+
+  public ngAfterViewChecked(): void {
+    if (this.shouldFocus && this.nameInputRef?.nativeElement) {
+      this.nameInputRef.nativeElement.focus();
+      this.nameInputRef.nativeElement.select();
+      this.shouldFocus = false;
+    }
   }
 
   public saveName(): void {

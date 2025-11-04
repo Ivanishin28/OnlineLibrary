@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorPreview } from '../../../../business/models/books/apiModels/authorPreview';
 import { PersonalAuthorsService } from '../../../../business/services/books/personal-authors.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AuthorCreationWindowManager } from '../../../../business/managers/windows/authorCreationWindowManager';
 import { ButtonModule } from 'primeng/button';
+import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
 
 @Component({
   standalone: true,
   selector: 'authors-controls',
-  imports: [CommonModule, DynamicDialogModule, ButtonModule],
+  imports: [CommonModule, DynamicDialogModule, ButtonModule, UserAvatarComponent, DatePipe],
   providers: [AuthorCreationWindowManager, PersonalAuthorsService],
   templateUrl: './authors-controls.component.html',
   styleUrl: './authors-controls.component.scss',

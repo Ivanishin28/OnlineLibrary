@@ -8,7 +8,7 @@ import { BookCreationWindowManager } from '../../../../business/managers/windows
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { PersonalBooksService } from '../../../../business/services/books/personal-books.service';
-import { BookCardWithActionsComponent } from '../book-card-with-actions/book-card-with-actions.component';
+import { BookCoverComponent } from '../book-cover/book-cover.component';
 
 @Component({
   standalone: true,
@@ -17,7 +17,7 @@ import { BookCardWithActionsComponent } from '../book-card-with-actions/book-car
     CommonModule,
     ButtonModule,
     DynamicDialogModule,
-    BookCardWithActionsComponent,
+    BookCoverComponent,
   ],
   providers: [BookCreationWindowManager, PersonalBooksService],
   templateUrl: './books-controls.component.html',
