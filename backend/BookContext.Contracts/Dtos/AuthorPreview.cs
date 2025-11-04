@@ -17,5 +17,7 @@ namespace BookContext.Contract.Dtos
         public string LastName { get; init; } = null!;
         [JsonPropertyName("birth_date")]
         public DateOnly BirthDate { get; init; }
+        [JsonPropertyName("avatar_id")]
+        public Guid? AvatarId { get; init; }
     }
 }

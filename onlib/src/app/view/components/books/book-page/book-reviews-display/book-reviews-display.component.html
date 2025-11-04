@@ -1,9 +1,20 @@
-<div class="layout">
+<div class="layout" *ngIf="reviews && reviews.length > 0">
+  <h3 class="section-title">Reviews</h3>
   <div class="review-list">
-    <div *ngFor="let item of reviews" class="review-item">
-      <div class="content">
-        <div class="header">{{ item.identity.nickname }}</div>
-        <div class="info">{{ item.rating }}</div>
+    <div *ngFor="let review of reviews" class="review-item">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-name">{{ review.identity.nickname }}</div>
+        </div>
+        <div class="review-rating">
+          <p-rating [ngModel]="review.rating" [readonly]="true"></p-rating>
+        </div>
+      </div>
+      <div class="review-content" *ngIf="review.text">
+        <p>{{ review.text }}</p>
+      </div>
+      <div class="review-content empty" *ngIf="!review.text">
+        <p class="no-text">No review text provided</p>
       </div>
     </div>
   </div>

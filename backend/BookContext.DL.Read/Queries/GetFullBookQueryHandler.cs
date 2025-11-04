@@ -19,6 +19,7 @@ namespace BookContext.DL.Read.Queries
             var fromDb = await _db.Books
                 .Include(x => x.BookAuthors)
                 .ThenInclude(x => x.Author)
+                .ThenInclude(x => x.AuthorMetadata)
                 .Include(x => x.BookMetadata)
                 .Where(x => x.Id == request.BookId)
                 .FirstOrDefaultAsync();
@@ -39,10 +40,13 @@ namespace BookContext.DL.Read.Queries
                     .Select(ba =>
                         new AuthorDto(
                             ba.Author.Id,
+                            ba.Author.CreatorId,
                             ba.Author.FirstName,
                             ba.Author.LastName,
                             ba.Author.MiddleName,
-                            ba.Author.BirthDate))
+                            ba.Author.BirthDate,
+                            ba.Author.AuthorMetadata != null ? ba.Author.AuthorMetadata.AvatarId : null,
+                            ba.Author.AuthorMetadata != null ? ba.Author.AuthorMetadata.Biography : null))
                     .ToList()
             };
         }

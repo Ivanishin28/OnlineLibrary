@@ -1,0 +1,7 @@
+<div class="authors-container" *ngIf="authors.length > 0">
+  <span class="author-label">By</span>
+  <span class="author-item" *ngFor="let author of authors; let last = last">
+    {{ author.first_name }} {{ author.middle_name ? author.middle_name + ' ' : '' }}{{ author.last_name }}<span class="comma" *ngIf="!last">,</span>
+  </span>
+</div>
+

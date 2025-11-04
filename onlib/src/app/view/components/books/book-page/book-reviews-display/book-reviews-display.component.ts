@@ -4,11 +4,13 @@ import { Subject } from 'rxjs';
 import { ReviewService } from '../../../../../business/services/shelves/review.service';
 import { ReviewPreview } from '../../../../../business/models/shelves/reviewPreview';
 import { Paginator } from '../../../../../business/models/_shared/paginator';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'book-reviews-display',
-  imports: [CommonModule],
+  imports: [CommonModule, RatingModule, FormsModule],
   templateUrl: './book-reviews-display.component.html',
   styleUrl: './book-reviews-display.component.scss',
 })

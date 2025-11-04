@@ -102,6 +102,12 @@ export class BookCreationWindowComponent implements OnInit {
     if (fullBook.cover_id) {
       this.coverId = fullBook.cover_id;
     }
-    this.selectedAuthors = fullBook.authors;
+    this.selectedAuthors = fullBook.authors.map((author): AuthorPreview => ({
+      id: author.id,
+      first_name: author.first_name,
+      last_name: author.last_name,
+      birth_date: toDate(author.birth_date),
+      avatar_id: author.avatar_id ?? '',
+    }));
   }
 }

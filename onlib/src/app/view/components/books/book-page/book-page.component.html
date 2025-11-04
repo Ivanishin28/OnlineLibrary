@@ -12,6 +12,7 @@
     </div>
     <div class="right">
       <h2 class="title">{{ book.title }}</h2>
+      <book-authors [authors]="book.authors"></book-authors>
       <book-shelved-statistics [bookId]="book.id"></book-shelved-statistics>
       <book-review-statistics [bookId]="book.id"></book-review-statistics>
       <p-button (onClick)="review()">Review</p-button>
@@ -20,5 +21,3 @@
   </div>
 </div>
 <div *ngIf="!book" class="layout-not-found"><p>Book Not Found</p></div>
-<hr />
-<books-page></books-page>

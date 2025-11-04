@@ -45,15 +45,19 @@ namespace BookContext.DL.Read.Queries
             }
 
             return await query
+                .Include(a => a.AuthorMetadata)
                 .OrderBy(a => a.LastName)
                 .ThenBy(a => a.FirstName)
                 .Take(BookQueryConsts.MAX_SEARCH_RESULTS)
                 .Select(a => new AuthorDto(
                     a.Id,
+                    a.CreatorId,
                     a.FirstName,
                     a.LastName,
                     a.MiddleName,
-                    a.BirthDate))
+                    a.BirthDate,
+                    a.AuthorMetadata != null ? a.AuthorMetadata.AvatarId : null,
+                    a.AuthorMetadata != null ? a.AuthorMetadata.Biography : null))
                 .ToListAsync(cancellationToken);
         }
     }

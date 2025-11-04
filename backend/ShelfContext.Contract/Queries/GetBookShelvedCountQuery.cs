@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.Contract.Queries
 {
-    public record GetBookShelvedCountQuery(Guid BookId) : IRequest<BookShelvedCount>
+    public record GetBookShelvedCountQuery(Guid BookId) : IRequest<int>
     {
     }
 }

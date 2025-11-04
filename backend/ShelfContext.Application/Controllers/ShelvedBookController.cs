@@ -97,7 +97,7 @@ namespace ShelfContext.Application.Controllers
         {
             var query = new GetBookShelvedCountQuery(bookId);
             var result = await _mediator.Send(query);
-            return Ok(result.Value);
+            return Ok(result);
         }
 
         [HttpGet("book/{bookId}/shelfs")]

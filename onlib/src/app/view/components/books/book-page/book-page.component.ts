@@ -12,6 +12,7 @@ import { ReviewCreationWindowManager } from '../../../../business/managers/windo
 import { BookReviewsDisplayComponent } from './book-reviews-display/book-reviews-display.component';
 import { BookReviewStatisticsComponent } from "./book-review-statistics/book-review-statistics.component";
 import { BookShelvedStatisticsComponent } from "./shelved-statistics/book-shelved-statistics.component";
+import { BookAuthorsComponent } from "./book-authors/book-authors.component";
 
 @Component({
   standalone: true,
@@ -20,12 +21,12 @@ import { BookShelvedStatisticsComponent } from "./shelved-statistics/book-shelve
     CommonModule,
     RouterModule,
     BookPageActionsComponent,
-    BooksPageComponent,
     BookCoverComponent,
     Button,
     BookReviewsDisplayComponent,
     BookReviewStatisticsComponent,
-    BookShelvedStatisticsComponent
+    BookShelvedStatisticsComponent,
+    BookAuthorsComponent
 ],
   providers: [BookService, ReviewCreationWindowManager],
   templateUrl: './book-page.component.html',

@@ -1,13 +1,23 @@
 <div class="layout">
-  <div class="shelf-selection">
-    <p-select
-      [(ngModel)]="selectedShelf"
-      (ngModelChange)="shelveBookOn($event)"
-      [showClear]="true"
-      (onClear)="dislodge()"
-      [options]="shelves"
-      optionLabel="name"
-    ></p-select>
+  <div class="actions-section">
+    <div class="section-header">
+      <h4 class="section-title">Manage Book</h4>
+    </div>
+    <div class="shelf-selection">
+      <label class="select-label">Add to Shelf</label>
+      <p-select
+        [(ngModel)]="selectedShelf"
+        (ngModelChange)="shelveBookOn($event)"
+        [showClear]="true"
+        (onClear)="dislodge()"
+        [options]="shelves"
+        optionLabel="name"
+        placeholder="Select a shelf..."
+        class="shelf-select"
+      ></p-select>
+    </div>
+    <div class="tag-selection-wrapper">
+      <tag-selection [shelvedBook]="shelvedBook"></tag-selection>
+    </div>
   </div>
-  <tag-selection [shelvedBook]="shelvedBook"></tag-selection>
 </div>

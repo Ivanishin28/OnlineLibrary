@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShelfContext.DL.Read.Queries
 {
-    public class GetBookShelvedCountRequestHandler : IRequestHandler<GetBookShelvedCountQuery, BookShelvedCount>
+    public class GetBookShelvedCountRequestHandler : IRequestHandler<GetBookShelvedCountQuery, int>
     {
         private ShelfReadDbContext _db;
 
@@ -19,13 +19,12 @@ namespace ShelfContext.DL.Read.Queries
             _db = db;
         }
 
-        public async Task<BookShelvedCount> Handle(GetBookShelvedCountQuery request, CancellationToken cancellationToken)
+        public Task<int> Handle(GetBookShelvedCountQuery request, CancellationToken cancellationToken)
         {
-            var count = await _db
+            return _db
                 .ShelvedBooks
                 .Where(x => x.BookId == request.BookId)
                 .CountAsync();
-            return new BookShelvedCount(count);
         }
     }
 }
