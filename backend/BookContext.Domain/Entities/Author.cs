@@ -9,23 +9,21 @@ namespace BookContext.Domain.Entities
         public AuthorId Id { get; private set; } = null!;
         public UserId CreatorId { get; private set; } = null!;
         public FullName FullName { get; private set; } = null!;
-        public DateOnly BirthDate { get; private set; }
 
         private Author() { }
 
-        private Author(AuthorId id, FullName fullName, DateOnly birthDate, UserId creatorId)
+        private Author(AuthorId id, FullName fullName, UserId creatorId)
         {
             Id = id;
             FullName = fullName;
-            BirthDate = birthDate;
             CreatorId = creatorId;
         }
 
-        public static Result<Author> Create(UserId creatorId, FullName fullName, DateOnly birthDate)
+        public static Result<Author> Create(UserId creatorId, FullName fullName)
         {
             var authorId = new AuthorId(Guid.NewGuid());
 
-            return new Author(authorId, fullName, birthDate, creatorId);
+            return new Author(authorId, fullName, creatorId);
         }
     }
 }

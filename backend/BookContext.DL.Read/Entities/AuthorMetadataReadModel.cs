@@ -8,6 +8,7 @@ namespace BookContext.DL.Read.Entities
         public Guid AuthorId { get; private set; }
         public Guid? AvatarId { get; private set; }
         public string? Biography { get; private set; }
+        public DateOnly BirthDate { get; init; }
 
         public AuthorReadModel Author { get; private set; } = null!;
     }

@@ -1,4 +1,5 @@
-﻿using Shared.Core.Models;
+﻿using BookContext.Domain.ValueObjects;
+using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,8 @@ namespace BookContext.Domain.Errors
 
         public static readonly Error FullNameError
             = _errors.BuildError("FullName", "FullName");
+
+        public static Error NotFound(AuthorId authorId) => 
+            _errors.BuildError("NotFound", $"Author {authorId.Value} was not found");
     }
 }

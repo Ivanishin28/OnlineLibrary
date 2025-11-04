@@ -55,7 +55,7 @@ namespace BookContext.DL.Read.Queries
                     a.FirstName,
                     a.LastName,
                     a.MiddleName,
-                    a.BirthDate,
+                    a.AuthorMetadata.BirthDate,
                     a.AuthorMetadata != null ? a.AuthorMetadata.AvatarId : null,
                     a.AuthorMetadata != null ? a.AuthorMetadata.Biography : null))
                 .ToListAsync(cancellationToken);

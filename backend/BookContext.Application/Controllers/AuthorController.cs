@@ -1,4 +1,5 @@
 ﻿using BookContext.Application.Dtos.Commands;
+using BookContext.Contract.Commands;
 using BookContext.Contract.Commands.CreateAuthor;
 using BookContext.Contract.Queries;
 using MediatR;
@@ -45,6 +46,28 @@ namespace BookContext.Application.Controllers
             };
             var createAuthorResult = await _mediator.Send(request);
             return FromResult(createAuthorResult);
+        }
+
+        [HttpDelete("delete/{authorId}")]
+        public async Task<IActionResult> Delete(Guid authorId)
+        {
+            var request = new DeleteAuthorRequest(authorId);
+            var result = await _mediator.Send(request);
+            return FromResult(result);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update(UpdateAuthorRequestDto dto)
+        {
+            var request = new UpdateAuthorRequest()
+            {
+                Id = dto.Id,
+                Biography = dto.Biography,
+                BirthDate = dto.BirthDate,
+                AvatarId = dto.AvatarId
+            };
+            var result = await _mediator.Send(request);
+            return FromResult(result);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace BookContext.DL.Read.Queries
                             ba.Author.FirstName,
                             ba.Author.LastName,
                             ba.Author.MiddleName,
-                            ba.Author.BirthDate,
+                            ba.Author.AuthorMetadata.BirthDate,
                             ba.Author.AuthorMetadata != null ? ba.Author.AuthorMetadata.AvatarId : null,
                             ba.Author.AuthorMetadata != null ? ba.Author.AuthorMetadata.Biography : null))
                     .ToList()

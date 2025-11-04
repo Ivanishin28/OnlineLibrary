@@ -32,7 +32,7 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
                 .HasOne<Author>()
                 .WithMany()
                 .HasForeignKey(x => x.AuthorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasIndex(x => new { x.BookId, x.AuthorId })

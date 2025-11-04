@@ -14,7 +14,6 @@ namespace BookContext.DL.Read.Entities
         public string FirstName { get; init; } = null!;
         public string LastName { get; init; } = null!;
         public string? MiddleName { get; init; }
-        public DateOnly BirthDate { get; init; }
 
         public IReadOnlyCollection<BookAuthorReadModel> BookAuthors { get; init; }
             = new List<BookAuthorReadModel>();

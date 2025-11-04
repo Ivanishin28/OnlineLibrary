@@ -56,8 +56,7 @@ namespace BookContext.UseCases.Commands
 
             return Author.Create(
                 new UserId(request.CreatorId),
-                fullNameResult.Model,
-                request.BirthDate);
+                fullNameResult.Model);
         }
 
         private Result<AuthorMetadata> CreateMetadataFrom(AuthorId authorId, CreateAuthorRequest request)
@@ -66,7 +65,13 @@ namespace BookContext.UseCases.Commands
             var avatar = request.AvatarId is not null ?
                 new MediaFileId(request.AvatarId.Value) :
                 null;
-            return new AuthorMetadata(authorId, avatar, bioResult.Model);
+            return AuthorMetadata.Create(
+                authorId, 
+                avatar, 
+                bioResult.IsSuccess ? 
+                    bioResult.Model : 
+                    null, 
+                request.BirthDate);
         }
     }
 }
