@@ -32,6 +32,14 @@ namespace BookContext.Application.Controllers
             return Ok(result);
         }
 
+        [HttpGet("full/{id}")]
+        public async Task<IActionResult> GetFull(Guid id)
+        {
+            var query = new GetFullAuthorQuery(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateAuthorRequestDto dto)
         {

@@ -10,12 +10,22 @@
         <p class="name">{{ author.first_name }} {{ author.last_name }}</p>
         <p class="birth-date">Born: {{ author.birth_date | date:'dd/MM/yyyy' }}</p>
       </div>
-      <p-button
-        (click)="delete(author.id)"
-        icon="pi pi-times"
-        severity="danger"
-        size="small"
-      ></p-button>
+      <div class="author-actions">
+        <p-button
+          (click)="edit(author.id)"
+          icon="pi pi-pencil"
+          severity="secondary"
+          size="small"
+          label="Edit"
+        ></p-button>
+        <p-button
+          (click)="delete(author.id)"
+          icon="pi pi-times"
+          severity="danger"
+          size="small"
+          label="Delete"
+        ></p-button>
+      </div>
     </div>
   </div>
 

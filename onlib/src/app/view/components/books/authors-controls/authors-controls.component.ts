@@ -34,7 +34,20 @@ export class AuthorsControlsComponent implements OnInit {
     });
   }
 
+  public edit(authorId: string): void {
+    this.authorCreationWindowManager.edit(authorId).subscribe((result) => {
+      if (result.isSuccess) {
+        this.loadAuthors();
+      }
+    });
+  }
+
   public delete(authorId: string): void {
+    this.personalAuthorsService.delete(authorId).subscribe((result) => {
+      if (result.isSuccess) {
+        this.loadAuthors();
+      }
+    });
   }
 
   private loadAuthors(): void {

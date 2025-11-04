@@ -8,6 +8,8 @@ import { environment } from '../../../environments/environment';
 import { CreateAuthorRequest } from '../../models/books/requests/createAuthorRequest';
 import { Result } from '../../models/_shared/result';
 import { resultFromApiResult } from '../mappings/fromApiResult';
+import { UpdateAuthorRequest } from '../../models/books/requests/updateAuthorRequest';
+import { FullAuthor } from '../../models/books/fullAuthor';
 
 @Injectable()
 export class PersonalAuthorsService {
@@ -35,5 +37,24 @@ export class PersonalAuthorsService {
     return this.connection
       .post<ApiResult<string>>(url, request)
       .pipe(map((x) => resultFromApiResult(x)));
+  }
+
+  public delete(authorId: string): Observable<Result<void>> {
+    const url = `${this.CONTROLLER}/delete/${authorId}`;
+    return this.connection
+      .delete<ApiResult<void>>(url)
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
+
+  public update(request: UpdateAuthorRequest): Observable<Result<void>> {
+    const url = `${this.CONTROLLER}/update`;
+    return this.connection
+      .post<ApiResult<void>>(url, request)
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
+
+  public getFull(authorId: string): Observable<FullAuthor | undefined> {
+    const url = `${this.CONTROLLER}/full/${authorId}`;
+    return this.connection.get<FullAuthor | undefined>(url);
   }
 }

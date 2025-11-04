@@ -15,4 +15,3 @@ export class AuthorService {
     return this.http.get<AuthorPreview[]>(url);
   }
 }
-

@@ -7,6 +7,7 @@
           id="first_name"
           pInputText
           [formControl]="control"
+          [readonly]="isEditMode"
           class="form-control"
           type="text"
         />
@@ -24,6 +25,7 @@
           id="last_name"
           pInputText
           [formControl]="control"
+          [readonly]="isEditMode"
           class="form-control"
           type="text"
         />
@@ -50,9 +52,21 @@
         </div>
       </div>
 
+      <div *ngIf="form.controls.biography as control" class="form-group">
+        <label for="biography">Biography</label>
+        <textarea
+          id="biography"
+          pTextarea
+          [formControl]="control"
+          class="form-control"
+          rows="5"
+          [autoResize]="true"
+        ></textarea>
+      </div>
+
       <div class="from-group">
         <media-file-upload
-          [uploadedFileId]="undefined"
+          [uploadedFileId]="avatarId"
           (fileUploaded)="onAvatarUploaded($event)"
         ></media-file-upload>
       </div>
@@ -62,7 +76,7 @@
     </div>
 
     <div class="controls">
-      <p-button class="save" type="submit">Create</p-button>
+      <p-button class="save" type="submit">{{ isEditMode ? 'Update' : 'Create' }}</p-button>
     </div>
   </form>
 </div>
