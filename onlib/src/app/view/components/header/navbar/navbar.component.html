@@ -1,12 +1,33 @@
-<div class="navbar-container" *ngIf="identity">
-  <p-menubar [model]="items" class="menubar-left"></p-menubar>
-  <div class="end">
-    <div class="search-container">
-      <book-search (bookSelected)="onBookSelected($event)"></book-search>
+<nav class="navbar" *ngIf="identity">
+  <div class="navbar-content">
+    <div class="navbar-brand">
+      <a routerLink="/books" class="brand-link">
+        <i class="pi pi-book brand-icon"></i>
+        <span class="brand-text">Online Library</span>
+      </a>
     </div>
-    <div (click)="accountMenu.show($event)" class="avatar">
-      <user-avatar [fileId]="identity!.avatar_id"></user-avatar>
+
+    <div class="navbar-menu">
+      <a
+        *ngFor="let item of items"
+        [routerLink]="item.routerLink"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        (click)="item.command && item.command({})"
+        class="menu-item"
+      >
+        <span>{{ item.label }}</span>
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="search-wrapper">
+        <book-search (bookSelected)="onBookSelected($event)"></book-search>
+      </div>
+      <div class="avatar-wrapper" (click)="accountMenu.show($event)">
+        <user-avatar [fileId]="identity!.avatar_id"></user-avatar>
+      </div>
     </div>
   </div>
-</div>
+</nav>
 <p-menu #accountMenu [model]="accountItems" [popup]="true" />

@@ -1,29 +1,157 @@
-.table-header {
-  .cover {
-    width: 100px;
-  }
-}
-
-:deep(td:first-child) {
-  width: 100px;
-  
-  book-cover {
-    display: block;
-    width: 100px;
-    height: 150px;
-    flex-shrink: 0;
-  }
-}
-
-.layout {
+.table-container {
   width: 100%;
+  padding: 24px;
+}
 
-  .content {
-    width: 100%;
+::ng-deep {
+  .library-table {
+    .p-datatable-thead > tr > th {
+      background: #f9fafb;
+      color: #374151;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 16px;
+      border-bottom: 2px solid #e5e7eb;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .p-datatable-tbody > tr {
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #f9fafb;
+      }
+
+      > td {
+        padding: 16px;
+        border-bottom: 1px solid #e5e7eb;
+        vertical-align: middle;
+      }
+    }
   }
 }
 
-.tag-list {
+.cover-column {
+  width: 120px;
+}
+
+.cover-cell {
+  .cover-wrapper {
+    width: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f3f4f6;
+    border: 2px solid #e5e7eb;
+  }
+}
+
+.book-link {
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #2563eb;
+  }
+}
+
+.shelf-name {
+  font-size: 15px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.date-value {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.tags-container {
   display: flex;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2563eb;
+
+  .tag-icon {
+    font-size: 10px;
+  }
+}
+
+.no-tags {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.empty-message {
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .empty-icon {
+    font-size: 64px;
+    color: #d1d5db;
+    margin-bottom: 24px;
+  }
+
+  .empty-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 8px 0;
+  }
+
+  .empty-hint {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  ::ng-deep {
+    .library-table {
+      .p-datatable-thead > tr > th,
+      .p-datatable-tbody > tr > td {
+        padding: 12px 8px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .cover-column {
+    width: 100px;
+  }
+
+  .cover-cell .cover-wrapper {
+    width: 60px;
+  }
 }

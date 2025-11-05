@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
 import { AuthService } from '../../../../business/services/auth/auth.service';
 import { switchMap, take } from 'rxjs';
-import { Router } from '@angular/router';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
+import { Router, RouterModule } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { AccountService } from '../../../../business/services/auth/account.service';
 import { IdentityPreview } from '../../../../business/models/identity/identityPreview';
@@ -18,13 +15,11 @@ import { BookPreview } from '../../../../business/models/books/bookPreview';
 @Component({
   selector: 'navbar',
   imports: [
-    MenubarModule,
     MenuModule,
-    AvatarGroupModule,
-    AvatarModule,
     UserAvatarComponent,
     CommonModule,
-    BookSearchComponent
+    BookSearchComponent,
+    RouterModule
 ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

@@ -1,26 +1,39 @@
-<div class="layout">
-  <div class="content">
-    <div class="shelf-list list">
-      <h2>Shelves:</h2>
-      <p (click)="selectAll()" class="container-info">
-        <span class="name">All:</span
-        ><span class="count">{{ summary.book_count }}</span>
-      </p>
-      <div *ngFor="let item of summary.shelves" class="shelf-item item">
-        <p class="container-info" (click)="selectShelf(item)">
-          <span class="name">{{ item.name }}</span
-          ><span class="count">{{ item.book_count }}</span>
-        </p>
-      </div>
+<div class="filter-container">
+  <div class="filter-section">
+    <div class="section-header">
+      <i class="pi pi-bookmark section-icon"></i>
+      <h3 class="section-title">Shelves</h3>
     </div>
-    <div class="tag-list list">
-      <h2>Tags:</h2>
-      <div *ngFor="let item of summary.tags" class="tag-item item">
-        <p class="container-info" (click)="selectTag(item)">
-          <span class="name">{{ item.name }}</span
-          ><span class="count">{{ item.book_count }}</span>
-        </p>
-      </div>
+    <div class="filter-list">
+      <button
+        (click)="selectAll()"
+        class="filter-item all-item">
+        <span class="filter-name">All Books</span>
+        <span class="filter-count">{{ summary.book_count }}</span>
+      </button>
+      <button
+        *ngFor="let item of summary.shelves"
+        (click)="selectShelf(item)"
+        class="filter-item">
+        <span class="filter-name">{{ item.name }}</span>
+        <span class="filter-count">{{ item.book_count }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <div class="section-header">
+      <i class="pi pi-tag section-icon"></i>
+      <h3 class="section-title">Tags</h3>
+    </div>
+    <div class="filter-list">
+      <button
+        *ngFor="let item of summary.tags"
+        (click)="selectTag(item)"
+        class="filter-item">
+        <span class="filter-name">{{ item.name }}</span>
+        <span class="filter-count">{{ item.book_count }}</span>
+      </button>
     </div>
   </div>
 </div>

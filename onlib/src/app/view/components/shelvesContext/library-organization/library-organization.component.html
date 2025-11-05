@@ -4,37 +4,39 @@
       <a
         routerLink="/organization/shelves"
         routerLinkActive="active"
-        class="nav-item">
+        class="nav-item"
+      >
         <i class="pi pi-bookmark"></i>
         <span>Shelves</span>
       </a>
       <a
         routerLink="/organization/tags"
         routerLinkActive="active"
-        class="nav-item">
+        class="nav-item"
+      >
         <i class="pi pi-tag"></i>
         <span>Tags</span>
       </a>
       <a
         routerLink="/organization/authors"
         routerLinkActive="active"
-        class="nav-item">
+        class="nav-item"
+      >
         <i class="pi pi-user"></i>
         <span>Authors</span>
       </a>
       <a
         routerLink="/organization/books"
         routerLinkActive="active"
-        class="nav-item">
+        class="nav-item"
+      >
         <i class="pi pi-book"></i>
         <span>Books</span>
       </a>
     </nav>
   </div>
   <div class="content">
-    <shelves-controls
-      *ngIf="activeSection === 'shelves' && userId"
-      [userId]="userId">
+    <shelves-controls *ngIf="activeSection === 'shelves' && userId">
     </shelves-controls>
     <tags-controls *ngIf="activeSection === 'tags'"></tags-controls>
     <authors-controls *ngIf="activeSection === 'authors'"></authors-controls>
