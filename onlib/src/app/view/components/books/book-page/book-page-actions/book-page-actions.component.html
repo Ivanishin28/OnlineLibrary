@@ -14,7 +14,7 @@
           <label class="action-label">Shelf</label>
         </div>
         <p-select
-          [(ngModel)]="selectedShelf"
+          [ngModel]="selectedShelf"
           (ngModelChange)="shelveBookOn($event)"
           [showClear]="true"
           (onClear)="dislodge()"

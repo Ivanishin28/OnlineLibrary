@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Subject, combineLatest, takeUntil, switchMap } from 'rxjs';
 import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
 import { ShelfForBook } from '../../../../../business/models/shelves/shelfForBook';
+import { BookEvents } from '../../../../../business/services/books/bookEvents';
 
 @Component({
   standalone: true,
@@ -12,7 +13,9 @@ import { ShelfForBook } from '../../../../../business/models/shelves/shelfForBoo
   templateUrl: './book-shelved-statistics.component.html',
   styleUrl: './book-shelved-statistics.component.scss',
 })
-export class BookShelvedStatisticsComponent implements OnChanges, OnDestroy {
+export class BookShelvedStatisticsComponent
+  implements OnInit, OnChanges, OnDestroy
+{
   @Input({ required: true }) bookId!: string;
 
   private destroy$: Subject<void> = new Subject<void>();
@@ -20,18 +23,23 @@ export class BookShelvedStatisticsComponent implements OnChanges, OnDestroy {
 
   public shelvedCount: number | undefined;
   public shelves: ShelfForBook[] = [];
-  
+
   public showOverlay = false;
   public overlayShelves: ShelfForBook[] = [];
   public overlayLoading = false;
 
-  constructor(private shelfService: ShelfService) {
+  constructor(
+    private shelfService: ShelfService,
+    private bookEvents: BookEvents
+  ) {}
+
+  public ngOnInit(): void {
     this.bookId$
       .pipe(
         switchMap((bookId) =>
           combineLatest([
             this.shelfService.getShelvedCount(bookId),
-            this.shelfService.getAllShelfsForBook(bookId)
+            this.shelfService.getAllShelfsForBook(bookId),
           ])
         ),
         takeUntil(this.destroy$)
@@ -40,6 +48,16 @@ export class BookShelvedStatisticsComponent implements OnChanges, OnDestroy {
         this.shelvedCount = count;
         this.shelves = shelves;
       });
+
+    this.bookEvents.bookShelved$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.shelvedCount = (this.shelvedCount ?? 0) + 1;
+      });
+
+    this.bookEvents.bookDislodged$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => (this.shelvedCount = (this.shelvedCount ?? 1) - 1));
   }
 
   public ngOnChanges(): void {
@@ -59,7 +77,8 @@ export class BookShelvedStatisticsComponent implements OnChanges, OnDestroy {
     }
 
     this.overlayLoading = true;
-    this.shelfService.getAllShelfsForBook(this.bookId)
+    this.shelfService
+      .getAllShelfsForBook(this.bookId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (shelves) => {
@@ -69,7 +88,7 @@ export class BookShelvedStatisticsComponent implements OnChanges, OnDestroy {
         },
         error: () => {
           this.overlayLoading = false;
-        }
+        },
       });
   }
 
@@ -77,4 +96,3 @@ export class BookShelvedStatisticsComponent implements OnChanges, OnDestroy {
     this.showOverlay = false;
   }
 }
-

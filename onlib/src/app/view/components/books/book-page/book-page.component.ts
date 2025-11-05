@@ -8,9 +8,10 @@ import { BookPageActionsComponent } from './book-page-actions/book-page-actions.
 import { BooksPageComponent } from '../books-page/books-page.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
 import { BookReviewsDisplayComponent } from './book-reviews-display/book-reviews-display.component';
-import { BookReviewStatisticsComponent } from "./book-review-statistics/book-review-statistics.component";
-import { BookShelvedStatisticsComponent } from "./shelved-statistics/book-shelved-statistics.component";
-import { BookAuthorsComponent } from "./book-authors/book-authors.component";
+import { BookReviewStatisticsComponent } from './book-review-statistics/book-review-statistics.component';
+import { BookShelvedStatisticsComponent } from './shelved-statistics/book-shelved-statistics.component';
+import { BookAuthorsComponent } from './book-authors/book-authors.component';
+import { BookEvents } from '../../../../business/services/books/bookEvents';
 
 @Component({
   standalone: true,
@@ -23,9 +24,9 @@ import { BookAuthorsComponent } from "./book-authors/book-authors.component";
     BookReviewsDisplayComponent,
     BookReviewStatisticsComponent,
     BookShelvedStatisticsComponent,
-    BookAuthorsComponent
-],
-  providers: [BookService],
+    BookAuthorsComponent,
+  ],
+  providers: [BookService, BookEvents],
   templateUrl: './book-page.component.html',
   styleUrl: './book-page.component.scss',
 })

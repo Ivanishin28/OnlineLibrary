@@ -3,15 +3,14 @@ import { BookService } from '../../../../business/services/books/book.service';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { CommonModule } from '@angular/common';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { RouterLink } from '@angular/router';
-import { BookCardComponent } from '../book-card/book-card.component';
 import { BookCardWithPopoverComponent } from '../book-card-with-popover/book-card-with-popover.component';
+import { BookEvents } from '../../../../business/services/books/bookEvents';
 
 @Component({
   standalone: true,
   selector: 'books-page',
   imports: [CommonModule, DynamicDialogModule, BookCardWithPopoverComponent],
-  providers: [BookService],
+  providers: [BookService, BookEvents],
   templateUrl: './books-page.component.html',
   styleUrl: './books-page.component.scss',
 })

@@ -26,6 +26,10 @@ export class BookSearchComponent {
   constructor(private bookService: BookService) {}
 
   public searchBooks(event: { query: string }): void {
+    if (!event.query) {
+      return;
+    }
+
     this.bookService
       .search(event.query.trim())
       .pipe(catchError(() => of([] as BookPreview[])))

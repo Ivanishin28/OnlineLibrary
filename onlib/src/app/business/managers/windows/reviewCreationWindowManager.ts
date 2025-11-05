@@ -14,7 +14,9 @@ export class ReviewCreationWindowManager {
     private reviewService: ReviewerService
   ) {}
 
-  public createReviewFor(bookId: string): Observable<Result<void>> {
+  public createReviewFor(
+    bookId: string
+  ): Observable<Result<ReviewCreationWindowOutput>> {
     const ref = this.dialog.open(ReviewCreationWindowComponent, {
       closable: true,
       showHeader: true,
@@ -31,9 +33,16 @@ export class ReviewCreationWindowManager {
           rating: output.rating,
           text: output.text,
         };
-        return this.reviewService.addReview(request).pipe(map((x) => x.toVoid()));
+        return this.reviewService
+          .addReview(request)
+          .pipe(
+            map((x) =>
+              x.isSuccess
+                ? Result.success(output)
+                : x.toFailure<ReviewCreationWindowOutput>()
+            )
+          );
       })
     );
   }
 }
-
