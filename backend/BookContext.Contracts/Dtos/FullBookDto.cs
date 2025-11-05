@@ -21,5 +21,7 @@ namespace BookContext.Contract.Dtos
         
         [JsonPropertyName("description")]
         public string? Description { get; init; }
+        [JsonPropertyName("genres")]
+        public required ICollection<GenreDto> Genres { get; init; } = new List<GenreDto>();
     }
 }

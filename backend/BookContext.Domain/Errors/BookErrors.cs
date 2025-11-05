@@ -20,5 +20,11 @@ namespace BookContext.Domain.Errors
             _error.BuildError("Title.Taken", "Book title taken");
 
         public static Error NotFound(Guid bookId) => _error.BuildError("NotFound", $"Book {bookId} was not found");
+
+        public static readonly Error DuplicateGenres =
+            _error.BuildError("Genres.Duplicates", "DuplicateGenres");
+
+        public static readonly Error GenreNotFound =
+            _error.BuildError("Genres.NotFound", "Genre not found");
     }
 }

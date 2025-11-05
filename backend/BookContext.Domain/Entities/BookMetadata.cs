@@ -1,4 +1,5 @@
 using BookContext.Domain.ValueObjects;
+using System;
 
 namespace BookContext.Domain.Entities
 {

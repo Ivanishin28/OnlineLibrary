@@ -13,6 +13,8 @@ namespace BookContext.DL.Read.Entities
         public string Title { get; private set; } = null!;
         public IReadOnlyCollection<BookAuthorReadModel> BookAuthors { get; private set; } 
             = new List<BookAuthorReadModel>();
+        public IReadOnlyCollection<BookGenreReadModel> BookGenres { get; private set; }
+            = new List<BookGenreReadModel>();
         public BookMetadataReadModel BookMetadata { get; init; } = null!;
     }
 }

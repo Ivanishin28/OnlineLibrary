@@ -42,6 +42,7 @@ namespace BookContext.DL.SqlServer.Repositories
         {
             return _db
                 .Books
+                .Include(x => x.BookGenres)
                 .Include(x => x.BookAuthors);
         }
     }

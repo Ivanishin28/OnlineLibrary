@@ -36,6 +36,14 @@ namespace BookContext.DL.Read.Queries
                 CoverId = fromDb.BookMetadata.CoverId,
                 PublishingDate = fromDb.BookMetadata.PublishingDate,
                 Description = fromDb.BookMetadata.Description,
+                Genres = fromDb.BookGenres
+                    .Select(bg => 
+                        new GenreDto
+                        {
+                            Id = bg.Genre.Id,
+                            Name = bg.Genre.Name
+                        })
+                    .ToList(),
                 Authors = fromDb.BookAuthors
                     .Select(ba =>
                         new AuthorDto(

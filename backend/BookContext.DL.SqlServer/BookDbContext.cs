@@ -15,6 +15,8 @@ namespace BookContext.DL.SqlServer
         public DbSet<Author> Authors { get; set; }
         public DbSet<AuthorMetadata> AuthorMetadatas { get; set; }
         public DbSet<BookMetadata> BookMetadatas { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<BookGenre> BookGenres { get; set; }
 
         public BookDbContext(DbContextOptions<BookDbContext> options) : base(options) { }
 

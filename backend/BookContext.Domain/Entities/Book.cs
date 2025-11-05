@@ -1,17 +1,22 @@
 ﻿using BookContext.Domain.Errors;
 using BookContext.Domain.ValueObjects;
 using Shared.Core.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookContext.Domain.Entities
 {
     public class Book
     {
         private List<BookAuthor> _bookAuthors = new List<BookAuthor>();
+        private List<BookGenre> _bookGenres = new List<BookGenre>();
 
         public BookId Id { get; private set; } = null!;
         public UserId CreatorId { get; private set; } = null!;
         public string Title { get; private set; } = null!;
         public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.AsReadOnly();
+        public IReadOnlyCollection<BookGenre> BookGenres => _bookGenres.AsReadOnly();
 
         private Book() { }
 
@@ -79,6 +84,32 @@ namespace BookContext.Domain.Entities
         public bool HasAuthor(AuthorId authorId)
         {
             return _bookAuthors.Any(x => x.AuthorId == authorId);
+        }
+
+        public Result AddGenre(GenreId genreId)
+        {
+            if (_bookGenres.Any(x => x.GenreId == genreId))
+            {
+                return Result.Failure(BookErrors.DuplicateGenres);
+            }
+
+            var bgId = new BookGenreId(Guid.NewGuid());
+            var bookGenre = new BookGenre(bgId, Id, genreId, DateTime.Now);
+            _bookGenres.Add(bookGenre);
+
+            return Result.Success();
+        }
+
+        public Result RemoveGenre(GenreId genreId)
+        {
+            var bookGenre = _bookGenres.FirstOrDefault(x => x.GenreId == genreId);
+            if (bookGenre is null)
+            {
+                return Result.Failure(BookErrors.GenreNotFound);
+            }
+
+            _bookGenres.Remove(bookGenre);
+            return Result.Success();
         }
     }
 }
