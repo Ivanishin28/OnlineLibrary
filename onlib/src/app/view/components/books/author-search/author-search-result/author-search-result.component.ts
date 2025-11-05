@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AuthorPreview } from '../../../../../business/models/books/apiModels/authorPreview';
 
 @Component({
   standalone: true,
   selector: 'author-search-result',
-  imports: [CommonModule],
+  imports: [CommonModule, DatePipe],
   templateUrl: './author-search-result.component.html',
   styleUrl: './author-search-result.component.scss',
 })

@@ -1,65 +1,85 @@
-<div class="layout">
-  <div class="content">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="fields">
-        <div *ngIf="form.controls.title as control" class="form-group">
-          <label for="title">Title</label>
-          <input
-            id="title"
-            pInputText
-            [formControl]="control"
-            [readonly]="isEditMode"
-            class="form-control"
-            type="text"
-          />
-        </div>
-
+<div class="window-container">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="window-form">
+    <div class="form-fields">
+      <div *ngIf="form.controls.title as control" class="field-group">
+        <label for="title" class="field-label">Book Title</label>
+        <input
+          id="title"
+          pInputText
+          [formControl]="control"
+          [readonly]="isEditMode"
+          class="field-input"
+          type="text"
+          placeholder="Enter book title"
+        />
         <div
-          *ngIf="form.controls.publishing_date as control"
-          class="form-group"
+          *ngIf="control.invalid && control.dirty"
+          class="field-error"
         >
-          <label for="publishing_date">Publishing Date</label>
-          <p-date-picker
-            [formControl]="control"
-            [readonlyInput]="true"
-            inputId="publishing_date"
-          ></p-date-picker>
+          <span>Title is required</span>
         </div>
+      </div>
 
-        <div *ngIf="form.controls.description as control" class="form-group">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            [formControl]="control"
-            class="form-control"
-            rows="4"
-          ></textarea>
+      <div
+        *ngIf="form.controls.publishing_date as control"
+        class="field-group"
+      >
+        <label for="publishing_date" class="field-label">Publishing Date</label>
+        <p-date-picker
+          [formControl]="control"
+          [readonlyInput]="true"
+          inputId="publishing_date"
+          class="date-picker"
+        ></p-date-picker>
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="field-error"
+        >
+          <span>Publishing date is required</span>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label>Authors</label>
-          <author-selection
-            [selectedAuthors]="selectedAuthors"
-            (selectedAuthorsChange)="onSelectedAuthorsChange($event)"
-          ></author-selection>
-        </div>
+      <div *ngIf="form.controls.description as control" class="field-group">
+        <label for="description" class="field-label">Description (Optional)</label>
+        <textarea
+          id="description"
+          [formControl]="control"
+          class="field-textarea"
+          rows="5"
+          placeholder="Enter book description..."
+        ></textarea>
+      </div>
 
-        <div class="from-group">
+      <div class="field-group">
+        <label class="field-label">Authors</label>
+        <author-selection
+          [selectedAuthors]="selectedAuthors"
+          (selectedAuthorsChange)="onSelectedAuthorsChange($event)"
+        ></author-selection>
+      </div>
+
+      <div class="cover-section">
+        <div class="cover-upload">
+          <label class="field-label">Book Cover</label>
           <media-file-upload
-            [uploadedFileId]="undefined"
+            [uploadedFileId]="coverId"
             (fileUploaded)="onCoverUploaded($event)"
           ></media-file-upload>
         </div>
-        <div class="cover">
+        <div class="cover-preview">
           <book-cover [coverId]="coverId"></book-cover>
         </div>
       </div>
+    </div>
 
-      <div class="controls">
-        <p-button [disabled]="form.invalid" type="submit">
-          {{ isEditMode ? 'Save' : 'Create' }}
-        </p-button>
-      </div>
-    </form>
-  </div>
+    <div class="form-actions">
+      <p-button 
+        [disabled]="form.invalid" 
+        type="submit"
+        class="submit-button"
+        [label]="isEditMode ? 'Save Book' : 'Create Book'"
+        [icon]="isEditMode ? 'pi pi-check' : 'pi pi-plus'">
+      </p-button>
+    </div>
+  </form>
 </div>

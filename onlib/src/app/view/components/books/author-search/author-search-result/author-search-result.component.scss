@@ -1,7 +1,35 @@
 :host {
+  display: block;
+  width: 100%;
+}
+
+.author-result {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 0;
+  padding: 12px 16px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.author-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+.author-birth {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.3;
 }
 

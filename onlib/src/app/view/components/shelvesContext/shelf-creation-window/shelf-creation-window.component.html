@@ -1,26 +1,34 @@
-<div class="layout">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="fields">
-      <div *ngIf="form.controls.name as control" class="form-group">
-        <label for="name">Name</label>
+<div class="window-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="window-form">
+    <div class="form-fields">
+      <div *ngIf="form.controls.name as control" class="field-group">
+        <label for="name" class="field-label">Shelf Name</label>
         <input
           id="name"
           pInputText
           [formControl]="control"
-          class="form-control"
+          class="field-input"
           type="text"
+          placeholder="Enter shelf name"
         />
         <div
           *ngIf="control.invalid && control.dirty"
-          class="validation-message"
+          class="field-error"
         >
-          <p>Invalid</p>
+          <span *ngIf="control.hasError('required')">Name is required</span>
+          <span *ngIf="control.hasError('maxlength')">Name is too long</span>
         </div>
       </div>
     </div>
 
-    <div class="controls">
-      <p-button type="submit">Create</p-button>
+    <div class="form-actions">
+      <p-button 
+        type="submit" 
+        label="Create Shelf"
+        icon="pi pi-check"
+        [loading]="false"
+        class="submit-button">
+      </p-button>
     </div>
   </form>
 </div>

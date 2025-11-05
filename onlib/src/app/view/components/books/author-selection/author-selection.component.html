@@ -1,14 +1,32 @@
-<div class="layout">
-  <div class="author-list">
-    <div
-      *ngFor="let item of selectedAuthors"
-      (click)="removeAuthor(item)"
-      class="author-item"
-    >
-      <p>{{ item.first_name }} {{ item.last_name }}</p>
+<div class="author-selection-container">
+  <div class="search-section">
+    <label class="section-label">Add Authors</label>
+    <author-search (authorSelected)="selectAuthor($event)"></author-search>
+  </div>
+
+  <div class="selected-authors-section" *ngIf="selectedAuthors.length > 0">
+    <label class="section-label">Selected Authors ({{ selectedAuthors.length }})</label>
+    <div class="authors-list">
+      <div
+        *ngFor="let author of selectedAuthors"
+        class="author-chip"
+      >
+        <span class="author-name">{{ author.first_name }} {{ author.last_name }}</span>
+        <button
+          type="button"
+          class="remove-button"
+          (click)="removeAuthor(author)"
+          aria-label="Remove author"
+        >
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="search">
-    <author-search (authorSelected)="selectAuthor($event)"></author-search>
+
+  <div class="empty-state" *ngIf="selectedAuthors.length === 0">
+    <i class="pi pi-user empty-icon"></i>
+    <p class="empty-text">No authors selected</p>
+    <p class="empty-hint">Use the search above to add authors</p>
   </div>
 </div>

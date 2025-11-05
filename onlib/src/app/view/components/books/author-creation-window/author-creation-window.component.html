@@ -1,82 +1,96 @@
-<div class="layout">
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()">
-    <div class="fields">
-      <div *ngIf="form.controls.first_name as control" class="form-group">
-        <label for="first_name">First Name</label>
-        <input
-          id="first_name"
-          pInputText
-          [formControl]="control"
-          [readonly]="isEditMode"
-          class="form-control"
-          type="text"
-        />
-        <div
-          *ngIf="control.invalid && control.dirty"
-          class="validation-message"
-        >
-          <p>First name is required</p>
+<div class="window-container">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()" class="window-form">
+    <div class="form-fields">
+      <div class="name-fields">
+        <div *ngIf="form.controls.first_name as control" class="field-group">
+          <label for="first_name" class="field-label">First Name</label>
+          <input
+            id="first_name"
+            pInputText
+            [formControl]="control"
+            [readonly]="isEditMode"
+            class="field-input"
+            type="text"
+            placeholder="Enter first name"
+          />
+          <div
+            *ngIf="control.invalid && control.dirty"
+            class="field-error"
+          >
+            <span>First name is required</span>
+          </div>
+        </div>
+
+        <div *ngIf="form.controls.last_name as control" class="field-group">
+          <label for="last_name" class="field-label">Last Name</label>
+          <input
+            id="last_name"
+            pInputText
+            [formControl]="control"
+            [readonly]="isEditMode"
+            class="field-input"
+            type="text"
+            placeholder="Enter last name"
+          />
+          <div
+            *ngIf="control.invalid && control.dirty"
+            class="field-error"
+          >
+            <span>Last name is required</span>
+          </div>
         </div>
       </div>
 
-      <div *ngIf="form.controls.last_name as control" class="form-group">
-        <label for="last_name">Last Name</label>
-        <input
-          id="last_name"
-          pInputText
-          [formControl]="control"
-          [readonly]="isEditMode"
-          class="form-control"
-          type="text"
-        />
-        <div
-          *ngIf="control.invalid && control.dirty"
-          class="validation-message"
-        >
-          <p>Last name is required</p>
-        </div>
-      </div>
-
-      <div *ngIf="form.controls.birth_date as control" class="form-group">
-        <label for="birth_date">Birth Date</label>
+      <div *ngIf="form.controls.birth_date as control" class="field-group">
+        <label for="birth_date" class="field-label">Birth Date</label>
         <p-date-picker
           [formControl]="control"
           [readonlyInput]="true"
           inputId="birth_date"
+          class="date-picker"
         ></p-date-picker>
         <div
           *ngIf="control.invalid && control.dirty"
-          class="validation-message"
+          class="field-error"
         >
-          <p>Birth date is required</p>
+          <span>Birth date is required</span>
         </div>
       </div>
 
-      <div *ngIf="form.controls.biography as control" class="form-group">
-        <label for="biography">Biography</label>
+      <div *ngIf="form.controls.biography as control" class="field-group">
+        <label for="biography" class="field-label">Biography (Optional)</label>
         <textarea
           id="biography"
           pTextarea
           [formControl]="control"
-          class="form-control"
+          class="field-textarea"
           rows="5"
           [autoResize]="true"
+          placeholder="Enter author biography..."
         ></textarea>
       </div>
 
-      <div class="from-group">
-        <media-file-upload
-          [uploadedFileId]="avatarId"
-          (fileUploaded)="onAvatarUploaded($event)"
-        ></media-file-upload>
-      </div>
-      <div class="avatar">
-        <user-avatar [fileId]="avatarId"> </user-avatar>
+      <div class="avatar-section">
+        <div class="avatar-upload">
+          <label class="field-label">Avatar</label>
+          <media-file-upload
+            [uploadedFileId]="avatarId"
+            (fileUploaded)="onAvatarUploaded($event)"
+          ></media-file-upload>
+        </div>
+        <div class="avatar-preview">
+          <user-avatar [fileId]="avatarId"></user-avatar>
+        </div>
       </div>
     </div>
 
-    <div class="controls">
-      <p-button class="save" type="submit">{{ isEditMode ? 'Update' : 'Create' }}</p-button>
+    <div class="form-actions">
+      <p-button 
+        class="submit-button" 
+        type="submit"
+        [label]="isEditMode ? 'Update Author' : 'Create Author'"
+        [icon]="isEditMode ? 'pi pi-check' : 'pi pi-plus'">
+      </p-button>
     </div>
   </form>
 </div>
