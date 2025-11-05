@@ -1,5 +1,5 @@
 export interface AddBookReviewRequest {
   book_id: string;
   rating: number;
-  text?: string;
+  text: string;
 }

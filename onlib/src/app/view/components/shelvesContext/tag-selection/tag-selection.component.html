@@ -1,14 +1,30 @@
-<div class="layout">
-  <p-button (click)="panel.show($event)" [disabled]="!shelvedBook">
-    <p>Select Tags</p>
-  </p-button>
+<div class="tag-selection-container">
+  <button
+    type="button"
+    class="tag-button"
+    (click)="panel.show($event)"
+    [disabled]="!shelvedBook"
+    [class.has-tags]="shelvedBook && shelvedBook.tags && shelvedBook.tags.length > 0"
+  >
+    <i class="pi pi-tags"></i>
+    <span>
+      {{ shelvedBook && shelvedBook.tags && shelvedBook.tags.length > 0 
+        ? 'Manage Tags (' + shelvedBook.tags.length + ')' 
+        : 'Select Tags' }}
+    </span>
+  </button>
 
-  <p-popover #panel (onShow)="loadTags()" (onHide)="clearTags()">
-    <p *ngIf="!tagSelection">Loading...</p>
-    <tag-selection-panel
-      *ngIf="tagSelection"
-      (failure)="onFailure(panel)"
-      [tagSelection]="tagSelection!"
-    ></tag-selection-panel>
+  <p-popover #panel (onShow)="loadTags()" (onHide)="clearTags()" class="tag-popover">
+    <div class="popover-content">
+      <div class="loading-state" *ngIf="!tagSelection">
+        <i class="pi pi-spin pi-spinner"></i>
+        <span>Loading tags...</span>
+      </div>
+      <tag-selection-panel
+        *ngIf="tagSelection"
+        (failure)="onFailure(panel)"
+        [tagSelection]="tagSelection!"
+      ></tag-selection-panel>
+    </div>
   </p-popover>
 </div>

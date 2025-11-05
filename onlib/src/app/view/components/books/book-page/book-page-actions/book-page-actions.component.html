@@ -1,23 +1,65 @@
-<div class="layout">
-  <div class="actions-section">
-    <div class="section-header">
-      <h4 class="section-title">Manage Book</h4>
+<div class="manage-book-container">
+  <div class="manage-book-card">
+    <div class="card-header">
+      <div class="header-icon">
+        <i class="pi pi-cog"></i>
+      </div>
+      <h3 class="card-title">Manage Book</h3>
     </div>
-    <div class="shelf-selection">
-      <label class="select-label">Add to Shelf</label>
-      <p-select
-        [(ngModel)]="selectedShelf"
-        (ngModelChange)="shelveBookOn($event)"
-        [showClear]="true"
-        (onClear)="dislodge()"
-        [options]="shelves"
-        optionLabel="name"
-        placeholder="Select a shelf..."
-        class="shelf-select"
-      ></p-select>
-    </div>
-    <div class="tag-selection-wrapper">
-      <tag-selection [shelvedBook]="shelvedBook"></tag-selection>
+
+    <div class="card-content">
+      <div class="action-group">
+        <div class="action-header">
+          <i class="pi pi-bookmark action-icon"></i>
+          <label class="action-label">Shelf</label>
+        </div>
+        <p-select
+          [(ngModel)]="selectedShelf"
+          (ngModelChange)="shelveBookOn($event)"
+          [showClear]="true"
+          (onClear)="dislodge()"
+          [options]="shelves"
+          optionLabel="name"
+          placeholder="Select a shelf..."
+          class="shelf-select"
+        >
+          <ng-template let-shelf pTemplate="item">
+            <div class="shelf-option">
+              <i class="pi pi-bookmark"></i>
+              <span>{{ shelf.name }}</span>
+            </div>
+          </ng-template>
+        </p-select>
+        <p class="action-hint" *ngIf="!selectedShelf">
+          Add this book to a shelf to manage tags and reviews
+        </p>
+      </div>
+
+      <div class="action-group" *ngIf="isBookShelved">
+        <div class="action-header">
+          <i class="pi pi-tags action-icon"></i>
+          <label class="action-label">Tags</label>
+        </div>
+        <tag-selection [shelvedBook]="shelvedBook"></tag-selection>
+      </div>
+
+      <div class="action-group">
+        <div class="action-header">
+          <i class="pi pi-star action-icon"></i>
+          <label class="action-label">Review</label>
+        </div>
+        <p-button
+          (onClick)="review()"
+          icon="pi pi-star"
+          label="Write Review"
+          [disabled]="!isBookShelved"
+          class="review-button"
+        >
+        </p-button>
+        <p class="action-hint" *ngIf="!isBookShelved">
+          Add this book to a shelf to write a review
+        </p>
+      </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,93 @@
+.tag-selection-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tag-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center;
+
+  i {
+    font-size: 16px;
+    color: #2563eb;
+  }
+
+  &:hover:not(:disabled) {
+    background: #f9fafb;
+    border-color: #2563eb;
+    color: #2563eb;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f3f4f6;
+  }
+
+  &.has-tags {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #2563eb;
+
+    i {
+      color: #2563eb;
+    }
+
+    &:hover:not(:disabled) {
+      background: #dbeafe;
+    }
+  }
+}
+
+.popover-content {
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  color: #6b7280;
+  font-size: 14px;
+
+  i {
+    font-size: 18px;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+::ng-deep .tag-popover {
+  .p-popover {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e5e7eb;
+  }
+}

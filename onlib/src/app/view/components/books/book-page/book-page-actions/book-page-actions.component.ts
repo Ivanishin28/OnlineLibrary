@@ -16,12 +16,14 @@ import { Shelf } from '../../../../../business/models/shelves/shelf';
 import { PersonalShelfService } from '../../../../../business/services/shelves/personalShelf.service';
 import { FormsModule } from '@angular/forms';
 import { TagSelectionComponent } from '../../../shelvesContext/tag-selection/tag-selection.component';
+import { ButtonModule } from 'primeng/button';
+import { ReviewCreationWindowManager } from '../../../../../business/managers/windows/reviewCreationWindowManager';
 
 @Component({
   standalone: true,
   selector: 'book-page-actions',
-  imports: [CommonModule, SelectModule, FormsModule, TagSelectionComponent],
-  providers: [ShelvedBookService, PersonalShelfService],
+  imports: [CommonModule, SelectModule, FormsModule, TagSelectionComponent, ButtonModule],
+  providers: [ShelvedBookService, PersonalShelfService, ReviewCreationWindowManager],
   templateUrl: './book-page-actions.component.html',
   styleUrl: './book-page-actions.component.scss',
 })
@@ -36,7 +38,8 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   constructor(
     private authService: AuthService,
     private shelvedBookService: ShelvedBookService,
-    private shelfService: PersonalShelfService
+    private shelfService: PersonalShelfService,
+    private reviewWindow: ReviewCreationWindowManager
   ) {}
 
   public ngOnInit(): void {
@@ -96,5 +99,13 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
 
         this.shelvedBook = undefined;
       });
+  }
+
+  public review(): void {
+    this.reviewWindow.createReviewFor(this.bookId).subscribe();
+  }
+
+  public get isBookShelved(): boolean {
+    return !!this.shelvedBook;
   }
 }

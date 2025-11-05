@@ -7,8 +7,6 @@ import { FullBook } from '../../../../business/models/books/fullBook';
 import { BookPageActionsComponent } from './book-page-actions/book-page-actions.component';
 import { BooksPageComponent } from '../books-page/books-page.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
-import { Button } from 'primeng/button';
-import { ReviewCreationWindowManager } from '../../../../business/managers/windows/reviewCreationWindowManager';
 import { BookReviewsDisplayComponent } from './book-reviews-display/book-reviews-display.component';
 import { BookReviewStatisticsComponent } from "./book-review-statistics/book-review-statistics.component";
 import { BookShelvedStatisticsComponent } from "./shelved-statistics/book-shelved-statistics.component";
@@ -22,13 +20,12 @@ import { BookAuthorsComponent } from "./book-authors/book-authors.component";
     RouterModule,
     BookPageActionsComponent,
     BookCoverComponent,
-    Button,
     BookReviewsDisplayComponent,
     BookReviewStatisticsComponent,
     BookShelvedStatisticsComponent,
     BookAuthorsComponent
 ],
-  providers: [BookService, ReviewCreationWindowManager],
+  providers: [BookService],
   templateUrl: './book-page.component.html',
   styleUrl: './book-page.component.scss',
 })
@@ -39,8 +36,7 @@ export class BookPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private bookService: BookService,
-    private reviewWindow: ReviewCreationWindowManager
+    private bookService: BookService
   ) {}
 
   public ngOnInit(): void {
@@ -60,13 +56,5 @@ export class BookPageComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.destroy$.next();
-  }
-
-  public review(): void {
-    if (!this.book) {
-      return;
-    }
-
-    this.reviewWindow.createReviewFor(this.book?.id).subscribe();
   }
 }

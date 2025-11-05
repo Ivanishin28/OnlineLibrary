@@ -58,7 +58,7 @@ export class ReviewCreationWindowComponent implements OnInit, OnDestroy {
         updateOn: 'submit',
       }),
       text: new FormControl<string | null>('', {
-        validators: [Validators.maxLength(500)],
+        validators: [Validators.required, Validators.maxLength(500)],
         updateOn: 'submit',
       }),
     });
@@ -71,7 +71,7 @@ export class ReviewCreationWindowComponent implements OnInit, OnDestroy {
   private onSubmit(): void {
     const output = new ReviewCreationWindowOutput(
       this.form.value.rating!,
-      this.form.value.text || undefined
+      this.form.value.text!
     );
     this.ref.close(output);
   }
