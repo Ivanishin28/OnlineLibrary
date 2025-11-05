@@ -88,5 +88,13 @@ namespace BookContext.Application.Controllers
             var result = await _metiator.Send(request);
             return FromResult(result);
         }
+
+        [HttpGet("title-taken")]
+        public async Task<IActionResult> IsTitleTaken([FromQuery] string title)
+        {
+            var query = new IsBookTitleTakenQuery(title);
+            var result = await _metiator.Send(query);
+            return Ok(result);
+        }
     }
 }

@@ -77,5 +77,13 @@ namespace BookContext.Application.Controllers
             var result = await _mediator.Send(request);
             return FromResult(result);
         }
+
+        [HttpGet("full-name-taken")]
+        public async Task<IActionResult> IsFullNameTaken([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string? middleName = null)
+        {
+            var query = new IsAuthorFullNameTakenQuery(firstName, lastName, middleName);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

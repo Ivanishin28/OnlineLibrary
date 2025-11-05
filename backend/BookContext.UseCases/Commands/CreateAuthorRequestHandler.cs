@@ -1,5 +1,6 @@
 ﻿using BookContext.Contract.Commands.CreateAuthor;
 using BookContext.Domain.Entities;
+using BookContext.Domain.Errors;
 using BookContext.Domain.Interfaces;
 using BookContext.Domain.Interfaces.Repositories;
 using BookContext.Domain.ValueObjects;
@@ -27,7 +28,7 @@ namespace BookContext.UseCases.Commands
 
         public async Task<Result<Guid?>> Handle(CreateAuthorRequest request, CancellationToken cancellationToken)
         {
-            var author = CreateAuthorFrom(request);
+            var author = await CreateAuthorFrom(request);
             if (author.IsFailure)
             {
                 return author.ToFailure<Guid?>();
@@ -45,13 +46,17 @@ namespace BookContext.UseCases.Commands
             return author.Model.Id.Value;
         }
 
-        private Result<Author> CreateAuthorFrom(CreateAuthorRequest request)
+        private async Task<Result<Author>> CreateAuthorFrom(CreateAuthorRequest request)
         {
             var fullNameResult = FullName.Create(request.FirstName, request.LastName);
 
             if (fullNameResult.IsFailure)
             {
                 return fullNameResult.ToFailure<Author>();
+            }
+            if (await _authorRepository.IsFullNameTaken(fullNameResult.Model))
+            {
+                return Result<Author>.Failure(AuthorErrors.FullNameError);
             }
 
             return Author.Create(

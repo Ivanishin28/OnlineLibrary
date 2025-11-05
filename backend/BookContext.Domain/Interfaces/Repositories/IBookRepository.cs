@@ -11,6 +11,7 @@ namespace BookContext.Domain.Interfaces.Repositories
     public interface IBookRepository
     {
         Task<Book?> GetBy(BookId id);
+        Task<bool> IsBookTitleTaken(string title);
         void Add(Book book);
         void Delete(Book book);
     }

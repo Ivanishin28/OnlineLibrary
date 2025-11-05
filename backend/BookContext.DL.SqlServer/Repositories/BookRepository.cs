@@ -31,6 +31,13 @@ namespace BookContext.DL.SqlServer.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public Task<bool> IsBookTitleTaken(string title)
+        {
+            return _db
+                .Books
+                .AnyAsync(x => x.Title == title);
+        }
+
         private IQueryable<Book> BookAggregate()
         {
             return _db

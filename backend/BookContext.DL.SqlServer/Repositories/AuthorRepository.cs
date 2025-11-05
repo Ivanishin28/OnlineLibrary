@@ -38,5 +38,14 @@ namespace BookContext.DL.SqlServer.Repositories
                 .Select(x => x.Id)
                 .ToListAsync();
         }
+
+        public Task<bool> IsFullNameTaken(FullName fullname)
+        {
+            return _dbSet
+                .AnyAsync(x => 
+                    x.FullName.FirstName == fullname.FirstName &&
+                    x.FullName.LastName == fullname.LastName &&
+                    x.FullName.MiddleName == fullname.MiddleName);
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { BookPreview } from '../../models/books/bookPreview';
 import { map, Observable, switchMap, take } from 'rxjs';
@@ -29,5 +29,11 @@ export class PersonalBooksService {
     return this.connection
       .delete<ApiResult<void>>(url)
       .pipe(map((x) => resultFromApiResult(x)));
+  }
+
+  public isTitleTaken(title: string): Observable<boolean> {
+    const params = new HttpParams().set('title', title);
+    const url = `${this.COMPONENT}/title-taken`;
+    return this.connection.get<boolean>(url, { params });
   }
 }

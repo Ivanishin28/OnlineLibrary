@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable, switchMap, take } from 'rxjs';
 import { AuthorPreview } from '../../models/books/apiModels/authorPreview';
 import { AuthService } from '../auth/auth.service';
@@ -56,5 +56,22 @@ export class PersonalAuthorsService {
   public getFull(authorId: string): Observable<FullAuthor | undefined> {
     const url = `${this.CONTROLLER}/full/${authorId}`;
     return this.connection.get<FullAuthor | undefined>(url);
+  }
+
+  public isFullNameTaken(
+    firstName: string,
+    lastName: string,
+    middleName?: string
+  ): Observable<boolean> {
+    let params = new HttpParams()
+      .set('firstName', firstName)
+      .set('lastName', lastName);
+    
+    if (middleName) {
+      params = params.set('middleName', middleName);
+    }
+    
+    const url = `${this.CONTROLLER}/full-name-taken`;
+    return this.connection.get<boolean>(url, { params });
   }
 }

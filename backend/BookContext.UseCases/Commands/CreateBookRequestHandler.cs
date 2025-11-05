@@ -1,5 +1,6 @@
 ﻿using BookContext.Contract.Commands.CreateBook;
 using BookContext.Domain.Entities;
+using BookContext.Domain.Errors;
 using BookContext.Domain.Interfaces;
 using BookContext.Domain.Interfaces.Repositories;
 using BookContext.Domain.ValueObjects;
@@ -58,6 +59,11 @@ namespace BookContext.UseCases.Commands
                 .AuthorIds
                 .Select(x => new AuthorId(x)).ToList();
             var existingIds = await _authorRepository.EnsureExist(idsToSet);
+
+            if (await _bookRepository.IsBookTitleTaken(request.Title))
+            {
+                return Result<Book>.Failure(BookErrors.BookTitleTaken(request.Title));
+            }
 
             var userId = new UserId(request.CreatorId);
             return Book.Create(userId, request.Title, existingIds);
