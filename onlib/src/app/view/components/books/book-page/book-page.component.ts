@@ -11,6 +11,7 @@ import { BookReviewsDisplayComponent } from './book-reviews-display/book-reviews
 import { BookReviewStatisticsComponent } from './book-review-statistics/book-review-statistics.component';
 import { BookShelvedStatisticsComponent } from './shelved-statistics/book-shelved-statistics.component';
 import { BookAuthorsComponent } from './book-authors/book-authors.component';
+import { GenreDisplayComponent } from '../genre-display/genre-display.component';
 import { BookEvents } from '../../../../business/services/books/bookEvents';
 
 @Component({
@@ -25,6 +26,7 @@ import { BookEvents } from '../../../../business/services/books/bookEvents';
     BookReviewStatisticsComponent,
     BookShelvedStatisticsComponent,
     BookAuthorsComponent,
+    GenreDisplayComponent,
   ],
   providers: [BookService, BookEvents],
   templateUrl: './book-page.component.html',

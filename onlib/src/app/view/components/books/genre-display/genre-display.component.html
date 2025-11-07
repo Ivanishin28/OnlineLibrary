@@ -1,0 +1,10 @@
+<div class="genre-display-container" *ngIf="genres && genres.length > 0">
+  <div class="genre-chips-wrapper">
+    <div class="genre-chips">
+      <span *ngFor="let genre of genres" class="genre-chip">
+        <i class="pi pi-tags genre-icon"></i>
+        <span class="genre-name">{{ genre.name }}</span>
+      </span>
+    </div>
+  </div>
+</div>

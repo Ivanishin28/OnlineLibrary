@@ -1,3 +1,20 @@
 .layout {
   width: 300px;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+h2 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.genres-section {
+  margin: 8px 0;
+}

@@ -12,6 +12,9 @@
     <div class="book-info-section">
       <h1 class="book-title">{{ book.title }}</h1>
       <book-authors [authors]="book.authors"></book-authors>
+      <div class="genres-section" *ngIf="book.genres && book.genres.length > 0">
+        <genre-display [genres]="book.genres"></genre-display>
+      </div>
       <div class="description-section" *ngIf="book.description">
         <div class="description-text">{{ book.description }}</div>
       </div>

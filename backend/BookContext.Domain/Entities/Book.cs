@@ -73,7 +73,7 @@ namespace BookContext.Domain.Entities
                     bookId, x, DateTime.Now))
                 .ToList();
 
-            return new Book(bookId, title, creatorId, bookAuthors, bookGenres, DateTime.Now);
+            return new Book(bookId, title, creatorId, bookAuthors, bookGenres, DateTime.UtcNow);
         }
 
         public Result AddAuthor(AuthorId authorId)
