@@ -2,7 +2,6 @@
 using BookContext.Contract.Commands;
 using BookContext.Contract.Commands.CreateBook;
 using BookContext.Contract.Queries;
-using BookContext.Contract.Queries.GetAllBooks;
 using BookContext.Contract.Queries.GetFullBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +17,11 @@ namespace BookContext.Application.Controllers
             _metiator = metiator;
         }
 
-        [HttpGet("all")]
-        public async Task<IActionResult> All()
+        [HttpPost("page")]
+        public async Task<IActionResult> All(GetBookPageQuery query)
         {
-            var request = new GetAllBooksQuery();
-
-            var result = await _metiator.Send(request);
-
-            return Success(result);
+            var result = await _metiator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("search")]

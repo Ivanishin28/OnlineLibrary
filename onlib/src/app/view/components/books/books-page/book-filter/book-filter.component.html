@@ -1,0 +1,31 @@
+<div class="filter-container">
+  <div class="filter-section">
+    <div class="section-header">
+      <i class="pi pi-tags section-icon"></i>
+      <h3 class="section-title">Genres</h3>
+    </div>
+    <div class="filter-list-wrapper">
+      <div class="filter-list">
+        <button
+          *ngFor="let genre of genres"
+          (click)="toggleGenre(genre)"
+          class="filter-item"
+          [class.selected]="isGenreSelected(genre)"
+        >
+          <span class="filter-name">{{ genre.name }}</span>
+          <i *ngIf="isGenreSelected(genre)" class="pi pi-check check-icon"> </i>
+        </button>
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button (click)="applyFilter()" class="action-button apply-button">
+        <i class="pi pi-check"></i>
+        <span>Apply</span>
+      </button>
+      <button (click)="clearFilter()" class="action-button reset-button">
+        <i class="pi pi-undo"></i>
+        <span>Reset</span>
+      </button>
+    </div>
+  </div>
+</div>

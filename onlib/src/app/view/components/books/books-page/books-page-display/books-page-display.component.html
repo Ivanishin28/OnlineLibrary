@@ -1,0 +1,13 @@
+<div class="books-display-container">
+  <div class="books-grid" *ngIf="books.length > 0">
+    <div *ngFor="let book of books" class="book-item">
+      <book-card-with-popover [book]="book"></book-card-with-popover>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="books.length === 0">
+    <i class="pi pi-inbox empty-icon"></i>
+    <p class="empty-text">No books found</p>
+    <p class="empty-hint">Try selecting a different filter or check back later</p>
+  </div>
+</div>

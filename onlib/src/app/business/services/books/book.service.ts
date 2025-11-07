@@ -12,30 +12,24 @@ import {
 import { CreateBookRequest } from '../../models/books/createBookRequest';
 import { UpdateBookRequest } from '../../models/books/updateBookRequest';
 import { Result } from '../../models/_shared/result';
-import { UserId } from '../../models/_shared/userId';
+import { BookFilter } from '../../models/shelves/bookFilter';
+import { Page } from '../../models/_shared/page';
+import { Pagination } from '../../models/_shared/pagination';
 
 @Injectable()
 export class BookService {
-  private readonly COMPONENT: string = 'api/book/Book';
+  private readonly CONTROLLER: string = 'api/book/Book';
 
   constructor(private http: HttpClient) {}
 
   public getFull(id: string): Observable<FullBook> {
-    const url = `${environment.api_main}/${this.COMPONENT}/full/${id}`;
+    const url = `${environment.api_main}/${this.CONTROLLER}/full/${id}`;
 
     return this.http.get<FullBook>(url);
   }
 
-  public getAll(): Observable<BookPreview[]> {
-    const url = `${environment.api_main}/${this.COMPONENT}/all`;
-
-    return this.http
-      .get<ApiResult<BookPreview[]>>(url)
-      .pipe(map((api) => valueFromApiResult(api)));
-  }
-
   public create(request: CreateBookRequest): Observable<Result<void>> {
-    const url = `${environment.api_main}/${this.COMPONENT}/create`;
+    const url = `${environment.api_main}/${this.CONTROLLER}/create`;
 
     return this.http
       .post<ApiResult<void>>(url, request)
@@ -43,14 +37,26 @@ export class BookService {
   }
 
   public search(query: string): Observable<BookPreview[]> {
-    const url = `${environment.api_main}/${this.COMPONENT}/search?query=${query}`;
+    const url = `${environment.api_main}/${this.CONTROLLER}/search?query=${query}`;
     return this.http.get<BookPreview[]>(url);
   }
 
   public update(request: UpdateBookRequest): Observable<Result<void>> {
-    const url = `${environment.api_main}/${this.COMPONENT}/update`;
+    const url = `${environment.api_main}/${this.CONTROLLER}/update`;
     return this.http
       .post<ApiResult<void>>(url, request)
       .pipe(map((api) => resultFromApiResult(api)));
+  }
+
+  public getBookPage(
+    filter: BookFilter,
+    page: Page
+  ): Observable<Pagination<BookPreview>> {
+    const url = `${environment.api_main}/${this.CONTROLLER}/page`;
+    const request = {
+      filter,
+      page,
+    };
+    return this.http.post<Pagination<BookPreview>>(url, request);
   }
 }
