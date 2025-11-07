@@ -15,15 +15,10 @@ namespace BookContext.Domain.Entities
 
         private Genre() { }
 
-        private Genre(GenreId id, string name)
+        public Genre(GenreId id, string name)
         {
             Id = id;
             Name = name;
-        }
-
-        public Result<Genre> Create(string name)
-        {
-            return new Genre(new GenreId(Guid.NewGuid()), name);
         }
     }
 }

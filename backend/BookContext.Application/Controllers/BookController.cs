@@ -45,6 +45,7 @@ namespace BookContext.Application.Controllers
                 CreatorId = GetUserId(),
                 Title = dto.Title,
                 AuthorIds = dto.AuthorIds,
+                GenreIds = dto.GenreIds,
                 PublishingDate = dto.PublishingDate,
                 CoverId = dto.CoverId,
                 Description = dto.Description

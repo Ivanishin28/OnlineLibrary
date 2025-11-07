@@ -14,6 +14,8 @@ namespace BookContext.Contract.Commands
         public required Guid Id { get; init; }
         [JsonPropertyName("author_ids")]
         public ICollection<Guid> AuthorIds { get; init; } = new List<Guid>();
+        [JsonPropertyName("genre_ids")]
+        public ICollection<Guid> GenreIds { get; init; } = new List<Guid>();
         [JsonPropertyName("publishing_date")]
         public required DateOnly PublishingDate { get; init; }
         [JsonPropertyName("cover_id")]

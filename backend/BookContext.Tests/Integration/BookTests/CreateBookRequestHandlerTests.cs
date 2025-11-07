@@ -26,7 +26,8 @@ namespace BookContext.Tests.Integration.BookTests
                 new BookRepository(_db),
                 new BookMetadataRepository(_db),
                 new UnitOfWork(_db),
-                new AuthorRepository(_db));
+                new AuthorRepository(_db),
+                new GenreRepository(_db));
         }
 
         [TearDown]

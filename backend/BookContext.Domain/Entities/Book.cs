@@ -1,9 +1,6 @@
 ﻿using BookContext.Domain.Errors;
 using BookContext.Domain.ValueObjects;
 using Shared.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BookContext.Domain.Entities
 {
@@ -20,20 +17,25 @@ namespace BookContext.Domain.Entities
 
         private Book() { }
 
-        private Book(BookId id, string title, UserId creatorId, List<BookAuthor> authors)
+        private Book(BookId id, string title, UserId creatorId, List<BookAuthor> authors, List<BookGenre> genres)
         {
             Id = id;
             Title = title;
             CreatorId = creatorId;
             _bookAuthors = authors;
+            _bookGenres = genres;
         }
 
         public static Result<Book> Create(UserId creatorId, string title)
         {
-            return Create(creatorId, title, new List<AuthorId>());
+            return Create(creatorId, title, new List<AuthorId>(), new List<GenreId>());
         }
 
-        public static Result<Book> Create(UserId creatorId, string title, ICollection<AuthorId> authorIds)
+        public static Result<Book> Create(
+            UserId creatorId, 
+            string title, 
+            ICollection<AuthorId> authorIds, 
+            ICollection<GenreId> genreIds)
         {
             var bookId = new BookId(Guid.NewGuid());
 
@@ -45,6 +47,10 @@ namespace BookContext.Domain.Entities
             {
                 return Result<Book>.Failure(BookErrors.DuplicateAuthors);
             }
+            if (genreIds.Select(x => x.Value).Distinct().Count() != genreIds.Count)
+            {
+                return Result<Book>.Failure(BookErrors.DuplicateGenres);
+            }
 
             var bookAuthors = authorIds
                 .Select(x => new BookAuthor(
@@ -52,7 +58,13 @@ namespace BookContext.Domain.Entities
                     bookId, x, DateTime.Now))
                 .ToList();
 
-            return new Book(bookId, title, creatorId, bookAuthors);
+            var bookGenres = genreIds
+                .Select(x => new BookGenre(
+                    new BookGenreId(Guid.NewGuid()),
+                    bookId, x, DateTime.Now))
+                .ToList();
+
+            return new Book(bookId, title, creatorId, bookAuthors, bookGenres);
         }
 
         public Result AddAuthor(AuthorId authorId)

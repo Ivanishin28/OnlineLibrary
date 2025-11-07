@@ -6,6 +6,8 @@ namespace BookContext.Application.Dtos.Commands
     {
         [JsonPropertyName("author_ids")]
         public ICollection<Guid> AuthorIds { get; init; } = new List<Guid>();
+        [JsonPropertyName("genre_ids")]
+        public ICollection<Guid> GenreIds { get; init; } = new List<Guid>();
         
         [JsonPropertyName("publishing_date")]
         public DateOnly PublishingDate { get; init; }

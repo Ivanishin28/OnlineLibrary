@@ -15,18 +15,21 @@ namespace BookContext.UseCases.Commands
         private IBookRepository _bookRepository;
         private IBookMetadataRepository _bookMetadataRepository;
         private IAuthorRepository _authorRepository;
+        private IGenreRepository _genreRepository;
         private IUnitOfWork _unitOfWork;
 
         public CreateBookRequestHandler(
             IBookRepository bookRepository,
             IBookMetadataRepository bookMetadataRepository,
             IUnitOfWork unitOfWork,
-            IAuthorRepository authorRepository)
+            IAuthorRepository authorRepository,
+            IGenreRepository genreRepository)
         {
             _bookRepository = bookRepository;
             _bookMetadataRepository = bookMetadataRepository;
             _unitOfWork = unitOfWork;
             _authorRepository = authorRepository;
+            _genreRepository = genreRepository;
         }
 
         public async Task<Result<Guid?>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
@@ -55,18 +58,23 @@ namespace BookContext.UseCases.Commands
 
         private async Task<Result<Book>> CreateBookFrom(CreateBookRequest request)
         {
-            var idsToSet = request
+            var authorIdsToSet = request
                 .AuthorIds
                 .Select(x => new AuthorId(x)).ToList();
-            var existingIds = await _authorRepository.EnsureExist(idsToSet);
+            var existingAuthorIds = await _authorRepository.EnsureExist(authorIdsToSet);
 
             if (await _bookRepository.IsBookTitleTaken(request.Title))
             {
                 return Result<Book>.Failure(BookErrors.BookTitleTaken(request.Title));
             }
 
+            var genreIdsToSet = request
+                .GenreIds
+                .Select(x => new GenreId(x)).ToList();
+            var existingGenreIds = await _genreRepository.EnsureExist(genreIdsToSet);
+
             var userId = new UserId(request.CreatorId);
-            return Book.Create(userId, request.Title, existingIds);
+            return Book.Create(userId, request.Title, existingAuthorIds, existingGenreIds);
         }
 
         private Result<BookMetadata> CreateMetadataFrom(BookId bookId, CreateBookRequest request)
