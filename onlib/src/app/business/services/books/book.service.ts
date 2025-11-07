@@ -50,12 +50,14 @@ export class BookService {
 
   public getBookPage(
     filter: BookFilter,
-    page: Page
+    page: Page,
+    startingAt: Date
   ): Observable<Pagination<BookPreview>> {
     const url = `${environment.api_main}/${this.CONTROLLER}/page`;
     const request = {
       filter,
       page,
+      starting_at: startingAt,
     };
     return this.http.post<Pagination<BookPreview>>(url, request);
   }

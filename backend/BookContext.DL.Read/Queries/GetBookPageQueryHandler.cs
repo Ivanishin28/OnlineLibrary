@@ -18,12 +18,16 @@ namespace BookContext.DL.Read.Queries
 
         public async Task<Pagination<BookPreviewDto>> Handle(GetBookPageQuery request, CancellationToken cancellationToken)
         {
-            var filtered = ApplyFilter(_db.Books, request.Filter);
+            var before = _db
+                .Books
+                .Where(x => x.CreatedAt <= request.StartingAt);
+            var filtered = ApplyFilter(before, request.Filter);
 
             var count = await filtered
                 .CountAsync();
 
             var books = await filtered
+                .OrderByDescending(x => x.CreatedAt)
                 .Skip(request.Page.PageSize * request.Page.PageIndex)
                 .Take(request.Page.PageSize)
                 .Select(x => new BookPreviewDto(x.Id, x.Title, x.BookMetadata.CoverId))
@@ -42,7 +46,7 @@ namespace BookContext.DL.Read.Queries
             else
             {
                 return books
-                    .Where(book => book.BookGenres.All(bg => filter.GenreIds.Contains(bg.GenreId)));
+                    .Where(book => filter.GenreIds.All(genre => book.BookGenres.Any(bg => bg.GenreId == genre)));
             }
         }
     }

@@ -16,5 +16,7 @@ namespace BookContext.Contract.Queries
         public required BookFilter Filter { get; init; }
         [JsonPropertyName("page")]
         public required Page Page { get; init; }
+        [JsonPropertyName("starting_at")]
+        public required DateTime StartingAt { get; init; }
     }
 }

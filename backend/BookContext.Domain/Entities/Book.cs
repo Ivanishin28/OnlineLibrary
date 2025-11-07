@@ -12,18 +12,27 @@ namespace BookContext.Domain.Entities
         public BookId Id { get; private set; } = null!;
         public UserId CreatorId { get; private set; } = null!;
         public string Title { get; private set; } = null!;
+        public DateTime CreatedAt { get; private set; }
+
         public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.AsReadOnly();
         public IReadOnlyCollection<BookGenre> BookGenres => _bookGenres.AsReadOnly();
 
         private Book() { }
 
-        private Book(BookId id, string title, UserId creatorId, List<BookAuthor> authors, List<BookGenre> genres)
+        private Book(
+            BookId id, 
+            string title, 
+            UserId creatorId, 
+            List<BookAuthor> authors, 
+            List<BookGenre> genres, 
+            DateTime createdAt)
         {
             Id = id;
             Title = title;
             CreatorId = creatorId;
             _bookAuthors = authors;
             _bookGenres = genres;
+            CreatedAt = createdAt;
         }
 
         public static Result<Book> Create(UserId creatorId, string title)
@@ -64,7 +73,7 @@ namespace BookContext.Domain.Entities
                     bookId, x, DateTime.Now))
                 .ToList();
 
-            return new Book(bookId, title, creatorId, bookAuthors, bookGenres);
+            return new Book(bookId, title, creatorId, bookAuthors, bookGenres, DateTime.Now);
         }
 
         public Result AddAuthor(AuthorId authorId)

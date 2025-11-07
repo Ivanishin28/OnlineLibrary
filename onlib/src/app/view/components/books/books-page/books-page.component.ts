@@ -46,11 +46,12 @@ export class BooksPageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    const startingAt = new Date();
     this.paginator.paginationChanged$
       .pipe(takeUntil(this.destory$))
       .subscribe((page) => {
         this.bookService
-          .getBookPage(this.filter, page)
+          .getBookPage(this.filter, page, startingAt)
           .subscribe((x) => (this.bookPage = x));
       });
     this.paginator.loadFirstPage();
