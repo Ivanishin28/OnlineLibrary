@@ -15,8 +15,10 @@ import { BookCreationWindowOutput } from '../../../../business/models/books/book
 import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
 import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
 import { AuthorSelectionComponent } from '../author-selection/author-selection.component';
+import { GenreSelectionComponent } from '../genre-selection/genre-selection.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
 import { AuthorPreview } from '../../../../business/models/books/apiModels/authorPreview';
+import { Genre } from '../../../../business/models/shelves/genre';
 import { FullBook } from '../../../../business/models/books/fullBook';
 import { toDate } from '../../../../business/types/dateOnly';
 
@@ -32,6 +34,7 @@ import { toDate } from '../../../../business/types/dateOnly';
     MediaFileUploadComponent,
     BookCoverComponent,
     AuthorSelectionComponent,
+    GenreSelectionComponent,
   ],
   templateUrl: './book-creation-window.component.html',
   styleUrl: './book-creation-window.component.scss',
@@ -45,6 +48,7 @@ export class BookCreationWindowComponent implements OnInit {
 
   public coverId: string | undefined;
   public selectedAuthors: AuthorPreview[] = [];
+  public selectedGenres: Genre[] = [];
   public isEditMode: boolean = false;
 
   constructor(
@@ -79,7 +83,8 @@ export class BookCreationWindowComponent implements OnInit {
       this.form.value.publishing_date!,
       this.selectedAuthors,
       this.form.value.description ?? null,
-      this.coverId ?? null
+      this.coverId ?? null,
+      this.selectedGenres
     );
 
     this.ref.close(output);
@@ -91,6 +96,10 @@ export class BookCreationWindowComponent implements OnInit {
 
   public onSelectedAuthorsChange(authors: AuthorPreview[]): void {
     this.selectedAuthors = authors;
+  }
+
+  public onSelectedGenresChange(genres: Genre[]): void {
+    this.selectedGenres = genres;
   }
 
   private loadBook(fullBook: FullBook): void {
@@ -109,5 +118,6 @@ export class BookCreationWindowComponent implements OnInit {
       birth_date: toDate(author.birth_date),
       avatar_id: author.avatar_id ?? '',
     }));
+    this.selectedGenres = fullBook.genres ?? [];
   }
 }

@@ -1,0 +1,20 @@
+<div class="genre-selection-container">
+  <div class="genres-list" *ngIf="allGenres.length > 0">
+    <button
+      *ngFor="let genre of allGenres"
+      type="button"
+      class="genre-button"
+      [class.selected]="isGenreSelected(genre)"
+      (click)="toggleGenre(genre)"
+      [attr.aria-pressed]="isGenreSelected(genre)"
+      [attr.aria-label]="isGenreSelected(genre) ? 'Deselect ' + genre.name : 'Select ' + genre.name"
+    >
+      <span class="genre-name">{{ genre.name }}</span>
+    </button>
+  </div>
+
+  <div class="empty-state" *ngIf="allGenres.length === 0">
+    <i class="pi pi-spin pi-spinner empty-icon"></i>
+    <p class="empty-text">Loading genres...</p>
+  </div>
+</div>

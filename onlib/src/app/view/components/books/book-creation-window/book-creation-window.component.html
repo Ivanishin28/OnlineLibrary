@@ -58,6 +58,14 @@
         ></author-selection>
       </div>
 
+      <div class="field-group">
+        <label class="field-label">Genres</label>
+        <genre-selection
+          [selectedGenres]="selectedGenres"
+          (selectedGenresChange)="onSelectedGenresChange($event)"
+        ></genre-selection>
+      </div>
+
       <div class="cover-section">
         <div class="cover-upload">
           <label class="field-label">Book Cover</label>

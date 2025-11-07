@@ -36,6 +36,7 @@ export class BookCreationWindowManager {
           publishing_date: output.publishing_date,
           cover_id: output.cover_id,
           description: output.description,
+          genre_ids: output.selectedGenres.map((x) => x.id),
         };
 
         return this.bookService.create(request);
@@ -73,6 +74,7 @@ export class BookCreationWindowManager {
               publishing_date: output.publishing_date,
               cover_id: output.cover_id,
               description: output.description,
+              genre_ids: output.selectedGenres.map((x) => x.id),
             };
 
             return this.bookService.update(request);

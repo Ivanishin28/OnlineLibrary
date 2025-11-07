@@ -1,3 +1,4 @@
+import { Genre } from '../shelves/genre';
 import { AuthorPreview } from './apiModels/authorPreview';
 
 export class BookCreationWindowOutput {
@@ -7,5 +8,6 @@ export class BookCreationWindowOutput {
     public readonly selectedAuthors: AuthorPreview[],
     public readonly description: string | null,
     public readonly cover_id: string | null,
+    public readonly selectedGenres: Genre[] = []
   ) {}
 }

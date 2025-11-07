@@ -20,6 +20,8 @@ namespace BookContext.DL.Read.Queries
                 .Include(x => x.BookAuthors)
                 .ThenInclude(x => x.Author)
                 .ThenInclude(x => x.AuthorMetadata)
+                .Include(x => x.BookGenres)
+                .ThenInclude(x => x.Genre)
                 .Include(x => x.BookMetadata)
                 .Where(x => x.Id == request.BookId)
                 .FirstOrDefaultAsync();
