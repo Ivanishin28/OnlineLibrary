@@ -1,4 +1,5 @@
 import { DateOnly } from '../../types/dateOnly';
+import { Genre } from '../shelves/genre';
 import { FullAuthor } from './fullAuthor';
 
 export interface FullBook {
@@ -8,4 +9,5 @@ export interface FullBook {
   authors: FullAuthor[];
   description: string | undefined;
   publishing_date: DateOnly;
+  genres: Genre[];
 }
