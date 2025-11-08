@@ -1,7 +1,7 @@
 <div class="books-display-container">
   <div class="books-grid" *ngIf="books.length > 0">
     <div *ngFor="let book of books" class="book-item">
-      <book-card-with-popover [book]="book"></book-card-with-popover>
+      <book-card [book]="book" [showPopover]="true" [navigateOnImageClick]="true"></book-card>
     </div>
   </div>
 
