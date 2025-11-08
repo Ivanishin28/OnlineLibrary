@@ -9,17 +9,24 @@ namespace BookContext.Domain.Entities
         public BookId BookId { get; private set; } = null!;
         public DateOnly PublishingDate { get; private set; }
         public MediaFileId? CoverId { get; private set; }
+        public MediaFileId? FileId { get; private set; }
         public BookDescription? Description { get; private set; }
 
         private BookMetadata() { }
 
-        public BookMetadata(BookId bookId, DateOnly publishingDate, MediaFileId? coverId, BookDescription? description)
+        public BookMetadata(
+            BookId bookId, 
+            DateOnly publishingDate, 
+            MediaFileId? coverId, 
+            BookDescription? description, 
+            MediaFileId? fileId)
         {
             Id = new BookMetadataId(Guid.NewGuid());
             BookId = bookId;
             PublishingDate = publishingDate;
             CoverId = coverId;
             Description = description;
+            FileId = fileId;
         }
 
         public void SetCover(MediaFileId? cover)
@@ -35,6 +42,11 @@ namespace BookContext.Domain.Entities
         public void SetPublishingDate(DateOnly date)
         {
             PublishingDate = date;
+        }
+
+        public void SetFile(MediaFileId? file)
+        {
+            FileId = file;
         }
     }
 }

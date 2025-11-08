@@ -144,9 +144,11 @@ namespace BookContext.UseCases.Commands
             }
 
             var coverId = request.CoverId is not null ? new MediaFileId(request.CoverId.Value) : null;
+            var fileId = request.FileId is not null ? new MediaFileId(request.FileId.Value) : null;
 
             metadata.SetPublishingDate(request.PublishingDate);
             metadata.SetCover(coverId);
+            metadata.SetFile(fileId);
             metadata.SetDescription(descResult.Model);
 
             return Result.Success();

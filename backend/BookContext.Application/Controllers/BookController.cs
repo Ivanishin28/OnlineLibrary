@@ -44,6 +44,7 @@ namespace BookContext.Application.Controllers
                 GenreIds = dto.GenreIds,
                 PublishingDate = dto.PublishingDate,
                 CoverId = dto.CoverId,
+                FileId = dto.FileId,
                 Description = dto.Description
             };
             var result = await _metiator.Send(request);

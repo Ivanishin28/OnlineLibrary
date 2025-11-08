@@ -15,6 +15,9 @@ namespace BookContext.Application.Dtos.Commands
         [JsonPropertyName("cover_id")]
         public Guid? CoverId { get; init; }
         
+        [JsonPropertyName("file_id")]
+        public Guid? FileId { get; init; }
+        
         [JsonPropertyName("description")]
         public string? Description { get; init; }
     }

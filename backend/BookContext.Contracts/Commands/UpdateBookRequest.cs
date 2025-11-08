@@ -20,6 +20,8 @@ namespace BookContext.Contract.Commands
         public required DateOnly PublishingDate { get; init; }
         [JsonPropertyName("cover_id")]
         public Guid? CoverId { get; init; }
+        [JsonPropertyName("file_id")]
+        public Guid? FileId { get; init; }
         [JsonPropertyName("description")]
         public string? Description { get; init; }
     }
