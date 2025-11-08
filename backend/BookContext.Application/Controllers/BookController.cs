@@ -94,5 +94,14 @@ namespace BookContext.Application.Controllers
             var result = await _metiator.Send(query);
             return Ok(result);
         }
+
+        [HttpPost("report/{bookId}")]
+        public async Task<IActionResult> Report(Guid bookId)
+        {
+            var request = new ReportBookFileRequest(bookId);
+            var result = await _metiator.Send(request);
+
+            return FromResult(result);
+        }
     }
 }
