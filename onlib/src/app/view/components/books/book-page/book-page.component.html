@@ -1,8 +1,26 @@
 <div *ngIf="book" class="book-page-container">
   <div class="book-header">
     <div class="book-cover-section">
-      <div (click)="showPdf()" class="cover-wrapper">
+      <div class="cover-wrapper" [class.cover-wrapper--disabled]="!canSeeFile">
         <book-cover [coverId]="book.cover_id"></book-cover>
+        <div class="cover-overlay" *ngIf="canSeeFile">
+          <button
+            type="button"
+            class="cover-action cover-action--primary"
+            (click)="showPdf()"
+          >
+            <i class="pi pi-search cover-action__icon" aria-hidden="true"></i>
+            <span class="cover-action__label">Read</span>
+          </button>
+          <button
+            (click)="report()"
+            type="button"
+            class="cover-action cover-action--danger"
+          >
+            <i class="pi pi-flag cover-action__icon" aria-hidden="true"></i>
+            <span class="cover-action__label">Report</span>
+          </button>
+        </div>
       </div>
 
       <div class="manage-book-section">

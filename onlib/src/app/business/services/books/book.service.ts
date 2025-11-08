@@ -61,4 +61,11 @@ export class BookService {
     };
     return this.http.post<Pagination<BookPreview>>(url, request);
   }
+
+  public report(bookId: string): Observable<Result<void>> {
+    const url = `${environment.api_main}/${this.CONTROLLER}/report/${bookId}`;
+    return this.http
+      .post<ApiResult<void>>(url, {})
+      .pipe(map((x) => resultFromApiResult(x)));
+  }
 }

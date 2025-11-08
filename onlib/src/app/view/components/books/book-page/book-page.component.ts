@@ -5,7 +5,6 @@ import { Subject, switchMap, takeUntil } from 'rxjs';
 import { BookService } from '../../../../business/services/books/book.service';
 import { FullBook } from '../../../../business/models/books/fullBook';
 import { BookPageActionsComponent } from './book-page-actions/book-page-actions.component';
-import { BooksPageComponent } from '../books-page/books-page.component';
 import { BookCoverComponent } from '../book-cover/book-cover.component';
 import { BookReviewsDisplayComponent } from './book-reviews-display/book-reviews-display.component';
 import { BookReviewStatisticsComponent } from './book-review-statistics/book-review-statistics.component';
@@ -72,6 +71,18 @@ export class BookPageComponent implements OnInit, OnDestroy {
     this.pdfViewer
       .open(this.book!.title, new MediaFileId(this.book!.file_id!))
       .subscribe();
+  }
+
+  public report(): void {
+    if (!this.canSeeFile) {
+      return;
+    }
+
+    this.bookService.report(this.book!.id).subscribe((x) => {
+      if (x.isSuccess) {
+        this.book!.file_id = undefined;
+      }
+    });
   }
 
   public get canSeeFile(): boolean {
