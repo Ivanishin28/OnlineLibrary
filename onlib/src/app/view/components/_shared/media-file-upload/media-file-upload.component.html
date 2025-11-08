@@ -1,9 +1,9 @@
 <p-fileupload
   mode="basic"
-  name="demo[]"
+  name="media-file-upload"
   chooseIcon="pi pi-upload"
-  accept="image/*"
-  maxFileSize="1000000"
+  [accept]="accept ?? undefined"
+  [maxFileSize]="maxFileSize"
   [auto]="true"
   chooseLabel="Browse"
   (onSelect)="upload($event)"

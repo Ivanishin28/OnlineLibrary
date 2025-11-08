@@ -36,6 +36,13 @@ namespace BookContext.DL.SqlServer.EntityTypeConfigurations
                     value => value == null ? null : new MediaFileId(value.Value)
                 )
                 .IsRequired(false);
+            builder
+                .Property(x => x.FileId)
+                .HasConversion(
+                    id => id == null ? (Guid?)null : id.Value,
+                    value => value == null ? null : new MediaFileId(value.Value)
+                )
+                .IsRequired(false);
 
             builder
                 .OwnsOne(

@@ -1,7 +1,7 @@
 ﻿using Composition.Contract.Dtos;
-using Composition.Contract.Models;
 using MediatR;
 using Shared.Contracts.Models;
+using ShelfContext.Contract.Models;
 using System.Text.Json.Serialization;
 
 namespace Composition.Contract.Queries

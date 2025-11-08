@@ -1,4 +1,5 @@
 ﻿using BookContext.Domain.Entities;
+using BookContext.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace BookContext.Domain.Interfaces.Repositories
 {
     public interface IBookRepository
     {
-        Task<Book?> GetBy(Guid id);
+        Task<Book?> GetBy(BookId id);
+        Task<bool> IsBookTitleTaken(string title);
         void Add(Book book);
         void Delete(Book book);
     }

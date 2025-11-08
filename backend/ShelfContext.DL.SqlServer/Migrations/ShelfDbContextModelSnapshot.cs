@@ -68,15 +68,13 @@ namespace ShelfContext.DL.SqlServer.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ShelvedBookId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ShelvedBookId");
 
                     b.ToTable("Reviews");
                 });
@@ -159,12 +157,6 @@ namespace ShelfContext.DL.SqlServer.Migrations
 
             modelBuilder.Entity("ShelfContext.Domain.Entities.Review.Review", b =>
                 {
-                    b.HasOne("ShelfContext.Domain.Entities.ShelvedBooks.ShelvedBook", null)
-                        .WithMany()
-                        .HasForeignKey("ShelvedBookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("ShelfContext.Domain.Entities.Review.Rating", "Rating", b1 =>
                         {
                             b1.Property<Guid>("ReviewId")

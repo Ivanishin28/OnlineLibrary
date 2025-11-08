@@ -1,5 +1,6 @@
 ﻿using BookContext.Domain.Entities;
 using BookContext.Domain.Interfaces.Repositories;
+using BookContext.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookContext.DL.SqlServer.Repositories
@@ -23,16 +24,26 @@ namespace BookContext.DL.SqlServer.Repositories
             _db.Books.Remove(book);
         }
 
-        public async Task<Book?> GetBy(Guid id)
+        public async Task<Book?> GetBy(BookId id)
         {
-            return await BookAggregates()
-                .Where(book => book.Id.Value == id)
+            return await BookAggregate()
+                .Where(book => book.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        private IQueryable<Book> BookAggregates()
+        public Task<bool> IsBookTitleTaken(string title)
         {
-            return _db.Books;
+            return _db
+                .Books
+                .AnyAsync(x => x.Title == title);
+        }
+
+        private IQueryable<Book> BookAggregate()
+        {
+            return _db
+                .Books
+                .Include(x => x.BookGenres)
+                .Include(x => x.BookAuthors);
         }
     }
 }

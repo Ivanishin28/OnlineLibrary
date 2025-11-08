@@ -1,0 +1,12 @@
+<div class="layout" *ngIf="statistics">
+  <div class="rating-section">
+    <div class="rating">
+      <book-rating [rating]="statistics.avg_rating" [fontSize]="20"></book-rating>
+      <span class="rating-value">{{ statistics.avg_rating.toFixed(2) }}</span>
+    </div>
+    <div class="review-count">
+      <span class="count-number">{{ statistics.review_count }}</span>
+      <span class="count-label">{{ statistics.review_count === 1 ? 'review' : 'reviews' }}</span>
+    </div>
+  </div>
+</div>

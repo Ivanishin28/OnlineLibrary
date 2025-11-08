@@ -33,6 +33,9 @@ services
 
 var app = builder.Build();
 
+var dbInit = new ApplicationDbInitializer(app.Services);
+await dbInit.Initialize();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

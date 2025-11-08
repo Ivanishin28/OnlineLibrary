@@ -52,5 +52,14 @@ namespace ShelfContext.DL.SqlServer.Repositories
         {
             return _db.ShelvedBooks.Include(shelvedBook => shelvedBook.BookTags);
         }
+
+        public Task<bool> Exists(UserId userId, BookId bookId)
+        {
+            return _db
+                .ShelvedBooks
+                .AnyAsync(x =>
+                    x.UserId == userId &&
+                    x.BookId == bookId);
+        }
     }
 }

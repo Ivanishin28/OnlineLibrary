@@ -1,20 +1,57 @@
-<div *ngIf="book" class="layout">
-  <div class="content">
-    <div class="left">
-      <div class="book-preview">
-        <div class="cover">
-          <book-cover></book-cover>
+<div *ngIf="book" class="book-page-container">
+  <div class="book-header">
+    <div class="book-cover-section">
+      <div class="cover-wrapper" [class.cover-wrapper--disabled]="!canSeeFile">
+        <book-cover [coverId]="book.cover_id"></book-cover>
+        <div class="cover-overlay" *ngIf="canSeeFile">
+          <button
+            type="button"
+            class="cover-action cover-action--primary"
+            (click)="showPdf()"
+          >
+            <i class="pi pi-search cover-action__icon" aria-hidden="true"></i>
+            <span class="cover-action__label">Read</span>
+          </button>
+          <button
+            (click)="report()"
+            type="button"
+            class="cover-action cover-action--danger"
+          >
+            <i class="pi pi-flag cover-action__icon" aria-hidden="true"></i>
+            <span class="cover-action__label">Report</span>
+          </button>
         </div>
       </div>
-      <div class="actions">
+
+      <div class="manage-book-section">
         <book-page-actions [bookId]="book.id"></book-page-actions>
       </div>
     </div>
-    <div class="right">
-      <h2 class="title">{{ book.title }}</h2>
+    <div class="book-info-section">
+      <h1 class="book-title">{{ book.title }}</h1>
+      <book-authors [authors]="book.authors"></book-authors>
+      <div class="genres-section" *ngIf="book.genres && book.genres.length > 0">
+        <genre-display [genres]="book.genres"></genre-display>
+      </div>
+      <div class="description-section" *ngIf="book.description">
+        <div class="description-text">{{ book.description }}</div>
+      </div>
+      <div class="book-stats">
+        <book-shelved-statistics [bookId]="book.id"></book-shelved-statistics>
+        <book-review-statistics [bookId]="book.id"></book-review-statistics>
+      </div>
+      <div class="reviews-section">
+        <div class="review-header">
+          <h2>Reviews</h2>
+        </div>
+        <book-reviews-display [bookId]="book.id"></book-reviews-display>
+      </div>
     </div>
   </div>
 </div>
-<div *ngIf="!book" class="layout-not-found"><p>Book Not Found</p></div>
-<hr />
-<books-page></books-page>
+<div *ngIf="!book" class="not-found-container">
+  <div class="not-found-content">
+    <i class="pi pi-exclamation-triangle not-found-icon"></i>
+    <p class="not-found-message">Book Not Found</p>
+  </div>
+</div>

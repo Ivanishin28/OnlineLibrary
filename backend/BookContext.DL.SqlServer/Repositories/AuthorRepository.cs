@@ -1,5 +1,6 @@
 ﻿using BookContext.Domain.Entities;
 using BookContext.Domain.Interfaces.Repositories;
+using BookContext.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookContext.DL.SqlServer.Repositories
@@ -23,18 +24,28 @@ namespace BookContext.DL.SqlServer.Repositories
             _dbSet.Remove(author);
         }
 
-        public async Task<Author?> GetBy(Guid id)
+        public async Task<Author?> GetBy(AuthorId id)
         {
             return await _dbSet
-                .Where(author => author.Id.Value == id)
+                .Where(author => author.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Author>> GetByIds(IEnumerable<Guid> ids)
+        public async Task<ICollection<AuthorId>> EnsureExist(ICollection<AuthorId> authorIds)
+        {
+            return await _dbSet
+                .Where(x => authorIds.Any(id => x.Id == id))
+                .Select(x => x.Id)
+                .ToListAsync();
+        }
+
+        public Task<bool> IsFullNameTaken(FullName fullname)
         {
             return _dbSet
-                .Where(author => 
-                    ids.Contains(author.Id.Value));
+                .AnyAsync(x => 
+                    x.FullName.FirstName == fullname.FirstName &&
+                    x.FullName.LastName == fullname.LastName &&
+                    x.FullName.MiddleName == fullname.MiddleName);
         }
     }
 }

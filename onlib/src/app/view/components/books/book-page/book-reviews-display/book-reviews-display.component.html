@@ -1,0 +1,29 @@
+<div class="layout" *ngIf="reviewPage && reviewPage.total > 0">
+  <div class="review-list">
+    <div *ngFor="let review of reviewPage.items" class="review-item">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <user-avatar [fileId]="review.identity.avatar_id" class="reviewer-avatar"></user-avatar>
+          <div class="reviewer-name">{{ review.identity.nickname }}</div>
+        </div>
+        <div class="review-rating">
+          <book-rating [rating]="review.rating" [fontSize]="18"></book-rating>
+        </div>
+      </div>
+      <div class="review-content" *ngIf="review.text">
+        <p>{{ review.text }}</p>
+      </div>
+      <div class="review-content empty" *ngIf="!review.text">
+        <p class="no-text">No review text provided</p>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <pagination
+      [pageIndex]="paginator.pageIndex"
+      [pageSize]="paginator.pageSize"
+      [totalItems]="reviewPage.total"
+      (paginationChange)="onPaginationChange($event)"
+    ></pagination>
+  </div>
+</div>

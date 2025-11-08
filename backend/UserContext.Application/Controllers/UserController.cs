@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserContext.Contract.Commands.CreateUser;
+using UserContext.Contract.Queries;
 
 namespace UserContext.Application.Controllers
 {
@@ -24,6 +25,14 @@ namespace UserContext.Application.Controllers
         {
             var result = await _mediator.Send(request);
             return FromResult(result);
+        }
+
+        [HttpGet("preview/{userId}")]
+        public async Task<IActionResult> GetUserByUserId(Guid userId)
+        {
+            var query = new GetUserByUserIdQuery(userId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

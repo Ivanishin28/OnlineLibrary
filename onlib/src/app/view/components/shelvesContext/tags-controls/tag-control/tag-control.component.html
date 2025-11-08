@@ -1,0 +1,61 @@
+<div class="tag-card">
+  <div class="tag-header">
+    <div class="tag-icon">
+      <i class="pi pi-tag"></i>
+    </div>
+    <div class="tag-actions">
+      <button
+        *ngIf="!isEditing"
+        (click)="enableEditing()"
+        class="action-button edit-button"
+        type="button"
+        title="Rename tag">
+        <i class="pi pi-pencil"></i>
+      </button>
+      <button
+        (click)="onDelete()"
+        class="action-button delete-button"
+        type="button"
+        title="Delete tag">
+        <i class="pi pi-trash"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="tag-content">
+    <div class="tag-name-wrapper" *ngIf="!isEditing">
+      <h3 class="tag-name">{{ tag.name }}</h3>
+    </div>
+
+    <div class="tag-edit-wrapper" *ngIf="isEditing">
+      <input
+        pInputText
+        [(ngModel)]="editedName"
+        class="tag-name-input"
+        type="text"
+        placeholder="Tag name"
+        (keydown.enter)="saveName()"
+        (keydown.escape)="cancelEditing()"
+        #nameInput
+      />
+      <div class="edit-actions">
+        <button
+          (click)="cancelEditing()"
+          class="action-btn cancel-btn"
+          type="button">
+          <i class="pi pi-times"></i>
+          <span>Cancel</span>
+        </button>
+        <button
+          (click)="saveName()"
+          class="action-btn save-btn"
+          type="button"
+          [disabled]="!isValid">
+          <i class="pi pi-check"></i>
+          <span>Save</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

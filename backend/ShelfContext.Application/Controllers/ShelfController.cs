@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Models;
 using ShelfContext.Contract.Commands;
 using ShelfContext.Contract.Commands.CreateShelf;
-using ShelfContext.Contract.Commands.EditShelf;
 using ShelfContext.Contract.Errors;
+using ShelfContext.Contract.Queries;
 using ShelfContext.Contract.Queries.GetShelvesByUserId;
 using ShelfContext.Contract.Services;
 
@@ -23,14 +23,6 @@ namespace ShelfContext.Application.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateShelfRequest request)
-        {
-            var response = await _mediator.Send(request);
-
-            return FromResult(response);
-        }
-
-        [HttpPost("edit")]
-        public async Task<IActionResult> Edit([FromBody] EditShelfRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -58,6 +50,32 @@ namespace ShelfContext.Application.Controllers
 
             var command = new DeleteShelfRequest(shelfId);
             var result = await _mediator.Send(command);
+            return FromResult(result);
+        }
+
+        [HttpGet("name-taken")]
+        public async Task<IActionResult> IsNameTaken([FromQuery] string name, [FromQuery] Guid? userId)
+        {
+            var query = new IsShelfNameTakenQuery()
+            {
+                Name = name,
+                UserId = userId ?? GetUserId()
+            };
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpPost("rename/{shelfId}")]
+        public async Task<IActionResult> Rename(Guid shelfId, [FromQuery] string name)
+        {
+            var query = new RenameShelfRequest()
+            {
+                Name = name,
+                ShelfId = shelfId
+            };
+            var result = await _mediator.Send(query);
+
             return FromResult(result);
         }
     }

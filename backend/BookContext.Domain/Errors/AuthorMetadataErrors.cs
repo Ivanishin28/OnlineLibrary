@@ -1,4 +1,5 @@
-﻿using Shared.Core.Models;
+﻿using BookContext.Domain.ValueObjects;
+using Shared.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,8 @@ namespace BookContext.Domain.Errors
         private static ErrorBuilder _errors = new ErrorBuilder("AuthorMetadata");
 
         public static Error BiographyTooLong(int maxLenght) => _errors.BuildError("Biography", $"Toolong {maxLenght}");
+
+        public static Error NotFound(AuthorId authorId) =>
+            _errors.BuildError("NotFound.ByAuthorId", $"AuthorMetadata not found by AuthorId {authorId.Value}");
     }
 }

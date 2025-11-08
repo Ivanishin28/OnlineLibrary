@@ -1,16 +1,34 @@
-<div class="layout">
+<div class="tag-panel-container">
+  <div class="panel-header">
+    <h4 class="panel-title">Select Tags</h4>
+    <p class="panel-subtitle">Choose tags to organize this book</p>
+  </div>
   <div class="tag-list">
-    <div *ngFor="let item of tagSelection.options" class="tag-item">
+    <div
+      *ngFor="let item of tagSelection.options"
+      class="tag-item"
+      [class.selected]="item.isSelected"
+    >
       <p-check-box
         (click)="toggle(item)"
         [inputId]="item.tag.id"
         [ngModel]="item.isSelected"
         [binary]="true"
         [readonly]="true"
+        class="tag-checkbox"
+        (click)="$event.stopPropagation()"
       ></p-check-box>
-      <label [for]="item.tag.id"
-        ><p>{{ item.tag.name }}</p></label
+      <label
+        [for]="item.tag.id"
+        class="tag-label"
+        (click)="$event.stopPropagation()"
       >
+        <span class="tag-name">{{ item.tag.name }}</span>
+      </label>
+    </div>
+    <div class="empty-state" *ngIf="tagSelection.options.length === 0">
+      <i class="pi pi-info-circle"></i>
+      <p>No tags available. Create tags in the organization section.</p>
     </div>
   </div>
 </div>

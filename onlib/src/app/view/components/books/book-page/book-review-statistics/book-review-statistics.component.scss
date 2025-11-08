@@ -1,0 +1,45 @@
+.layout {
+  padding: 16px 0;
+}
+
+.rating-section {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.rating {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  .rating-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    min-width: 40px;
+  }
+}
+
+.review-count {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding-left: 8px;
+  border-left: 1px solid #e2e8f0;
+
+  .count-number {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  .count-label {
+    font-size: 15px;
+    color: #64748b;
+    font-weight: 500;
+  }
+}
+
+

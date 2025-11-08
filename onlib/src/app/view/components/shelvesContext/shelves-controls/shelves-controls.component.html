@@ -1,21 +1,40 @@
-<div class="layout">
+<div class="shelves-container">
   <div class="header">
-    <h2>Shelves</h2>
-    <div class="controls">
-      <p-button (click)="createShelf()">Create Shelf</p-button>
+    <div class="header-content">
+      <div class="title-section">
+        <i class="pi pi-bookmark title-icon"></i>
+        <h2 class="title">My Shelves</h2>
+        <span class="shelf-count" *ngIf="shelves.length > 0">{{ shelves.length }}</span>
+      </div>
+      <p-button 
+        (click)="createShelf()" 
+        icon="pi pi-plus" 
+        label="Create Shelf"
+        [outlined]="true"
+        class="create-button">
+      </p-button>
     </div>
   </div>
 
-  <ul class="shelf-list">
-    <li *ngFor="let item of shelves" class="shelf-item">
-      <p class="name">{{ item.name }}</p>
-      <p-button
-        (onClick)="delete(item)"
-        size="small"
-        severity="danger"
-        icon="pi pi-times"
-        ></p-button
-      >
-    </li>
-  </ul>
+  <div class="shelves-grid" *ngIf="shelves.length > 0">
+    <shelf-control
+      *ngFor="let item of shelves"
+      [shelf]="item"
+      (delete)="delete($event)"
+      (changeName)="rename(item.id, $event)"
+      class="shelf-card">
+    </shelf-control>
+  </div>
+
+  <div class="empty-state" *ngIf="shelves.length === 0">
+    <i class="pi pi-inbox empty-icon"></i>
+    <p class="empty-message">No shelves yet</p>
+    <p class="empty-hint">Create your first shelf to organize your books</p>
+    <p-button 
+      (click)="createShelf()" 
+      icon="pi pi-plus" 
+      label="Create Your First Shelf"
+      class="empty-button">
+    </p-button>
+  </div>
 </div>

@@ -2,7 +2,6 @@
 using BookContext.Contract.Commands;
 using BookContext.Contract.Commands.CreateBook;
 using BookContext.Contract.Queries;
-using BookContext.Contract.Queries.GetAllBooks;
 using BookContext.Contract.Queries.GetFullBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +17,20 @@ namespace BookContext.Application.Controllers
             _metiator = metiator;
         }
 
-        [HttpGet("all")]
-        public async Task<IActionResult> All()
+        [HttpPost("page")]
+        public async Task<IActionResult> All(GetBookPageQuery query)
         {
-            var request = new GetAllBooksQuery();
+            var result = await _metiator.Send(query);
+            return Ok(result);
+        }
 
-            var result = await _metiator.Send(request);
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string query)
+        {
+            var searchQuery = new SearchBookQuery(query);
+            var result = await _metiator.Send(searchQuery);
 
-            return Success(result);
+            return Ok(result);
         }
 
         [HttpPost("create")]
@@ -36,8 +41,10 @@ namespace BookContext.Application.Controllers
                 CreatorId = GetUserId(),
                 Title = dto.Title,
                 AuthorIds = dto.AuthorIds,
+                GenreIds = dto.GenreIds,
                 PublishingDate = dto.PublishingDate,
                 CoverId = dto.CoverId,
+                FileId = dto.FileId,
                 Description = dto.Description
             };
             var result = await _metiator.Send(request);
@@ -68,6 +75,30 @@ namespace BookContext.Application.Controllers
         public async Task<IActionResult> Delete(Guid bookId)
         {
             var request = new DeleteBookRequest(bookId);
+            var result = await _metiator.Send(request);
+
+            return FromResult(result);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update(UpdateBookRequest request)
+        {
+            var result = await _metiator.Send(request);
+            return FromResult(result);
+        }
+
+        [HttpGet("title-taken")]
+        public async Task<IActionResult> IsTitleTaken([FromQuery] string title)
+        {
+            var query = new IsBookTitleTakenQuery(title);
+            var result = await _metiator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPost("report/{bookId}")]
+        public async Task<IActionResult> Report(Guid bookId)
+        {
+            var request = new ReportBookFileRequest(bookId);
             var result = await _metiator.Send(request);
 
             return FromResult(result);

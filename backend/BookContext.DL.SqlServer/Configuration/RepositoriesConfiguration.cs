@@ -1,4 +1,5 @@
 ﻿using BookContext.DL.SqlServer.Concrete;
+using BookContext.DL.SqlServer.Interfaces;
 using BookContext.DL.SqlServer.Repositories;
 using BookContext.Domain.Interfaces;
 using BookContext.Domain.Interfaces.Repositories;
@@ -15,9 +16,12 @@ namespace BookContext.DL.SqlServer.Configuration
     {
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services
+                .AddTransient<IDbInitializer, BookDbInitializer>()
+                .AddTransient<IUnitOfWork, UnitOfWork>();
 
             services
+                .AddTransient<IGenreRepository, GenreRepository>()
                 .AddTransient<IAuthorMetadataRepository, AuthorMetadataRepository>()
                 .AddTransient<IBookMetadataRepository, BookMetadataRepository>()
                 .AddTransient<IBookRepository, BookRepository>()

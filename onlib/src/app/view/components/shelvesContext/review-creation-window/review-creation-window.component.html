@@ -1,0 +1,47 @@
+<div class="window-container">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()" class="window-form">
+    <div class="form-fields">
+      <div *ngIf="form.controls.rating as control" class="field-group">
+        <label for="rating" class="field-label">Rating</label>
+        <div class="rating-wrapper">
+          <p-rating formControlName="rating" [stars]="5" class="rating-input"></p-rating>
+        </div>
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="field-error"
+        >
+          <span>Please select a rating (1-5 stars)</span>
+        </div>
+      </div>
+
+      <div *ngIf="form.controls.text as control" class="field-group">
+        <label for="text" class="field-label">Review Text</label>
+        <textarea
+          id="text"
+          [formControl]="control"
+          class="field-textarea"
+          rows="6"
+          placeholder="Share your thoughts about this book..."
+        ></textarea>
+        <div class="character-count" *ngIf="control.value">
+          {{ control.value.length }} / 500 characters
+        </div>
+        <div
+          *ngIf="control.invalid && control.dirty"
+          class="field-error"
+        >
+          <span>Review text must be less than 500 characters</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <p-button 
+        class="submit-button" 
+        type="submit"
+        label="Submit Review"
+        icon="pi pi-check">
+      </p-button>
+    </div>
+  </form>
+</div>

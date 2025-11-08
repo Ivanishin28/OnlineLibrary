@@ -1,26 +1,114 @@
-.header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.tags-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
 
-  h2 {
-    font-size: 28px;
+.header {
+  margin-bottom: 32px;
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+
+    .title-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .title-icon {
+        font-size: 32px;
+        color: #2563eb;
+      }
+
+      .title {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+        color: #1f2937;
+        letter-spacing: -0.5px;
+      }
+
+      .tag-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 28px;
+        height: 28px;
+        padding: 0 8px;
+        background-color: #e5e7eb;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #6b7280;
+      }
+    }
+
+    .create-button {
+      flex-shrink: 0;
+    }
   }
 }
 
-.tag-list {
-  margin-top: 16px;
+.tags-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.empty-state {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  text-align: center;
 
-  .tag-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  .empty-icon {
+    font-size: 64px;
+    color: #d1d5db;
+    margin-bottom: 24px;
+  }
 
-    .name {
-      font-size: 20px;
+  .empty-message {
+    font-size: 24px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 8px 0;
+  }
+
+  .empty-hint {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0 0 32px 0;
+    max-width: 400px;
+  }
+
+  .empty-button {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tags-container {
+    padding: 24px 16px;
+  }
+
+  .header .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    .create-button {
+      width: 100%;
     }
+  }
+
+  .tags-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }

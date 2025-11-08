@@ -13,15 +13,28 @@ import { ShelvedBookService } from '../../../../../business/services/shelves/she
 import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { Shelf } from '../../../../../business/models/shelves/shelf';
-import { ShelfService } from '../../../../../business/services/shelves/shelf.service';
+import { PersonalShelfService } from '../../../../../business/services/shelves/personalShelf.service';
 import { FormsModule } from '@angular/forms';
 import { TagSelectionComponent } from '../../../shelvesContext/tag-selection/tag-selection.component';
+import { ButtonModule } from 'primeng/button';
+import { ReviewCreationWindowManager } from '../../../../../business/managers/windows/reviewCreationWindowManager';
+import { BookEvents } from '../../../../../business/services/books/bookEvents';
 
 @Component({
   standalone: true,
   selector: 'book-page-actions',
-  imports: [CommonModule, SelectModule, FormsModule, TagSelectionComponent],
-  providers: [ShelvedBookService, ShelfService],
+  imports: [
+    CommonModule,
+    SelectModule,
+    FormsModule,
+    TagSelectionComponent,
+    ButtonModule,
+  ],
+  providers: [
+    ShelvedBookService,
+    PersonalShelfService,
+    ReviewCreationWindowManager,
+  ],
   templateUrl: './book-page-actions.component.html',
   styleUrl: './book-page-actions.component.scss',
 })
@@ -36,7 +49,9 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
   constructor(
     private authService: AuthService,
     private shelvedBookService: ShelvedBookService,
-    private shelfService: ShelfService
+    private shelfService: PersonalShelfService,
+    private reviewWindow: ReviewCreationWindowManager,
+    private bookEvents: BookEvents
   ) {}
 
   public ngOnInit(): void {
@@ -58,10 +73,20 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
     this.loadShelvedBook();
   }
 
-  public shelveBookOn(shelf: Shelf): void {
+  public shelveBookOn(shelf: Shelf | undefined): void {
+    if (!shelf) {
+      return;
+    }
+    
     this.shelvedBookService
       .shelve(shelf.id, this.bookId)
-      .subscribe(() => this.loadShelvedBook());
+      .subscribe((result) => {
+        if (!result.isSuccess) {
+          return;
+        }
+        this.loadShelvedBook();
+        this.bookEvents.shelveBook(this.bookId);
+      });
   }
 
   private loadShelvedBook(): void {
@@ -95,6 +120,21 @@ export class BookPageActionsComponent implements OnInit, OnChanges {
         }
 
         this.shelvedBook = undefined;
+        this.bookEvents.dislodgeBook(this.bookId);
       });
+  }
+
+  public review(): void {
+    this.reviewWindow.createReviewFor(this.bookId).subscribe((result) => {
+      if (!result.isSuccess) {
+        return;
+      }
+
+      this.bookEvents.reviewBook(result.value.rating);
+    });
+  }
+
+  public get isBookShelved(): boolean {
+    return !!this.shelvedBook;
   }
 }

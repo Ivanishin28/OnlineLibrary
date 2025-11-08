@@ -1,0 +1,48 @@
+::ng-deep {
+  .p-autocomplete {
+    width: 100%;
+
+    .p-autocomplete-input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+
+    .p-autocomplete-panel {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+      margin-top: 4px;
+      overflow: hidden;
+    }
+
+    .p-autocomplete-list-item {
+      padding: 0;
+      margin: 0;
+      border: none;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #f3f4f6;
+      }
+
+      &.p-highlight {
+        background: #eff6ff;
+        color: #2563eb;
+      }
+    }
+  }
+}

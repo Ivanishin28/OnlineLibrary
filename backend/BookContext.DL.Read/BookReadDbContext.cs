@@ -8,6 +8,10 @@ namespace BookContext.DL.Read
         public DbSet<BookReadModel> Books { get; set; }
         public DbSet<AuthorReadModel> Authors { get; set; }
         public DbSet<BookAuthorReadModel> BookAuthors { get; set; }
+        public DbSet<BookMetadataReadModel> BookMetadatas { get; set; }
+        public DbSet<AuthorMetadataReadModel> AuthorMetadatas { get; set; }
+        public DbSet<GenreReadModel> Genres { get; set; }
+        public DbSet<BookGenreReadModel> BookGenres { get; set; }
 
         public BookReadDbContext(DbContextOptions<BookReadDbContext> options) : base(options)
         {
@@ -25,7 +29,23 @@ namespace BookContext.DL.Read
 
             builder
                 .Entity<BookAuthorReadModel>()
-                .ToView("BookAuthors");
+                .ToView("BookAuthor");
+
+            builder
+                .Entity<BookMetadataReadModel>()
+                .ToView("BookMetadatas");
+
+            builder
+                .Entity<AuthorMetadataReadModel>()
+                .ToView("AuthorMetadatas");
+
+            builder
+                .Entity<GenreReadModel>()
+                .ToView("Genres");
+
+            builder
+                .Entity<BookGenreReadModel>()
+                .ToView("BookGenres");
         }
     }
 }

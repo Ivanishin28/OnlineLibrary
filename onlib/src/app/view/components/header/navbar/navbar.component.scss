@@ -1,3 +1,164 @@
-.avatar {
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 16px 24px;
+}
+
+.navbar-brand {
+  flex-shrink: 0;
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #1f2937;
+    font-size: 20px;
+    font-weight: 700;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #2563eb;
+    }
+
+    .brand-icon {
+      font-size: 24px;
+      color: #2563eb;
+    }
+
+    .brand-text {
+      letter-spacing: -0.5px;
+    }
+  }
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #6b7280;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    &.active {
+      background: #dbeafe;
+      color: #2563eb;
+      font-weight: 600;
+    }
+  }
+}
+
+.navbar-end {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.search-wrapper {
+  max-width: 300px;
+  width: 100%;
+}
+
+.avatar-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
   cursor: pointer;
+  border: 2px solid #e5e7eb;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: #2563eb;
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar-content {
+    gap: 20px;
+    padding: 12px 20px;
+  }
+
+  .navbar-menu {
+    gap: 4px;
+
+    .menu-item {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  }
+
+  .search-wrapper {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .navbar-brand {
+    .brand-link {
+      .brand-text {
+        display: none;
+      }
+    }
+  }
+
+  .navbar-menu {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 8px 0;
+
+    .menu-item {
+      flex-shrink: 0;
+    }
+  }
+
+  .search-wrapper {
+    max-width: 150px;
+    order: 2;
+  }
+
+  .avatar-wrapper {
+    width: 40px;
+    height: 40px;
+    order: 1;
+  }
 }

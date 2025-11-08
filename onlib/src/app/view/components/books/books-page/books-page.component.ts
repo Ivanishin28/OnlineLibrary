@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BookService } from '../../../../business/services/books/book.service';
-import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { CommonModule } from '@angular/common';
-import { BookPreviewComponent } from '../book-preview/book-preview.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { RouterLink } from '@angular/router';
-import { BookCardComponent } from "../book-card/book-card.component";
+import { BookEvents } from '../../../../business/services/books/bookEvents';
+import { BookFilterComponent } from './book-filter/book-filter.component';
+import { BooksPageDisplayComponent } from './books-page-display/books-page-display.component';
+import { BookFilter } from '../../../../business/models/shelves/bookFilter';
+import { Paginator } from '../../../../business/models/_shared/paginator';
+import { Subject, takeUntil } from 'rxjs';
+import { Pagination } from '../../../../business/models/_shared/pagination';
+import { BookPreview } from '../../../../business/models/books/bookPreview';
+import { PaginationComponent } from '../../_shared/pagination/pagination.component';
 
 @Component({
   standalone: true,
@@ -13,21 +18,47 @@ import { BookCardComponent } from "../book-card/book-card.component";
   imports: [
     CommonModule,
     DynamicDialogModule,
-    RouterLink,
-    BookCardComponent
-],
-  providers: [BookService],
+    BookFilterComponent,
+    BooksPageDisplayComponent,
+    PaginationComponent,
+  ],
+  providers: [BookService, BookEvents],
   templateUrl: './books-page.component.html',
   styleUrl: './books-page.component.scss',
 })
-export class BooksPageComponent implements OnInit {
-  public books: BookPreview[] = [];
+export class BooksPageComponent implements OnInit, OnDestroy {
+  private destory$ = new Subject<void>();
 
-  constructor(private bookService: BookService) {}
+  public filter: BookFilter;
+  public paginator: Paginator;
+  public bookPage: Pagination<BookPreview> | undefined;
+
+  constructor(private bookService: BookService) {
+    this.filter = {
+      genre_ids: [],
+    };
+    this.paginator = new Paginator({ page_index: 0, page_size: 10 });
+  }
+
+  public ngOnDestroy(): void {
+    this.destory$.next();
+    this.destory$.complete();
+  }
 
   public ngOnInit(): void {
-    this.bookService.getAll().subscribe((result) => {
-      this.books = result;
-    });
+    const startingAt = new Date();
+    this.paginator.paginationChanged$
+      .pipe(takeUntil(this.destory$))
+      .subscribe((page) => {
+        this.bookService
+          .getBookPage(this.filter, page, startingAt)
+          .subscribe((x) => (this.bookPage = x));
+      });
+    this.paginator.loadFirstPage();
+  }
+
+  public filterBooks(filter: BookFilter): void {
+    this.filter = filter;
+    this.paginator.loadFirstPage();
   }
 }

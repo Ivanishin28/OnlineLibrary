@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { LibrarySummary } from '../../models/shelves/librarySummary';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Page } from '../../models/_shared/page';
-import { LibraryFilter } from '../../models/shelves/libraryFilter';
 import { GetLibraryPageRequest } from '../../models/shelves/getLibraryPageRequest';
 import { Pagination } from '../../models/_shared/pagination';
 import { LibraryShelvedBook } from '../../models/shelves/libraryShelvedBook';

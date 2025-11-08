@@ -47,6 +47,24 @@ namespace ShelfContext.Application.Controllers
             return Ok(result);
         }
 
+        [HttpPost("rename/{tagId}")]
+        public async Task<IActionResult> Rename(Guid tagId, [FromQuery] string name)
+        {
+            if (!(await _checker.IsTagAccessibleToUser(tagId, GetUserId())))
+            {
+                return FromResult(Result.Failure(AccessibilityErrors.INACCESSIBLE));
+            }
+
+            var request = new RenameTagRequest()
+            {
+                TagId = tagId,
+                Name = name
+            };
+            var result = await _mediator.Send(request);
+
+            return FromResult(result);
+        }
+
         [HttpDelete("delete/{tagId}")]
         public async Task<IActionResult> Delete(Guid tagId)
         {

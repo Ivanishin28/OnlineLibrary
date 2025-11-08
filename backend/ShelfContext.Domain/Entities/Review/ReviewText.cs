@@ -29,6 +29,8 @@ namespace ShelfContext.Domain.Entities.Review
             return new ReviewText(text);
         }
 
+        public static ReviewText Blank => new ReviewText(null);
+
         protected override IEnumerable<object?> GetEqualityComponents()
         {
             return new[] { Value };

@@ -15,5 +15,9 @@ namespace ShelfContext.Domain.Entities.Review
             => _errors.BuildError("Text.Length", $"Max length = ${maxLength}");
 
         public static readonly Error INVALID_RATING = _errors.BuildError("Rating.Invalid", "Invalid Rating");
+
+        public static readonly Error REVIEW_ONLY_SHELVED_BOOKS = _errors.BuildError("Book.NotShelved", "Book is not shelved");
+
+        public static readonly Error USER_ALREADY_REVIEWED = _errors.BuildError("Review.Exists", "Book is already reviewed");
     }
 }

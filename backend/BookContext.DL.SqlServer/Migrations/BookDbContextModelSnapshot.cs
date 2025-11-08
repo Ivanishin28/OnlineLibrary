@@ -27,15 +27,12 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
-
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.AuthorMetadata", b =>
@@ -49,18 +46,24 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.Property<Guid?>("AvatarId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId")
                         .IsUnique();
 
-                    b.ToTable("AuthorMetadatas", (string)null);
+                    b.ToTable("AuthorMetadatas");
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uniqueidentifier");
@@ -71,7 +74,7 @@ namespace BookContext.DL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.BookAuthor", b =>
@@ -95,7 +98,31 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.HasIndex("BookId", "AuthorId")
                         .IsUnique();
 
-                    b.ToTable("BookAuthor", (string)null);
+                    b.ToTable("BookAuthor");
+                });
+
+            modelBuilder.Entity("BookContext.Domain.Entities.BookGenre", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("BookId", "GenreId")
+                        .IsUnique();
+
+                    b.ToTable("BookGenres");
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.BookMetadata", b =>
@@ -109,6 +136,9 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.Property<Guid?>("CoverId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("FileId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateOnly>("PublishingDate")
                         .HasColumnType("date");
 
@@ -117,7 +147,21 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.HasIndex("BookId")
                         .IsUnique();
 
-                    b.ToTable("BookMetadatas", (string)null);
+                    b.ToTable("BookMetadatas");
+                });
+
+            modelBuilder.Entity("BookContext.Domain.Entities.Genre", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("BookContext.Domain.Entities.Author", b =>
@@ -146,7 +190,7 @@ namespace BookContext.DL.SqlServer.Migrations
 
                             b1.HasKey("AuthorId");
 
-                            b1.ToTable("Authors", (string)null);
+                            b1.ToTable("Authors");
 
                             b1.WithOwner()
                                 .HasForeignKey("AuthorId");
@@ -170,14 +214,13 @@ namespace BookContext.DL.SqlServer.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
-                                .IsRequired()
                                 .HasMaxLength(5000)
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Biography");
 
                             b1.HasKey("AuthorMetadataId");
 
-                            b1.ToTable("AuthorMetadatas", (string)null);
+                            b1.ToTable("AuthorMetadatas");
 
                             b1.WithOwner()
                                 .HasForeignKey("AuthorMetadataId");
@@ -191,12 +234,27 @@ namespace BookContext.DL.SqlServer.Migrations
                     b.HasOne("BookContext.Domain.Entities.Author", null)
                         .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BookContext.Domain.Entities.Book", null)
-                        .WithMany("BookTags")
+                        .WithMany("BookAuthors")
                         .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookContext.Domain.Entities.BookGenre", b =>
+                {
+                    b.HasOne("BookContext.Domain.Entities.Book", null)
+                        .WithMany("BookGenres")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookContext.Domain.Entities.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -215,14 +273,13 @@ namespace BookContext.DL.SqlServer.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
-                                .IsRequired()
                                 .HasMaxLength(5000)
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Description");
 
                             b1.HasKey("BookMetadataId");
 
-                            b1.ToTable("BookMetadatas", (string)null);
+                            b1.ToTable("BookMetadatas");
 
                             b1.WithOwner()
                                 .HasForeignKey("BookMetadataId");
@@ -233,7 +290,9 @@ namespace BookContext.DL.SqlServer.Migrations
 
             modelBuilder.Entity("BookContext.Domain.Entities.Book", b =>
                 {
-                    b.Navigation("BookTags");
+                    b.Navigation("BookAuthors");
+
+                    b.Navigation("BookGenres");
                 });
 #pragma warning restore 612, 618
         }

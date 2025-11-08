@@ -1,0 +1,11 @@
+<div class="book-result">
+  <div class="book-cover-wrapper" *ngIf="book.cover_id">
+    <book-cover [coverId]="book.cover_id"></book-cover>
+  </div>
+  <div class="book-cover-placeholder" *ngIf="!book.cover_id">
+    <i class="pi pi-book"></i>
+  </div>
+  <div class="book-info">
+    <div class="book-title">{{ book.title }}</div>
+  </div>
+</div>

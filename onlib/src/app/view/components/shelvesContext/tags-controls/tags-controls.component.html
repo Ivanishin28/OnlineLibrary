@@ -1,15 +1,40 @@
-<div class="header">
-  <h2>Tags</h2>
-  <p-button (click)="createTag()">Create Tag</p-button>
-</div>
-<div *ngIf="tags" class="tag-list">
-  <div *ngFor="let item of tags" class="tag-item">
-    <p class="name">{{ item.name }}</p>
-    <p-button
-      (click)="delete(item)"
-      icon="pi pi-times"
-      severity="danger"
-      size="small"
-    ></p-button>
+<div class="tags-container">
+  <div class="header">
+    <div class="header-content">
+      <div class="title-section">
+        <i class="pi pi-tag title-icon"></i>
+        <h2 class="title">My Tags</h2>
+        <span class="tag-count" *ngIf="tags && tags.length > 0">{{ tags.length }}</span>
+      </div>
+      <p-button 
+        (click)="createTag()" 
+        icon="pi pi-plus" 
+        label="Create Tag"
+        [outlined]="true"
+        class="create-button">
+      </p-button>
+    </div>
+  </div>
+
+  <div class="tags-grid" *ngIf="tags && tags.length > 0">
+    <tag-control
+      *ngFor="let item of tags"
+      [tag]="item"
+      (changeName)="onTagNameChange(item, $event)"
+      (delete)="delete($event)"
+      class="tag-card">
+    </tag-control>
+  </div>
+
+  <div class="empty-state" *ngIf="tags && tags.length === 0">
+    <i class="pi pi-inbox empty-icon"></i>
+    <p class="empty-message">No tags yet</p>
+    <p class="empty-hint">Create your first tag to categorize your books</p>
+    <p-button 
+      (click)="createTag()" 
+      icon="pi pi-plus" 
+      label="Create Your First Tag"
+      class="empty-button">
+    </p-button>
   </div>
 </div>

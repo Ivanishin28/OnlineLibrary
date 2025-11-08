@@ -1,0 +1,8 @@
+<div class="author-result">
+  <div class="author-info">
+    <span class="author-name">{{ author.first_name }} {{ author.last_name }}</span>
+    <span class="author-birth" *ngIf="author.birth_date">
+      Born {{ author.birth_date | date: 'yyyy' }}
+    </span>
+  </div>
+</div>

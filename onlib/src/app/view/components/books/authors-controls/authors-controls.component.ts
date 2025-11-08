@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorPreview } from '../../../../business/models/books/apiModels/authorPreview';
 import { PersonalAuthorsService } from '../../../../business/services/books/personal-authors.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AuthorCreationWindowManager } from '../../../../business/managers/windows/authorCreationWindowManager';
 import { ButtonModule } from 'primeng/button';
+import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
 
 @Component({
   standalone: true,
   selector: 'authors-controls',
-  imports: [CommonModule, DynamicDialogModule, ButtonModule],
+  imports: [CommonModule, DynamicDialogModule, ButtonModule, UserAvatarComponent, DatePipe],
   providers: [AuthorCreationWindowManager, PersonalAuthorsService],
   templateUrl: './authors-controls.component.html',
   styleUrl: './authors-controls.component.scss',
@@ -34,10 +35,20 @@ export class AuthorsControlsComponent implements OnInit {
     });
   }
 
+  public edit(authorId: string): void {
+    this.authorCreationWindowManager.edit(authorId).subscribe((result) => {
+      if (result.isSuccess) {
+        this.loadAuthors();
+      }
+    });
+  }
+
   public delete(authorId: string): void {
-    // Note: Delete functionality would need to be implemented in PersonalAuthorsService
-    // For now, this is a placeholder
-    console.log('Delete author:', authorId);
+    this.personalAuthorsService.delete(authorId).subscribe((result) => {
+      if (result.isSuccess) {
+        this.loadAuthors();
+      }
+    });
   }
 
   private loadAuthors(): void {

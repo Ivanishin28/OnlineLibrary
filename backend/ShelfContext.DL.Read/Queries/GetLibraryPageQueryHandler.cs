@@ -1,8 +1,8 @@
-﻿using Composition.Contract.Models;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Models;
 using ShelfContext.Contract.Dtos;
+using ShelfContext.Contract.Models;
 using ShelfContext.Contract.Queries;
 using ShelfContext.DL.Read.Entities;
 

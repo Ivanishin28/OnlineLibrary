@@ -2,11 +2,6 @@
 using BookContext.Contract.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookContext.DL.Read.Queries
 {
@@ -23,13 +18,15 @@ namespace BookContext.DL.Read.Queries
         {
             return await _db
                 .Authors
+                .Include(x => x.AuthorMetadata)
                 .Where(x => x.CreatorId == request.UserId)
                 .Select(x => new AuthorPreview()
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    BirthDate = x.BirthDate
+                    BirthDate = x.AuthorMetadata.BirthDate,
+                    AvatarId = x.AuthorMetadata != null ? x.AuthorMetadata.AvatarId : null
                 })
                 .ToListAsync();
         }

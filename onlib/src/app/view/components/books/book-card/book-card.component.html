@@ -1,10 +1,39 @@
-<div class="book-card">
-  <div class="info">
-    <book-cover></book-cover>
-    <p class="title">{{ book.title }}</p>
-    <ng-container
-      *ngIf="bottomTemplate"
-      [ngTemplateOutlet]="bottomTemplate"
-    ></ng-container>
+<div
+  class="book-card"
+  [class.with-popover]="showPopover"
+  (mouseenter)="onTargetEnter($event)"
+  (mouseleave)="onTargetLeave($event)">
+  <div class="book-card-content">
+    <div class="cover-wrapper">
+      <a 
+        *ngIf="navigateOnImageClick" 
+        [routerLink]="['/books', book.id]"
+        class="cover-link">
+        <book-cover [coverId]="book.cover_id"></book-cover>
+      </a>
+      <book-cover
+        *ngIf="!navigateOnImageClick"
+        [coverId]="book.cover_id"
+        class="cover"
+      ></book-cover>
+    </div>
+    <div class="book-info">
+      <h3 class="book-title">{{ book.title }}</h3>
+      <ng-container
+        *ngIf="bottomTemplate"
+        [ngTemplateOutlet]="bottomTemplate"
+      ></ng-container>
+    </div>
   </div>
 </div>
+
+<p-popover 
+  *ngIf="showPopover"
+  #popover
+  [dismissable]="false">
+  <book-info-panel
+    (mouseenter)="onPopoverEnter()"
+    (mouseleave)="onPopoverLeave()"
+    [bookId]="book.id"
+  ></book-info-panel>
+</p-popover>

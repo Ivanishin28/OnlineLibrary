@@ -1,0 +1,173 @@
+.shelf-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 140px;
+
+  &:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.shelf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .shelf-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    border-radius: 10px;
+    color: white;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .shelf-actions {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    .shelf-card:hover & {
+      opacity: 1;
+    }
+  }
+
+  .action-button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 6px;
+    background: #f3f4f6;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+
+    &:hover {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    &.edit-button:hover {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    &.delete-button:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+  }
+}
+
+.shelf-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.shelf-name-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  .shelf-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+}
+
+.shelf-edit-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .shelf-name-input {
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 14px;
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: #1d4ed8;
+    }
+  }
+
+  .edit-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    i {
+      font-size: 14px;
+    }
+
+    &.cancel-btn {
+      background: #f3f4f6;
+      color: #6b7280;
+
+      &:hover {
+        background: #e5e7eb;
+        color: #374151;
+      }
+    }
+
+    &.save-btn {
+      background: #2563eb;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background: #1d4ed8;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .shelf-name-input.p-inputtext {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}

@@ -8,7 +8,7 @@ import { BookCreationWindowManager } from '../../../../business/managers/windows
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BookPreview } from '../../../../business/models/books/bookPreview';
 import { PersonalBooksService } from '../../../../business/services/books/personal-books.service';
-import { BookCardWithActionsComponent } from '../book-card-with-actions/book-card-with-actions.component';
+import { BookCoverComponent } from '../book-cover/book-cover.component';
 
 @Component({
   standalone: true,
@@ -17,33 +17,30 @@ import { BookCardWithActionsComponent } from '../book-card-with-actions/book-car
     CommonModule,
     ButtonModule,
     DynamicDialogModule,
-    BookCardWithActionsComponent,
+    BookCoverComponent,
   ],
   providers: [BookCreationWindowManager, PersonalBooksService],
   templateUrl: './books-controls.component.html',
   styleUrl: './books-controls.component.scss',
 })
 export class BooksControlsComponent implements OnInit {
-  private user!: UserId;
-
   public books: BookPreview[] = [];
 
   constructor(
-    private auth: AuthService,
     private bookCreationWindow: BookCreationWindowManager,
     private personalBooksService: PersonalBooksService
   ) {}
 
   public ngOnInit(): void {
-    this.auth.loggedUser$
-      .pipe(take(1))
-      .subscribe((x) => (this.user = x.userId));
-
     this.loadBooks();
   }
 
   public createBook(): void {
     this.bookCreationWindow.create().subscribe((x) => this.loadBooks());
+  }
+
+  public editBook(bookId: string): void {
+    this.bookCreationWindow.edit(bookId).subscribe((x) => this.loadBooks());
   }
 
   public delete(bookId: string): void {

@@ -26,7 +26,17 @@ export const routes: Routes = [
       { path: '', component: BooksPageComponent },
       { path: 'books', component: BooksPageComponent },
       { path: 'books/:id', component: BookPageComponent },
-      { path: 'organization', component: LibraryOrganizationComponent },
+      {
+        path: 'organization',
+        component: LibraryOrganizationComponent,
+        children: [
+          { path: '', redirectTo: 'shelves', pathMatch: 'full' },
+          { path: 'shelves', component: LibraryOrganizationComponent },
+          { path: 'tags', component: LibraryOrganizationComponent },
+          { path: 'authors', component: LibraryOrganizationComponent },
+          { path: 'books', component: LibraryOrganizationComponent },
+        ],
+      },
       { path: 'library/:userId', component: LibraryComponent },
     ],
   },

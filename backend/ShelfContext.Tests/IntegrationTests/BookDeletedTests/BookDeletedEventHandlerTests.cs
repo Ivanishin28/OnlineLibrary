@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ShelfContext.UseCases.EventHandlers;
 using ShelfContext.DL.SqlServer.Concrete;
 using ShelfContext.Domain.Entities.ShelvedBooks;
 using ShelfContext.Domain.Entities.Shelves;
 using ShelfContext.Domain.Entities.Users;
 using ShelfContext.Domain.Entities.Books;
 using BookContext.Contract.Events;
+using ShelfContext.UseCases.EventHandlers.BookDeletedEventHandlers;
 
 namespace ShelfContext.Tests.IntegrationTests.BookDeletedTests
 {
@@ -23,7 +23,7 @@ namespace ShelfContext.Tests.IntegrationTests.BookDeletedTests
     {
         private ShelfDbContext _db = null!;
         
-        private BookDeletedEventHandler sut = null!;
+        private ShelvedBookBookDeletionHandler sut = null!;
 
         [SetUp]
         public void SetUp()
@@ -33,7 +33,7 @@ namespace ShelfContext.Tests.IntegrationTests.BookDeletedTests
                 .Options;
             _db = new ShelfDbContext(options);
 
-            sut = new BookDeletedEventHandler(
+            sut = new ShelvedBookBookDeletionHandler(
                 new UnitOfWork(_db),
                 new ShelvedBookRepository(_db));
         }

@@ -1,0 +1,11 @@
+.rating-container {
+  display: inline-block;
+
+  ::ng-deep .p-rating {
+    .p-rating-icon {
+      font-size: var(--rating-font-size, 20px);
+      color: #fbbf24;
+    }
+  }
+}
+

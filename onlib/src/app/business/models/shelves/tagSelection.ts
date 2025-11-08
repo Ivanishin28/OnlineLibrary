@@ -20,8 +20,6 @@ export class TagSelection {
       return new TagSelectionOption(x, isSelected);
     });
 
-    console.log(options);
-
     return new TagSelection(shelvedBookId, options);
   }
 }

@@ -7,6 +7,7 @@ using ShelfContext.Contract.Commands.AddTagToBook;
 using ShelfContext.Contract.Commands.DislodgeBook;
 using ShelfContext.Contract.Commands.RemoveTag;
 using ShelfContext.Contract.Commands.ShelveBook;
+using ShelfContext.Contract.Queries;
 using ShelfContext.Contract.Queries.GetLibrarySummary;
 using ShelfContext.Contract.Queries.GetShelvedBookByBookId;
 
@@ -87,6 +88,22 @@ namespace ShelfContext.Application.Controllers
         public async Task<IActionResult> GetSummary(Guid userId)
         {
             var query = new GetLibrarySummaryForUserQuery(userId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("book/{bookId}/shelved-count")]
+        public async Task<IActionResult> GetShelvedCount(Guid bookId)
+        {
+            var query = new GetBookShelvedCountQuery(bookId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("book/{bookId}/shelfs")]
+        public async Task<IActionResult> GetAllShelfsForBook(Guid bookId)
+        {
+            var query = new GetAllShelfsForBookQuery(bookId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

@@ -24,7 +24,8 @@ namespace BookContext.DL.Read.Queries
             return await _db
                 .Books
                 .Where(x => x.CreatorId == request.UserId)
-                .Select(x => new BookPreviewDto(x.Id, x.Title))
+                .Include(b => b.BookMetadata)
+                .Select(b => new BookPreviewDto(b.Id, b.Title, b.BookMetadata != null ? b.BookMetadata.CoverId : (Guid?)null))
                 .ToListAsync();
         }
     }

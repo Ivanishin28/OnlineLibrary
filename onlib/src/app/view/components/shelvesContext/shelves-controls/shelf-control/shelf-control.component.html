@@ -1,0 +1,60 @@
+<div class="shelf-card">
+  <div class="shelf-header">
+    <div class="shelf-icon">
+      <i class="pi pi-bookmark"></i>
+    </div>
+    <div class="shelf-actions">
+      <button
+        *ngIf="!isEditing"
+        (click)="enableEditing()"
+        class="action-button edit-button"
+        type="button"
+        title="Rename shelf">
+        <i class="pi pi-pencil"></i>
+      </button>
+      <button
+        (click)="onDelete()"
+        class="action-button delete-button"
+        type="button"
+        title="Delete shelf">
+        <i class="pi pi-trash"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="shelf-content">
+    <div class="shelf-name-wrapper" *ngIf="!isEditing">
+      <h3 class="shelf-name">{{ shelf.name }}</h3>
+    </div>
+
+    <div class="shelf-edit-wrapper" *ngIf="isEditing">
+      <input
+        pInputText
+        [(ngModel)]="editedName"
+        class="shelf-name-input"
+        type="text"
+        placeholder="Shelf name"
+        (keydown.enter)="saveName()"
+        (keydown.escape)="cancelEditing()"
+        #nameInput
+      />
+      <div class="edit-actions">
+        <button
+          (click)="cancelEditing()"
+          class="action-btn cancel-btn"
+          type="button">
+          <i class="pi pi-times"></i>
+          <span>Cancel</span>
+        </button>
+        <button
+          (click)="saveName()"
+          class="action-btn save-btn"
+          type="button"
+          [disabled]="!isValid">
+          <i class="pi pi-check"></i>
+          <span>Save</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

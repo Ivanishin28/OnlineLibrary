@@ -1,0 +1,14 @@
+<p-autocomplete
+  [suggestions]="filteredAuthors"
+  (onSelect)="selectAuthor($event.value)"
+  (completeMethod)="searchAuthors($event)"
+  [minLength]="MIN_QUERY_LENGTH"
+  [completeOnFocus]="true"
+  [delay]="300"
+  optionLabel="first_name"
+  placeholder="Search for authors..."
+>
+  <ng-template let-author #item>
+    <author-search-result [author]="author"></author-search-result>
+  </ng-template>
+</p-autocomplete>

@@ -17,14 +17,17 @@ namespace IdentityContext.Contracts.Commands.Register
         public string LastName { get; private set; }
         [JsonPropertyName("birth_date")]
         public DateOnly BirthDate { get; private set; }
+        [JsonPropertyName("avatar_id")]
+        public Guid? AvatarId { get; private set; }
 
         public RegisterRequest(
-            string login, 
-            string email, 
-            string password, 
-            string firstName, 
-            string lastName, 
-            DateOnly birthDate)
+            string login,
+            string email,
+            string password,
+            string firstName,
+            string lastName,
+            DateOnly birthDate,
+            Guid? avatarId)
         {
             Email = email;
             Password = password;
@@ -32,6 +35,7 @@ namespace IdentityContext.Contracts.Commands.Register
             FirstName = firstName;
             LastName = lastName;
             BirthDate = birthDate;
+            AvatarId = avatarId;
         }
     }
 }

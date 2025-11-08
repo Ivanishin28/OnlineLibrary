@@ -1,7 +1,23 @@
-<ul class="book-list">
-  <li *ngFor="let item of books" class="book-item">
-    <a [routerLink]="['/books', item.id]">
-      <book-card [book]="item"></book-card>
-    </a>
-  </li>
-</ul>
+<div class="books-page-container">
+  <div class="books-page-layout">
+    <aside class="filter-sidebar">
+      <book-filter (filterSelected)="filterBooks($event)"> </book-filter>
+    </aside>
+    <main class="content-area">
+      <div class="books-section">
+        <books-page-display
+          *ngIf="bookPage"
+          [books]="bookPage.items">
+        </books-page-display>
+      </div>
+      <div class="pagination-container" *ngIf="bookPage && bookPage.total > 0">
+        <pagination
+          [pageSize]="paginator.pageSize"
+          [pageIndex]="paginator.pageIndex"
+          [totalItems]="bookPage.total"
+          (paginationChange)="paginator.loadPagination($event)">
+        </pagination>
+      </div>
+    </main>
+  </div>
+</div>

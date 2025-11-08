@@ -1,27 +1,33 @@
-<div class="layout">
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()">
-    <div class="fields">
-      <div *ngIf="form.controls.name as control" class="form-group">
-        <label for="name">Name</label>
+<div class="window-container">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="formSubmit$.next()" class="window-form">
+    <div class="form-fields">
+      <div *ngIf="form.controls.name as control" class="field-group">
+        <label for="name" class="field-label">Tag Name</label>
         <input
           id="name"
           pInputText
           [formControl]="control"
-          class="form-control"
+          class="field-input"
           type="text"
+          placeholder="Enter tag name"
         />
         <div
           *ngIf="control.invalid && control.dirty"
-          class="validation-message"
+          class="field-error"
         >
-          <p>Invalid</p>
-          <p *ngIf="control.getError('tagNameTaken') as error">TagName taken</p>
+          <span *ngIf="control.hasError('required')">Tag name is required</span>
+          <span *ngIf="control.getError('tagNameTaken')">This tag name is already taken</span>
         </div>
       </div>
     </div>
 
-    <div class="controls">
-      <p-button class="save" type="submit">Create</p-button>
+    <div class="form-actions">
+      <p-button 
+        class="submit-button" 
+        type="submit"
+        label="Create Tag"
+        icon="pi pi-check">
+      </p-button>
     </div>
   </form>
 </div>

@@ -1,25 +1,61 @@
-<div class="layout">
+<div class="authors-container">
   <div class="header">
-    <h2>Authors</h2>
-    <p-button (click)="createAuthor()">Create Author</p-button>
-  </div>
-
-  <div *ngIf="authors.length > 0" class="author-list">
-    <div *ngFor="let author of authors" class="author-item">
-      <div class="author-info">
-        <p class="name">{{ author.first_name }} {{ author.last_name }}</p>
-        <p class="birth-date">Born: {{ author.birth_date | date:'dd/MM/yyyy' }}</p>
+    <div class="header-content">
+      <div class="title-section">
+        <i class="pi pi-user title-icon"></i>
+        <h2 class="title">My Authors</h2>
+        <span class="author-count" *ngIf="authors.length > 0">{{ authors.length }}</span>
       </div>
-      <p-button
-        (click)="delete(author.id)"
-        icon="pi pi-times"
-        severity="danger"
-        size="small"
-      ></p-button>
+      <p-button 
+        (click)="createAuthor()" 
+        icon="pi pi-plus" 
+        label="Create Author"
+        [outlined]="true"
+        class="create-button">
+      </p-button>
     </div>
   </div>
 
-  <div *ngIf="authors.length === 0" class="empty-state">
-    <p>No authors found. Create your first author!</p>
+  <div class="authors-grid" *ngIf="authors.length > 0">
+    <div *ngFor="let author of authors" class="author-card">
+      <div class="author-avatar-wrapper">
+        <user-avatar [fileId]="author.avatar_id"></user-avatar>
+      </div>
+      <div class="author-info">
+        <h3 class="author-name">{{ author.first_name }} {{ author.last_name }}</h3>
+        <p class="author-birth-date">
+          <i class="pi pi-calendar"></i>
+          Born: {{ author.birth_date | date:'dd MMM yyyy' }}
+        </p>
+      </div>
+      <div class="author-actions">
+        <button
+          (click)="edit(author.id)"
+          class="action-button edit-button"
+          type="button"
+          title="Edit author">
+          <i class="pi pi-pencil"></i>
+        </button>
+        <button
+          (click)="delete(author.id)"
+          class="action-button delete-button"
+          type="button"
+          title="Delete author">
+          <i class="pi pi-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="authors.length === 0">
+    <i class="pi pi-inbox empty-icon"></i>
+    <p class="empty-message">No authors yet</p>
+    <p class="empty-hint">Create your first author to start building your library</p>
+    <p-button 
+      (click)="createAuthor()" 
+      icon="pi pi-plus" 
+      label="Create Your First Author"
+      class="empty-button">
+    </p-button>
   </div>
 </div>

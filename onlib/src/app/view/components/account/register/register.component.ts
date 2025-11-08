@@ -17,6 +17,10 @@ import { Router, RouterModule } from '@angular/router';
 import { ValidationSummaryComponent } from '../../_shared/validation-summary/validation-summary.component';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
+import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
+import { MediaFileUploadComponent } from '../../_shared/media-file-upload/media-file-upload.component';
+import { FileUploadViewModel } from '../../../../business/viewmodels/fileUploadViewModel';
+import { UserAvatarComponent } from '../../user/user-avatar/user-avatar.component';
 
 @Component({
   standalone: true,
@@ -31,6 +35,8 @@ import { ButtonModule } from 'primeng/button';
     ValidationSummaryComponent,
     DatePickerModule,
     ButtonModule,
+    MediaFileUploadComponent,
+    UserAvatarComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -44,6 +50,7 @@ export class RegisterComponent implements OnInit {
     lastName: FormControl<string | null>;
     birthDate: FormControl<Date | null>;
   }>;
+  public avatarUpload: FileUploadViewModel = new FileUploadViewModel();
 
   public error: Result<void> | undefined;
 
@@ -84,6 +91,7 @@ export class RegisterComponent implements OnInit {
         login: this.form.value.login!,
         email: this.form.value.email!,
         password: this.form.value.password!,
+        avatar_id: this.avatarUpload.file?.value,
         first_name: this.form.value.firstName!,
         last_name: this.form.value.lastName!,
         birth_date: this.form.value.birthDate!,

@@ -1,9 +1,159 @@
-.layout {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
+.manage-book-container {
+  width: 100%;
 }
 
-.shelf-selection {
-  min-width: 200px;
+.manage-book-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+}
+
+.header-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+
+  i {
+    font-size: 18px;
+  }
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.action-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-icon {
+  font-size: 16px;
+  color: #2563eb;
+}
+
+.action-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.action-hint {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  font-style: italic;
+  padding-left: 24px;
+}
+
+.shelf-select {
+  width: 100%;
+}
+
+::ng-deep {
+  .shelf-select {
+    .p-select {
+      width: 100%;
+
+      .p-select-label {
+        padding: 10px 14px;
+        font-size: 15px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: #2563eb;
+        }
+      }
+
+      &.p-focus .p-select-label {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+    }
+  }
+
+  .shelf-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+
+    i {
+      color: #2563eb;
+      font-size: 14px;
+    }
+  }
+}
+
+.review-button {
+  width: 100%;
+}
+
+::ng-deep .review-button {
+  .p-button {
+    width: 100%;
+    background: #2563eb;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 15px;
+
+    &:hover:not(:disabled) {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #94a3b8;
+    }
+  }
 }

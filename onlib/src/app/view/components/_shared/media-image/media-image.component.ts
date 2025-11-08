@@ -25,6 +25,7 @@ export class MediaImageComponent implements OnChanges, OnDestroy {
 
   public ngOnDestroy(): void {
     if (this.imageUrl) {
+      this.disposeOfImage();
     }
   }
 
@@ -45,6 +46,11 @@ export class MediaImageComponent implements OnChanges, OnDestroy {
 
   private downloadImage(file: MediaFileId): void {
     this.fileService.download(file).subscribe((blob) => {
+      if (!blob?.type || !blob.type.startsWith('image/')) {
+        this.imageUrl = undefined;
+        return;
+      }
+
       const url = URL.createObjectURL(blob);
       this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(url);
     });

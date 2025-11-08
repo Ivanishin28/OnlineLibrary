@@ -1,3 +1,5 @@
-export class BookPreview {
-  constructor(public id: string, public title: string) {}
+export interface BookPreview {
+  id: string;
+  title: string;
+  cover_id: string | undefined;
 }
