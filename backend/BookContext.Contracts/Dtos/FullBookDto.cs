@@ -12,7 +12,10 @@ namespace BookContext.Contract.Dtos
         
         [JsonPropertyName("cover_id")]
         public Guid? CoverId { get; init; }
-        
+
+        [JsonPropertyName("file_id")]
+        public Guid? FileId { get; init; }
+
         [JsonPropertyName("authors")]
         public IReadOnlyCollection<AuthorDto> Authors { get; init; } = new List<AuthorDto>();
         

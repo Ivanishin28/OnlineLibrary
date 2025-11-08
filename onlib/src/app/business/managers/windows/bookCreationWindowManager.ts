@@ -36,6 +36,7 @@ export class BookCreationWindowManager {
           publishing_date: output.publishing_date,
           cover_id: output.cover_id,
           description: output.description,
+          file_id: output.file_id,
           genre_ids: output.selectedGenres.map((x) => x.id),
         };
 
@@ -74,6 +75,7 @@ export class BookCreationWindowManager {
               publishing_date: output.publishing_date,
               cover_id: output.cover_id,
               description: output.description,
+              file_id: output.file_id,
               genre_ids: output.selectedGenres.map((x) => x.id),
             };
 

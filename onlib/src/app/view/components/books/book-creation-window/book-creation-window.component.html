@@ -78,6 +78,25 @@
           <book-cover [coverId]="coverId"></book-cover>
         </div>
       </div>
+
+      <div class="book-file-section">
+        <label class="field-label">Book File (PDF)</label>
+        <div class="book-file-upload">
+          <media-file-upload
+            [uploadedFileId]="bookFileId"
+            [accept]="'application/pdf'"
+            [maxFileSize]="15_000_000"
+            (fileUploaded)="onBookFileUploaded($event)"
+          ></media-file-upload>
+          <div class="book-file-hint">
+            <span>Upload a PDF file up to 15&nbsp;MB.</span>
+          </div>
+          <div *ngIf="bookFileId" class="book-file-status">
+            <i class="pi pi-check-circle"></i>
+            <span>File uploaded</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="form-actions">

@@ -7,6 +7,7 @@ import { MediaFileService } from '../../../../../business/services/media/media-f
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
+  standalone: true,
   selector: 'pdf-viewer-window',
   imports: [CommonModule, PdfViewerModule],
   templateUrl: './pdf-viewer-window.component.html',
@@ -14,7 +15,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class PdfViewerWindowComponent implements OnInit, OnDestroy {
   private input: PdfViewerWindowInput;
-  public url: SafeUrl | undefined;
+  public url: string | undefined;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -24,17 +25,16 @@ export class PdfViewerWindowComponent implements OnInit, OnDestroy {
     this.input = config.data;
   }
 
+  public ngOnInit(): void {
+    this.fileService.download(this.input.file).subscribe((blob) => {
+      this.url = URL.createObjectURL(blob);
+    });
+  }
+
   public ngOnDestroy(): void {
     if (this.url) {
       this.disposeOfImage();
     }
-  }
-
-  public ngOnInit(): void {
-    this.fileService.download(this.input.file).subscribe((blob) => {
-      const url = URL.createObjectURL(blob);
-      this.url = this.sanitizer.bypassSecurityTrustUrl(url);
-    });
   }
 
   private disposeOfImage(): void {

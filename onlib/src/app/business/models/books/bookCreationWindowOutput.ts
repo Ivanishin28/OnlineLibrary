@@ -8,6 +8,7 @@ export class BookCreationWindowOutput {
     public readonly selectedAuthors: AuthorPreview[],
     public readonly description: string | null,
     public readonly cover_id: string | null,
-    public readonly selectedGenres: Genre[] = []
+    public readonly selectedGenres: Genre[] = [],
+    public readonly file_id: string | null = null
   ) {}
 }

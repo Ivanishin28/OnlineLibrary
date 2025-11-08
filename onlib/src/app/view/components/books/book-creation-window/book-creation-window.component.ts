@@ -47,6 +47,7 @@ export class BookCreationWindowComponent implements OnInit {
   }>;
 
   public coverId: string | undefined;
+  public bookFileId: string | undefined;
   public selectedAuthors: AuthorPreview[] = [];
   public selectedGenres: Genre[] = [];
   public isEditMode: boolean = false;
@@ -84,7 +85,8 @@ export class BookCreationWindowComponent implements OnInit {
       this.selectedAuthors,
       this.form.value.description ?? null,
       this.coverId ?? null,
-      this.selectedGenres
+      this.selectedGenres,
+      this.bookFileId ?? null
     );
 
     this.ref.close(output);
@@ -92,6 +94,10 @@ export class BookCreationWindowComponent implements OnInit {
 
   public onCoverUploaded(fileId: MediaFileId): void {
     this.coverId = fileId.value;
+  }
+
+  public onBookFileUploaded(fileId: MediaFileId): void {
+    this.bookFileId = fileId.value;
   }
 
   public onSelectedAuthorsChange(authors: AuthorPreview[]): void {
@@ -110,6 +116,9 @@ export class BookCreationWindowComponent implements OnInit {
     this.form.controls.description.setValue(fullBook.description ?? '');
     if (fullBook.cover_id) {
       this.coverId = fullBook.cover_id;
+    }
+    if (fullBook.file_id) {
+      this.bookFileId = fullBook.file_id;
     }
     this.selectedAuthors = fullBook.authors.map((author): AuthorPreview => ({
       id: author.id,

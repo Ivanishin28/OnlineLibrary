@@ -65,10 +65,16 @@ export class BookPageComponent implements OnInit, OnDestroy {
   }
 
   public showPdf(): void {
-    if (!this.book) {
+    if (!this.canSeeFile) {
       return;
     }
 
-    this.pdfViewer.open(this.book?.title, new MediaFileId('')).subscribe();
+    this.pdfViewer
+      .open(this.book!.title, new MediaFileId(this.book!.file_id!))
+      .subscribe();
+  }
+
+  public get canSeeFile(): boolean {
+    return !!this.book && !!this.book.file_id;
   }
 }

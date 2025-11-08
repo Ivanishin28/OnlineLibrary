@@ -19,13 +19,25 @@ interface UploadEvent {
 export class MediaFileUploadComponent {
   @Input({ required: true }) uploadedFileId: string | undefined;
 
+  @Input() accept: string | null = 'image/*';
+
+  @Input() maxFileSize: number = 1_000_000;
+
   @Output() fileUploaded: EventEmitter<MediaFileId> =
     new EventEmitter<MediaFileId>();
 
   constructor(private mediaFileService: MediaFileService) {}
 
   public upload(model: UploadEvent): void {
-    const file = model.files[0];
+    const file = model.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    if (this.accept && !this.isFileAllowed(file, this.accept)) {
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result as string;
@@ -42,5 +54,36 @@ export class MediaFileUploadComponent {
         });
     };
     reader.readAsDataURL(file);
+  }
+
+  private isFileAllowed(file: File, accept: string): boolean {
+    const mimeType = file.type ?? '';
+    const lowerName = file.name.toLowerCase();
+
+    const patterns = accept
+      .split(',')
+      .map((pattern) => pattern.trim())
+      .filter((pattern) => pattern.length > 0);
+
+    if (patterns.length === 0) {
+      return true;
+    }
+
+    return patterns.some((pattern) => {
+      if (pattern === '*/*') {
+        return true;
+      }
+
+      if (pattern.startsWith('.')) {
+        return lowerName.endsWith(pattern.toLowerCase());
+      }
+
+      if (pattern.endsWith('/*')) {
+        const prefix = pattern.slice(0, -1);
+        return mimeType.startsWith(prefix);
+      }
+
+      return mimeType === pattern;
+    });
   }
 }

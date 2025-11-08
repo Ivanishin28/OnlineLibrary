@@ -38,6 +38,7 @@ namespace BookContext.DL.Read.Queries
                 CoverId = fromDb.BookMetadata.CoverId,
                 PublishingDate = fromDb.BookMetadata.PublishingDate,
                 Description = fromDb.BookMetadata.Description,
+                FileId = fromDb.BookMetadata.FileId,
                 Genres = fromDb.BookGenres
                     .Select(bg => 
                         new GenreDto

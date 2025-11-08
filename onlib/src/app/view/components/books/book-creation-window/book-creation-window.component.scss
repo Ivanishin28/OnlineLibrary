@@ -116,6 +116,49 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.book-file-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.book-file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+:ng-deep .book-file-upload .p-fileupload-choose {
+  background: #2563eb;
+  border: none;
+  color: #fff;
+
+  &:hover {
+    background: #1d4ed8;
+  }
+}
+
+.book-file-hint {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.book-file-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #2563eb;
+
+  i {
+    font-size: 12px;
+  }
+}
+
 .date-picker {
   width: 100%;
 }
