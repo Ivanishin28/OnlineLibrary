@@ -25,6 +25,7 @@ export class MediaImageComponent implements OnChanges, OnDestroy {
 
   public ngOnDestroy(): void {
     if (this.imageUrl) {
+      this.disposeOfImage();
     }
   }
 

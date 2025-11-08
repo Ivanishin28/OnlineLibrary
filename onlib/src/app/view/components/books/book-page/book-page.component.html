@@ -1,7 +1,7 @@
 <div *ngIf="book" class="book-page-container">
   <div class="book-header">
     <div class="book-cover-section">
-      <div class="cover-wrapper">
+      <div (click)="showPdf()" class="cover-wrapper">
         <book-cover [coverId]="book.cover_id"></book-cover>
       </div>
 

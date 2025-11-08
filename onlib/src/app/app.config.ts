@@ -22,6 +22,7 @@ import { ReviewService } from './business/services/shelves/review.service';
 import { AuthorService } from './business/services/books/author.service';
 import { ShelfService } from './business/services/shelves/shelf.service';
 import { GenreService } from './business/services/books/genre.service';
+import { PdfViewerWindowManager } from './business/managers/windows/pdfViewerWindowManager';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -55,5 +56,6 @@ export const appConfig: ApplicationConfig = {
     ShelfService,
     DatePipe,
     GenreService,
+    PdfViewerWindowManager,
   ],
 };

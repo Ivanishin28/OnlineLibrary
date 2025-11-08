@@ -6,6 +6,7 @@ export interface FullBook {
   id: string;
   title: string;
   cover_id: string | undefined;
+  file_id: string | undefined;
   authors: FullAuthor[];
   description: string | undefined;
   publishing_date: DateOnly;

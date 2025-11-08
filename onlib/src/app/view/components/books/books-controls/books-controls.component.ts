@@ -24,21 +24,14 @@ import { BookCoverComponent } from '../book-cover/book-cover.component';
   styleUrl: './books-controls.component.scss',
 })
 export class BooksControlsComponent implements OnInit {
-  private user!: UserId;
-
   public books: BookPreview[] = [];
 
   constructor(
-    private auth: AuthService,
     private bookCreationWindow: BookCreationWindowManager,
     private personalBooksService: PersonalBooksService
   ) {}
 
   public ngOnInit(): void {
-    this.auth.loggedUser$
-      .pipe(take(1))
-      .subscribe((x) => (this.user = x.userId));
-
     this.loadBooks();
   }
 

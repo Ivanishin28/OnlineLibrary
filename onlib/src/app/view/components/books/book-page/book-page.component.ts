@@ -13,6 +13,8 @@ import { BookShelvedStatisticsComponent } from './shelved-statistics/book-shelve
 import { BookAuthorsComponent } from './book-authors/book-authors.component';
 import { GenreDisplayComponent } from '../genre-display/genre-display.component';
 import { BookEvents } from '../../../../business/services/books/bookEvents';
+import { PdfViewerWindowManager } from '../../../../business/managers/windows/pdfViewerWindowManager';
+import { MediaFileId } from '../../../../business/models/_shared/mediaFileId';
 
 @Component({
   standalone: true,
@@ -39,7 +41,8 @@ export class BookPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private bookService: BookService
+    private bookService: BookService,
+    private pdfViewer: PdfViewerWindowManager
   ) {}
 
   public ngOnInit(): void {
@@ -59,5 +62,13 @@ export class BookPageComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  public showPdf(): void {
+    if (!this.book) {
+      return;
+    }
+
+    this.pdfViewer.open(this.book?.title, new MediaFileId('')).subscribe();
   }
 }
