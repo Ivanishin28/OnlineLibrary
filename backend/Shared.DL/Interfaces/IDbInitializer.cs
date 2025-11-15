@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookContext.DL.SqlServer.Interfaces
+namespace Shared.DL.Interfaces
 {
     public interface IDbInitializer
     {

@@ -1,7 +1,8 @@
-﻿using BookContext.DL.SqlServer.Interfaces;
-using BookContext.Domain.Entities;
+﻿using BookContext.Domain.Entities;
 using BookContext.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
+using Shared.DL.Interfaces;
+
 
 namespace BookContext.DL.SqlServer.Concrete
 {
@@ -16,6 +17,8 @@ namespace BookContext.DL.SqlServer.Concrete
 
         public async Task Initialize()
         {
+            await _db.Database.MigrateAsync();
+
             if (await _db.Genres.AnyAsync())
             {
                 return;

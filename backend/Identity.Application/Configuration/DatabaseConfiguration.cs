@@ -3,6 +3,7 @@ using IdentityContext.DL.Concrete;
 using IdentityContext.DL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.DL.Interfaces;
 
 namespace IdentityContext.Application.Configuration
 {
@@ -17,7 +18,9 @@ namespace IdentityContext.Application.Configuration
 
         internal static IServiceCollection RegisterDbQueries(this IServiceCollection services)
         {
-            services.AddTransient<IIdentityChecker, IdentityChecker>();
+            services
+                .AddTransient<IDbInitializer, IdentityDbInitializer>()
+                .AddTransient<IIdentityChecker, IdentityChecker>();
 
             return services;
         }

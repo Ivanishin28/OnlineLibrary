@@ -1,4 +1,6 @@
-﻿namespace Host.WebApi.Configuration
+﻿using Shared.DL.Interfaces;
+
+namespace Host.WebApi.Configuration
 {
     public class ApplicationDbInitializer
     {
@@ -12,8 +14,12 @@
         public async Task Initialize()
         {
             using var scope = _provider.CreateScope();
-            var bookDbInit = scope.ServiceProvider.GetRequiredService<BookContext.DL.SqlServer.Interfaces.IDbInitializer>();
-            await bookDbInit.Initialize();
+            var initializers = scope.ServiceProvider.GetServices<IDbInitializer>();
+            
+            foreach (var dbInit in initializers)
+            {
+                await dbInit.Initialize();
+            }
         }
     }
 }
