@@ -1,37 +1,61 @@
-<div class="layout">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div class="fields">
-      <div *ngIf="form.controls.login as login" class="form-group">
-        <label for="login">Login</label>
-        <input
-          id="login"
-          pInputText
-          [formControl]="login"
-          class="form-control"
-          type="text"
-        />
-      </div>
-
-      <div *ngIf="form.controls.password as password" class="form-group">
-        <label for="password">Password</label>
-        <p-password
-          inputId="password"
-          [feedback]="false"
-          [toggleMask]="true"
-          [formControl]="password"
-          class="form-control"
-          type="text"
-        />
-      </div>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="login-title">Welcome Back</h1>
+      <p class="login-subtitle">Sign in to your account</p>
     </div>
 
-    <app-validation-summary [errors]="error?.errors"></app-validation-summary>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" class="login-form">
+      <div class="form-fields">
+        <div *ngIf="form.controls.login as login" class="field-group">
+          <label for="login" class="field-label">Login</label>
+          <input
+            id="login"
+            pInputText
+            [formControl]="login"
+            class="field-input"
+            type="text"
+            placeholder="Enter your login"
+          />
+          <div *ngIf="login.invalid && login.dirty" class="field-error">
+            Login is required
+          </div>
+        </div>
 
-    <div class="controls">
-      <p-button class="register" [routerLink]="['/account/register']"
-        >Register</p-button
-      >
-      <p-button class="login" type="submit">Login</p-button>
-    </div>
-  </form>
+        <div *ngIf="form.controls.password as password" class="field-group">
+          <label for="password" class="field-label">Password</label>
+          <p-password
+            inputId="password"
+            [feedback]="false"
+            [toggleMask]="true"
+            [formControl]="password"
+            class="field-input"
+            [style]="{ width: '100%' }"
+            placeholder="Enter your password"
+          />
+          <div *ngIf="password.invalid && password.dirty" class="field-error">
+            Password is required
+          </div>
+        </div>
+      </div>
+
+      <app-validation-summary [errors]="error?.errors" class="validation-summary"></app-validation-summary>
+
+      <div class="form-actions">
+        <p-button 
+          type="submit" 
+          class="submit-button"
+          [label]="'Sign In'"
+          [loading]="false">
+        </p-button>
+      </div>
+
+      <div class="form-footer">
+        <p class="footer-text">
+          Don't have an account?
+          <a [routerLink]="['/account/register']" class="footer-link">Sign up</a>
+        </p>
+      </div>
+    </form>
+  </div>
 </div>
