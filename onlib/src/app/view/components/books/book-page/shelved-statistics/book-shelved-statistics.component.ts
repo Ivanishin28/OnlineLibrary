@@ -19,7 +19,6 @@ export class BookShelvedStatisticsComponent
   @Input({ required: true }) bookId!: string;
 
   private destroy$: Subject<void> = new Subject<void>();
-  private bookId$: Subject<string> = new Subject<string>();
 
   public shelvedCount: number | undefined;
   public shelves: ShelfForBook[] = [];
@@ -34,20 +33,7 @@ export class BookShelvedStatisticsComponent
   ) {}
 
   public ngOnInit(): void {
-    this.bookId$
-      .pipe(
-        switchMap((bookId) =>
-          combineLatest([
-            this.shelfService.getShelvedCount(bookId),
-            this.shelfService.getAllShelfsForBook(bookId),
-          ])
-        ),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(([count, shelves]) => {
-        this.shelvedCount = count;
-        this.shelves = shelves;
-      });
+    this.loadStatistics();
 
     this.bookEvents.bookShelved$
       .pipe(takeUntil(this.destroy$))
@@ -61,13 +47,22 @@ export class BookShelvedStatisticsComponent
   }
 
   public ngOnChanges(): void {
-    this.bookId$.next(this.bookId);
+    this.loadStatistics();
+  }
+
+  private loadStatistics(): void {
+    combineLatest([
+      this.shelfService.getShelvedCount(this.bookId),
+      this.shelfService.getAllShelfsForBook(this.bookId),
+    ]).subscribe(([count, shelves]) => {
+      this.shelvedCount = count;
+      this.shelves = shelves;
+    });
   }
 
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    this.bookId$.complete();
   }
 
   public onShelvedCountClick(): void {
