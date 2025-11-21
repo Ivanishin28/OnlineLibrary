@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shared.DL.Interfaces;
 using UserContext.DL.SqlServer.Concrete;
 using UserContext.DL.SqlServer.Repositories;
 using UserContext.Domain.Interfaces;
@@ -11,6 +12,7 @@ namespace UserContext.DL.SqlServer.Configuration
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
             services
+                .AddTransient<IDbInitializer, UserDbInitializer>()
                 .AddTransient<IUnitOfWork, UnitOfWork>();
 
             services

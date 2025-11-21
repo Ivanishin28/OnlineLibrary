@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaContext.DL", "MediaCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaContext.Application", "Media.Application\MediaContext.Application.csproj", "{1E3804D5-5114-4902-8481-4C1C64BD2766}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.DL", "Shared.DL\Shared.DL.csproj", "{2F488014-0388-436D-ABF2-86129E100744}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -209,6 +211,10 @@ Global
 		{1E3804D5-5114-4902-8481-4C1C64BD2766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E3804D5-5114-4902-8481-4C1C64BD2766}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E3804D5-5114-4902-8481-4C1C64BD2766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F488014-0388-436D-ABF2-86129E100744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F488014-0388-436D-ABF2-86129E100744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F488014-0388-436D-ABF2-86129E100744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F488014-0388-436D-ABF2-86129E100744}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -244,5 +250,6 @@ Global
 		{2342CADE-E3C0-4858-9114-BE69C92FCB34} = {D832B9AF-94C0-4A62-BBB2-46C43944986B}
 		{432B3FDE-889A-4BB7-902B-8520006C2B9A} = {C54223ED-F51F-4F71-865B-7CBE9306E82A}
 		{1E3804D5-5114-4902-8481-4C1C64BD2766} = {C54223ED-F51F-4F71-865B-7CBE9306E82A}
+		{2F488014-0388-436D-ABF2-86129E100744} = {73C378D7-9262-46D8-A660-3E3499252A3D}
 	EndGlobalSection
 EndGlobal

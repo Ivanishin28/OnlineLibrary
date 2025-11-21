@@ -1,11 +1,11 @@
 <div class="shelf-info" *ngIf="shelvedCount !== undefined">
   <p class="clickable" (click)="onShelvedCountClick()">
     <strong>
-      Shelved {{ shelvedCount }} time{{ shelvedCount !== 1 ? 's' : '' }}
+      Shelved {{ shelvedCount }} time{{ shelvedCount !== 1 ? "s" : "" }}
     </strong>
     <i class="pi pi-angle-right click-icon"></i>
   </p>
-  
+
   <div class="overlay" *ngIf="showOverlay" (click)="closeOverlay()">
     <div class="overlay-content" (click)="$event.stopPropagation()">
       <div class="overlay-header">
@@ -18,10 +18,7 @@
           <span>Loading...</span>
         </div>
         <div *ngIf="!overlayLoading" class="shelves-container">
-          <span 
-            *ngFor="let shelf of overlayShelves" 
-            class="shelf-item"
-          >
+          <span *ngFor="let shelf of overlayShelves" class="shelf-item">
             {{ shelf.shelf_name }} ({{ shelf.count }})
           </span>
           <div *ngIf="overlayShelves.length === 0" class="no-shelves">
@@ -32,4 +29,3 @@
     </div>
   </div>
 </div>
-

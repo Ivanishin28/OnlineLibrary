@@ -2,3 +2,10 @@
 @import url("assets/styles/form-controls.scss");
 @import url("assets/styles/primeng-setup.scss");
 @import "primeicons/primeicons.css";
+
+body {
+  padding: 0;
+  margin: 0;
+  // height: 100vh;
+  // width: 100vw;
+}

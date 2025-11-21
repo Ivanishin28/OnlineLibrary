@@ -71,12 +71,14 @@ export class LoginComponent implements OnInit {
         login: this.form.value.login!,
         password: this.form.value.password!,
       })
-      .subscribe((loginResult) => {
-        if (loginResult.isSuccess) {
-          this.router.navigate(['/books']);
-        } else {
-          this.error = loginResult.toFailure<void>();
-        }
+      .subscribe({
+        next: (loginResult) => {
+          if (loginResult.isSuccess) {
+            this.router.navigate(['/books']);
+          } else {
+            this.error = loginResult.toFailure<void>();
+          }
+        },
       });
   }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.DL.Interfaces;
 using ShelfContext.DL.SqlServer.Concrete;
 using ShelfContext.Domain.Interfaces;
 using System;
@@ -19,7 +20,9 @@ namespace ShelfContext.DL.SqlServer.Configuration
                 options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OnlineLibrary;Trusted_Connection=True;");
             });
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services
+                .AddTransient<IDbInitializer, ShelfDbInitializer>()
+                .AddTransient<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

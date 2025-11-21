@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { Result } from '../../models/_shared/result';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ApiResult } from '../../models/_shared/apiResult';
 import { resultFromApiResult } from '../mappings/fromApiResult';
@@ -20,17 +20,25 @@ export class AccountService {
   public register(request: RegisterRequest): Observable<Result<void>> {
     const url = `${environment.api_main}/${this.COMPONENT}/register`;
 
-    return this.http
-      .post<ApiResult<void>>(url, request)
-      .pipe(map((apiResult) => resultFromApiResult(apiResult)));
+    return this.http.post<ApiResult<void>>(url, request).pipe(
+      map((apiResult) => resultFromApiResult(apiResult)),
+      catchError((error: HttpErrorResponse) => {
+        const apiResult = error.error as ApiResult<void>;
+        return of(resultFromApiResult(apiResult));
+      })
+    );
   }
 
   public login(request: LoginRequest): Observable<Result<LoginResult>> {
     const url = `${environment.api_main}/${this.COMPONENT}/login`;
 
-    return this.http
-      .post<ApiResult<LoginResult>>(url, request)
-      .pipe(map((apiResult) => resultFromApiResult(apiResult)));
+    return this.http.post<ApiResult<LoginResult>>(url, request).pipe(
+      map((apiResult) => resultFromApiResult(apiResult)),
+      catchError((error: HttpErrorResponse) => {
+        const apiResult = error.error as ApiResult<LoginResult>;
+        return of(resultFromApiResult(apiResult));
+      })
+    );
   }
 
   public getIdentityBy(userId: UserId): Observable<IdentityPreview> {

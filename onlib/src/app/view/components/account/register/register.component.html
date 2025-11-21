@@ -1,119 +1,141 @@
-<div class="layout">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div class="controls">
-      <div class="account fields">
-        <div *ngIf="form.controls.login as login" class="form-group">
-          <label for="login">Login</label>
-          <input
-            id="login"
-            pInputText
-            [formControl]="login"
-            class="form-control"
-            type="text"
-          />
-          <div *ngIf="login.invalid && login.dirty" class="validation-message">
-            <p>Invalid</p>
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h1 class="register-title">Create Account</h1>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" class="register-form">
+      <div class="form-sections">
+        <div class="form-section">
+          <h2 class="section-title">Account Information</h2>
+          <div class="form-fields">
+            <div *ngIf="form.controls.login as login" class="field-group">
+              <label for="login" class="field-label">Login</label>
+              <input
+                id="login"
+                pInputText
+                [formControl]="login"
+                class="field-input"
+                type="text"
+                placeholder="Choose a username"
+              />
+              <div *ngIf="login.invalid && login.dirty" class="field-error">
+                Login is required
+              </div>
+            </div>
+
+            <div *ngIf="form.controls.email as email" class="field-group">
+              <label for="email" class="field-label">Email</label>
+              <input
+                id="email"
+                pInputText
+                [formControl]="email"
+                class="field-input"
+                type="email"
+                placeholder="your.email@example.com"
+              />
+              <div *ngIf="email.invalid && email.dirty" class="field-error">
+                Valid email is required
+              </div>
+            </div>
+
+            <div *ngIf="form.controls.password as password" class="field-group">
+              <label for="password" class="field-label">Password</label>
+              <p-password
+                inputId="password"
+                [formControl]="password"
+                class="field-input"
+                [style]="{ width: '100%' }"
+                placeholder="Create a password"
+              />
+              <div *ngIf="password.invalid && password.dirty" class="field-error">
+                Password is required
+              </div>
+            </div>
           </div>
         </div>
 
-        <div *ngIf="form.controls.email as email" class="form-group">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            pInputText
-            [formControl]="email"
-            class="form-control"
-            type="text"
-          />
-          <div *ngIf="email.invalid && email.dirty" class="validation-message">
-            <p>Invalid</p>
-          </div>
-        </div>
+        <div class="form-section">
+          <h2 class="section-title">Personal Information</h2>
+          <div class="form-fields">
+            <div class="name-fields">
+              <div *ngIf="form.controls.firstName as firstName" class="field-group">
+                <label for="firstName" class="field-label">First Name</label>
+                <input
+                  id="firstName"
+                  pInputText
+                  [formControl]="firstName"
+                  class="field-input"
+                  type="text"
+                  placeholder="John"
+                />
+                <div *ngIf="firstName.invalid && firstName.dirty" class="field-error">
+                  First name is required
+                </div>
+              </div>
 
-        <div *ngIf="form.controls.password as password" class="form-group">
-          <label for="password">Password</label>
-          <p-password
-            inputId="password"
-            [formControl]="password"
-            class="form-control"
-            type="text"
-          />
-          <div
-            *ngIf="password.invalid && password.dirty"
-            class="validation-message"
-          >
-            <p>Invalid</p>
+              <div *ngIf="form.controls.lastName as lastName" class="field-group">
+                <label for="lastName" class="field-label">Last Name</label>
+                <input
+                  id="lastName"
+                  pInputText
+                  [formControl]="lastName"
+                  class="field-input"
+                  type="text"
+                  placeholder="Doe"
+                />
+                <div *ngIf="lastName.invalid && lastName.dirty" class="field-error">
+                  Last name is required
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="form.controls.birthDate as control" class="field-group">
+              <label for="birthDate" class="field-label">Birth Date</label>
+              <p-date-picker
+                [formControl]="control"
+                [readonlyInput]="true"
+                inputId="birthDate"
+                class="date-picker"
+              ></p-date-picker>
+              <div *ngIf="control.invalid && control.dirty" class="field-error">
+                Birth date is required
+              </div>
+            </div>
+
+            <div class="avatar-section">
+              <div class="avatar-upload">
+                <label class="field-label">Profile Picture (Optional)</label>
+                <media-file-upload
+                  [uploadedFileId]="undefined"
+                  (fileUploaded)="avatarUpload.upload($event)"
+                ></media-file-upload>
+              </div>
+              <div class="avatar-preview" *ngIf="avatarUpload.file?.value">
+                <user-avatar [fileId]="avatarUpload.file?.value"></user-avatar>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="personal-info fields">
-        <div *ngIf="form.controls.firstName as firstName" class="form-group">
-          <label for="firstName">First Name</label>
-          <input
-            id="firstName"
-            pInputText
-            [formControl]="firstName"
-            class="form-control"
-            type="text"
-          />
-          <div
-            *ngIf="firstName.invalid && firstName.dirty"
-            class="validation-message"
-          >
-            <p>Invalid</p>
-          </div>
-        </div>
+      <app-validation-summary [errors]="error?.errors" class="validation-summary"></app-validation-summary>
 
-        <div *ngIf="form.controls.lastName as lastName" class="form-group">
-          <label for="lastName">Last Name</label>
-          <input
-            id="lastName"
-            pInputText
-            [formControl]="lastName"
-            class="form-control"
-            type="text"
-          />
-          <div
-            *ngIf="lastName.invalid && lastName.dirty"
-            class="validation-message"
-          >
-            <p>Invalid</p>
-          </div>
-        </div>
-
-        <div *ngIf="form.controls.birthDate as control" class="form-group">
-          <label for="birthDate">Birth Date</label>
-          <p-date-picker
-            [formControl]="control"
-            [readonlyInput]="true"
-            inputId="birthDate"
-          ></p-date-picker>
-          <div
-            *ngIf="control.invalid && control.dirty"
-            class="validation-message"
-          >
-            <p>Invalid</p>
-          </div>
-        </div>
-
-        <div class="from-group">
-          <media-file-upload
-            [uploadedFileId]="undefined"
-            (fileUploaded)="avatarUpload.upload($event)"
-          ></media-file-upload>
-        </div>
-        <div class="avatar">
-          <user-avatar [fileId]="avatarUpload.file?.value"> </user-avatar>
-        </div>
+      <div class="form-actions">
+        <p-button 
+          type="submit" 
+          class="submit-button"
+          [label]="'Sign Up'"
+          [loading]="false">
+        </p-button>
       </div>
-    </div>
 
-    <app-validation-summary [errors]="error?.errors"></app-validation-summary>
-
-    <div class="control-buttons">
-      <p-button [routerLink]="['/account/login']">Login</p-button>
-      <p-button type="submit">Register</p-button>
-    </div>
-  </form>
+      <div class="form-footer">
+        <p class="footer-text">
+          Already have an account?
+          <a [routerLink]="['/account/login']" class="footer-link">Sign in</a>
+        </p>
+      </div>
+    </form>
+  </div>
 </div>

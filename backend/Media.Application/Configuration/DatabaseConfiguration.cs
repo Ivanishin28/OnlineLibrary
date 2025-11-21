@@ -1,6 +1,8 @@
 ﻿using MediaContext.DL;
+using MediaContext.DL.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.DL.Interfaces;
 
 namespace MediaContext.Application.Configuration
 {
@@ -9,6 +11,7 @@ namespace MediaContext.Application.Configuration
         public static IServiceCollection RegisterDataLayer(this IServiceCollection services)
         {
             return services
+                .AddTransient<IDbInitializer, MediaDbInitializer>()
                 .RegisterDbContext();
         }
 
