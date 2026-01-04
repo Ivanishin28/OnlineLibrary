@@ -1,8 +1,8 @@
 ﻿using MediaContext.DL;
 using MediaContext.DL.Concrete;
+using MediaContext.DL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.DL.Interfaces;
 
 namespace MediaContext.Application.Configuration
 {

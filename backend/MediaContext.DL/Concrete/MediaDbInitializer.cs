@@ -1,10 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared.DL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediaContext.DL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediaContext.DL.Concrete
 {

@@ -1,4 +1,4 @@
-﻿using Shared.DL.Interfaces;
+﻿using MediaContext.DL.Interfaces;
 
 namespace Host.WebApi.Configuration
 {
