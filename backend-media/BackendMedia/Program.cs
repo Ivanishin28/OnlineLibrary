@@ -12,6 +12,12 @@ builder
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var application = scope.ServiceProvider.GetRequiredService<BackendMedia.Application>();
+    await application.Start();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -19,6 +25,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app
+    .UseCors(builder => builder
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .SetIsOriginAllowed((host) => true)
+        .AllowCredentials());
 
 app.UseAuthorization();
 

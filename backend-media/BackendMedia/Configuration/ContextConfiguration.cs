@@ -11,6 +11,7 @@ namespace MediaContext.Application.Configuration
             ConfigurationManager config)
         {
             services
+                .AddTransient<BackendMedia.Application>()
                 .RegisterDataLayer()
                 .RegisterUseCases();
 
