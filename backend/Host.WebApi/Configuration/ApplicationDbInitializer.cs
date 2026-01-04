@@ -1,6 +1,4 @@
-﻿using MediaContext.DL.Interfaces;
-
-namespace Host.WebApi.Configuration
+﻿namespace Host.WebApi.Configuration
 {
     public class ApplicationDbInitializer
     {
@@ -14,7 +12,7 @@ namespace Host.WebApi.Configuration
         public async Task Initialize()
         {
             using var scope = _provider.CreateScope();
-            var initializers = scope.ServiceProvider.GetServices<IDbInitializer>();
+            var initializers = scope.ServiceProvider.GetServices<Shared.DL.Interfaces.IDbInitializer>();
             
             foreach (var dbInit in initializers)
             {
