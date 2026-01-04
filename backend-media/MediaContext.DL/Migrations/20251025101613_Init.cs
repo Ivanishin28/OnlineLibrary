@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MediaContext.DL.Migrations
+namespace DL.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

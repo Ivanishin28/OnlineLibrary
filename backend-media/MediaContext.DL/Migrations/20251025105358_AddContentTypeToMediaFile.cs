@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MediaContext.DL.Migrations
+namespace DL.Migrations
 {
     /// <inheritdoc />
     public partial class AddContentTypeToMediaFile : Migration

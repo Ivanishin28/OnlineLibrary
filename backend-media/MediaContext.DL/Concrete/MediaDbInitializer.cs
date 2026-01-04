@@ -1,7 +1,7 @@
-﻿using MediaContext.DL.Interfaces;
+﻿using DL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace MediaContext.DL.Concrete
+namespace DL.Concrete
 {
     public class MediaDbInitializer : IDbInitializer
     {

@@ -19,7 +19,7 @@ namespace MediaContext.Application.Configuration
         {
             services.AddDbContext<MediaDbContext>(options =>
             {
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OnlineLibrary;Trusted_Connection=True;");
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Media;Trusted_Connection=True;");
             });
 
             return services;

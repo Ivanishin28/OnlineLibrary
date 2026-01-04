@@ -1,4 +1,4 @@
-﻿namespace MediaContext.DL.Interfaces
+﻿namespace DL.Interfaces
 {
     public interface IDbInitializer
     {

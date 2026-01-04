@@ -1,7 +1,7 @@
-﻿using MediaContext.DL.Entities;
+﻿using DL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MediaContext.DL
+namespace DL
 {
     public class MediaDbContext : DbContext
     {
