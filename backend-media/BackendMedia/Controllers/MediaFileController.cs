@@ -1,11 +1,13 @@
 ﻿using MediaContext.Application.Contracts.Commands;
 using MediaContext.Application.Contracts.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaContext.Application.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/media/[controller]")]
     public class MediaFileController : ControllerBase
     {
