@@ -1,25 +1,27 @@
-﻿using IdentityContext.Application.Models;
+﻿using IdentityContext.Application.Concrete;
+using IdentityContext.Application.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace IdentityContext.Application.Configuration
+namespace IdentityContext.Application.Configuration.Authentification
 {
     public static class AuthenticationConfiguration
     {
         public static IServiceCollection AddJWTAuthentication(
-            this IServiceCollection services, 
+            this IServiceCollection services,
             ConfigurationManager config)
         {
             var tokenConfig = new JwtTokenConfig(
-                "yourdomain.com", 
-                "yourdomain.com", 
+                "yourdomain.com",
+                "yourdomain.com",
                 "this_is_a_much_longer_secret_key_1234567890",
                 null);
 
-            services.AddSingleton(tokenConfig);
+            services
+                .AddSingleton(tokenConfig);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

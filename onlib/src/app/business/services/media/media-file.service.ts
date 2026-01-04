@@ -9,7 +9,7 @@ import { MediaFileId } from '../../models/_shared/mediaFileId';
 
 @Injectable()
 export class MediaFileService {
-  private COMPONENT = `${environment.api_main}/api/media/mediafile`;
+  private COMPONENT = `${environment.api_media}/api/media/mediafile`;
 
   constructor(private connection: HttpClient) {}
 

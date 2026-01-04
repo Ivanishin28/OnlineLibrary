@@ -1,6 +1,6 @@
-﻿using IdentityContext.Application.Consts;
+﻿using IdentityContext.Application.Configuration.Authentification;
+using IdentityContext.Application.Consts;
 using IdentityContext.Application.Interfaces;
-using IdentityContext.Application.Models;
 using IdentityContext.DL.Entities.ApplicationUser;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

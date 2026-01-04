@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityContext.Application.Models
+namespace IdentityContext.Application.Configuration.Authentification
 {
     public record JwtTokenConfig
     {

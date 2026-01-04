@@ -1,7 +1,7 @@
 
 using Host.WebApi.Configuration;
 using Host.WebApi.Web.JsonConverters;
-using IdentityContext.Application.Configuration;
+using IdentityContext.Application.Configuration.Authentification;
 
 var builder = WebApplication.CreateBuilder(args);
 
