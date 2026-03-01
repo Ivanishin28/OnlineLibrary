@@ -1,4 +1,4 @@
-﻿using IdentityContext.Application.Models;
+﻿using IdentityContext.Application.Configuration.Authentification;
 using IdentityContext.DL.Entities.ApplicationUser;
 using System;
 using System.Collections.Generic;

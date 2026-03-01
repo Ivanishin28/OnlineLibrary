@@ -10,8 +10,8 @@ namespace IdentityContext.Application.Configuration
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services
-                .AddTransient<IUserContext, HttpUserContext>()
-                .AddTransient<ITokenBuilder, JwtTokenBuilder>();
+                .AddTransient<ITokenBuilder, JwtTokenBuilder>()
+                .AddTransient<IUserContext, HttpUserContext>();
 
             return services;
         }

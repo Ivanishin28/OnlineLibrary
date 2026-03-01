@@ -1,0 +1,18 @@
+﻿namespace IdentityContext.Application.Configuration.Authentification
+{
+    public record JwtTokenConfig
+    {
+        public string Issuer { get; private set; }
+        public string Audience { get; private set; }
+        public string IssuerSigningKey { get; private set; }
+        public TimeSpan? LifeTime { get; private set; }
+
+        public JwtTokenConfig(string issuer, string audience, string issuerSigningKey, TimeSpan? lifeTime)
+        {
+            Issuer = issuer;
+            Audience = audience;
+            IssuerSigningKey = issuerSigningKey;
+            LifeTime = lifeTime;
+        }
+    }
+}
