@@ -2,9 +2,11 @@ using BookContext.Contract.Commands.CreateBook;
 using BookContext.DL.SqlServer;
 using BookContext.DL.SqlServer.Concrete;
 using BookContext.DL.SqlServer.Repositories;
-using BookContext.UseCases.Commands;
 using BookContext.Domain.ValueObjects;
+using BookContext.UseCases.Commands;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace BookContext.Tests.Integration.BookTests
 {
@@ -20,7 +22,7 @@ namespace BookContext.Tests.Integration.BookTests
             var options = new DbContextOptionsBuilder<BookDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            _db = new BookDbContext(options);
+            _db = new BookDbContext(options, new Mock<IPublisher>().Object);
 
             sut = new CreateBookRequestHandler(
                 new BookRepository(_db),

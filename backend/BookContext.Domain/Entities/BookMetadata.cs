@@ -1,9 +1,10 @@
+using BookContext.Domain.DomainEvents;
+using BookContext.Domain.Interfaces;
 using BookContext.Domain.ValueObjects;
-using System;
 
 namespace BookContext.Domain.Entities
 {
-    public class BookMetadata
+    public class BookMetadata : Entity
     {
         public BookMetadataId Id { get; private set; } = null!;
         public BookId BookId { get; private set; } = null!;
@@ -31,6 +32,20 @@ namespace BookContext.Domain.Entities
 
         public void SetCover(MediaFileId? cover)
         {
+            if (CoverId == cover)
+            {
+                return;
+            }
+
+            if (CoverId != null)
+            {
+                RaiseDomainEvent(new BookCoverRemoved(BookId, CoverId));
+            }
+            if (cover != null)
+            {
+                RaiseDomainEvent(new BookCoverSet(BookId, cover));
+            }
+
             CoverId = cover;
         }
 

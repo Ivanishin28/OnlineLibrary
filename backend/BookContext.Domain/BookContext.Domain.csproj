@@ -7,11 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
+    <Compile Remove="Enums\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <None Remove="Enums\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
   </ItemGroup>
 
 </Project>
