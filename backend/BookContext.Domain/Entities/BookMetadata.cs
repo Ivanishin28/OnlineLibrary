@@ -17,17 +17,11 @@ namespace BookContext.Domain.Entities
 
         public BookMetadata(
             BookId bookId, 
-            DateOnly publishingDate, 
-            MediaFileId? coverId, 
-            BookDescription? description, 
-            MediaFileId? fileId)
+            DateOnly publishingDate)
         {
             Id = new BookMetadataId(Guid.NewGuid());
             BookId = bookId;
             PublishingDate = publishingDate;
-            CoverId = coverId;
-            Description = description;
-            FileId = fileId;
         }
 
         public void SetCover(MediaFileId? cover)
