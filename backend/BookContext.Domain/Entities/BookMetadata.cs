@@ -1,9 +1,10 @@
+using BookContext.Domain.DomainEvents;
+using BookContext.Domain.Interfaces;
 using BookContext.Domain.ValueObjects;
-using System;
 
 namespace BookContext.Domain.Entities
 {
-    public class BookMetadata
+    public class BookMetadata : Entity
     {
         public BookMetadataId Id { get; private set; } = null!;
         public BookId BookId { get; private set; } = null!;
@@ -16,21 +17,29 @@ namespace BookContext.Domain.Entities
 
         public BookMetadata(
             BookId bookId, 
-            DateOnly publishingDate, 
-            MediaFileId? coverId, 
-            BookDescription? description, 
-            MediaFileId? fileId)
+            DateOnly publishingDate)
         {
             Id = new BookMetadataId(Guid.NewGuid());
             BookId = bookId;
             PublishingDate = publishingDate;
-            CoverId = coverId;
-            Description = description;
-            FileId = fileId;
         }
 
         public void SetCover(MediaFileId? cover)
         {
+            if (CoverId == cover)
+            {
+                return;
+            }
+
+            if (CoverId != null)
+            {
+                RaiseDomainEvent(new BookCoverRemovedDomainEvent(BookId, CoverId));
+            }
+            if (cover != null)
+            {
+                RaiseDomainEvent(new BookCoverSetDomainEvent(BookId, cover));
+            }
+
             CoverId = cover;
         }
 
