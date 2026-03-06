@@ -33,11 +33,11 @@ namespace BookContext.Domain.Entities
 
             if (CoverId != null)
             {
-                RaiseDomainEvent(new BookCoverRemoved(BookId, CoverId));
+                RaiseDomainEvent(new BookCoverRemovedDomainEvent(BookId, CoverId));
             }
             if (cover != null)
             {
-                RaiseDomainEvent(new BookCoverSet(BookId, cover));
+                RaiseDomainEvent(new BookCoverSetDomainEvent(BookId, cover));
             }
 
             CoverId = cover;

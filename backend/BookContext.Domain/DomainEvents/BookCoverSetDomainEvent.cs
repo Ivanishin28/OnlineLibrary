@@ -3,6 +3,6 @@ using BookContext.Domain.ValueObjects;
 
 namespace BookContext.Domain.DomainEvents;
 
-public record BookCoverSet(BookId BookId, MediaFileId CoverId) : IDomainEvent
+public record BookCoverSetDomainEvent(BookId BookId, MediaFileId CoverId) : IDomainEvent
 {
 }
