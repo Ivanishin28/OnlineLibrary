@@ -2,6 +2,4 @@
 
 namespace BookContext.Integration.Events;
 
-public record BookCoverSetIntegrationEvent(Guid BookId, Guid FileId) : INotification
-{
-}
+public record BookCoverSetIntegrationEvent(Guid BookId, Guid FileId);

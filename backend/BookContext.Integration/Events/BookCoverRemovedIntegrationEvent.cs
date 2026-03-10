@@ -2,6 +2,4 @@
 
 namespace BookContext.Integration.Events;
 
-public record BookCoverRemovedIntegrationEvent(Guid BookId, Guid FileId) : INotification
-{
-}
+public record BookCoverRemovedIntegrationEvent(Guid BookId, Guid FileId);
