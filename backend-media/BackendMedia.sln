@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL", "MediaContext.DL\DL.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL.IntegrationEventConsumers", "BL.IntegrationEventConsumers\BL.IntegrationEventConsumers.csproj", "{AF5896A4-39B4-4770-869C-35BFE7C62055}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookContext.Integration", "..\backend\BookContext.Integration\BookContext.Integration.csproj", "{EB0AD812-C8EA-332D-010F-F7E5A8791BEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +29,15 @@ Global
 		{AF5896A4-39B4-4770-869C-35BFE7C62055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF5896A4-39B4-4770-869C-35BFE7C62055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF5896A4-39B4-4770-869C-35BFE7C62055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0AD812-C8EA-332D-010F-F7E5A8791BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0AD812-C8EA-332D-010F-F7E5A8791BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0AD812-C8EA-332D-010F-F7E5A8791BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0AD812-C8EA-332D-010F-F7E5A8791BEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DBD7C62-F589-48D7-B756-76C7E8B328FE}
 	EndGlobalSection
 EndGlobal
