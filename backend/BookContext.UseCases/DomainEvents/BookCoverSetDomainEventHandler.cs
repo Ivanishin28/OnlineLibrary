@@ -1,12 +1,23 @@
 ﻿using BookContext.Domain.DomainEvents;
+using BookContext.Integration.Events;
+using MassTransit;
 using MediatR;
 
 namespace BookContext.UseCases.DomainEvents;
 
-public class BookCoverSetDomainEventHandler : INotificationHandler<BookCoverSet>
+public class BookCoverSetDomainEventHandler : INotificationHandler<BookCoverSetDomainEvent>
 {
-    public Task Handle(BookCoverSet notification, CancellationToken cancellationToken)
+    private IBus _bus;
+
+    public BookCoverSetDomainEventHandler(IBus bus)
     {
-        throw new NotImplementedException();
+        _bus = bus;
+    }
+
+    public async Task Handle(BookCoverSetDomainEvent notification, CancellationToken cancellationToken)
+    {
+        var @event = new BookCoverSetIntegrationEvent(
+            notification.BookId.Value, notification.CoverId.Value);
+        await _bus.Publish(@event, cancellationToken);
     }
 }

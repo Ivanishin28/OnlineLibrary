@@ -14,6 +14,7 @@ namespace BookContext.Application.Configuration
             IConfiguration configuration)
         {
             services
+                .RegisterMessageBus(configuration)
                 .RegisterRepositories()
                 .RegisterReadDbContext()
                 .RegisterDbContext()

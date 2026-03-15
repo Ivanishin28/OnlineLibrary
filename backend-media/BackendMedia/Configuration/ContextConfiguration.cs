@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using BL.IntegrationEventConsumers.Configuration;
 
 namespace MediaContext.Application.Configuration
 {
@@ -11,6 +9,7 @@ namespace MediaContext.Application.Configuration
             ConfigurationManager config)
         {
             services
+                .RegisterBus(config)
                 .AddTransient<BackendMedia.Application>()
                 .RegisterDataLayer()
                 .RegisterUseCases();
