@@ -86,7 +86,15 @@ namespace BookContext.UseCases.Commands
             var fileId = request.FileId is not null ?
                 new MediaFileId(request.FileId.Value) :
                 null;
-            return new BookMetadata(bookId, request.PublishingDate, coverId, descResult.Model, fileId);
+
+            var metadata = new BookMetadata(bookId, request.PublishingDate);
+            metadata.SetCover(coverId);
+            metadata.SetFile(fileId);
+            if (descResult.IsSuccess)
+            {
+                metadata.SetDescription(descResult.Model);
+            }
+            return metadata;
         }
     }
 }

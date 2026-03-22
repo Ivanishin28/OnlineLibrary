@@ -30,7 +30,7 @@ namespace BookContext.Tests.Integration.BookTests
             var options = new DbContextOptionsBuilder<BookDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            _db = new BookDbContext(options);
+            _db = new BookDbContext(options, new Mock<IPublisher>().Object);
 
             _mediator = new Mock<IMediator>();
 

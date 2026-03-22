@@ -7,17 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Enums\**" />
-    <EmbeddedResource Remove="Enums\**" />
-    <None Remove="Enums\**" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
+    <ProjectReference Include="..\..\backend\BookContext.Integration\BookContext.Integration.csproj" />
+    <ProjectReference Include="..\MediaContext.DL\DL.csproj" />
   </ItemGroup>
 
 </Project>
