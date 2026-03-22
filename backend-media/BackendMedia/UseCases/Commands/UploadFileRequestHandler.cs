@@ -17,7 +17,7 @@ namespace MediaContext.Application.UseCases.Commands
         public async Task<Guid?> Handle(UploadFileRequest request, CancellationToken cancellationToken)
         {
             var id = Guid.NewGuid();
-            var mediaFile = new MediaFile(id, request.Content, request.ContentType);
+            var mediaFile = MediaFile.Create(id, request.Content, request.ContentType);
             _db.Add(mediaFile);
             await _db.SaveChangesAsync();
 
