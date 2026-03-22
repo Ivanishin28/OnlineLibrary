@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\backend\BookContext.Integration\BookContext.Integration.csproj" />
+    <ProjectReference Include="..\MediaContext.DL\DL.csproj" />
   </ItemGroup>
 
 </Project>

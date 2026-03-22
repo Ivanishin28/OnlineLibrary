@@ -1,4 +1,5 @@
-﻿using BL.IntegrationEventConsumers.Configuration;
+﻿using BackendMedia.Configuration;
+using BL.IntegrationEventConsumers.Configuration;
 
 namespace MediaContext.Application.Configuration
 {
@@ -9,6 +10,7 @@ namespace MediaContext.Application.Configuration
             ConfigurationManager config)
         {
             services
+                .RegisterBackgroundJobs()
                 .RegisterBus(config)
                 .AddTransient<BackendMedia.Application>()
                 .RegisterDataLayer()
