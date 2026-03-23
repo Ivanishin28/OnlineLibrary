@@ -1,9 +1,11 @@
-﻿using BookContext.Domain.ValueObjects;
+using BookContext.Domain.DomainEvents;
+using BookContext.Domain.Interfaces;
+using BookContext.Domain.ValueObjects;
 using Shared.Core.Models;
 
 namespace BookContext.Domain.Entities
 {
-    public class AuthorMetadata
+    public class AuthorMetadata : Entity
     {
         public AuthorMetadataId Id { get; private set; } = null!;
         public AuthorId AuthorId { get; private set; } = null!;
@@ -24,6 +26,20 @@ namespace BookContext.Domain.Entities
 
         public void SetAvatar(MediaFileId? avatar)
         {
+            if (AvatarId == avatar)
+            {
+                return;
+            }
+
+            if (AvatarId != null)
+            {
+                RaiseDomainEvent(new AuthorAvatarRemovedDomainEvent(AuthorId, AvatarId));
+            }
+            if (avatar != null)
+            {
+                RaiseDomainEvent(new AuthorAvatarSetDomainEvent(AuthorId, avatar));
+            }
+
             AvatarId = avatar;
         }
 
