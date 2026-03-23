@@ -66,17 +66,26 @@ namespace BookContext.UseCases.Commands
 
         private Result<AuthorMetadata> CreateMetadataFrom(AuthorId authorId, CreateAuthorRequest request)
         {
-            var bioResult = AuthorBiography.Create(request.Biography);
-            var avatar = request.AvatarId is not null ?
-                new MediaFileId(request.AvatarId.Value) :
-                null;
-            return AuthorMetadata.Create(
-                authorId, 
-                avatar, 
-                bioResult.IsSuccess ? 
-                    bioResult.Model : 
-                    null, 
-                request.BirthDate);
+            var metadata = AuthorMetadata.Create(authorId, request.BirthDate);
+            if (metadata.IsFailure)
+            {
+                return metadata;
+            }
+
+            if (request.AvatarId != null)
+            {
+                metadata.Model.SetAvatar(
+                    new MediaFileId(request.AvatarId.Value));
+            }
+
+            var bio = AuthorBiography
+                .Create(request.Biography);
+            if (bio.IsSuccess)
+            {
+                metadata.Model.SetBiography(bio.Model);
+            }
+
+            return metadata;
         }
     }
 }

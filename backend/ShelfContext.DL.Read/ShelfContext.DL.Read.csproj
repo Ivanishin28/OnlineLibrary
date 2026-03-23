@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enums\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <None Remove="Enums\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="MediatR" Version="12.5.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
 		  <PrivateAssets>all</PrivateAssets>
@@ -18,10 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ShelfContext.Contract\ShelfContext.Contract.csproj" />
     <ProjectReference Include="..\ShelfContext.Domain\ShelfContext.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>

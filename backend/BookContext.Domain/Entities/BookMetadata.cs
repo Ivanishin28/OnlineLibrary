@@ -55,6 +55,20 @@ namespace BookContext.Domain.Entities
 
         public void SetFile(MediaFileId? file)
         {
+            if (FileId == file)
+            {
+                return;
+            }
+
+            if (FileId != null)
+            {
+                RaiseDomainEvent(new BookFileRemovedDomainEvent(BookId, FileId));
+            }
+            if (file != null)
+            {
+                RaiseDomainEvent(new BookFileSetDomainEvent(BookId, file));
+            }
+
             FileId = file;
         }
     }

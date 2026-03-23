@@ -16,7 +16,7 @@ public static class BusConfiguration
 
         services.AddMassTransit(x =>
         {
-            x.AddConsumers(typeof(BookCoverRemovedConsumer).Assembly);
+            x.AddConsumers(typeof(FileRemovedConsumer).Assembly);
 
             x.UsingRabbitMq((context, cfg) =>
             {
