@@ -37,13 +37,9 @@ namespace BookContext.Domain.Entities
             BirthDate = birthDate;
         }
 
-        public static Result<AuthorMetadata> Create(
-            AuthorId authorId, 
-            MediaFileId? avatarId, 
-            AuthorBiography? biography, 
-            DateOnly birthDate)
+        public static Result<AuthorMetadata> Create(AuthorId authorId, DateOnly birthDate)
         {
-            return new AuthorMetadata(authorId, avatarId, biography, birthDate);
+            return new AuthorMetadata(authorId, null, null, birthDate);
         }
     }
 }
