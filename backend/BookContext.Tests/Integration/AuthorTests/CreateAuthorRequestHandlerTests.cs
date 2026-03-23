@@ -2,6 +2,7 @@
 using BookContext.DL.SqlServer;
 using BookContext.DL.SqlServer.Concrete;
 using BookContext.DL.SqlServer.Repositories;
+using BookContext.Domain.DomainEvents;
 using BookContext.Domain.ValueObjects;
 using BookContext.UseCases.Commands;
 using MediatR;
@@ -13,6 +14,7 @@ namespace BookContext.Tests.Integration.AuthorTests
     internal class CreateAuthorRequestHandlerTests
     {
         private BookDbContext _db = null!;
+        private Mock<IPublisher> _publisher = null!;
 
         private CreateAuthorRequestHandler sut = null!;
 
@@ -22,7 +24,8 @@ namespace BookContext.Tests.Integration.AuthorTests
             var options = new DbContextOptionsBuilder<BookDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            _db = new BookDbContext(options, new Mock<IPublisher>().Object);
+            _publisher = new Mock<IPublisher>();
+            _db = new BookDbContext(options, _publisher.Object);
 
             sut = new CreateAuthorRequestHandler(
                 new AuthorRepository(_db),
@@ -94,6 +97,12 @@ namespace BookContext.Tests.Integration.AuthorTests
             var metadata = await _db.AuthorMetadatas.FirstAsync();
             Assert.That(metadata.Biography, Is.Not.Null);
             Assert.That(metadata.AvatarId, Is.Not.Null);
+
+            _publisher.Verify(x =>
+                x.Publish(
+                    It.IsAny<AuthorAvatarSetDomainEvent>(),
+                    It.IsAny<CancellationToken>()),
+                Times.Once);
         }
     }
 }

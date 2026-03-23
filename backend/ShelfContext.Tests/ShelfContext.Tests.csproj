@@ -10,6 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <Compile Remove="UnitTests\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <EmbeddedResource Remove="UnitTests\**" />
+    <None Remove="Helpers\**" />
+    <None Remove="UnitTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
@@ -26,11 +35,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShelfContext.Application\ShelfContext.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="UnitTests\" />
   </ItemGroup>
 
 </Project>

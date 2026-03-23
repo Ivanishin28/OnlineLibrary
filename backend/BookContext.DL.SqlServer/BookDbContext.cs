@@ -34,7 +34,8 @@ namespace BookContext.DL.SqlServer
                 .Entries<Entity>()
                 .Select(x => x.Entity)
                 .Where(x => x.DomainEvents.Any())
-                .SelectMany(x => x.DomainEvents);
+                .SelectMany(x => x.DomainEvents)
+                .ToList();
 
             var result = await base.SaveChangesAsync(cancellationToken);
 
