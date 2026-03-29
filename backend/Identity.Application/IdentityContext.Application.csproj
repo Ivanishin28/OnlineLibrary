@@ -9,11 +9,13 @@
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="12.5.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.20" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="9.0.1" />
 	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Identity.Contracts\IdentityContext.Contracts.csproj" />
     <ProjectReference Include="..\IdentityContext.DL\IdentityContext.DL.csproj" />
+    <ProjectReference Include="..\IdentityContext.Integration\IdentityContext.Integration.csproj" />
     <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
     <ProjectReference Include="..\UserContext.Contract\UserContext.Contract.csproj" />
   </ItemGroup>

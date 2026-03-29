@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
+    <Compile Remove="Enums\**" />
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Enums\**" />
+    <None Remove="Exceptions\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="Exceptions\" />
+    <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
   </ItemGroup>
 
 </Project>
