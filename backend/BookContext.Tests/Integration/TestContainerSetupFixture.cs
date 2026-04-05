@@ -1,7 +1,8 @@
-﻿using BookContext.DL.SqlServer;
+using BookContext.DL.SqlServer;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Testcontainers.MsSql;
 
 namespace BookContext.Tests.Integration;
@@ -10,6 +11,7 @@ namespace BookContext.Tests.Integration;
 internal class TestContainerSetupFixture
 {
     private static IContainer? _container;
+    private static ICollection<IEntityType>? _ordered;
 
     public static bool IsDockerAvailable => _container != null;
 
@@ -58,27 +60,77 @@ internal class TestContainerSetupFixture
 
     public static async Task Clear(BookDbContext db)
     {
-        var tables = db
-            .Model
-            .GetEntityTypes()
-            .Where(t => !t.IsOwned())
-            .Where(t => t.GetTableName() != "__EFMigrationsHistory")
-            .Select(t =>
-            {
-                var schema = t.GetSchema() ?? "public";
-                var table = t.GetTableName();
-                return $"\"{schema}\".\"{table}\"";
-            })
-            .Distinct()
-            .ToList();
-
-        if (!tables.Any())
+        if (_ordered == null)
         {
-            return;
+            _ordered = GetOrderedEntities(db);
         }
 
-        var truncateSql = $"TRUNCATE TABLE {string.Join(", ", tables)} RESTART IDENTITY CASCADE;";
+        foreach (var t in _ordered)
+        {
+            var schema = t.GetSchema() ?? "dbo";
+            var table = t.GetTableName()!;
+            var sql = "DELETE FROM [" + schema + "].[" + table + "]";
+            await db.Database.ExecuteSqlRawAsync(sql);
+        }
+    }
 
-        await db.Database.ExecuteSqlRawAsync(truncateSql);
+    private static ICollection<IEntityType> GetOrderedEntities(BookDbContext db)
+    {
+        var entityTypes = db.Model
+            .GetEntityTypes()
+            .Where(t => !t.IsOwned())
+            .Where(t =>
+            {
+                var name = t.GetTableName();
+                return name != null && name != "__EFMigrationsHistory";
+            })
+            .ToList();
+
+        if (!entityTypes.Any())
+        {
+            return new List<IEntityType>();
+        }
+
+        var typeSet = entityTypes.ToHashSet();
+        var dependentsRemaining = entityTypes.ToDictionary(t => t, _ => 0);
+        foreach (var t in entityTypes)
+        {
+            foreach (var fk in t.GetForeignKeys())
+            {
+                var principal = fk.PrincipalEntityType;
+                if (typeSet.Contains(principal))
+                {
+                    dependentsRemaining[principal]++;
+                }
+            }
+        }
+
+        var queue = new Queue<IEntityType>(entityTypes.Where(t => dependentsRemaining[t] == 0));
+        var ordered = new List<IEntityType>();
+        while (queue.Count > 0)
+        {
+            var t = queue.Dequeue();
+            ordered.Add(t);
+            foreach (var fk in t.GetForeignKeys())
+            {
+                var principal = fk.PrincipalEntityType;
+                if (!typeSet.Contains(principal))
+                {
+                    continue;
+                }
+
+                if (--dependentsRemaining[principal] == 0)
+                {
+                    queue.Enqueue(principal);
+                }
+            }
+        }
+
+        if (ordered.Count != entityTypes.Count)
+        {
+            throw new InvalidOperationException("Could not order tables for delete (possible circular FKs).");
+        }
+
+        return ordered;
     }
 }

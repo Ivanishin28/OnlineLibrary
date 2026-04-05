@@ -1,4 +1,4 @@
-﻿using BookContext.Contract.Commands;
+using BookContext.Contract.Commands;
 using BookContext.Contract.Events;
 using BookContext.DL.SqlServer;
 using BookContext.DL.SqlServer.Concrete;
@@ -25,12 +25,13 @@ namespace BookContext.Tests.Integration.BookTests
         private DeleteBookRequestHandler sut = null!;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            var options = new DbContextOptionsBuilder<BookDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            _db = new BookDbContext(options, new Mock<IPublisher>().Object);
+            _db = new BookDbContext(
+                TestContainerSetupFixture.GetContextOptions(),
+                new Mock<IPublisher>().Object);
+
+            await TestContainerSetupFixture.Clear(_db);
 
             _mediator = new Mock<IMediator>();
 
