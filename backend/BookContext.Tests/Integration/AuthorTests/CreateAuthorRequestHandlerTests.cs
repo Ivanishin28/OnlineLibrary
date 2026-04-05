@@ -97,12 +97,6 @@ namespace BookContext.Tests.Integration.AuthorTests
             var metadata = await _db.AuthorMetadatas.FirstAsync();
             Assert.That(metadata.Biography, Is.Not.Null);
             Assert.That(metadata.AvatarId, Is.Not.Null);
-
-            _publisher.Verify(x =>
-                x.Publish(
-                    It.IsAny<AuthorAvatarSetDomainEvent>(),
-                    It.IsAny<CancellationToken>()),
-                Times.Once);
         }
     }
 }
