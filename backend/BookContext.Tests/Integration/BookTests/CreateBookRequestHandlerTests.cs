@@ -17,12 +17,13 @@ namespace BookContext.Tests.Integration.BookTests
         private CreateBookRequestHandler sut = null!;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            var options = new DbContextOptionsBuilder<BookDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            _db = new BookDbContext(options, new Mock<IPublisher>().Object);
+            _db = new BookDbContext(
+                TestContainerSetupFixture.GetContextOptions(),
+                new Mock<IPublisher>().Object);
+
+            await TestContainerSetupFixture.Clear(_db);
 
             sut = new CreateBookRequestHandler(
                 new BookRepository(_db),

@@ -1,4 +1,4 @@
-﻿using BookContext.Contract.Events;
+using BookContext.Contract.Events;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -28,12 +28,10 @@ namespace ShelfContext.Tests.IntegrationTests.ShelvingTests
         private DislodgeBookRequestHandler sut = null!;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            var options = new DbContextOptionsBuilder<ShelfDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            _db = new ShelfDbContext(options);
+            _db = new ShelfDbContext(TestContainerSetupFixture.GetContextOptions());
+            await TestContainerSetupFixture.Clear(_db);
 
             _mediator = new Mock<IMediator>();
             sut = new DislodgeBookRequestHandler(

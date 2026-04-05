@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ShelfContext.DL.SqlServer.Repositories;
 using ShelfContext.DL.SqlServer;
 using ShelfContext.Domain.Services;
@@ -26,12 +26,10 @@ namespace ShelfContext.Tests.IntegrationTests.BookDeletedTests
         private ShelvedBookBookDeletionHandler sut = null!;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            var options = new DbContextOptionsBuilder<ShelfDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            _db = new ShelfDbContext(options);
+            _db = new ShelfDbContext(TestContainerSetupFixture.GetContextOptions());
+            await TestContainerSetupFixture.Clear(_db);
 
             sut = new ShelvedBookBookDeletionHandler(
                 new UnitOfWork(_db),
