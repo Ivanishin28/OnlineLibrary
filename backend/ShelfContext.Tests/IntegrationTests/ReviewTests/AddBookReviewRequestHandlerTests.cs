@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ShelfContext.DL.SqlServer.Repositories;
 using ShelfContext.DL.SqlServer;
 using ShelfContext.UseCases.EventHandlers;
@@ -25,12 +25,10 @@ namespace ShelfContext.Tests.IntegrationTests.ReviewTests
         private AddBookReviewRequestHandler sut = null!;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            var options = new DbContextOptionsBuilder<ShelfDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            _db = new ShelfDbContext(options);
+            _db = new ShelfDbContext(TestContainerSetupFixture.GetContextOptions());
+            await TestContainerSetupFixture.Clear(_db);
 
             sut = new AddBookReviewRequestHandler(
                 new UnitOfWork(_db),
