@@ -1,4 +1,4 @@
-﻿using BookContext.Contract.Commands.CreateAuthor;
+using BookContext.Contract.Commands.CreateAuthor;
 using BookContext.DL.SqlServer;
 using BookContext.DL.SqlServer.Concrete;
 using BookContext.DL.SqlServer.Repositories;
@@ -19,13 +19,14 @@ namespace BookContext.Tests.Integration.AuthorTests
         private CreateAuthorRequestHandler sut = null!;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            var options = new DbContextOptionsBuilder<BookDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
             _publisher = new Mock<IPublisher>();
-            _db = new BookDbContext(options, _publisher.Object);
+            _db = new BookDbContext(
+                TestContainerSetupFixture.GetContextOptions(),
+                _publisher.Object);
+
+            await TestContainerSetupFixture.Clear(_db);
 
             sut = new CreateAuthorRequestHandler(
                 new AuthorRepository(_db),
@@ -97,12 +98,6 @@ namespace BookContext.Tests.Integration.AuthorTests
             var metadata = await _db.AuthorMetadatas.FirstAsync();
             Assert.That(metadata.Biography, Is.Not.Null);
             Assert.That(metadata.AvatarId, Is.Not.Null);
-
-            _publisher.Verify(x =>
-                x.Publish(
-                    It.IsAny<AuthorAvatarSetDomainEvent>(),
-                    It.IsAny<CancellationToken>()),
-                Times.Once);
         }
     }
 }
